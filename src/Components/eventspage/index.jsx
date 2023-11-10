@@ -1,5 +1,7 @@
 import AllEvents from "./AllEvents";
 import Navbar from "./Navbar";
 import EventCard from "./EventCard";
+import EventPageWelcome from "./EventPageWelcome";
+import FilterEvents from "./FilterEvents";
 
-export { AllEvents, Navbar , EventCard };
+export { AllEvents, Navbar, EventCard, EventPageWelcome , FilterEvents };

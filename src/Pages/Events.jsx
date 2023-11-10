@@ -1,10 +1,10 @@
 import React from "react";
-import { AllEvents, Navbar  } from "../Components/eventspage/index";
+import { AllEvents, Navbar } from "../Components/eventspage/index";
 export default function Events() {
   return (
-    <body>
+    <main>
       <Navbar />
       <AllEvents />
-    </body>
+    </main>
   );
 }
