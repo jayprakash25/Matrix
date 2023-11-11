@@ -1,6 +1,6 @@
 import "./main.css";
 import React from "react";
-import { Events } from "./Pages/index";
+import { BookEvents, Events } from "./Pages/index";
 import { Routes, Route } from "react-router-dom";
 import { EventPageWelcome } from "./Components/eventspage";
 export default function App() {
@@ -8,6 +8,7 @@ export default function App() {
     <Routes>
       <Route path="/events/welcome" element={<EventPageWelcome />} />
       <Route path="/events" element={<Events />} />
+      <Route path="/bookevents/:eventname" element={<BookEvents />} />
     </Routes>
   );
 }
