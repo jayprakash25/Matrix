@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function EventPageWelcome() {
   return (
@@ -13,17 +14,19 @@ export default function EventPageWelcome() {
       }}
     >
       <div className="fixed bottom-24 left-9">
-        <div className="text-white max-w-sm space-y-7">
-          <h1 className="text-3xl font-semibold">
-            Lorem ipsum dolor sit amet.
+        <div className="max-w-sm space-y-6 text-white">
+          <h1 className="text-3xl font-semibold leading-10">
+            Explore the Events in your City
           </h1>
-          <p className="leading-9 font-light text-lg">
+          <p className="text-lg font-light leading-9">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab,
             obcaecati!
           </p>
-          <button className="text-white bg-gradient-to-r from-pink-500 via-red-600 to-orange-500 px-24 py-3 rounded-md text-sm">
-            Explore Events
-          </button>
+          <Link to="/events">
+            <button className="px-24 py-3 text-sm text-white rounded-md mt-7 bg-gradient-to-r from-orange-600 via-red-500 to-red-600">
+              Explore Events
+            </button>
+          </Link>
         </div>
       </div>
     </body>

@@ -1,3 +1,4 @@
+import "./main.css";
 import React from "react";
 import { Events } from "./Pages/index";
 import { Routes, Route } from "react-router-dom";
