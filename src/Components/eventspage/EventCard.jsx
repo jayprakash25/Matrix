@@ -9,10 +9,12 @@ export default function EventCard({ image, Tittle, date, location, about }) {
   const shareEvent = async () => {
     try {
       if (navigator.share) {
+        const currentUrl = window.location.href;
+        const url = new URL(currentUrl);
         await navigator.share({
           title: Tittle,
           text: "Check the event",
-          url: `http://localhost:5173/bookevents/${Tittle}`,
+          url: `http://${url.hostname}/bookevents/${Tittle}`,
         });
       }
     } catch (error) {
