@@ -13,7 +13,7 @@ export default function EventPageWelcome() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="fixed bottom-24 left-9">
+      <div className="fixed bottom-24 left-4">
         <div className="max-w-sm space-y-6 text-white">
           <h1 className="text-3xl font-semibold leading-10">
             Explore the Events in your City

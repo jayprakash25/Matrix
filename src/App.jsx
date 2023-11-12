@@ -6,7 +6,7 @@ import { EventPageWelcome } from "./Components/eventspage";
 export default function App() {
   return (
     <Routes>
-      <Route path="/events/welcome" element={<EventPageWelcome />} />
+      <Route path="/" element={<EventPageWelcome />} />
       <Route path="/events" element={<Events />} />
       <Route path="/bookevents/:eventname" element={<BookEvents />} />
     </Routes>
