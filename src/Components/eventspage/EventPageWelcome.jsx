@@ -13,17 +13,18 @@ export default function EventPageWelcome() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="fixed bottom-24 left-4">
-        <div className="max-w-sm space-y-6 text-white">
+      <div className="absolute bottom-0 p-5 bg-black bg-opacity-50 backdrop-blur-sm">
+        <div className="px-5 space-y-6 text-center text-white">
           <h1 className="text-3xl font-semibold leading-10">
             Explore the Events in your City
           </h1>
-          <p className="text-lg font-light leading-9">
+          <p className="font-light leading-9 ">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab,
-            obcaecati!
+            obcaecati! Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            Ab, obcaecati!
           </p>
           <Link to="/events">
-            <button className="px-24 py-3 text-sm text-white rounded-md mt-7 bg-gradient-to-r from-orange-600 via-red-500 to-red-600">
+            <button className="py-3 text-sm text-white rounded-md px-28 mt-7 bg-gradient-to-r from-orange-600 via-red-500 to-red-600">
               Explore Events
             </button>
           </Link>

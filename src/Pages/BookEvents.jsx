@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { EventCard } from "../Components/eventspage";
 
 export default function BookEvents() {
   const event = useLocation();
@@ -10,7 +11,7 @@ export default function BookEvents() {
   const { image, Tittle, date, location, about } = event.state;
 
   return (
-    <>
+    <body>
       <header>
         <div className="absolute w-screen px-5 text-white top-5">
           <div className="flex items-center gap-7">
@@ -28,10 +29,10 @@ export default function BookEvents() {
       </header>
       <main className="">
         <div className="px-10 mt-5">
-          <h1 className="max-w-sm text-3xl font-semibold leading-normal">
+          <h1 className="max-w-sm text-3xl font-semibold leading-normal text-slate-700">
             International Band Music Concert
           </h1>
-          <div className="mt-8 space-y-7">
+          <div className="mt-8 space-y-7 ">
             <div className="flex items-center gap-x-3">
               <SlCalender
                 color="#6c7af7"
@@ -58,18 +59,17 @@ export default function BookEvents() {
             </div>
           </div>
         </div>
-        <div className="px-5 mt-10 mb-4 space-y-3">
+        <div className="px-5 mt-10 space-y-3 mb-">
           <h1 className="text-2xl font-semibold text-slate-700">About Event</h1>
           <p className="text-xs leading-6 text-gray-600 ">{about}</p>
         </div>
       </main>
-      <footer className="flex justify-center">
-        <div className="fixed bottom-5">
-          <button className="bg-[#5669fe] flex items-center text-center justify-center gap-x-5 font-semibold rounded-md text-white px-20 py-3.5 hover:brightness-75 ease-in-out duration-300">
-            <h1>Book your Ticket</h1>
-          </button>
-        </div>
-      </footer>
-    </>
+      <section className="flex justify-center my-5">
+        <button className="bg-blue-600 flex items-center text-center justify-center gap-x-5 font-semibold rounded-md text-white px-28 py-3.5 hover:brightness-75 ease-in-out duration-300 text-sm">
+          <h1>Book my Ticket</h1>
+        </button>
+      </section>
+    </body>
   );
 }
+// 5669fe
