@@ -28,10 +28,11 @@ export default function EventCard({ image, Tittle, date, location, about }) {
 
   const likeEvent = () => {
     setislike(!islike);
+    // add to user watchlist
   };
 
   return (
-    <div className="flex flex-col gap-5 p-5 cursor-pointer rounded-xl">
+    <div className="flex flex-col gap-5 p-5 cursor-pointer select-none rounded-xl">
       <div className="space-y-2.5">
         <Link
           to={`/bookevents/${Tittle}`}

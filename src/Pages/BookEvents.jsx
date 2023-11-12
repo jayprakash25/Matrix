@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { EventCard } from "../Components/eventspage";
 
 export default function BookEvents() {
   const event = useLocation();

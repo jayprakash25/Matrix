@@ -15,17 +15,17 @@ export default function EventPageWelcome() {
     >
       <div className="absolute bottom-0 p-5 bg-black bg-opacity-50">
         <div className="px-5 space-y-6 text-center text-white">
-          <h1 className="text-3xl font-semibold leading-10">
+          <h1 className="text-xl font-semibold leading-10">
             Explore the Events in your City
           </h1>
-          <p className="font-light leading-9 ">
+          <p className="text-sm font-light leading-8">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab,
             obcaecati! Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             Ab, obcaecati!
           </p>
           <Link to="/events">
-            <button className="py-3 text-sm text-white rounded-full px-28 mt-7 bg-gradient-to-r from-pink-600 via-red-500 to-red-600">
-              Explore Events
+            <button className="px-32 py-3 text-xs text-white rounded-full mt-7 bg-gradient-to-r from-pink-600 via-red-500 to-red-600">
+              Explore
             </button>
           </Link>
         </div>
