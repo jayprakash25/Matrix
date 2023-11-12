@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { PiShareFatFill } from "react-icons/pi";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
 
 export default function EventCard({ image, Tittle, date, location, about }) {
+  const [islike, setislike] = useState();
+
   const shareEvent = async () => {
     try {
       if (navigator.share) {
@@ -16,11 +18,18 @@ export default function EventCard({ image, Tittle, date, location, about }) {
           text: "Check the event",
           url: `http://${url.hostname}/bookevents/${Tittle}`,
         });
+      } else {
+        console.log("share Api Not available :(");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const likeEvent = () => {
+    setislike(!islike);
+  };
+
   return (
     <div className="flex flex-col gap-5 p-5 cursor-pointer rounded-xl">
       <div className="space-y-2.5">
@@ -40,10 +49,13 @@ export default function EventCard({ image, Tittle, date, location, about }) {
             className="w-[80vw] rounded-lg hover:brightness-75 ease-in-out duration-300"
           />
         </Link>
-
         <div className="flex items-center justify-between ">
           <h1 className="text-xl font-bold font-xl">{Tittle}</h1>
-          <AiOutlineHeart size="22" color="gray" />
+          <AiFillHeart
+            onClick={likeEvent}
+            size="22"
+            color={islike ? "red" : "gray"}
+          />
         </div>
       </div>
       <div className="flex items-start justify-between">
