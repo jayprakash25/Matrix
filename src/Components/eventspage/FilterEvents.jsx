@@ -6,7 +6,7 @@ export default function FilterEvents() {
       {AllEventsCatgeory.map((event, index) => {
         return (
           <React.Fragment key={index}>
-            <div className="px-5 py-2 text-sm font-semibold rounded-full cursor-pointer bg-slate-100">
+            <div className="px-5 py-2 text-sm font-semibold bg-gray-100 rounded-full cursor-pointer text-slate-700">
               {event}
             </div>
           </React.Fragment>
