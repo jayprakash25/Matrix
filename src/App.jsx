@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
+import "./main.css";
 
-function App() {
+export default function App() {
   return (
     <>
       <Routes>
@@ -12,5 +13,3 @@ function App() {
     </>
   );
 }
-
-export default App;
