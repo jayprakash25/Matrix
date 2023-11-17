@@ -52,12 +52,12 @@ export default function RegistrationForm() {
             htmlFor="input"
             className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
           >
-            Your Name
+            Phone
           </label>
           <input
             type="text"
             name="input"
-            value={user.Name}
+            value={user.Phone}
             onChange={(e) => {
               setuser({ ...user, Phone: e.target.value });
             }}
@@ -69,12 +69,12 @@ export default function RegistrationForm() {
             htmlFor="input"
             className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
           >
-            Your Name
+            Age
           </label>
           <input
             type="text"
             name="input"
-            value={user.Name}
+            value={user.age}
             onChange={(e) => {
               setuser({ ...user, age: e.target.value });
             }}
@@ -86,12 +86,12 @@ export default function RegistrationForm() {
             htmlFor="input"
             className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
           >
-            Your Name
+            Your location
           </label>
           <input
             type="text"
             name="input"
-            value={user.Name}
+            value={user.location}
             onChange={(e) => {
               setuser({ ...user, location: e.target.value });
             }}
@@ -103,12 +103,12 @@ export default function RegistrationForm() {
             htmlFor="input"
             className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
           >
-            Your Name
+            Your collage
           </label>
           <input
             type="text"
             name="input"
-            value={user.Name}
+            value={user.collage}
             onChange={(e) => {
               setuser({ ...user, collage: e.target.value });
             }}
@@ -120,7 +120,7 @@ export default function RegistrationForm() {
             htmlFor="input"
             className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
           >
-            Your Name
+            Your Profession
           </label>
           <input
             type="text"
