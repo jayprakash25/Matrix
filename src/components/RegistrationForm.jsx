@@ -14,7 +14,7 @@ export default function RegistrationForm() {
 
   const createUser = async () => {
     try {
-      await setDoc(doc(db, "USERS", userjwt), user);
+      // await setDoc(doc(db, "USERS", userjwt), user);
       navigate("/home");
     } catch (error) {
       console.log(error);
