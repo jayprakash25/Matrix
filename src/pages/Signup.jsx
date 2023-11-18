@@ -46,7 +46,6 @@ export default function Signup() {
           </button>
         </div>
       </div>
-
       <div className="p-5 space-y-6">
         <Button
           handleSubmit={GoogleSignIn}
