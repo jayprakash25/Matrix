@@ -3,7 +3,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../Firebase";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,11 @@ export default function Signup() {
   const provider = new GoogleAuthProvider();
   const UserToken = useId();
   const navigate = useNavigate();
+
+  const [cred, setCred] = useState({
+    username: "",
+    password: "",
+  });
 
   const GoogleSignIn = async () => {
     try {
@@ -37,11 +42,22 @@ export default function Signup() {
         <input
           type="text"
           className="outline-none py-2 w-full px-6"
-          placeholder="Email/Phone Number/Personal ID"
+          placeholder="         Email/Phone Number"
+          value={cred.username}
+          onChange={(e) => {
+            setCred({
+              ...cred,
+              username: e.target.value,
+            });
+          }}
         />
         <div className="flex space-x-2 items-center">
           <p>In order to </p>
-          <button className="px-4 text-xl font-normal py-2 bg-[#DDF2FD] text-white rounded-full">
+          <button
+            className={`${
+              cred.username.length > 8 ? "bg-blue-400" : "bg-[#DDF2FD]"
+            } px-4 text-xl font-normal py-2  text-white rounded-full`}
+          >
             continue
           </button>
         </div>
