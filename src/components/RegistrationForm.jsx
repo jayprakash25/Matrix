@@ -14,7 +14,7 @@ export default function RegistrationForm() {
 
   const createUser = async () => {
     try {
-      // await setDoc(doc(db, "USERS", userjwt), user);
+      await setDoc(doc(db, "USERS", userjwt), user);
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -23,13 +23,13 @@ export default function RegistrationForm() {
 
   return (
     <>
-      <div className="mt-8 text-center">
-        <h1 className="text-3xl font-semibold text-slate-800">
-          Create Account
+      <div className="mt-7 text-center">
+        <h1 className="text-3xl  text-slate-800 font-semibold">
+          Create <span className="text-slate-600">Account</span>
         </h1>
       </div>
 
-      <form className="flex flex-col items-center justify-center gap-10 mt-14">
+      <form className="flex flex-col items-center justify-center gap-10 mt-10">
         <div className="relative">
           <label
             htmlFor="input"
@@ -149,7 +149,7 @@ export default function RegistrationForm() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={createUser}
-          className="w-[80vw] p-3 text-white bg-blue-700 rounded-full px-29 "
+          className="w-[80vw] p-3  bg-black text-white rounded-full px-29 "
         >
           Create Account
         </button>

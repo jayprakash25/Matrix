@@ -1,13 +1,10 @@
-import Navbar from "../components/Navbar";
-import ProfileCards from "../components/ProfileCards";
-import Searchbar from "../components/Searchbar";
+import { Map, BottomSheet } from "../components";
 
 export default function Home() {
   return (
-    <div>
-      <Searchbar />
-      <ProfileCards />
-      <Navbar />
-    </div>
+    <>
+      <Map />
+      <BottomSheet />
+    </>
   );
 }
