@@ -35,7 +35,7 @@ export default function Signup() {
 
   return (
     <div className="flex flex-col justify-center h-screen ">
-      <div className="flex flex-col items-center py-5 space-y-4 text-2xl font-semibold">
+      <div className="flex flex-col items-center px-3 py-5 space-y-4 text-2xl font-semibold">
         <p>
           As a <span className="text-slate-500">user</span>, I am entering my
         </p>
@@ -54,9 +54,9 @@ export default function Signup() {
         <h1>OR</h1>
         <span>--------------</span>
       </div>
-      <div className="px-10 py-5 space-y-6">
+      <div className="px-2 py-5 space-y-6">
         <Button
-          className="w-full px-6 py-2 outline-none"
+          className="w-full outline-none "
           placeholder="Email/Phone Number"
           title="Continue with Google"
           logo={<GoogleIcon />}
