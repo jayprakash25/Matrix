@@ -1,5 +1,7 @@
-import React from "react";
-import { PiDot } from "react-icons/pi";
+import React, { useState } from "react";
+import { IoIosTimer } from "react-icons/io";
+import { MdAttachMoney } from "react-icons/md";
+import { IoPeopleSharp } from "react-icons/io5";
 
 export default function BottomSheet() {
   const Profiles = [
@@ -34,6 +36,8 @@ export default function BottomSheet() {
       location: "Kompally",
     },
   ];
+
+  const [isshow, setisshow] = useState(false);
 
   return (
     <>
@@ -74,8 +78,62 @@ export default function BottomSheet() {
             </div>
           </div>
         </div>
+        {/* Details of the Ride */}
+        <div
+          className={`bg-white pt-10 px-14 shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto h-[50vh] mt-7 ${
+            isshow ? "block" : "hidden"
+          }`}
+        >
+          <ul className="space-y-6">
+            <li className="flex items-start justify-between gap-5 ">
+              <IoIosTimer
+                color="black"
+                className="border-[1px] border-slate-300 p-2 w-14 h-14 rounded-lg"
+              />
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-slate-800">Pick up Time</p>
+                <h1 className="font-semibold text-slate-900">01:30</h1>
+              </div>
+            </li>
+            <li className="flex items-start justify-between gap-5 ">
+              <MdAttachMoney
+                color="black"
+                className="border-[1px] border-slate-300 p-2 w-14 h-14 rounded-lg"
+              />
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-slate-800">Total amount</p>
+                <h1 className="font-semibold text-slate-900">01:30</h1>
+              </div>
+            </li>
+            <li className="flex items-start justify-between gap-5 ">
+              <IoPeopleSharp
+                color="black"
+                className="border-[1px] border-slate-300 p-2 w-14 h-14 rounded-lg"
+              />
+              <div className="space-y-1">
+                <p className="font-bold text- text-slate-800">Passengers</p>
+                <h1 className="font-semibold text-slate-900">2</h1>
+              </div>
+            </li>
+          </ul>
+          <div
+            onClick={() => {
+              setisshow(false);
+            }}
+            className="my-7"
+          >
+            <button className="w-full py-3 text-white bg-black rounded-lg">
+              Back
+            </button>
+          </div>
+        </div>
+
         {/* Display Profiles */}
-        <div className="bg-gray-100 mt-7 p-7 shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto">
+        <div
+          className={`bg-gray-100 mt-7 p-7 shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto ${
+            isshow ? "hidden" : "block"
+          }`}
+        >
           <div>
             <h1 className="text-2xl font-bold text-slate-800">Ride Info</h1>
           </div>

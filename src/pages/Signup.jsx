@@ -34,7 +34,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col justify-center h-screen ">
+    <div className="flex flex-col justify-center h-screen">
       <div className="flex flex-col items-center px-3 py-5 space-y-4 text-2xl font-semibold">
         <p>
           As a <span className="text-slate-500">user</span>, I am entering my
