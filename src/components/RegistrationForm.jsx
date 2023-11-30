@@ -14,7 +14,7 @@ export default function RegistrationForm() {
 
   const createUser = async () => {
     try {
-      await setDoc(doc(db, "USERS", userjwt), user);
+      // await setDoc(doc(db, "USERS", userjwt), user);
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -23,8 +23,8 @@ export default function RegistrationForm() {
 
   return (
     <>
-      <div className="mt-7 text-center">
-        <h1 className="text-3xl  text-slate-800 font-semibold">
+      <div className="text-center mt-7">
+        <h1 className="text-3xl font-semibold text-slate-800">
           Create <span className="text-slate-600">Account</span>
         </h1>
       </div>
@@ -44,7 +44,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Name: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
         <div className="relative">
@@ -61,7 +61,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Phone: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
         <div className="relative">
@@ -78,7 +78,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, age: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
         <div className="relative">
@@ -95,7 +95,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, location: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
         <div className="relative">
@@ -112,7 +112,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, collage: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
         <div className="relative">
@@ -129,7 +129,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Profession: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-blue-500 border-gray-300"
+            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
           />
         </div>
       </form>
@@ -137,7 +137,7 @@ export default function RegistrationForm() {
         <input
           type="checkbox"
           name="input"
-          className="transition duration-300 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500"
+          className="transition duration-300 border border-gray-300 rounded-full focus:outline-none focus:border-slate-800"
         />
         <p>
           Agree with{" "}
@@ -149,7 +149,7 @@ export default function RegistrationForm() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={createUser}
-          className="w-[80vw] p-3  bg-black text-white rounded-full px-29 "
+          className="w-[80vw] py-4  bg-black text-white rounded-full px-29 "
         >
           Create Account
         </button>

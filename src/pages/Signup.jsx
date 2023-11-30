@@ -1,6 +1,5 @@
 import Button from "../components/Signup/Button";
 import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../Firebase";
 import { useId, useState } from "react";
@@ -19,17 +18,16 @@ export default function Signup() {
 
   const GoogleSignIn = async () => {
     try {
-      const res = await signInWithPopup(auth, provider);
-      // console.log(res.user);
-      const User = {
-        Name: res.user.displayName,
-        email: res.user.email,
-        pic: res.user.photoURL,
-      };
-
-      const docRef = doc(db, "Users", UserToken);
-      await setDoc(docRef, User);
-      navigate("/");
+      // const res = await signInWithPopup(auth, provider);
+      // // console.log(res.user);
+      // const User = {
+      //   Name: res.user.displayName,
+      //   email: res.user.email,
+      //   pic: res.user.photoURL,
+      // };
+      // const docRef = doc(db, "Users", UserToken);
+      // await setDoc(docRef, User);
+      navigate("/register");
     } catch (error) {
       console.log(error);
     }
@@ -57,34 +55,20 @@ export default function Signup() {
         <span>--------------</span>
       </div>
       <div className="px-10 py-5 space-y-6">
-        <Button title="Continue with Google" logo={<GoogleIcon />} />
-          className="w-full px-6 py-2 outline-none"
-          placeholder="         Email/Phone Number"
-          value={cred.username}
-          onChange={(e) => {
-            setCred({
-              ...cred,
-              username: e.target.value,
-            });
-          }}
-        <div className="flex items-center space-x-2">
-          <p>In order to </p>
-          <button
-            className={`${
-              cred.username.length > 8 ? "bg-blue-400" : "bg-[#DDF2FD]"
-            } px-4 text-xl font-normal py-2  text-white rounded-full`}
-          >
-            continue
-          </button>
-        </div>
-      </div>
-      <div className="p-5 space-y-6">
         <Button
-          handleSubmit={GoogleSignIn}
+          className="w-full px-6 py-2 outline-none"
+          placeholder="Email/Phone Number"
           title="Continue with Google"
           logo={<GoogleIcon />}
+          handleSubmit={GoogleSignIn}
+          // value={cred.username}
+          // onChange={(e) => {
+          //   setCred({
+          //     ...cred,
+          //     username: e.target.value,
+          //   });
+          // }}
         />
-        <Button title="Continue with Apple" logo={<AppleIcon />} />
       </div>
     </div>
   );
