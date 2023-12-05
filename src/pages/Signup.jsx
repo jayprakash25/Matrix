@@ -18,15 +18,14 @@ export default function Signup() {
 
   const GoogleSignIn = async () => {
     try {
-      // const res = await signInWithPopup(auth, provider);
-      // // console.log(res.user);
-      // const User = {
-      //   Name: res.user.displayName,
-      //   email: res.user.email,
-      //   pic: res.user.photoURL,
-      // };
-      // const docRef = doc(db, "Users", UserToken);
-      // await setDoc(docRef, User);
+      const res = await signInWithPopup(auth, provider);
+      const User = {
+        Name: res.user.displayName,
+        email: res.user.email,
+        pic: res.user.photoURL,
+      };
+      const docRef = doc(db, "Users", UserToken);
+      await setDoc(docRef, User);
       navigate("/register");
     } catch (error) {
       console.log(error);
@@ -42,7 +41,7 @@ export default function Signup() {
         <input
           type="text"
           className="outline-none py-2.5 bg-slate-100 px-7"
-          placeholder="Email/Phone Number"
+          placeholder="Email"
         />
         <div className="flex items-center space-x-2">
           <p>In order to </p>
@@ -61,13 +60,13 @@ export default function Signup() {
           title="Continue with Google"
           logo={<GoogleIcon />}
           handleSubmit={GoogleSignIn}
-          // value={cred.username}
-          // onChange={(e) => {
-          //   setCred({
-          //     ...cred,
-          //     username: e.target.value,
-          //   });
-          // }}
+          value={cred.username}
+          onChange={(e) => {
+            setCred({
+              ...cred,
+              username: e.target.value,
+            });
+          }}
         />
       </div>
     </div>
