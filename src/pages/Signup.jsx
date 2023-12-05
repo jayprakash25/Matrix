@@ -10,22 +10,20 @@ export default function Signup() {
   const provider = new GoogleAuthProvider();
   const UserToken = useId();
   const navigate = useNavigate();
-
   const [cred, setCred] = useState({
     username: "",
     password: "",
   });
-
   const GoogleSignIn = async () => {
     try {
-      const res = await signInWithPopup(auth, provider);
-      const User = {
-        Name: res.user.displayName,
-        email: res.user.email,
-        pic: res.user.photoURL,
-      };
-      const docRef = doc(db, "Users", UserToken);
-      await setDoc(docRef, User);
+      // const res = await signInWithPopup(auth, provider);
+      // const User = {
+      //   Name: res.user.displayName,
+      //   email: res.user.email,
+      //   pic: res.user.photoURL,
+      // };
+      // const docRef = doc(db, "Users", UserToken);
+      // await setDoc(docRef, User);
       navigate("/register");
     } catch (error) {
       console.log(error);

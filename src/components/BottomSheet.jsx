@@ -2,40 +2,34 @@ import React, { useState } from "react";
 import { IoIosTimer } from "react-icons/io";
 import { MdAttachMoney } from "react-icons/md";
 import { IoPeopleSharp } from "react-icons/io5";
-import { IoLocationOutline } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
 import { MdOutlineLocalPhone } from "react-icons/md";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function BottomSheet() {
-  const [isshow, setisshow] = useState(true);
+  const [isshow, setisshow] = useState();
+
   const Profiles = [
     {
       image:
-        "https://w7.pngwing.com/pngs/38/708/png-transparent-car-mercedes-car-love-compact-car-vehicle-thumbnail.png",
+        "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
       Name: "Rahul",
       location: "Kompally",
     },
     {
       image:
-        "https://w7.pngwing.com/pngs/38/708/png-transparent-car-mercedes-car-love-compact-car-vehicle-thumbnail.png",
+        "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
       Name: "Rahul",
       location: "Kompally",
     },
     {
       image:
-        "https://w7.pngwing.com/pngs/38/708/png-transparent-car-mercedes-car-love-compact-car-vehicle-thumbnail.png",
+        "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
       Name: "Rahul",
       location: "Kompally",
     },
     {
       image:
-        "https://w7.pngwing.com/pngs/38/708/png-transparent-car-mercedes-car-love-compact-car-vehicle-thumbnail.png",
-      Name: "Rahul",
-      location: "Kompally",
-    },
-    {
-      image:
-        "https://w7.pngwing.com/pngs/38/708/png-transparent-car-mercedes-car-love-compact-car-vehicle-thumbnail.png",
+        "https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg",
       Name: "Rahul",
       location: "Kompally",
     },
@@ -44,7 +38,7 @@ export default function BottomSheet() {
   return (
     <>
       <div className="bg-[#0e1317] shadow-3xl rounded-t-2xl h-[80vh]">
-      <div className="border-b-4  py-5 w-[20vw] border-white mx-auto"></div>
+        <div className="border-b-4  py-5 w-[20vw] border-white mx-auto"></div>
         <div className="pt-7 px-7">
           <h1 className="text-2xl font-bold text-white">Your Destination</h1>
           <div className="flex flex-col items-start justify-center gap-1 pl-5 mt-10 text-white ">
@@ -83,13 +77,23 @@ export default function BottomSheet() {
         </div>
         {/* Details of the Ride */}
         <div
-          className={`bg-white pt-7 px-14 shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto h-[50vh] mt-7 ${
+          className={`bg-white   shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto h-[50vh] mt-7 animate__animated animate__slideInUp   ${
             isshow ? "block" : "hidden"
           }`}
         >
-          <div className="border-b-4  mb-5 w-[20vw] border-black mx-auto"></div>
+          <div className="flex items-center mb-5 pt-7 px-14">
+            <FaArrowLeftLong
+              size={21}
+              onClick={() => {
+                setisshow(false);
+              }}
+              cursor={"pointer"}
+              color={"black"}
+            />
+            <div className="border-b-4 w-[20vw] border-black mx-auto"></div>
+          </div>
 
-          <ul className="space-y-6">
+          <ul className="pt-5 space-y-6 px-14">
             <li className="flex items-start justify-between gap-5 ">
               <IoIosTimer
                 color="black"
@@ -131,8 +135,14 @@ export default function BottomSheet() {
               </div>
             </li>
           </ul>
-          <div className="my-10">
-            <button className="w-full py-3 text-white bg-black rounded-lg">
+          <div className="flex items-center justify-between p-8 mt-8 bg-black rounded-t-xl">
+            <div className="space-y-1">
+              <p className="font-semibold text-slate-400">10/hour</p>
+              <p className="text-xs font-semibold text-gray-200">
+                Curent Package
+              </p>
+            </div>
+            <button className="px-5 py-1.5 font-semibold text-sm text-black bg-white rounded-lg">
               Book
             </button>
           </div>
@@ -140,31 +150,41 @@ export default function BottomSheet() {
 
         {/* Display Profiles */}
         <div
-          className={`bg-gray-100 mt-7 p-7 shadow-3xl rounded-t-2xl w-[100vw] overflow-x-auto ${
+          className={`bg-gray-100 mt-7  shadow-3xl rounded-t-2xl  ${
             isshow ? "hidden" : "block"
           }`}
         >
-          <div>
+          <div className="py-5 px-7">
             <h1 className="text-2xl font-bold text-slate-800">Ride Info</h1>
           </div>
-          <div className="flex items-center mt-8 oveflow-x-scroll gap-11 ">
+          <div className="flex flex-col items-center justify-center gap-6 my-5">
             {Profiles.map((_, i) => {
               return (
                 <React.Fragment key={i}>
-                  <div className="flex items-center justify-between gap-5 border-[1px] border-gray-300 rounded-lg  p-3.5 cursor-pointer">
-                    <div>
-                      <img src={_.image} className="max-w-[35vw]" alt="" />
+                  <div className="flex items-center justify-between w-[100vw] px-5 cursor-pointer">
+                    <div className="flex items-center gap-7">
+                      <img
+                        src={_.image}
+                        className="object-cover rounded-full w-14 h-14"
+                        alt=""
+                      />
+                      <div className="space-y-0.5">
+                        <h1 className="flex items-center gap-2 text-lg font-bold text-slate-800">
+                          {_.Name}
+                        </h1>
+                        <p className="text-sm font-semibold text-slate-400">
+                          10/hour
+                        </p>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <h1 className="flex items-center gap-2 text-lg font-bold text-slate-800">
-                        <CgProfile size={20} color="black" />
-                        {_.Name}
-                      </h1>
-                      <p className="text-sm flex gap-2 items-center font-semibold text-[#6d737b]">
-                        <IoLocationOutline size={20} color="black" />{" "}
-                        {_.location}
-                      </p>
-                    </div>
+                    <button
+                    className="bg-[#ddf2f3] text-black font-semibold  px-8 py-3.5 text-sm rounded-full"
+                      onClick={() => {
+                        setisshow(true);
+                      }}
+                    >
+                      Book
+                    </button>
                   </div>
                 </React.Fragment>
               );

@@ -1,5 +1,6 @@
-import React from "react";
 import "./main.css";
+import "animate.css";
+import React from "react";
 import { Home, Signup } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { RegistrationForm } from "./components";

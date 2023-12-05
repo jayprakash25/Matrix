@@ -1,7 +1,7 @@
 export default function Button({ title, logo, handleSubmit }) {
   return (
     <>
-      <div className="px-14 py-3.5 bg-black text-white rounded-full  w-full ">
+      <div className="px-12 py-3.5 bg-black text-white rounded-full  w-full ">
         <button
           onClick={handleSubmit}
           className="w-full py-2 font-semibold rounded-full "

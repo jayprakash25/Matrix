@@ -64,21 +64,21 @@ export default function RegistrationForm() {
   const createUser = async () => {
     // if (Object.values(user).every((i) => i != "")) {
     //   // const code = otp;
-    if (window.confirmationResult) {
-      window.confirmationResult
-        .confirm(otp)
-        .then(async (result) => {
-          alert("Number is verified!");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      console.error("Confirmation result is not available.");
-    }
+    // if (window.confirmationResult) {
+    //   window.confirmationResult
+    //     .confirm(otp)
+    //     .then(async (result) => {
+    //       alert("Number is verified!");
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   console.error("Confirmation result is not available.");
+    // }
     //   try {
     //     await setDoc(doc(db, "USERS", userjwt), user);
-    //     navigate("/home");
+    navigate("/home");
     //   } catch (error) {
     //     console.log(error);
     //   }
