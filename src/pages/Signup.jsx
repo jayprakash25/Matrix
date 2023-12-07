@@ -1,4 +1,4 @@
-import Button from "../components/Signup/Button";
+import Button from "../components/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../Firebase";

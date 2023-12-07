@@ -1,10 +1,9 @@
-import { Map, BottomSheet } from "../components";
+import React from 'react'
 
 export default function Home() {
   return (
     <>
-      <Map />
-      <BottomSheet />
+      
     </>
-  );
+  )
 }

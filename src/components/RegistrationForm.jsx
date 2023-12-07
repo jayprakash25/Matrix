@@ -78,7 +78,7 @@ export default function RegistrationForm() {
     // }
     //   try {
     //     await setDoc(doc(db, "USERS", userjwt), user);
-    navigate("/home");
+    navigate("/hobbies");
     //   } catch (error) {
     //     console.log(error);
     //   }
