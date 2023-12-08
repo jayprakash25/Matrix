@@ -1,3 +1,4 @@
 import RegistrationForm from "./RegistrationForm";
+import Navbar from "./Navbar";
 
-export {  RegistrationForm };
+export { RegistrationForm, Navbar };
