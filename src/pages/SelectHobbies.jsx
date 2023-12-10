@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import hobbies from "../Data/Hobbies";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../Firebase";
 
 export default function SelectHobbies() {
   const [selectedHobbies, setSelectedHobbies] = useState([]);
@@ -18,6 +20,16 @@ export default function SelectHobbies() {
       setUserHobbies([...Userhobbies, hobby]);
     } else {
       setUserHobbies(Userhobbies.filter((i) => i !== hobby));
+    }
+  };
+
+  const saveHobbies = async (e) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
+      alert("Success");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -46,12 +58,20 @@ export default function SelectHobbies() {
               selectedHobbies.includes(i)
                 ? "bg-black text-white ease-in-out duration-500"
                 : null
-            } border-[1px] cursor-pointer w px-10 py-2 border-slate-800 rounded-full`}
+            } border-[1px] cursor-pointer w-[7.5rem] text-center px-6 py-2 border-slate-800 rounded-full`}
           >
             <h1>{hobby}</h1>
           </div>
         ))}
       </main>
+      <div className="flex items-center justify-center my-10">
+        <button
+          onClick={saveHobbies}
+          className=" py-4  bg-black text-white rounded-full px-24 "
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 }
