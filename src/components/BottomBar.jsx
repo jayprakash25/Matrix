@@ -3,6 +3,7 @@ import { PiHouse } from "react-icons/pi";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { IoMdPeople } from "react-icons/io";
 
 export default function BottomBar() {
   const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
@@ -17,10 +18,12 @@ export default function BottomBar() {
               <h1>Home</h1>
             </li>
           </Link>
-          <li className={liststyle}>
-            <PiHouse size={25} color="white" />
-            <h1>About</h1>
-          </li>
+          <Link to={"/people"}>
+            <li className={liststyle}>
+              <IoMdPeople size={25} color="white" />
+              <h1>People</h1>
+            </li>
+          </Link>
           <li className={liststyle}>
             <MdOutlineLocalPhone size={25} color="white" />
             <h1>Contact</h1>

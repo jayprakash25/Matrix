@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import collegesInHyderabad from "../Data/cllg";
+import { EnterOtp } from "./index";
 export default function RegistrationForm() {
   const userjwt = useId();
   const navigate = useNavigate();
   const [otp, setotp] = useState("");
+  const [isshow, setisshow] = useState(false);
   const [user, setuser] = useState({
     Name: "",
     Phone: "",
@@ -78,7 +80,7 @@ export default function RegistrationForm() {
     // }
     //   try {
     //     await setDoc(doc(db, "USERS", userjwt), user);
-    navigate("/hobbies");
+    setisshow(true);
     //   } catch (error) {
     //     console.log(error);
     //   }
@@ -228,6 +230,8 @@ export default function RegistrationForm() {
           Create Account
         </button>
       </div>
+
+      {isshow ? <EnterOtp user={user}/> : null}
     </>
   );
 }
