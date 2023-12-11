@@ -3,6 +3,7 @@ import "animate.css";
 import React, { useState } from "react";
 import {
   Home,
+  Notifications,
   People,
   SelectHobbies,
   Signup,
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/people" element={<People />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </>
       ) : (

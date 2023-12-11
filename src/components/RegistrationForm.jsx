@@ -231,7 +231,7 @@ export default function RegistrationForm() {
         </button>
       </div>
 
-      {isshow ? <EnterOtp user={user}/> : null}
+      {isshow ? <EnterOtp user={user} /> : null}
     </>
   );
 }

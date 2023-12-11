@@ -6,8 +6,10 @@ import BottomBar from "./BottomBar";
 import EditProfile from "./EditProfile";
 import Empty from "./Empty";
 import EnterOtp from "./EnterOtp";
+import Notification from "./Notification";
 
 export {
+  Notification,
   EnterOtp,
   Empty,
   EditProfile,
