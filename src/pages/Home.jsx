@@ -1,11 +1,12 @@
 import React from "react";
-import { Navbar, UserProfiles } from "../components";
+import { BottomBar, Navbar, UserProfiles } from "../components";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <UserProfiles/>
+      <UserProfiles />
+      <BottomBar/>
     </>
   );
 }

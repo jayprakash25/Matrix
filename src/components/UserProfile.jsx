@@ -41,7 +41,7 @@ export default function UserProfile() {
       {Users.map((_, i) => {
         return (
           <React.Fragment key={i}>
-            <div className="w-[84vw] shadow-md shadow-gray-200">
+            <div className="w-[80vw] shadow-md shadow-gray-200 mb-10">
               <div>
                 <img
                   src={_.Banner}

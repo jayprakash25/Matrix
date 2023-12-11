@@ -1,0 +1,38 @@
+import React from "react";
+import { PiHouse } from "react-icons/pi";
+import { MdOutlineLocalPhone } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
+
+export default function BottomBar() {
+  const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
+
+  return (
+    <footer className="fixed bottom-0">
+      <div className="w-screen bg-black rounded-t-sm">
+        <ul className="flex items-center gap-5 p-3.5 text-sm font-semibold text-center text-white justify-evenly">
+          <Link to={"/home"}>
+            <li className={liststyle}>
+              <PiHouse size={25} color="white" />
+              <h1>Home</h1>
+            </li>
+          </Link>
+          <li className={liststyle}>
+            <PiHouse size={25} color="white" />
+            <h1>About</h1>
+          </li>
+          <li className={liststyle}>
+            <MdOutlineLocalPhone size={25} color="white" />
+            <h1>Contact</h1>
+          </li>
+          <Link to={"/profile"}>
+            <li className={liststyle}>
+              <CgProfile size={25} color="white" />
+              <h1>Profile</h1>
+            </li>
+          </Link>
+        </ul>
+      </div>
+    </footer>
+  );
+}
