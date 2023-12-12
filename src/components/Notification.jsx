@@ -26,7 +26,7 @@ export default function Notification() {
   ];
 
   return (
-    <main className="flex flex-col gap-5 mt-5">
+    <main className="flex flex-col gap-4 mt-2">
       {Notifications.map((_, i) => {
         return (
           <React.Fragment key={i}>
@@ -39,10 +39,12 @@ export default function Notification() {
                 />
                 <div className="space-y-0.5">
                   <h1 className="text-lg font-bold">{_.Name}</h1>
-                  <p className="text-sm text-slate-800">Connected with you</p>
+                  <p className="text-sm text-slate-800 font-semibold">
+                    Connected with you
+                  </p>
                 </div>
               </div>
-              <AiOutlineDelete size={28} cursor={"pointer"} color="gray" />
+              <AiOutlineDelete size={27} cursor={"pointer"} color="black" />
             </div>
           </React.Fragment>
         );

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { LiaLessThanSolid } from "react-icons/lia";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { LiaGreaterThanSolid } from "react-icons/lia";
 import { ImExit } from "react-icons/im";
 import { BottomBar, EditProfile } from "../components";
 import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function UserProfile() {
   const liststyle = "flex  items-center gap-10 cursor-pointer text-lg";
@@ -20,7 +20,7 @@ export default function UserProfile() {
         <div className="flex items-center w-[55vw] justify-between">
           <div>
             <Link to={"/home"}>
-              <LiaLessThanSolid size={20} color="black" />
+              <FaArrowLeft size={20} color="black" />
             </Link>
           </div>
 
@@ -109,7 +109,6 @@ export default function UserProfile() {
         </li>
       </ul>
       <BottomBar />
-
       {isedit ? <EditProfile setisedit={setisedit} /> : null}
     </main>
   );

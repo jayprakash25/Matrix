@@ -1,6 +1,6 @@
 import React from "react";
 import { BottomBar, Notification } from "../components";
-import { LiaLessThanSolid } from "react-icons/lia";
+import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function Notifications() {
@@ -10,7 +10,7 @@ export default function Notifications() {
         <div className="flex items-center w-[60vw] justify-between">
           <div>
             <Link to={"/home"}>
-              <LiaLessThanSolid size={20} color="black" />
+              <FaArrowLeft size={20} color="black" />
             </Link>
           </div>
 
