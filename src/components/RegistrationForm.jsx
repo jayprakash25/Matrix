@@ -1,14 +1,10 @@
-import React, { useId, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { auth, db } from "../Firebase";
+import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { auth } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import collegesInHyderabad from "../Data/cllg";
 import { EnterOtp } from "./index";
 export default function RegistrationForm() {
-  const userjwt = useId();
-  const navigate = useNavigate();
-  const [otp, setotp] = useState("");
   const [isshow, setisshow] = useState(false);
   const [user, setuser] = useState({
     Name: "",
@@ -22,7 +18,7 @@ export default function RegistrationForm() {
   const configureCaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
       size: "invisible",
-      callback: (res) => {
+      callback: () => {
         onNumSubmit();
       },
     });
@@ -30,17 +26,21 @@ export default function RegistrationForm() {
 
   const onNumSubmit = (e) => {
     e.preventDefault();
-    configureCaptcha();
-    const phoneNumber = "+" + 91 + user.Phone;
-    const appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-        alert("OTP has been sent");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (Object.values(user).every((i) => i != "")) {
+      configureCaptcha();
+      const phoneNumber = "+" + 91 + user.Phone;
+      const appVerifier = window.recaptchaVerifier;
+      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          setisshow(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert("Please fill the form!");
+    }
   };
 
   const getUserlocatiom = async () => {
@@ -61,32 +61,6 @@ export default function RegistrationForm() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const createUser = async () => {
-    // if (Object.values(user).every((i) => i != "")) {
-    //   // const code = otp;
-    // if (window.confirmationResult) {
-    //   window.confirmationResult
-    //     .confirm(otp)
-    //     .then(async (result) => {
-    //       alert("Number is verified!");
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   console.error("Confirmation result is not available.");
-    // }
-    //   try {
-    //     await setDoc(doc(db, "USERS", userjwt), user);
-    setisshow(true);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // } else {
-    //   alert("Please Fill the form");
-    // }
   };
 
   return (
@@ -222,16 +196,18 @@ export default function RegistrationForm() {
           </span>
         </p>
       </div>
+      <div id="sign-in-button"></div>
+
       <div className="flex items-center justify-center my-10">
         <button
-          onClick={createUser}
+          onClick={onNumSubmit}
           className="w-[80vw] py-4  bg-black text-white rounded-full px-29 "
         >
           Create Account
         </button>
       </div>
 
-      {isshow ? <EnterOtp user={user}/> : null}
+      {isshow ? <EnterOtp user={user} /> : null}
     </>
   );
 }

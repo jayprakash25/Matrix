@@ -1,6 +1,6 @@
 import "./main.css";
 import "animate.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Home,
   People,
