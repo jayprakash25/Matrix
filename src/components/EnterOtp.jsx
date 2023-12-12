@@ -37,7 +37,7 @@ export default function EnterOtp({ user }) {
         <input
           type="text"
           placeholder="Enter OTP"
-          // value={otp}
+          value={otp}
           onChange={(e) => {
             setOtp(e.target.value);
           }}

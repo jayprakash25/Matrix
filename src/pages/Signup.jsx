@@ -53,7 +53,7 @@ export default function Signup() {
       </div>
       <div className="px-2 py-5 space-y-6">
         <Button
-          className="w-full outline-none "
+          className="w-[80vw] outline-none "
           placeholder="Email/Phone Number"
           title="Continue with Google"
           logo={<GoogleIcon />}

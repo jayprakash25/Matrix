@@ -1,10 +1,10 @@
 export default function Button({ title, logo, handleSubmit }) {
   return (
     <>
-      <div className="px-12 py-3.5 bg-black text-white rounded-full  w-full ">
+      <div className=" flex justify-center">
         <button
           onClick={handleSubmit}
-          className="w-full py-2 font-semibold rounded-full "
+          className="  font-semibold  bg-black text-white rounded-full px-20 py-3.5"
         >
           <div className="flex items-center justify-center space-x-2">
             {logo}
