@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
-import { LiaGreaterThanSolid } from "react-icons/lia";
 import { ImExit } from "react-icons/im";
-import { BottomBar, EditProfile } from "../components";
+import { AddPost, BottomBar, EditProfile } from "../components";
 import { Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
 
 export default function UserProfile() {
-  const liststyle = "flex  items-center gap-10 cursor-pointer text-lg";
+  const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
 
   const [isedit, setisedit] = useState(false);
   const [isPost, setisPost] = useState(false);
@@ -59,57 +59,58 @@ export default function UserProfile() {
       <ul className="flex flex-col items-start justify-start gap-10 px-8 text-sm text-center py-7 my-">
         <li className={"flex justify-between w-full items-center"}>
           <div className={liststyle}>
-            <PiHouse size={28} color="" />
+            <PiHouse size={25} color="black" />
             <h1>Home</h1>
           </div>
           <div>
-            <LiaGreaterThanSolid size={20} color="black" />
+            <FaArrowRight size={20} color="black" />
           </div>
         </li>
         <li className={"flex justify-between w-full items-center"}>
           <div className={liststyle}>
-            <MdOutlineLocalPhone size={28} color="" />
+            <MdOutlineLocalPhone size={25} color="black" />
             <h1>Contact</h1>
           </div>
           <div>
-            <LiaGreaterThanSolid size={20} color="black" />
+            <FaArrowRight size={20} color="black" />
           </div>
         </li>
         <li className={"flex justify-between w-full items-center"}>
-          <div className={liststyle}>
-            <CgProfile size={28} color="" />
+          <div
+            onClick={() => {
+              setisPost(true);
+            }}
+            className={liststyle}
+          >
+            <FiEdit size={25} color="black" />
             <h1>Post</h1>
           </div>
           <div>
-            <LiaGreaterThanSolid size={20} color="black" />
-          </div>
-        </li>
-        <li
-          onClick={() => {
-            setisPost(true);
-          }}
-          className={"flex justify-between w-full items-center"}
-        >
-          <div className={liststyle}>
-            <CgProfile size={28} color="" />
-            <h1>Private & Policy</h1>
-          </div>
-          <div>
-            <LiaGreaterThanSolid size={20} color="black" />
+            <FaArrowRight size={20} color="black" />
           </div>
         </li>
         <li className={"flex justify-between w-full items-center"}>
           <div className={liststyle}>
-            <ImExit size={28} color="" />
+            <CgProfile size={25} color="black" />
+            <h1>Private & Policy</h1>
+          </div>
+          <div>
+            <FaArrowRight size={20} color="black" />
+          </div>
+        </li>
+        <li className={"flex justify-between w-full items-center"}>
+          <div className={liststyle}>
+            <ImExit size={25} color="" />
             <h1 className="text-red-500">Logout</h1>
           </div>
           <div>
-            <LiaGreaterThanSolid size={20} color="black" />
+            <FaArrowRight size={20} color="black" />
           </div>
         </li>
       </ul>
       <BottomBar />
       {isedit ? <EditProfile setisedit={setisedit} /> : null}
+      {isPost ? <AddPost setisPost={setisPost} /> : null}
     </main>
   );
 }

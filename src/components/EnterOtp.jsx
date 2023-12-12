@@ -14,8 +14,8 @@ export default function EnterOtp({ user }) {
       window.confirmationResult
         .confirm(code)
         .then(async () => {
-          alert("Number is verified!");
           navigate("/home");
+          alert("Number is verified!");
         })
         .catch((error) => {
           console.log(error);

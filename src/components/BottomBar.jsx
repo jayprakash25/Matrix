@@ -1,9 +1,9 @@
 import React from "react";
 import { PiHouse } from "react-icons/pi";
-import { MdOutlineLocalPhone } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoMdPeople } from "react-icons/io";
+import { IoIosSchool } from "react-icons/io";
 
 export default function BottomBar() {
   const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
@@ -25,8 +25,8 @@ export default function BottomBar() {
             </li>
           </Link>
           <li className={liststyle}>
-            <MdOutlineLocalPhone size={25} color="white" />
-            <h1>Contact</h1>
+            <IoIosSchool size={25} color="white" />
+            <h1>Collage</h1>
           </li>
           <Link to={"/profile"}>
             <li className={liststyle}>

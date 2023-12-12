@@ -5,7 +5,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 export default function EditProfile({ setisedit }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="p-6  bg-white rounded-md w-[85vw]">
+      <div className="p-6  bg-white  w-[90vw]">
         <div className="flex justify-end">
           <RxCross2
             cursor={"pointer"}
