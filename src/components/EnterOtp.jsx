@@ -9,22 +9,23 @@ export default function EnterOtp({ user }) {
   const navigate = useNavigate();
 
   const createUser = async () => {
-    const code = otp;
-    if (window.confirmationResult) {
-      window.confirmationResult
-        .confirm(code)
-        .then(async () => {
-          navigate("/home");
-          alert("Number is verified!");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Invalid OTP, Try Again!");
-        });
-    } else {
-      console.error("Confirmation result is not available.");
-    }
     try {
+      const code = otp;
+      if (window.confirmationResult) {
+        window.confirmationResult
+          .confirm(code)
+          .then(async () => {
+            alert("Number is verified!");
+            localStorage.setItem("jwt", userjwt);
+            navigate("/home");
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Invalid OTP, Try Again!");
+          });
+      } else {
+        console.error("Confirmation result is not available.");
+      }
       await setDoc(doc(db, "USERS", userjwt), user);
     } catch (error) {
       console.log(error);
