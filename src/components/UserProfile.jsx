@@ -47,6 +47,7 @@ export default function UserProfile() {
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
   const [showUsers, setshowUsers] = useState();
   const [isloading, setisloading] = useState(true);
+
   const fetchData = async () => {
     try {
       const docref = doc(db, "USERS", jwt);
