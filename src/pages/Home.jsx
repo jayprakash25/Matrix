@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BottomBar, Empty, Navbar } from "../components";
 import { doc, getDoc, query } from "firebase/firestore";
 import { db } from "../Firebase";
