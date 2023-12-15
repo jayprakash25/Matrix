@@ -43,7 +43,7 @@ export default function Signup() {
         />
         <div className="flex items-center space-x-2">
           <p>In order to </p>
-          <button className="rounded-full text-slate-500">Continue</button>
+          <button className={` rounded-full text-slate-500`}>continue</button>
         </div>
       </div>
       <div className="flex items-start justify-center space-x-3 text-center text-slate-500">
@@ -53,8 +53,6 @@ export default function Signup() {
       </div>
       <div className="px-2 py-5 space-y-6">
         <Button
-          className="w-[80vw] outline-none "
-          placeholder="Email/Phone Number"
           title="Continue with Google"
           logo={<GoogleIcon />}
           handleSubmit={GoogleSignIn}

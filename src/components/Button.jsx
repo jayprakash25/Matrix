@@ -4,7 +4,7 @@ export default function Button({ title, logo, handleSubmit }) {
       <div className=" flex justify-center">
         <button
           onClick={handleSubmit}
-          className="  font-semibold  bg-black text-white rounded-full px-20 py-3.5"
+          className="w-full  font-semibold text-sm bg-black text-white rounded-full px-5 py-3.5"
         >
           <div className="flex items-center justify-center space-x-2">
             {logo}
