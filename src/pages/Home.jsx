@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BottomBar, Empty, Navbar } from "../components";
-import { doc, getDoc, query } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
