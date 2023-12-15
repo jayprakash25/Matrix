@@ -61,15 +61,35 @@ export default function UserProfile() {
     }
   };
 
+  const sendNotification = async (userid) => {
+    try {
+      console.log(userid);
+      const docref = doc(db, "USERS", userid);
+      const User = await getDoc(docref);
+      const currentNotifications = User?.data()?.notifications || [];
+      const notification = {
+        message: "Connected with you",
+        Name: jwt,
+        Pic: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600",
+      };
+      await updateDoc(docref, {
+        notifications: [...currentNotifications, notification],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const connectUser = async (id) => {
     console.log("connected to user " + id + " from " + jwt);
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      const currentConnectedUser = (await User.data().connectedUsers) || [];
+      const currentConnectedUser = (await User?.data()?.connectedUsers) || [];
       await updateDoc(docref, {
         connectedUsers: [...currentConnectedUser, id],
       });
+      await sendNotification(id);
       setshowUsers((prevShowUsers) =>
         prevShowUsers.filter((user) => user.id !== id)
       );
