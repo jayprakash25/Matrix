@@ -37,12 +37,12 @@ export default function ViewUserProfile() {
             </Link>
           </div>
           <div className="text-center">
-            <h1 className="text-lg font-semibold">Rahul</h1>
+            <h1 className="text-lg font-semibold">View Profile</h1>
           </div>
         </div>
       </nav>
 
-      <div className="flex items-start justify-center gap-5 mt-5">
+      <div className="flex items-start justify-center gap-5 mt-7">
         <div className="">
           <img
             src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300"
