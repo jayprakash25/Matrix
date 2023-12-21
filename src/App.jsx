@@ -8,6 +8,7 @@ import {
   SelectHobbies,
   Signup,
   UserProfile,
+  ViewUserProfile,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { RegistrationForm } from "./components";
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/people" element={<People />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/:userid" element={<ViewUserProfile />} />
           </Routes>
         </>
       ) : (
