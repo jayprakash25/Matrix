@@ -13,14 +13,14 @@ export default function ViewUserProfile() {
     },
     {
       image:
-        "https://images.pexels.com/photos/12909594/pexels-photo-12909594.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+        "https://images.pexels.com/photos/18255222/pexels-photo-18255222/free-photo-of-beautiful-quote.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
       Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
       userprofile:
         "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       image:
-        "https://images.pexels.com/photos/12909594/pexels-photo-12909594.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+        "https://images.pexels.com/photos/4075551/pexels-photo-4075551.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
       Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
       userprofile:
         "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
