@@ -2,6 +2,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useId, useState } from "react";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function EnterOtp({ user }) {
   const userjwt = useId();
@@ -17,6 +18,7 @@ export default function EnterOtp({ user }) {
           .then(async () => {
             alert("Number is verified!");
             localStorage.setItem("jwt", userjwt);
+            await setDoc(doc(db, "USERS", userjwt), user);
             navigate("/home");
           })
           .catch((error) => {
@@ -26,7 +28,6 @@ export default function EnterOtp({ user }) {
       } else {
         console.error("Confirmation result is not available.");
       }
-      await setDoc(doc(db, "USERS", userjwt), user);
     } catch (error) {
       console.log(error);
     }
@@ -54,3 +55,7 @@ export default function EnterOtp({ user }) {
     </div>
   );
 }
+
+EnterOtp.propTypes = {
+  user: PropTypes.object.isRequired,
+};

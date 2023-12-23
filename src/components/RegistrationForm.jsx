@@ -16,12 +16,14 @@ export default function RegistrationForm() {
   });
 
   const configureCaptcha = () => {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-      size: "invisible",
-      callback: () => {
-        onNumSubmit();
-      },
-    });
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+        size: "invisible",
+        callback: () => {
+          onNumSubmit();
+        },
+      });
+    }
   };
 
   const onNumSubmit = (e) => {

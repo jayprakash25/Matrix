@@ -1,6 +1,6 @@
-import React from "react";
 import { RxCross2 } from "react-icons/rx";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import PropTypes from "prop-types";
 
 export default function EditProfile({ setisedit }) {
   // useEffect(() => {
@@ -89,3 +89,7 @@ export default function EditProfile({ setisedit }) {
     </div>
   );
 }
+
+EditProfile.propTypes = {
+  setisedit: PropTypes.bool.isRequired,
+};
