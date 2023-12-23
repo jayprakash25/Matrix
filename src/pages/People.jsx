@@ -1,4 +1,3 @@
-import React from "react";
 import { BottomBar, Navbar, UserProfiles } from "../components";
 
 export default function People() {
@@ -6,9 +5,9 @@ export default function People() {
 
   // fetch all people
 
-  const findMatching = () => {};
+  // const findMatching = () => {};
 
-  const fetchPeople = () => {};
+  // const fetchPeople = () => {};
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "./index";
@@ -48,10 +48,11 @@ export default function UserProfile() {
   const [showUsers, setshowUsers] = useState();
   const [isloading, setisloading] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
+      console.log(User);
       const currentConnectedUser = User?.data()?.connectedUsers;
       setCurrentConnectedUser(currentConnectedUser);
       setisloading(false);
@@ -59,8 +60,7 @@ export default function UserProfile() {
       console.error("Error fetching data:", error);
       setisloading(false);
     }
-  };
-
+  }, [jwt]);
   const sendNotification = async (userid) => {
     try {
       console.log(userid);
@@ -101,9 +101,7 @@ export default function UserProfile() {
   useEffect(() => {
     setshowUsers(Users);
     fetchData();
-  }, []);
-
-  console.log(CurrentConnectedUser);
+  }, [fetchData]);
 
   return (
     <>

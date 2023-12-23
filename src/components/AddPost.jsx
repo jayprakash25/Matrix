@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { setDoc, doc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db, storage } from "../Firebase";
+import PropTypes from "prop-types";
 
 export default function AddPost({ setisPost }) {
   const imageref = useRef();
@@ -95,3 +96,7 @@ export default function AddPost({ setisPost }) {
     </div>
   );
 }
+
+AddPost.propTypes = {
+  setisPost: PropTypes.bool.isRequired,
+};
