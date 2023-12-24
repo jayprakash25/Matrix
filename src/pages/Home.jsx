@@ -8,7 +8,6 @@ export default function Home() {
   const [posts, setposts] = useState();
 
   const fetchPosts = async () => {
-    // get users connections
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
@@ -21,7 +20,7 @@ export default function Home() {
         setposts(UserPosts.data().Posts);
         setisloading(false);
       });
-      const Userposts = await Promise.all(posts);
+      await Promise.all(posts);
     } catch (error) {
       console.log(error);
       setisloading(false);
