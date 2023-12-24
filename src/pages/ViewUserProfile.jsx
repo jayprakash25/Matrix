@@ -32,7 +32,7 @@ export default function ViewUserProfile() {
       <nav className="p-4">
         <div className="flex items-center w-[55vw] justify-between">
           <div>
-            <Link to={"/home"}>
+            <Link to={"/people"}>
               <FaArrowLeft size={20} color="black" />
             </Link>
           </div>

@@ -8,6 +8,7 @@ export default function Notification() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState();
+
   const getNotifications = async () => {
     try {
       const docref = doc(db, "USERS", jwt);
@@ -24,7 +25,7 @@ export default function Notification() {
   }, []);
 
   const DeleteNotification = async (i) => {
-    alert("click");
+    setisloading(true);
     try {
       const updatedNotifications = [...Notifications];
       updatedNotifications.splice(i, 1);
