@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
 export default function Notification() {
@@ -11,7 +11,6 @@ export default function Notification() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      console.log(User.data().notifications);
       setNotifications(User.data().notifications || []);
     } catch (error) {
       console.log(error);
@@ -20,6 +19,17 @@ export default function Notification() {
   useEffect(() => {
     getNotifications();
   }, []);
+
+  const DeleteNotification = async (i) => {
+    alert("click");
+    try {
+      const updatedNotifications = [...Notifications];
+      updatedNotifications.splice(i, 1);
+      const docRef = doc(db, "USERS", jwt);
+      await updateDoc(docRef, { notifications: updatedNotifications });
+      setNotifications(updatedNotifications);
+    } catch (error) {}
+  };
 
   return (
     <main className="flex flex-col gap-4 mt-2">
@@ -40,7 +50,14 @@ export default function Notification() {
                   </p>
                 </div>
               </div>
-              <AiOutlineDelete size={27} cursor={"pointer"} color="black" />
+              <AiOutlineDelete
+                onClick={() => {
+                  DeleteNotification(i);
+                }}
+                size={27}
+                cursor={"pointer"}
+                color="black"
+              />
             </div>
           </React.Fragment>
         );
