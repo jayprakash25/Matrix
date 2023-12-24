@@ -36,7 +36,6 @@ export default function UserProfile() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      console.log(User);
       const currentConnectedUser = User?.data()?.connectedUsers;
       setCurrentConnectedUser(currentConnectedUser);
       setisloading(false);
@@ -67,6 +66,7 @@ export default function UserProfile() {
 
   const connectUser = async (id) => {
     console.log("connected to user " + id + " from " + jwt);
+    setisloading(true);
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
@@ -78,6 +78,7 @@ export default function UserProfile() {
       setshowUsers((prevShowUsers) =>
         prevShowUsers.filter((user) => user.id !== id)
       );
+      setisloading(false);
     } catch (error) {
       console.log(error);
     }
@@ -90,48 +91,43 @@ export default function UserProfile() {
 
   return (
     <>
-      {isloading ? (
-        <Loader />
-      ) : (
-        showUsers
-          ?.filter((user) => !CurrentConnectedUser.includes(user.id))
-          .map((_, i) => {
-            return (
-              <React.Fragment key={i}>
-                <div className="w-[76vw] shadow-md shadow-gray-200 mb-1.5 cursor-pointer">
-                  <div>
-                    <img
-                      src={_.Banner}
-                      className="rounded-t-lg border-t-[1px] border-gray-300"
-                      alt=""
-                    />
-                  </div>
-                  <div className="flex justify-center -mt-9">
-                    <img
-                      src={_.Pic}
-                      className="object-cover w-16 h-16 rounded-full"
-                      alt=""
-                    />
-                  </div>
-                  <div className="px-5 space-y-5 text-center bg-white py-7">
-                    <h1 className="text-xl font-bold text-slate-800">
-                      {_.Name}
-                    </h1>
-                    <p className="text-sm leading-6 text-slate-500">{_.Bio}</p>
-                    <button
-                      onClick={() => {
-                        connectUser(_.id);
-                      }}
-                      className="px-10 py-2 text-white bg-black rounded-lg w-[50vw] font-semibold"
-                    >
-                      Follow
-                    </button>
-                  </div>
+      {isloading ? <Loader /> : null}
+      {showUsers
+        ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
+        .map((_, i) => {
+          return (
+            <React.Fragment key={i}>
+              <div className="w-[76vw] shadow-md shadow-gray-200 mb-1.5 cursor-pointer">
+                <div>
+                  <img
+                    src={_.Banner}
+                    className="rounded-t-lg border-t-[1px] border-gray-300"
+                    alt=""
+                  />
                 </div>
-              </React.Fragment>
-            );
-          })
-      )}
+                <div className="flex justify-center -mt-9">
+                  <img
+                    src={_.Pic}
+                    className="object-cover w-16 h-16 rounded-full"
+                    alt=""
+                  />
+                </div>
+                <div className="px-5 space-y-5 text-center bg-white py-7">
+                  <h1 className="text-xl font-bold text-slate-800">{_.Name}</h1>
+                  <p className="text-sm leading-6 text-slate-500">{_.Bio}</p>
+                  <button
+                    onClick={() => {
+                      connectUser(_.id);
+                    }}
+                    className="px-10 py-2 text-white bg-black rounded-lg w-[50vw] font-semibold"
+                  >
+                    Follow
+                  </button>
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        })}
     </>
   );
 }
