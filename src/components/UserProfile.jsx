@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   doc,
   updateDoc,
@@ -18,14 +18,15 @@ export default function UserProfile() {
   const fetchUsers = async () => {
     try {
       const Users = await getDocs(collection(db, "USERS"));
-      const usersData = Users?.docs?.map((user) => user.data());
+      const usersData = Users?.docs?.map((user) => ({
+        id: user.id,
+        ...user.data(),
+      }));
       setshowUsers(usersData);
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(showUsers);
 
   useEffect(() => {
     fetchUsers();
@@ -87,49 +88,49 @@ export default function UserProfile() {
     fetchData();
   }, [fetchData]);
 
-  const filteredUsers = useMemo(() => {
-    return showUsers?.filter((user) => !CurrentConnectedUser.includes(user.id));
-  }, [showUsers, CurrentConnectedUser]);
-
   return (
     <>
       {isloading ? (
         <Loader />
       ) : (
-        filteredUsers?.map((_, i) => {
-          return (
-            <React.Fragment key={i}>
-              <div className="w-[80vw] shadow-md shadow-gray-200 mb-10">
-                <div>
-                  <img
-                    src={_.Banner}
-                    className="rounded-t-lg border-t-[1px] border-gray-300"
-                    alt=""
-                  />
+        showUsers
+          ?.filter((user) => !CurrentConnectedUser.includes(user.id))
+          .map((_, i) => {
+            return (
+              <React.Fragment key={i}>
+                <div className="w-[76vw] shadow-md shadow-gray-200 mb-1.5 cursor-pointer">
+                  <div>
+                    <img
+                      src={_.Banner}
+                      className="rounded-t-lg border-t-[1px] border-gray-300"
+                      alt=""
+                    />
+                  </div>
+                  <div className="flex justify-center -mt-9">
+                    <img
+                      src={_.Pic}
+                      className="object-cover w-16 h-16 rounded-full"
+                      alt=""
+                    />
+                  </div>
+                  <div className="px-5 space-y-5 text-center bg-white py-7">
+                    <h1 className="text-xl font-bold text-slate-800">
+                      {_.Name}
+                    </h1>
+                    <p className="text-sm leading-6 text-slate-500">{_.Bio}</p>
+                    <button
+                      onClick={() => {
+                        connectUser(_.id);
+                      }}
+                      className="px-10 py-2 text-white bg-black rounded-lg w-[50vw] font-semibold"
+                    >
+                      Follow
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-center -mt-9">
-                  <img
-                    src={_.Profile}
-                    className="object-cover w-16 h-16 rounded-full"
-                    alt=""
-                  />
-                </div>
-                <div className="px-5 space-y-5 text-center bg-white py-7">
-                  <h1 className="text-xl font-bold text-slate-800">{_.Name}</h1>
-                  <p className="text-sm leading-6 text-slate-500">{_.Bio}</p>
-                  <button
-                    onClick={() => {
-                      connectUser(_.id);
-                    }}
-                    className="px-10 py-2 text-white bg-black rounded-lg w-[50vw] font-semibold"
-                  >
-                    Connect
-                  </button>
-                </div>
-              </div>
-            </React.Fragment>
-          );
-        })
+              </React.Fragment>
+            );
+          })
       )}
     </>
   );
