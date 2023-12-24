@@ -13,7 +13,6 @@ export default function Notifications() {
               <FaArrowLeft size={20} color="black" />
             </Link>
           </div>
-
           <div className="text-center">
             <h1 className="text-lg font-semibold">Notifications</h1>
           </div>
