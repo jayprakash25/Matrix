@@ -61,6 +61,7 @@ export default function UserProfile() {
       setisloading(false);
     }
   }, [jwt]);
+
   const sendNotification = async (userid) => {
     try {
       console.log(userid);

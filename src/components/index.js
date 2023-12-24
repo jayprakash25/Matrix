@@ -9,6 +9,7 @@ import EnterOtp from "./EnterOtp";
 import Notification from "./Notification";
 import AddPost from "./AddPost";
 import Loader from "./Loader";
+import UsersPosts from "./UsersPosts";
 
 export {
   AddPost,
@@ -22,4 +23,5 @@ export {
   UserProfiles,
   UserProfile,
   BottomBar,
+  UsersPosts,
 };

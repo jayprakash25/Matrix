@@ -8,7 +8,7 @@ export default function BottomBar() {
   const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
 
   return (
-    <footer className="fixed bottom-0 pb-5 px-5  w-full">
+    <footer className="fixed bottom-0 w-full px-5 pb-5">
       <div className="w-full bg-black rounded-full">
         <ul className="flex items-center  p-3.5 px-2 text-sm font-semibold text-center text-white justify-evenly">
           <Link to={"/home"}>

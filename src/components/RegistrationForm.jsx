@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import { auth } from "../Firebase";
+import React, { useId, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import collegesInHyderabad from "../Data/cllg";
 import { EnterOtp } from "./index";
 export default function RegistrationForm() {
   const [isshow, setisshow] = useState(false);
+  const navigate = useNavigate();
+  const id = useId();
   const [user, setuser] = useState({
     Name: "",
     Phone: "",
@@ -26,16 +29,18 @@ export default function RegistrationForm() {
     }
   };
 
-  const onNumSubmit = (e) => {
+  const onNumSubmit = async (e) => {
     e.preventDefault();
     if (Object.values(user).every((i) => i != "")) {
       configureCaptcha();
       const phoneNumber = "+" + 91 + user.Phone;
       const appVerifier = window.recaptchaVerifier;
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then((confirmationResult) => {
+      await signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then(async (confirmationResult) => {
           window.confirmationResult = confirmationResult;
           setisshow(true);
+          await setDoc(doc(db, "USERS", id), user);
+          navigate("/home");
         })
         .catch((error) => {
           console.log(error);

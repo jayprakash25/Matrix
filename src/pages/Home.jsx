@@ -1,9 +1,11 @@
-import { useEffect } from "react";
-import { BottomBar, Empty, Navbar } from "../components";
+import { useEffect, useState } from "react";
+import { BottomBar, Empty, Navbar, UsersPosts } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
+
+  const [posts, setposts] = useState();
 
   const fetchPosts = async () => {
     // get users connections
@@ -16,7 +18,7 @@ export default function Home() {
         const userdocref = await doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
         console.log(UserPosts.data());
-        return UserPosts.data();
+        setposts(UserPosts.data().Posts);
       });
       const Userposts = await Promise.all(posts);
       console.log(Userposts);
@@ -32,7 +34,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Empty />
+      {posts?.length <= 0 ? <Empty /> : <UsersPosts posts={posts} />}
       <BottomBar />
     </>
   );
