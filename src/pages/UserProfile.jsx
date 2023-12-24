@@ -10,7 +10,6 @@ import { FiEdit } from "react-icons/fi";
 
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
-
   const [isedit, setisedit] = useState(false);
   const [isPost, setisPost] = useState(false);
 

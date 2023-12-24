@@ -4,7 +4,6 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
 export default function Notification() {
-  // fetching Notifications
   const jwt = localStorage.getItem("jwt");
   const [Notifications, setNotifications] = useState();
   const getNotifications = async () => {

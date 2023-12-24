@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { BottomBar, Empty, Navbar, UsersPosts } from "../components";
+import { BottomBar, Empty, Loader, Navbar, UsersPosts } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
-
+  const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
 
   const fetchPosts = async () => {
@@ -19,11 +19,12 @@ export default function Home() {
         const UserPosts = await getDoc(userdocref);
         console.log(UserPosts.data());
         setposts(UserPosts.data().Posts);
+        setisloading(false);
       });
       const Userposts = await Promise.all(posts);
-      console.log(Userposts);
     } catch (error) {
       console.log(error);
+      setisloading(false);
     }
   };
 
@@ -34,6 +35,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      {isloading ? <Loader /> : null}
       {posts?.length <= 0 ? <Empty /> : <UsersPosts posts={posts} />}
       <BottomBar />
     </>
