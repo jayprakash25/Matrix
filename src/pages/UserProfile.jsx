@@ -19,7 +19,7 @@ export default function UserProfile() {
     Pic: "",
     Name: "",
     Bio: "",
-    Posts: "",
+    Posts: [],
   });
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
@@ -138,7 +138,7 @@ export default function UserProfile() {
         </li>
       </ul>
       <div className="flex flex-col items-center justify-center my-10 gap-7">
-        {Userdata?.Posts?.map((i, index) => {
+        {Userdata.Posts?.map((i, index) => {
           return (
             <React.Fragment key={index}>
               <div className="border-[1px] border-gray-200 rounded-lg shadow-sm max-w-md p-4 space-y-3.5">
@@ -156,7 +156,9 @@ export default function UserProfile() {
                   <img src={i.image} alt="" />
                 </div>
                 <div>
-                  <p className="text-sm leading-6 text-slate-800">{i.Text}</p>
+                  <p className="text-sm font-semibold leading-6 text-slate-800">
+                    {i.Text}
+                  </p>
                 </div>
               </div>
             </React.Fragment>

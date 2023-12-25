@@ -21,7 +21,9 @@ export default function UsersPosts({ posts }) {
                 <img className="" src={item.image} alt="" />
               </div>
               <div>
-                <p className="text-sm leading-6 text-slate-800">{item.Text}</p>
+                <p className="text-sm font-semibold leading-6 text-slate-800">
+                  {item.Text}
+                </p>
               </div>
             </div>
           </React.Fragment>
