@@ -1,22 +1,24 @@
 import { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import { setDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import PropTypes from "prop-types";
 
 export default function AddPost({ setisPost }) {
   const imageref = useRef();
+  const jwt = localStorage.getItem("jwt");
   const [blobimg, setblobimg] = useState({ image: "" });
   const [uploadimage, setuploadimage] = useState();
+  const [CurrentPosts, setCurrentPosts] = useState([]);
   const [post, setpost] = useState({
     image: "",
     Text: "",
+    Name: "",
+    Pic: "",
   });
 
-  // Posting feature
   const uploadPost = async () => {
-    // saving image
     if (!blobimg) {
       alert("Please Upload an image");
       return;
@@ -26,15 +28,24 @@ export default function AddPost({ setisPost }) {
       const Storageref = ref(storage, `${"image"}/${uploadimage?.name}`);
       await uploadBytes(Storageref, uploadimage);
       const downloadURL = await getDownloadURL(Storageref);
-      console.log(downloadURL);
-      setpost({ ...post, image: downloadURL });
+
+      const docref = doc(db, "USERS", jwt);
+      const User = await getDoc(docref);
+
+      const updatedPost = {
+        ...post,
+        image: downloadURL,
+        Name: User.data().Name,
+        Pic: User.data().Pic,
+      };
+
+      await updateDoc(docref, {
+        Posts: [...User.data().Posts, updatedPost],
+      });
     } catch (error) {
       console.log(error);
     }
-    console.log(uploadimage);
   };
-
-  console.log(post);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
@@ -48,10 +59,10 @@ export default function AddPost({ setisPost }) {
             cursor={"pointer"}
           />
         </div>
-        <div className="flex flex-col justify-center mt-3 gap-5">
+        <div className="flex flex-col justify-center gap-5 mt-3">
           <div className="flex flex-col items-center justify-center gap-3">
             {blobimg.image ? (
-              <img src={blobimg.image} className="w-36 h-36 object-cover" />
+              <img src={blobimg.image} className="object-cover w-36 h-36" />
             ) : (
               <img
                 className="w-32 cursor-pointer"
@@ -87,7 +98,7 @@ export default function AddPost({ setisPost }) {
           ></textarea>
           <button
             onClick={uploadPost}
-            className="bg-black text-white p-2 font-semibold"
+            className="p-2 font-semibold text-white bg-black"
           >
             Post
           </button>
@@ -96,7 +107,3 @@ export default function AddPost({ setisPost }) {
     </div>
   );
 }
-
-AddPost.propTypes = {
-  setisPost: PropTypes.bool.isRequired,
-};

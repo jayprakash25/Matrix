@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function UsersPosts({ posts }) {
-  console.log(posts);
   return (
     <main className="flex flex-col items-center justify-center gap-5 mt-10">
       {posts?.map((item, i) => {
