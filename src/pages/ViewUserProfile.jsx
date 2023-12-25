@@ -1,34 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase";
+import { Loader } from "../components";
 export default function ViewUserProfile() {
-  const UserPosts = [
-    {
-      image:
-        "https://images.pexels.com/photos/12909594/pexels-photo-12909594.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/18255222/pexels-photo-18255222/free-photo-of-beautiful-quote.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/4075551/pexels-photo-4075551.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-  ];
+  const [isloading, setisloading] = useState(true);
+  const { userid } = useParams();
+  const [Userdata, setUserdata] = useState({
+    Pic: "",
+    Name: "",
+    Bio: "",
+    Posts: [],
+  });
+
+  const getPosts = async () => {
+    try {
+      const docref = doc(db, "USERS", userid);
+      const User = await getDoc(docref);
+      setUserdata({
+        ...Userdata,
+        Pic: User?.data().Pic,
+        Name: User?.data().Name,
+        Bio: User?.data().Bio,
+        Posts: User?.data().Posts || [],
+      });
+      setisloading(false);
+    } catch (error) {
+      console.log(error);
+      setisloading(false);
+    }
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <main>
+      {isloading ? <Loader /> : null}
       <nav className="p-4">
         <div className="flex items-center w-[55vw] justify-between">
           <div>
@@ -45,18 +54,14 @@ export default function ViewUserProfile() {
       <div className="flex items-start justify-center gap-5 mt-7">
         <div className="">
           <img
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300"
+            src={Userdata.Pic}
             className="object-cover rounded-full w-36 h-36"
             alt=""
           />
         </div>
         <div className="max-w-[55vw] space-y-3">
-          <h1 className="text-lg font-bold">Rahul</h1>
-          <p className="text-sm text-slate-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus unde
-            quisquam atque, eaque recusandae ducimus perspiciatis assumenda cum
-            labore fuga.
-          </p>
+          <h1 className="text-lg font-bold">{Userdata.Name}</h1>
+          <p className="text-sm text-slate-500">{Userdata.Bio}</p>
           <button
             onClick={() => {
               setisedit(true);
@@ -68,13 +73,13 @@ export default function ViewUserProfile() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center my-10 gap-7">
-        {UserPosts.map((i, index) => {
+        {Userdata.Posts?.map((i, index) => {
           return (
             <React.Fragment key={index}>
               <div className="border-[1px] border-gray-200 rounded-lg shadow-sm max-w-md p-4 space-y-3.5">
                 <div className="flex items-center gap-5">
                   <img
-                    src={i.userprofile}
+                    src={i.Pic}
                     className="object-cover w-12 h-12 rounded-full"
                     alt=""
                   />
@@ -83,10 +88,12 @@ export default function ViewUserProfile() {
                   </h1>
                 </div>
                 <div>
-                  <img className="" src={i.image} alt="" />
+                  <img src={i.image} alt="" />
                 </div>
                 <div>
-                  <p className="text-sm leading-6 text-slate-800">{i.Text}</p>
+                  <p className="text-sm font-semibold leading-6 text-slate-800">
+                    {i.Text}
+                  </p>
                 </div>
               </div>
             </React.Fragment>

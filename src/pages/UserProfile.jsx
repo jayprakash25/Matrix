@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { ImExit } from "react-icons/im";
-import { AddPost, BottomBar, EditProfile, Loader } from "../components";
+import { AddPost,  EditProfile, Loader } from "../components";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";

@@ -34,7 +34,7 @@ export default function UserProfile() {
           return commonHobbies?.length > 0;
         });
       setshowUsers(usersData);
-      setisloading(false)
+      setisloading(false);
     } catch (error) {
       console.log(error);
     }
