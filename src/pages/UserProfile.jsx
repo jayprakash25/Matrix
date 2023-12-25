@@ -15,6 +15,12 @@ export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
   const [isPost, setisPost] = useState(false);
   const [Posts, setPosts] = useState();
+  const [Userdata, setUserdata] = useState({
+    Pic: "",
+    Name: "",
+    Bio: "",
+    Posts: "",
+  });
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
 
@@ -22,7 +28,14 @@ export default function UserProfile() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      setPosts(User.data().Posts || []);
+      // setPosts(User.data().Posts || []);
+      setUserdata({
+        ...Userdata,
+        Pic: User?.data().Pic,
+        Name: User?.data().Name,
+        Bio: User?.data().Bio,
+        Posts: User?.data().Posts || [],
+      });
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -32,30 +45,6 @@ export default function UserProfile() {
   useEffect(() => {
     getPosts();
   }, []);
-
-  const UserPosts = [
-    {
-      image:
-        "https://images.pexels.com/photos/12909594/pexels-photo-12909594.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/18255222/pexels-photo-18255222/free-photo-of-beautiful-quote.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-    {
-      image:
-        "https://images.pexels.com/photos/4075551/pexels-photo-4075551.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      Text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates est culpa dolorem, obcaecati, nostrum fugit doloribus velit cum delectus modi doloremque aperiam iure hic aspernatur assumenda illo corporis repudiandae? Veritatis.",
-      userprofile:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300",
-    },
-  ];
 
   return (
     <main>
@@ -77,18 +66,14 @@ export default function UserProfile() {
       <div className="flex items-start justify-center gap-5 mt-5">
         <div className="">
           <img
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300"
+            src={Userdata.Pic}
             className="object-cover rounded-full w-36 h-36"
             alt=""
           />
         </div>
         <div className="max-w-[55vw] space-y-3">
-          <h1 className="text-lg font-bold">Rahul</h1>
-          <p className="text-sm text-slate-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus unde
-            quisquam atque, eaque recusandae ducimus perspiciatis assumenda cum
-            labore fuga.
-          </p>
+          <h1 className="text-lg font-bold">{Userdata.Name}</h1>
+          <p className="text-sm text-slate-500">{Userdata.Bio}</p>
           <button
             onClick={() => {
               setisedit(true);
@@ -153,7 +138,7 @@ export default function UserProfile() {
         </li>
       </ul>
       <div className="flex flex-col items-center justify-center my-10 gap-7">
-        {Posts?.map((i, index) => {
+        {Userdata?.Posts?.map((i, index) => {
           return (
             <React.Fragment key={index}>
               <div className="border-[1px] border-gray-200 rounded-lg shadow-sm max-w-md p-4 space-y-3.5">
@@ -178,7 +163,6 @@ export default function UserProfile() {
           );
         })}
       </div>
-      <BottomBar />
       {isedit ? <EditProfile setisedit={setisedit} /> : null}
       {isPost ? <AddPost setisPost={setisPost} /> : null}
     </main>
