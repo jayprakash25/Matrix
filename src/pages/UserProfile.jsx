@@ -14,7 +14,6 @@ export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
   const [isPost, setisPost] = useState(false);
-  const [Posts, setPosts] = useState();
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
@@ -28,7 +27,6 @@ export default function UserProfile() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      // setPosts(User.data().Posts || []);
       setUserdata({
         ...Userdata,
         Pic: User?.data().Pic,

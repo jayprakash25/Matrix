@@ -15,22 +15,33 @@ export default function UserProfile() {
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
   const [showUsers, setshowUsers] = useState([]);
   const [isloading, setisloading] = useState(true);
-
-  const fetchUsers = async () => {
+  // Matching-Algorithm
+  const fetchUsersWithSimilarHobbies = async () => {
     try {
+      const currentUserDocRef = doc(db, "USERS", jwt);
+      const currentUserDoc = await getDoc(currentUserDocRef);
+      const currentUserHobbies = currentUserDoc.data().hobbies;
       const Users = await getDocs(collection(db, "USERS"));
-      const usersData = Users?.docs?.map((user) => ({
-        id: user.id,
-        ...user.data(),
-      }));
+      const usersData = Users?.docs
+        ?.map((user) => ({ id: user.id, ...user.data() }))
+        ?.filter((user) => {
+          if (user.id === jwt) {
+            return false;
+          }
+          const commonHobbies = currentUserHobbies?.filter((hobby) =>
+            user?.hobbies?.includes(hobby)
+          );
+          return commonHobbies?.length > 0;
+        });
       setshowUsers(usersData);
+      setisloading(false)
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsersWithSimilarHobbies();
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -53,7 +64,6 @@ export default function UserProfile() {
 
   const sendNotification = async (userid) => {
     try {
-      console.log(userid);
       const docref = doc(db, "USERS", userid);
       const User = await getDoc(docref);
       const currentNotifications = User?.data()?.notifications || [];
