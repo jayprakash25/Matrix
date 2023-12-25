@@ -12,11 +12,9 @@ export default function Home() {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data().connectedUsers;
-      console.log(currentConnectedUser);
       const posts = currentConnectedUser?.map(async (userid) => {
         const userdocref = await doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
-        console.log(UserPosts.data());
         setposts(UserPosts.data().Posts);
         setisloading(false);
       });
