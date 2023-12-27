@@ -40,7 +40,7 @@ export default function RegistrationForm() {
           window.confirmationResult = confirmationResult;
           setisshow(true);
           await setDoc(doc(db, "USERS", id), user);
-          navigate("/home");
+          navigate("/hobbies");
         })
         .catch((error) => {
           console.log(error);

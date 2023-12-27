@@ -11,7 +11,6 @@ import { Loader } from "./index";
 import { Link } from "react-router-dom";
 export default function UserProfile() {
   const jwt = localStorage.getItem("jwt");
-
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
   const [showUsers, setshowUsers] = useState([]);
   const [isloading, setisloading] = useState(true);

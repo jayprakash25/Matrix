@@ -5,6 +5,7 @@ import {
   Home,
   Notifications,
   People,
+  Privacy,
   SelectHobbies,
   Signup,
   UserProfile,
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/people" element={<People />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/:userid" element={<ViewUserProfile />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </>
       ) : (

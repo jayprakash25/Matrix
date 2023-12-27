@@ -5,9 +5,11 @@ import UserProfile from "./UserProfile";
 import People from "./People";
 import Notifications from "./Notifications";
 import ViewUserProfile from "./ViewUserProfile";
+import Privacy from "./Privacy";
 
 export {
   Home,
+  Privacy,
   Signup,
   SelectHobbies,
   UserProfile,
