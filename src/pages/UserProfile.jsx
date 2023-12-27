@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { ImExit } from "react-icons/im";
-import { AddPost,  EditProfile, Loader } from "../components";
+import { AddPost, EditProfile, Loader } from "../components";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
@@ -85,10 +85,12 @@ export default function UserProfile() {
 
       <ul className="flex flex-col items-start justify-start gap-10 px-8 text-sm text-center py-7 my-">
         <li className={"flex justify-between w-full items-center"}>
-          <div className={liststyle}>
-            <PiHouse size={25} color="black" />
-            <h1>Home</h1>
-          </div>
+          <Link to="/home">
+            <div className={liststyle}>
+              <PiHouse size={25} color="black" />
+              <h1>Home</h1>
+            </div>
+          </Link>
           <div>
             <FaArrowRight size={20} color="black" />
           </div>
@@ -117,10 +119,12 @@ export default function UserProfile() {
           </div>
         </li>
         <li className={"flex justify-between w-full items-center"}>
-          <div className={liststyle}>
-            <CgProfile size={25} color="black" />
-            <h1>Private & Policy</h1>
-          </div>
+          <Link to="/privacy">
+            <div className={liststyle}>
+              <CgProfile size={25} color="black" />
+              <h1>Private & Policy</h1>
+            </div>
+          </Link>
           <div>
             <FaArrowRight size={20} color="black" />
           </div>
