@@ -1,5 +1,5 @@
 import React, { useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -198,9 +198,11 @@ export default function RegistrationForm() {
         />
         <p>
           Agree with{" "}
-          <span className="font-semibold text-slate-800">
-            Term & Conditions
-          </span>
+          <Link to={"/privacy"}>
+            <span className="font-semibold text-slate-800">
+              Term & Conditions
+            </span>
+          </Link>
         </p>
       </div>
       <div id="sign-in-button"></div>
