@@ -34,7 +34,7 @@ export default function Home() {
     <>
       <Navbar />
       {isloading ? <Loader /> : null}
-      {posts?.length <= 0 ? <Empty /> : <UsersPosts posts={posts} />}
+      {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
       <BottomBar />
     </>
   );

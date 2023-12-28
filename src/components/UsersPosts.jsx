@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function UsersPosts({ posts }) {
   return (
@@ -32,3 +33,7 @@ export default function UsersPosts({ posts }) {
     </main>
   );
 }
+
+UsersPosts.propTypes = {
+  posts: PropTypes.array.isRequired,
+};

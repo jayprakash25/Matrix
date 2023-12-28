@@ -21,15 +21,20 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
   const GoogleSignIn = async () => {
     try {
-      const res = await signInWithPopup(auth, provider);
-      const User = {
-        Name: res.user.displayName,
-        email: res.user.email,
-        pic: res.user.photoURL,
-      };
-      const docRef = doc(db, "Users", UserToken);
-      await setDoc(docRef, User);
-      navigate("/register");
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        const res = await signInWithPopup(auth, provider);
+        const User = {
+          Name: res.user.displayName,
+          email: res.user.email,
+          pic: res.user.photoURL,
+        };
+        const docRef = doc(db, "Users", UserToken);
+        await setDoc(docRef, User);
+        navigate("/register");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
       console.log(error);
     }

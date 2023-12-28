@@ -1,4 +1,3 @@
-import React from "react";
 import { GiNothingToSay } from "react-icons/gi";
 
 export default function Empty() {

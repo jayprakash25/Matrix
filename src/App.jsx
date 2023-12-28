@@ -13,6 +13,7 @@ import {
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { RegistrationForm } from "./components";
+import Login from "./pages/Login";
 
 export default function App() {
   const [isphone, setisphone] = useState();
@@ -36,6 +37,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Signup />} />
             <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/profile" element={<UserProfile />} />
