@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import hobbies from "../Data/Hobbies";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../Firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function SelectHobbies() {
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const [Userhobbies, setUserHobbies] = useState([]);
-
+  const navigate = useNavigate();
   const toggleSelection = (index) => {
     if (selectedHobbies.includes(index)) {
       setSelectedHobbies(selectedHobbies.filter((i) => i !== index));
@@ -26,8 +27,11 @@ export default function SelectHobbies() {
   const saveHobbies = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
-      alert("Success");
+      if (!Userhobbies == "") {
+        await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
+        alert("Success");
+      }
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }

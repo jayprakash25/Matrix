@@ -18,14 +18,13 @@ export default function App() {
   const [isphone, setisphone] = useState();
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth <= 800) {
-      console.log(window.innerWidth);
+    if (window.innerWidth <= 1000) {
       setisphone(true);
     } else setisphone(false);
   });
 
   window.addEventListener("load", () => {
-    if (window.innerWidth <= 800) {
+    if (window.innerWidth <= 1000) {
       setisphone(true);
     } else setisphone(false);
   });
