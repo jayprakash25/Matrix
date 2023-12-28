@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import hobbies from "../Data/Hobbies";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +28,11 @@ export default function SelectHobbies() {
     e.preventDefault();
     try {
       if (!Userhobbies == "") {
-        await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
+        // await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
+        const userJWT = localStorage.getItem("jwt");
+        const docRef = doc(db, "USERS", userJWT);
+
+        await updateDoc(docRef, { UserHobbies: Userhobbies });
         alert("Success");
       }
       navigate("/home");

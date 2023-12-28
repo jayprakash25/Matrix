@@ -1,14 +1,11 @@
-import React, { useId, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth, db } from "../Firebase";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import collegesInHyderabad from "../Data/cllg";
 import { EnterOtp } from "./index";
 export default function RegistrationForm() {
   const [isshow, setisshow] = useState(false);
-  const navigate = useNavigate();
-  const id = useId();
   const [user, setuser] = useState({
     Name: "",
     Phone: "",
@@ -16,6 +13,7 @@ export default function RegistrationForm() {
     location: "",
     collage: "",
     Profession: "",
+    UserHobbies: [" "],
   });
 
   const configureCaptcha = () => {
@@ -39,8 +37,8 @@ export default function RegistrationForm() {
         .then(async (confirmationResult) => {
           window.confirmationResult = confirmationResult;
           setisshow(true);
-          await setDoc(doc(db, "USERS", id), user);
-          navigate("/hobbies");
+          // await setDoc(doc(db, "USERS", id), user);
+          // navigate("/hobbies");
         })
         .catch((error) => {
           console.log(error);

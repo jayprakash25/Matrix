@@ -19,7 +19,7 @@ export default function EnterOtp({ user }) {
             alert("Number is verified!");
             localStorage.setItem("jwt", userjwt);
             await setDoc(doc(db, "USERS", userjwt), user);
-            navigate("/home");
+            navigate("/hobbies");
           })
           .catch((error) => {
             console.log(error);
