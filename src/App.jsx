@@ -19,14 +19,15 @@ export default function App() {
 
   window.addEventListener("resize", () => {
     if (window.innerWidth <= 800) {
+      console.log(window.innerWidth);
       setisphone(true);
-    }
+    } else setisphone(false);
   });
 
   window.addEventListener("load", () => {
     if (window.innerWidth <= 800) {
       setisphone(true);
-    }
+    } else setisphone(false);
   });
 
   return (
