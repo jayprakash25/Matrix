@@ -13,23 +13,23 @@ export default function BottomBar() {
         <ul className="flex items-center  p-3.5 px-2 text-sm font-semibold text-center text-white justify-evenly">
           <Link to={"/home"}>
             <li className={liststyle}>
-              <PiHouse size={25} color="white" />
+              <PiHouse size={25} color="#fff" />
               {/* <h1>Home</h1> */}
             </li>
           </Link>
           <Link to={"/people"}>
             <li className={liststyle}>
-              <IoMdPeople size={25} color="white" />
+              <IoMdPeople size={25} color="#fff" />
               {/* <h1>People</h1> */}
             </li>
           </Link>
           <li>
-            <IoIosSchool size={25} color="white" />
+            <IoIosSchool size={25} color="#fff" />
             {/* <h1>Collage</h1> */}
           </li>
           <Link to={"/profile"}>
             <li className={liststyle}>
-              <CgProfile size={25} color="white" />
+              <CgProfile size={25} color="#fff" />
               {/* <h1>Profile</h1> */}
             </li>
           </Link>

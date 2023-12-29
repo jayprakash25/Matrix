@@ -3,6 +3,7 @@ import { BottomBar, Empty, Loader, UsersPosts } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import Discover from "../components/home/Discover";
+import Category from "../components/home/Category";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
@@ -37,6 +38,7 @@ export default function Home() {
       {isloading ? <Loader /> : null}
       <Discover />
       {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
+      <Category />
       <BottomBar />
     </>
   );
