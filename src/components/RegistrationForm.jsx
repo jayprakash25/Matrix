@@ -71,15 +71,15 @@ export default function RegistrationForm() {
   return (
     <>
       <div className="text-center mt-7">
-        <h1 className="text-3xl font-semibold text-slate-800">
-          Create <span className="text-slate-600">Account</span>
+        <h1 className="text-3xl font-semibold text-white">
+          Create <span className="text-white">Account</span>
         </h1>
       </div>
       <form className="flex flex-col items-center justify-center gap-10 mt-10">
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Your Name
           </label>
@@ -90,13 +90,13 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Name: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Phone
           </label>
@@ -107,13 +107,13 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Phone: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Age
           </label>
@@ -124,13 +124,13 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, age: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Your location
           </label>
@@ -142,13 +142,13 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, location: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Your collage
           </label>
@@ -157,7 +157,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, collage: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             name=""
             id=""
           >
@@ -173,7 +173,7 @@ export default function RegistrationForm() {
         <div className="relative">
           <label
             htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-gray-600 bg-white left-2"
+            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
           >
             Your Profession
           </label>
@@ -184,7 +184,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Profession: e.target.value });
             }}
-            className="w-[80vw] py-2.5 px-5 transition duration-300 border rounded-full focus:outline-none focus:border-slate-800 border-gray-300"
+            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
       </form>
