@@ -6,8 +6,8 @@ import {
   collection,
   getDocs,
 } from "firebase/firestore";
-import { db } from "../Firebase";
-import Loader from "./People/Loader";
+import { db } from "../../Firebase";
+import Loader from "./Loader";
 import { Link } from "react-router-dom";
 export default function UserProfile() {
   const jwt = localStorage.getItem("jwt");

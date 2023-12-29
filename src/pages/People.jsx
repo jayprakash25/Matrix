@@ -1,5 +1,6 @@
-import { BottomBar, Navbar, UserProfiles } from "../components";
+import { BottomBar } from "../components";
 import SearchBar from "../components/People/SearchBar";
+import UserProfiles from "../components/People/UserProfiles";
 
 export default function People() {
   // algorithm to find people with same hobbies
