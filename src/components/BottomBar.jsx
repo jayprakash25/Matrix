@@ -2,7 +2,7 @@ import { PiHouse } from "react-icons/pi";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoMdPeople } from "react-icons/io";
-import { IoIosSchool } from "react-icons/io";
+import { FaRegBell } from "react-icons/fa";
 
 export default function BottomBar() {
   const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
@@ -23,10 +23,11 @@ export default function BottomBar() {
               {/* <h1>People</h1> */}
             </li>
           </Link>
-          <li>
-            <IoIosSchool size={25} color="#fff" />
-            {/* <h1>Collage</h1> */}
-          </li>
+          <Link to="/notifications">
+            <li>
+              <FaRegBell size={25} color="#fff" />
+            </li>
+          </Link>
           <Link to={"/profile"}>
             <li className={liststyle}>
               <CgProfile size={25} color="#fff" />

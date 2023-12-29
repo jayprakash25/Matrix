@@ -1,7 +1,7 @@
-import React from "react";
-import { BottomBar, Notification } from "../components";
+import { BottomBar } from "../components";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Notification from "../components/notifications/Notification";
 
 export default function Notifications() {
   return (
