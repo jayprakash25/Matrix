@@ -36,8 +36,8 @@ export default function App() {
         <>
           <Routes>
             {/* <Route path="/" element={<Signup />} /> */}
-            {/* <Route path="/register" element={<RegistrationForm />} /> */}
-            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/profile" element={<UserProfile />} />

@@ -6,11 +6,11 @@ export default function Button({ title, logo, handleSubmit }) {
       <div className="flex justify-center ">
         <button
           onClick={handleSubmit}
-          className="font-semibold text-sm bg-[#25dd45] w-full text-white rounded-full px-20 py-3.5"
+          className="font-semibold text-sm bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  w-[85vw] text-white rounded-lg px-20 py-3.5"
         >
           <div className="flex items-center justify-center space-x-2">
             {logo}
-            <p> {title}</p>
+        <p> {title}</p>
           </div>
         </button>
       </div>

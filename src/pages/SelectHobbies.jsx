@@ -47,14 +47,16 @@ export default function SelectHobbies() {
 
   return (
     <>
-      <div className="px-8 pt-8 space-y-4">
-        <h1 className="text-5xl">Hello.</h1>
-        <p className="text-sm">
+      <div className="px-8 pt-5 space-y-4">
+        <h1 className="text-5xl font-semibold text-transparent bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 bg-clip-text">
+          Hello.
+        </h1>
+        <p className="text-sm text-amber-200">
           Pick your favorite Hobbies to set up your feed
         </p>
       </div>
 
-      <main className="grid justify-center grid-cols-3 gap-4 px-3.5 mt-8 mb-5 place-items-center">
+      <main className="grid justify-center grid-cols-3 gap-3.5 px-3.5 mt-8 mb-5 place-items-center">
         {hobbies.map((hobby, i) => (
           <div
             key={i}
@@ -64,18 +66,18 @@ export default function SelectHobbies() {
             }}
             className={`${
               selectedHobbies.includes(i)
-                ? "bg-black text-white ease-in-out duration-500"
+                ? "bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  text-white ease-in-out duration-500"
                 : null
-            } border-[1px] cursor-pointer w-[7.5rem] text-center px-6 py-2 border-slate-800 rounded-full`}
+            }   cursor-pointer w-[8rem] text-center px-6 py-2 border-amber-500 rounded-full`}
           >
-            <h1>{hobby}</h1>
+            <h1 className="text-sm font-semibold ">{hobby}</h1>
           </div>
         ))}
       </main>
       <div className="flex items-center justify-center my-10">
         <button
           onClick={saveHobbies}
-          className=" py-4  bg-black text-white rounded-full px-24 "
+          className="py-4 px-8  w-[85vw] text-white rounded-lg  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 "
         >
           Next
         </button>

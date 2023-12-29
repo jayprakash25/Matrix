@@ -102,7 +102,7 @@ export default function UserProfile() {
   return (
     <>
       {isloading ? (
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="grid w-full grid-cols-2 gap-4">
           {Array.from(load, (index) => (
             <Loader key={index} />
           ))}

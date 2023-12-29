@@ -71,20 +71,15 @@ export default function RegistrationForm() {
   return (
     <>
       <div className="text-center mt-7">
-        <h1 className="text-3xl font-semibold text-white">
-          Create <span className="text-white">Account</span>
+        <h1 className="text-3xl font-semibold text-amber-500">
+          Create Account
         </h1>
       </div>
       <form className="flex flex-col items-center justify-center gap-10 mt-10">
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Your Name
-          </label>
           <input
             type="text"
+            placeholder="Name"
             name="input"
             value={user.Name}
             onChange={(e) => {
@@ -94,14 +89,9 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Phone
-          </label>
           <input
             type="text"
+            placeholder="Phone"
             name="input"
             value={user.Phone}
             onChange={(e) => {
@@ -111,15 +101,10 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Age
-          </label>
           <input
             type="text"
             name="input"
+            placeholder="age"
             value={user.age}
             onChange={(e) => {
               setuser({ ...user, age: e.target.value });
@@ -128,16 +113,11 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Your location
-          </label>
           <input
             onClick={getUserlocatiom}
             type="text"
             name="input"
+            placeholder="location"
             value={user.location}
             onChange={(e) => {
               setuser({ ...user, location: e.target.value });
@@ -146,20 +126,12 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Your collage
-          </label>
           <select
             value={user.collage}
             onChange={(e) => {
               setuser({ ...user, collage: e.target.value });
             }}
             className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
-            name=""
-            id=""
           >
             {collegesInHyderabad.map((item, i) => {
               return (
@@ -171,16 +143,11 @@ export default function RegistrationForm() {
           </select>
         </div>
         <div className="relative">
-          <label
-            htmlFor="input"
-            className="absolute top-0 px-2 -mt-2 text-sm text-white  left-2"
-          >
-            Your Profession
-          </label>
           <input
             type="text"
             name="input"
             value={user.Profession}
+            placeholder="Profession"
             onChange={(e) => {
               setuser({ ...user, Profession: e.target.value });
             }}
@@ -197,7 +164,7 @@ export default function RegistrationForm() {
         <p>
           Agree with{" "}
           <Link to={"/privacy"}>
-            <span className="font-semibold text-slate-800">
+            <span className="font-semibold text-amber-500">
               Term & Conditions
             </span>
           </Link>
@@ -208,7 +175,7 @@ export default function RegistrationForm() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={onNumSubmit}
-          className="w-[80vw] py-4  bg-black text-white rounded-full px-29 "
+          className="w-[80vw] py-4  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-lg px-29 "
         >
           Create Account
         </button>

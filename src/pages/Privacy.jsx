@@ -28,7 +28,7 @@ export default function Privacy() {
   return (
     <>
       <div className="mx-4 mt-5">
-        <h1 className="text-2xl font-bold">Terms of Service</h1>
+        <h1 className="text-2xl font-bold text-amber-500">Terms of Service</h1>
       </div>
 
       <div>
@@ -37,8 +37,8 @@ export default function Privacy() {
             return (
               <React.Fragment key={i}>
                 <li className="space-y-1.5">
-                  <h1 className="text-lg font-semibold">{item.Tittle}</h1>
-                  <p className="text-sm leading-6">{item.Para}</p>
+                  <h1 className="text-lg text-amber-300">{item.Tittle}</h1>
+                  <p className="text-sm leading-6 ">{item.Para}</p>
                 </li>
               </React.Fragment>
             );
