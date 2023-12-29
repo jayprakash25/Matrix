@@ -35,7 +35,7 @@ export default function EnterOtp({ user }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="flex flex-col gap-8  bg-white w-[70vw] rounded-md px-5 py-9">
+      <div className="flex flex-col gap-8   w-[70vw] rounded-md px-5 py-9">
         <input
           type="text"
           placeholder="Enter OTP"
@@ -47,7 +47,7 @@ export default function EnterOtp({ user }) {
         />
         <button
           onClick={createUser}
-          className="py-2 text-sm font-semibold text-white bg-black rounded-md"
+          className="py-2 text-sm  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  rounded-md"
         >
           Done
         </button>
