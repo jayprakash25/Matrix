@@ -67,19 +67,19 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col justify-center h-screen">
-      <div className="flex flex-col items-center px-3 py-5 space-y-4 text-2xl font-semibold">
+    <div className="flex flex-col px-5 justify-center h-screen">
+      <div className="flex flex-col items-center px-2 py-5  space-y-4 text-2xl font-semibold">
         <p>
           As a <span className="text-slate-500">user</span>, I am entering my
         </p>
-        <form className="grid space-y-4">
+        <form className="grid space-y-4 w-full">
           <input
             type="email"
             value={cred.email}
             onChange={(e) => {
               setCred({ ...cred, email: e.target.value });
             }}
-            className="outline-none py-2.5 bg-slate-100 px-7"
+            className=" focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             placeholder="Email"
           />
           <input
@@ -88,7 +88,7 @@ export default function Signup() {
             onChange={(e) => {
               setCred({ ...cred, password: e.target.value });
             }}
-            className="outline-none py-2.5 bg-slate-100 px-7"
+            className=" focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             placeholder="New Password"
           />
           {errorMessage && (
@@ -96,7 +96,7 @@ export default function Signup() {
           )}
           <input
             type="password"
-            className="outline-none py-2.5 bg-slate-100 px-7"
+            className=" focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             placeholder="Re-Enter Password"
           />
           <div className="flex items-center justify-center space-x-2 px-3">

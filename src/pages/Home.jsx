@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
 import { BottomBar, Loader } from "../components";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../Firebase";
+import { auth, db } from "../Firebase";
 import Discover from "../components/home/Discover";
 import Category from "../components/home/Category";
 import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
+import { useNavigate } from "react-router-dom";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
-
+  const navigate = useNavigate();
   const fetchPosts = async () => {
     try {
+      const user = auth.currentUser; // Check if the user is authenticated
+      if (!user) {
+        navigate("/login");
+        return;
+      }
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data().connectedUsers;
