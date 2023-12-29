@@ -40,7 +40,6 @@ export default function Category() {
       <div>
         <h1 className="text-lg font-semibold">Categories</h1>
       </div>
-      {/* <div className="flex items-center "> */}
       <div className="flex space-x-4 relative overflow-x-auto">
         {category.map((_, index) => {
           return (
@@ -54,12 +53,7 @@ export default function Category() {
             </div>
           );
         })}
-        {/* <div className="flex items-center justify-center absolute right-0 top-[35%]  ">
-          <img src={right} alt="" />
-        </div> */}
       </div>
-
-      {/* </div> */}
     </div>
   );
 }

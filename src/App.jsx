@@ -35,7 +35,7 @@ export default function App() {
       {isphone ? (
         <>
           <Routes>
-            {/* <Route path="/" element={<Signup />} /> */}
+            <Route path="/" element={<Signup />} />
             <Route path="/register" element={<RegistrationForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
