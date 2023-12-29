@@ -7,7 +7,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../Firebase";
-import { Loader } from "./index";
+import Loader from "./People/Loader";
 import { Link } from "react-router-dom";
 export default function UserProfile() {
   const jwt = localStorage.getItem("jwt");
@@ -98,10 +98,16 @@ export default function UserProfile() {
       console.log(error);
     }
   };
-
+  const load = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11];
   return (
     <>
-      {isloading ? <Loader /> : null}
+      {isloading ? (
+        <div className="grid grid-cols-2 gap-4 w-full">
+          {Array.from(load, (index) => (
+            <Loader key={index} />
+          ))}
+        </div>
+      ) : null}
       {showUsers
         ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
         .map((_, i) => {
