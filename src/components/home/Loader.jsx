@@ -3,7 +3,7 @@ import CatLoader from "./CatLoader";
 
 export default function Loader() {
   return (
-    <div>
+    <div className="pt-4">
       <PostLoader />
       <PostLoader />
       <CatLoader />
