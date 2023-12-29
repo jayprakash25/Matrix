@@ -53,7 +53,7 @@ export default function EditProfile({ setisedit }) {
   // };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="p-6  bg-white  w-[90vw]">
+      <div className="p-6 rounded-lg bg-[#161616] w-[90vw]">
         <div className="flex justify-end">
           <RxCross2
             cursor={"pointer"}
@@ -61,29 +61,31 @@ export default function EditProfile({ setisedit }) {
               setisedit(false);
             }}
             size={25}
-            color={"black"}
+            color={"white"}
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
-          <IoCloudUploadOutline size={70} className="mx-auto" color="black" />
+          <IoCloudUploadOutline size={70} className="mx-auto" color="white" />
           <label className="font-semibold">ProfilePic*</label>
-          <input
-            className="hidden px-4 py-2 border-2 outline-none"
-            type="text"
-          />
+          <input className="hidden px-4 py-2 outline-none" type="text" />
         </div>
         <div className="flex flex-col justify-center gap-3 my-6">
           <label className="font-semibold">Name*</label>
-          <input className="px-4 py-2 border-2 outline-none" type="text" />
+          <input className="px-4 py-2  outline-none bg-[#383838]" type="text" />
         </div>
         <div className="flex flex-col justify-center gap-3 my-6">
           <label className="font-semibold">Bio*</label>
           <textarea
-            className="px-4 py-2 border-2 outline-none"
+            className="px-4 py-2 outline-none bg-[#383838]"
             id=""
             cols="30"
             rows="5"
           ></textarea>
+        </div>
+        <div className="flex justify-center">
+          <button className="w-[80vw] py-2  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-lg  ">
+            Edit
+          </button>
         </div>
       </div>
     </div>

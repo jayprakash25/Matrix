@@ -43,6 +43,10 @@ export default function UserProfile() {
     getPosts();
   }, []);
 
+  const Logout = () => {
+    localStorage.setItem("logout", true);
+  };
+
   return (
     <>
       <main>
@@ -80,9 +84,15 @@ export default function UserProfile() {
               >
                 Edit Profile
               </button>
-              <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
-                Collabrates {count}
-              </button>
+              {jwt === localStorage.getItem("jwt") ? (
+                <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
+                  Collabrates {count}
+                </button>
+              ) : (
+                <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
+                  Collabrate
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -132,7 +142,7 @@ export default function UserProfile() {
             </div>
           </li>
           <li className={"flex justify-between w-full items-center"}>
-            <div className={liststyle}>
+            <div onClick={Logout} className={liststyle}>
               <ImExit size={25} color="orange" />
               <h1 className="text-red-500">Logout</h1>
             </div>
