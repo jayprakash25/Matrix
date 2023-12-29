@@ -14,7 +14,7 @@ export default function Home() {
   const navigate = useNavigate();
   const fetchPosts = async () => {
     try {
-      const user = auth.currentUser; // Check if the user is authenticated
+      const user = auth.currentUser; 
       if (!user) {
         navigate("/login");
         return;

@@ -19,13 +19,13 @@ export default function App() {
   const [isphone, setisphone] = useState();
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth < 1000) {
       setisphone(true);
     } else setisphone(false);
   });
 
   window.addEventListener("load", () => {
-    if (window.innerWidth <= 1000) {
+    if (window.innerWidth < 1000) {
       setisphone(true);
     } else setisphone(false);
   });
@@ -35,9 +35,9 @@ export default function App() {
       {isphone ? (
         <>
           <Routes>
-            <Route path="/" element={<Signup />} />
-            <Route path="/register" element={<RegistrationForm />} />
-            <Route path="/login" element={<Login />} />
+            {/* <Route path="/" element={<Signup />} /> */}
+            {/* <Route path="/register" element={<RegistrationForm />} /> */}
+            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/home" element={<Home />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/profile" element={<UserProfile />} />

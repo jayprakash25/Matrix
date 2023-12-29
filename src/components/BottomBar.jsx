@@ -8,9 +8,9 @@ export default function BottomBar() {
   const liststyle = "flex flex-col items-center gap-1 cursor-pointer";
 
   return (
-    <footer className="fixed bottom-0 w-full px-5 pb-5">
-      <div className="w-full bg-[#282828] rounded-full">
-        <ul className="flex items-center  p-3.5 px-2 text-sm font-semibold text-center text-white justify-evenly">
+    <footer className="fixed bottom-0 w-full">
+      <div className="w-full bg-[#282828] rounded-t-xl">
+        <ul className="flex items-center px-2 py-5 text-sm font-semibold text-center text-white justify-evenly">
           <Link to={"/home"}>
             <li className={liststyle}>
               <PiHouse size={25} color="#fff" />
