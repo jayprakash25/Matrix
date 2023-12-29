@@ -46,17 +46,17 @@ export default function Notification() {
         {Notifications?.map((_, i) => {
           return (
             <React.Fragment key={i}>
-              <div className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-gray-200">
+              <div className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
                 <div className="flex items-center gap-5">
                   <img
                     className="object-cover w-16 h-16 rounded-full"
                     src={_.Pic}
-                    alt=""
+                    alt={_.Pic}
                   />
-                  <div className="space-y-0.5">
+                  <div className="space-y-1">
                     <h1 className="text-lg font-bold">{_.Name}</h1>
-                    <p className="text-sm font-semibold text-slate-800">
-                      Connected with you
+                    <p className="text-sm font-semibold">
+                      Want's to Collabrate with you
                     </p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function Notification() {
                   }}
                   size={27}
                   cursor={"pointer"}
-                  color="black"
+                  color="white"
                 />
               </div>
             </React.Fragment>

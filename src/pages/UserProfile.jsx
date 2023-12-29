@@ -3,17 +3,16 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { ImExit } from "react-icons/im";
-import { AddPost, BottomBar, EditProfile, Loader } from "../components";
+import { BottomBar, EditProfile, Loader } from "../components";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaRegBell } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
-  const [isPost, setisPost] = useState(false);
+  const [count, setcount] = useState(10);
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
@@ -61,7 +60,6 @@ export default function UserProfile() {
             </div>
           </div>
         </nav>
-
         <div className="flex items-start justify-center gap-5 mt-5">
           <div className="">
             <img
@@ -73,14 +71,19 @@ export default function UserProfile() {
           <div className="max-w-[55vw] space-y-3">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
             <p className="text-sm text-slate-500">{Userdata.Bio}</p>
-            <button
-              onClick={() => {
-                setisedit(true);
-              }}
-              className="py-2 text-sm font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7"
-            >
-              Edit Profile
-            </button>
+            <div className="space-x-5">
+              <button
+                onClick={() => {
+                  setisedit(true);
+                }}
+                className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7"
+              >
+                Edit Profile
+              </button>
+              <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
+                Collabrates {count}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -106,19 +109,17 @@ export default function UserProfile() {
             </div>
           </li>
           <li className={"flex justify-between w-full items-center"}>
-            <div
-              onClick={() => {
-                setisPost(true);
-              }}
-              className={liststyle}
-            >
-              <FaRegBell size={20} color="orange" />
-              <h1>Notifications</h1>
-            </div>
+            <Link to="/notifications">
+              <div className={liststyle}>
+                <FaRegBell size={20} color="orange" />
+                <h1>Notifications</h1>
+              </div>
+            </Link>
             <div>
               <FaArrowRight size={20} color="orange" />
             </div>
           </li>
+
           <li className={"flex justify-between w-full items-center"}>
             <Link to="/privacy">
               <div className={liststyle}>
@@ -169,7 +170,6 @@ export default function UserProfile() {
           })}
         </div>
         {isedit ? <EditProfile setisedit={setisedit} /> : null}
-        {isPost ? <AddPost setisPost={setisPost} /> : null}
       </main>
       <BottomBar />
     </>
