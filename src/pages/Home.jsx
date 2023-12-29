@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { BottomBar, Empty, Loader, Navbar, UsersPosts } from "../components";
+import { BottomBar, Empty, Loader, UsersPosts } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import Discover from "../components/home/Discover";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
@@ -32,8 +33,9 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {isloading ? <Loader /> : null}
+      <Discover />
       {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
       <BottomBar />
     </>

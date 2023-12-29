@@ -9,7 +9,7 @@ export default function BottomBar() {
 
   return (
     <footer className="fixed bottom-0 w-full px-5 pb-5">
-      <div className="w-full bg-black rounded-full">
+      <div className="w-full bg-[#282828] rounded-full">
         <ul className="flex items-center  p-3.5 px-2 text-sm font-semibold text-center text-white justify-evenly">
           <Link to={"/home"}>
             <li className={liststyle}>
