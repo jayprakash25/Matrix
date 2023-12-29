@@ -51,7 +51,7 @@ export default function SelectHobbies() {
         <h1 className="text-5xl font-semibold text-transparent bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 bg-clip-text">
           Hello.
         </h1>
-        <p className="text-sm text-amber-200">
+        <p className="text-sm ">
           Pick your favorite Hobbies to set up your feed
         </p>
       </div>
@@ -77,7 +77,7 @@ export default function SelectHobbies() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={saveHobbies}
-          className="py-4 px-8  w-[85vw] text-white rounded-lg  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 "
+          className="py-4 px-8  w-[85vw] text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 "
         >
           Next
         </button>
