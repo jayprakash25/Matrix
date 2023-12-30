@@ -22,11 +22,7 @@ export default function Home() {
         navigate("/login");
         return;
       }
-      // const user = auth.currentUser;
-      // if (!user) {
-      //   navigate("/login");
-      //   return;
-      // }
+
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data().connectedUsers;
