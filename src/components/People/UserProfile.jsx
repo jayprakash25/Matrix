@@ -230,16 +230,16 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
           .map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <Link to={`/${_.id}`}>
+                <Link to="/home">
                   <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
                     <div>
                       <img
                         src={_.Pic}
-                        className="object-cover w-24 h-24 rounded-full"
+                        className="object-cover rounded-full w-28 h-28"
                         alt={_.Pic}
                       />
                     </div>
-                    <div className="max-w-xs space-y-1.5">
+                    <div className="max-w-xs space-y-3.5">
                       <h1 className="text-xl font-semibold">{_.Name}</h1>
                       <p className="text-xs leading-5 text-slate-400">
                         {_.Bio}
@@ -253,6 +253,14 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                           );
                         })}
                       </ul>
+                      <button
+                        onClick={() => {
+                          connectUser(_.id);
+                        }}
+                        className={`w-full py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-yellow-600 via-yellow-600 to-amber-700  active:brightness-75 ease-in-out duration-300`}
+                      >
+                        Connect
+                      </button>
                     </div>
                   </div>
                 </Link>

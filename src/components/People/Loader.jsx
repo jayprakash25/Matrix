@@ -3,7 +3,7 @@ export default function Loader() {
     <div className="w-full">
       <div className="border border-[#282828] shadow rounded-md p-4 w-full mx-auto">
         <div className="flex space-x-4 animate-pulse">
-          <div className="object-cover w-24 h-24 rounded-full"></div>
+          <div className="object-cover w-24 h-24 border border-[#282828] rounded-full"></div>
           <div className="flex-1 py-1 space-y-6">
             <div className="h-2 bg-[#282828] rounded"></div>{" "}
             <div className="space-y-3">
