@@ -41,7 +41,7 @@ export default function UsersPosts({ posts }) {
             <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
               <div>
                 <img
-                  className="mx-auto rounded-lg w-[83vw] object-cover"
+                  className="mx-auto rounded-lg w-[85vw] object-cover"
                   src={item.image}
                   alt={item.image}
                 />
