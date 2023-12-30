@@ -10,6 +10,7 @@ export default function Login() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [invalid, setInvalid] = useState(false);
   const navigate = useNavigate();
 
   const submit = async (e) => {
@@ -29,7 +30,8 @@ export default function Login() {
       navigate("/home");
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      if (error.code == "auth/invalid-login-credentials") setInvalid(true);
+      console.log(error.code);
     }
   };
 
@@ -76,6 +78,11 @@ export default function Login() {
                   });
                 }}
               />
+              {invalid && (
+                <div className="text-sm text-red-600">
+                  Invalid email or password. Please check your credentials.
+                </div>
+              )}
               <div className="  py-5 space-y-6">
                 <Button handleSubmit={submit} title="Login" />
               </div>
