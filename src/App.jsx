@@ -35,11 +35,11 @@ export default function App() {
       {isphone ? (
         <>
           <Routes>
-            <Route path="/" element={<Signup />} />
+            {/* <Route path="/" element={<Signup />} />
             <Route path="/register" element={<RegistrationForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/hobbies" element={<SelectHobbies />} />
+            <Route path="/hobbies" element={<SelectHobbies />} /> */}
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/people" element={<People />} />
             <Route path="/notifications" element={<Notifications />} />
