@@ -32,7 +32,7 @@ export default function SelectHobbies() {
         const userJWT = localStorage.getItem("jwt");
         const docRef = doc(db, "USERS", userJWT);
 
-        await updateDoc(docRef, { UserHobbies: Userhobbies });
+        await updateDoc(docRef, { hobbies: Userhobbies });
         alert("Success");
       }
       navigate("/home");

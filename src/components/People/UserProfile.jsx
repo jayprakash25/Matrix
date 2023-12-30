@@ -14,11 +14,12 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
   const [showUsers, setshowUsers] = useState([]);
   const [isloading, setisloading] = useState(true);
+  const docref = doc(db, "USERS", jwt);
+
   // Matching-Algorithm
   const fetchUsersWithSimilarHobbies = async () => {
     try {
-      const currentUserDocRef = doc(db, "USERS", jwt);
-      const currentUserDoc = await getDoc(currentUserDocRef);
+      const currentUserDoc = await getDoc(docref);
       const currentUserHobbies = currentUserDoc.data().hobbies;
       const Users = await getDocs(collection(db, "USERS"));
       const usersData = Users?.docs
@@ -33,6 +34,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
           return commonHobbies?.length > 0;
         });
       setshowUsers(usersData);
+      console.log(usersData);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -45,7 +47,6 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
 
   const fetchData = useCallback(async () => {
     try {
-      const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = User?.data()?.connectedUsers;
       setCurrentConnectedUser(currentConnectedUser);
@@ -63,13 +64,17 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
 
   const sendNotification = async (userid) => {
     try {
+      // connected User
       const docref = doc(db, "USERS", userid);
       const User = await getDoc(docref);
+      // current User
+      const currentUser = await getDoc(docref);
+      console.log(currentUser);
       const currentNotifications = User?.data()?.notifications || [];
       const notification = {
         message: "Connected with you",
-        Name: jwt,
-        Pic: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600",
+        Name: currentUser?.data()?.Name,
+        Pic: currentUser?.data()?.Pic,
       };
       await updateDoc(docref, {
         notifications: [...currentNotifications, notification],
@@ -83,7 +88,6 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
     console.log("connected to user " + id + " from " + jwt);
     setisloading(true);
     try {
-      const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = (await User?.data()?.connectedUsers) || [];
       await updateDoc(docref, {
@@ -100,121 +104,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
   };
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11];
 
-  const dummydata = [
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-    {
-      id: "dlvndv03e930",
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rahul",
-      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
-      Hobbies: [
-        "Reading",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "Hiking",
-        "",
-      ],
-    },
-  ];
-
+  console.log(showUsers);
   return (
     <>
       {isloading ? (
@@ -225,7 +115,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
         </div>
       ) : null}
       <div className="flex flex-col gap-4 mb-20">
-        {dummydata
+        {showUsers
           ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
           .map((_, i) => {
             return (
@@ -245,9 +135,12 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                         {_.Bio}
                       </p>
                       <ul className="flex gap-4 overflow-x-scroll">
-                        {_.Hobbies.map((i) => {
+                        {_.hobbies.map((i, index) => {
                           return (
-                            <li className="px-2 py-0.5 rounded-full  text-sm bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700   text-white ">
+                            <li
+                              key={index}
+                              className="px-2 py-0.5 rounded-full  text-sm bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700   text-white "
+                            >
                               {i}
                             </li>
                           );
