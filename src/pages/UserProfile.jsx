@@ -52,11 +52,12 @@ export default function UserProfile() {
 
   const deletePost = async (postid) => {
     try {
+      setisloading(true);
       setisdelete((pre) => (pre === postid ? null : postid));
-      const currentPosts = [...Userdata.Posts];
-      currentPosts.splice(postid, 1);
+      const UpdatedPosts = [...Userdata.Posts];
+      UpdatedPosts.splice(postid, 1);
       await updateDoc(docref, { Posts: currentPosts });
-      setisloading(false);
+      setUserdata({ ...Userdata, Posts: UpdatedPosts || [] });
     } catch (error) {
       console.log(error);
     }
