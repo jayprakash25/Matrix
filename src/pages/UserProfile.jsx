@@ -74,7 +74,7 @@ export default function UserProfile() {
           </div>
           <div className="max-w-[55vw] space-y-3">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
-            <p className="text-sm text-slate-500">{Userdata.Bio}</p>
+            <p className="text-sm text-slate-400">{Userdata.Bio}</p>
             <div className="space-x-5">
               <button
                 onClick={() => {

@@ -4,7 +4,6 @@ import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
-import { FaRegBell } from "react-icons/fa";
 
 const BottomBarItem = ({ to, icon }) => (
   <Link to={to}>
@@ -28,12 +27,7 @@ const BottomBar = () => {
             icon={<MdPeopleAlt size={25} color={iconColor} />}
           />
           <BottomBarItem
-            to="/create"
             icon={<IoCreate size={25} color={iconColor} />}
-          />
-          <BottomBarItem
-            to="/notifications"
-            icon={<FaRegBell size={25} color={iconColor} />}
           />
           <BottomBarItem
             to="/profile"

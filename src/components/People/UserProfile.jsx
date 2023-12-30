@@ -99,55 +99,167 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
     }
   };
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11];
+
+  const dummydata = [
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+    {
+      id: "dlvndv03e930",
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rahul",
+      Bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam laudantium deleniti sequi reprehenderit. Qui, minus suscipit, explicabo impedit quasi accusamus culpa magni iusto, ratione neque assumenda placeat vitae numquam rerum",
+      Hobbies: [
+        "Reading",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "Hiking",
+        "",
+      ],
+    },
+  ];
+
   return (
     <>
       {isloading ? (
-        <div className="grid w-full grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4 ">
           {Array.from(load, (index) => (
             <Loader key={index} />
           ))}
         </div>
       ) : null}
-      {showUsers
-        ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
-        .map((_, i) => {
-          return (
-            <React.Fragment key={i}>
-              <Link to={`/${_.id}`}>
-                <div className="w-[76vw] shadow-md shadow-gray-200 mb-1.5 cursor-pointer">
-                  <div>
-                    <img
-                      src={_.Banner}
-                      className="rounded-t-lg border-t-[1px] border-gray-300"
-                      alt=""
-                    />
+      <div className="flex flex-col gap-4 mb-20">
+        {dummydata
+          ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
+          .map((_, i) => {
+            return (
+              <React.Fragment key={i}>
+                <Link to={`/${_.id}`}>
+                  <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
+                    <div>
+                      <img
+                        src={_.Pic}
+                        className="object-cover w-24 h-24 rounded-full"
+                        alt={_.Pic}
+                      />
+                    </div>
+                    <div className="max-w-xs space-y-1.5">
+                      <h1 className="text-xl font-semibold">{_.Name}</h1>
+                      <p className="text-xs leading-5 text-slate-400">
+                        {_.Bio}
+                      </p>
+                      <ul className="flex gap-4 overflow-x-scroll">
+                        {_.Hobbies.map((i) => {
+                          return (
+                            <li className="px-2 py-0.5 rounded-full  text-sm bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700   text-white ">
+                              {i}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
-                  <div className="flex justify-center -mt-9">
-                    <img
-                      src={_.Pic}
-                      className="object-cover w-16 h-16 rounded-full"
-                      alt=""
-                    />
-                  </div>
-                  <div className="px-5 space-y-5 text-center bg-white py-7">
-                    <h1 className="text-xl font-bold text-slate-800">
-                      {_.Name}
-                    </h1>
-                    <p className="text-sm leading-6 text-slate-500">{_.Bio}</p>
-                    <button
-                      onClick={() => {
-                        connectUser(_.id);
-                      }}
-                      className="px-10 py-2 text-white bg-black rounded-lg w-[50vw] font-semibold"
-                    >
-                      Follow
-                    </button>
-                  </div>
-                </div>
-              </Link>
-            </React.Fragment>
-          );
-        })}
+                </Link>
+              </React.Fragment>
+            );
+          })}
+      </div>
     </>
   );
 }
