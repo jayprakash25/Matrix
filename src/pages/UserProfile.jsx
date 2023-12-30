@@ -5,7 +5,7 @@ import { PiHouse } from "react-icons/pi";
 import { ImExit } from "react-icons/im";
 import { BottomBar, EditProfile, Loader } from "../components";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaRegBell } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaRegBell, FaSketch } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -53,11 +53,15 @@ export default function UserProfile() {
   const deletePost = async (postid) => {
     try {
       setisloading(true);
-      setisdelete((pre) => (pre === postid ? null : postid));
       const UpdatedPosts = [...Userdata.Posts];
       UpdatedPosts.splice(postid, 1);
-      await updateDoc(docref, { Posts: currentPosts });
-      setUserdata({ ...Userdata, Posts: UpdatedPosts || [] });
+      await updateDoc(docref, { Posts: UpdatedPosts });
+      setisdelete(false);
+      setUserdata({
+        ...Userdata,
+        Posts: UpdatedPosts,
+      });
+      setisloading(false);
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +117,7 @@ export default function UserProfile() {
           </div>
         </div>
 
-        <ul className="flex flex-col items-start justify-start gap-10 px-8 text-sm text-center py-7 my-">
+        <ul className="flex flex-col items-start justify-start gap-10 px-8 text-sm text-center py-7 ">
           <li className={"flex justify-between w-full items-center"}>
             <Link to="/home">
               <div className={liststyle}>
@@ -168,7 +172,7 @@ export default function UserProfile() {
           </li>
         </ul>
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
-          {Userdata.Posts?.map((item, i) => {
+          {Userdata?.Posts?.map((item, i) => {
             return (
               <React.Fragment key={i}>
                 <div className="border-[1px] border-zinc-800 rounded-lg shadow-sm max-w-md p-4 space-y-3.5 ">
@@ -184,23 +188,29 @@ export default function UserProfile() {
                     <div>
                       <HiDotsHorizontal
                         onClick={() => {
-                          deletePost(i);
+                          setisdelete(true);
                         }}
                         size={25}
                         color="white"
+                        cursor={"pointer"}
                       />
-                      {isdelete === i ? (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-                          <ul className="p-10 space-y-4 rounded-md bg-zinc-800">
-                            <li
-                              className="flex items-center gap-7 px-5 cursor-pointer py-2 bg-[#232222]"
-                              onClick={deletePost}
-                            >
-                              <h1 className="text-red-500 semibold">Delete</h1>
-                              <AiOutlineDelete size={23} color={"red"} />
-                            </li>
-                          </ul>
-                        </div>
+                      {isdelete ? (
+                        <>
+                          <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
+                            <ul className="p-10 space-y-4 rounded-md bg-zinc-800">
+                              <li
+                                className="flex items-center gap-7 px-5 cursor-pointer py-2 bg-[#232222]"
+                                onClick={deletePost}
+                              >
+                                <h1 className="text-red-500 semibold">
+                                  Delete
+                                </h1>
+                                <AiOutlineDelete size={23} color={"red"} />
+                              </li>
+                            </ul>
+                          </div>
+                          {isloading ? <Loader /> : null}
+                        </>
                       ) : null}
                     </div>
                   </div>

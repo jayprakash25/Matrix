@@ -38,8 +38,15 @@ export default function UsersPosts({ posts }) {
       {dummyPosts?.map((item, i) => {
         return (
           <React.Fragment key={i}>
-            <div className="border-[1px] border-zinc-800 rounded-lg shadow-sm max-w-md p-4 space-y-3.5 ">
-              <div className="flex items-center gap-5">
+            <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
+              <div>
+                <img
+                  className="mx-auto rounded-lg w-[83vw] object-cover"
+                  src={item.image}
+                  alt={item.image}
+                />
+              </div>
+              <div className="flex items-center gap-3 mt-5">
                 <img
                   src={item.Pic}
                   className="object-cover w-12 h-12 rounded-full"
@@ -47,16 +54,7 @@ export default function UsersPosts({ posts }) {
                 />
                 <h1 className="text-xl font-semibold">{item.Name}</h1>
               </div>
-              <div>
-                <img
-                  className="mx-auto w-[70vw]"
-                  src={item.image}
-                  alt={item.image}
-                />
-              </div>
-              <div>
-                <p className="text-sm leading-6">{item.Text}</p>
-              </div>
+              <p className="mt-3 text-sm leading-6">{item.Text}</p>
             </div>
           </React.Fragment>
         );
