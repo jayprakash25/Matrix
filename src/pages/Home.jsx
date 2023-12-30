@@ -18,10 +18,10 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       const user = auth.currentUser;
-      if (!user) {
-        navigate("/login");
-        return;
-      }
+      // if (!user) {
+      //   navigate("/login");
+      //   return;
+      // }
       // const user = auth.currentUser;
       // if (!user) {
       //   navigate("/login");

@@ -6,25 +6,28 @@ import { ImExit } from "react-icons/im";
 import { BottomBar, EditProfile, Loader } from "../components";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaRegBell } from "react-icons/fa";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
   const [count, setcount] = useState(10);
+  const [isdelete, setisdelete] = useState(false);
+  const [isloading, setisloading] = useState(true);
+  const jwt = localStorage.getItem("jwt");
+  const docref = doc(db, "USERS", jwt);
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
     Bio: "",
     Posts: [],
   });
-  const [isloading, setisloading] = useState(true);
-  const jwt = localStorage.getItem("jwt");
 
   const getPosts = async () => {
     try {
-      const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       setUserdata({
         ...Userdata,
@@ -45,6 +48,18 @@ export default function UserProfile() {
 
   const Logout = () => {
     localStorage.setItem("logout", true);
+  };
+
+  const deletePost = async (postid) => {
+    try {
+      setisdelete((pre) => (pre === postid ? null : postid));
+      const currentPosts = [...Userdata.Posts];
+      currentPosts.splice(postid, 1);
+      await updateDoc(docref, { Posts: currentPosts });
+      setisloading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -151,28 +166,52 @@ export default function UserProfile() {
             </div>
           </li>
         </ul>
-        <div className="flex flex-col items-center justify-center my-10 gap-7">
-          {Userdata.Posts?.map((i, index) => {
+        <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
+          {Userdata.Posts?.map((item, i) => {
             return (
-              <React.Fragment key={index}>
-                <div className="border-[1px] border-gray-200 rounded-lg shadow-sm max-w-md p-4 space-y-3.5">
-                  <div className="flex items-center gap-5">
+              <React.Fragment key={i}>
+                <div className="border-[1px] border-zinc-800 rounded-lg shadow-sm max-w-md p-4 space-y-3.5 ">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-5">
+                      <img
+                        src={item.Pic}
+                        className="object-cover w-12 h-12 rounded-full"
+                        alt={item.Pic}
+                      />
+                      <h1 className="text-xl font-semibold">{item.Name}</h1>
+                    </div>
+                    <div>
+                      <HiDotsHorizontal
+                        onClick={() => {
+                          deletePost(i);
+                        }}
+                        size={25}
+                        color="white"
+                      />
+                      {isdelete === i ? (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
+                          <ul className="p-10 space-y-4 rounded-md bg-zinc-800">
+                            <li
+                              className="flex items-center gap-7 px-5 cursor-pointer py-2 bg-[#232222]"
+                              onClick={deletePost}
+                            >
+                              <h1 className="text-red-500 semibold">Delete</h1>
+                              <AiOutlineDelete size={23} color={"red"} />
+                            </li>
+                          </ul>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <div>
                     <img
-                      src={i?.Pic}
-                      className="object-cover w-12 h-12 rounded-full"
-                      alt=""
+                      className="mx-auto w-[70vw]"
+                      src={item.image}
+                      alt={item.image}
                     />
-                    <h1 className="text-lg font-semibold text-slate-800">
-                      {i?.Name}
-                    </h1>
                   </div>
                   <div>
-                    <img src={i?.image} alt={i?.image} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold leading-6 text-slate-800">
-                      {i?.Text}
-                    </p>
+                    <p className="text-sm leading-6">{item.Text}</p>
                   </div>
                 </div>
               </React.Fragment>

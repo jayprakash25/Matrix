@@ -22,7 +22,6 @@ export default function Signup() {
   const GoogleSignIn = async () => {
     try {
       const currentUser = auth.currentUser;
-      //
       const res = await signInWithPopup(auth, provider);
       if (!currentUser) {
         const User = {
@@ -48,7 +47,6 @@ export default function Signup() {
         setErrorMessage("Password must be at least 6 characters long");
         return;
       }
-
       // Continue with Firebase authentication
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -57,11 +55,9 @@ export default function Signup() {
       );
       const newUser = userCredential.user;
       console.log(newUser);
-
       // const docRef = doc(db, "Users", UserToken);
       // await setDoc(docRef, cred);
       window.localStorage.setItem("jwt", UserToken);
-
       navigate("/register");
     } catch (error) {
       console.log(error);
