@@ -22,13 +22,15 @@ export default function Signup() {
   const GoogleSignIn = async () => {
     try {
       const currentUser = auth.currentUser;
+      //
+      const res = await signInWithPopup(auth, provider);
       if (!currentUser) {
-        const res = await signInWithPopup(auth, provider);
         const User = {
           Name: res.user.displayName,
           email: res.user.email,
           pic: res.user.photoURL,
         };
+        console.log(User);
         const docRef = doc(db, "Users", UserToken);
         await setDoc(docRef, User);
         navigate("/register");
