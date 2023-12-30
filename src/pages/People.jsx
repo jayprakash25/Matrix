@@ -1,21 +1,22 @@
+import { useState } from "react";
 import { BottomBar } from "../components";
 import SearchBar from "../components/People/SearchBar";
 import UserProfiles from "../components/People/UserProfiles";
 
 export default function People() {
-  // algorithm to find people with same hobbies
-
-  // fetch all people
-
-  // const findMatching = () => {};
-
-  // const fetchPeople = () => {};
+  const [searchpeople, setsearchpeople] = useState();
 
   return (
     <>
       {/* <Navbar /> */}
-      <SearchBar />
-      <UserProfiles />
+      <SearchBar
+        searchpeople={searchpeople}
+        setsearchpeople={setsearchpeople}
+      />
+      <UserProfiles
+        searchpeople={searchpeople}
+        setsearchpeople={setsearchpeople}
+      />
       <BottomBar />
     </>
   );
