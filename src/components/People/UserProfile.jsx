@@ -11,6 +11,7 @@ import Loader from "./Loader";
 import { Link } from "react-router-dom";
 export default function UserProfile({ searchpeople, setsearchpeople }) {
   const jwt = localStorage.getItem("jwt");
+  const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
   const [showUsers, setshowUsers] = useState([]);
   const [isloading, setisloading] = useState(true);
@@ -102,7 +103,6 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
       console.log(error);
     }
   };
-  const load = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11];
 
   console.log(showUsers);
   return (
@@ -139,7 +139,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                           return (
                             <li
                               key={index}
-                              className="px-2 py-0.5 rounded-full  text-sm bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700   text-white "
+                              className="px-2 py-1 text-xs text-white rounded-full bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700 "
                             >
                               {i}
                             </li>

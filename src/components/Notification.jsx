@@ -38,7 +38,13 @@ export default function Notification() {
     }
   };
 
-  const Collabrate = () => {};
+  // const Collabrate = async (userid) => {
+  //   try {
+  //     await updateDoc(docref, {Collabraters:userid});
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
@@ -59,14 +65,14 @@ export default function Notification() {
                     <p className="text-sm font-semibold">
                       Want's to Collabrate with you
                     </p>
-                    <div className="flex gap-3">
+                    {/* <div className="flex gap-3">
                       <h1
                         onClick={Collabrate}
                         className="px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full cursor-pointer"
                       >
                         Accept
                       </h1>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <AiOutlineDelete
