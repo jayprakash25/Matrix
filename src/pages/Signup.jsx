@@ -6,13 +6,13 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../Firebase";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const provider = new GoogleAuthProvider();
-  const UserToken = useId();
+
   const navigate = useNavigate();
   const [cred, setCred] = useState({
     email: "",
@@ -21,20 +21,25 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
   const GoogleSignIn = async () => {
     try {
-      const currentUser = auth.currentUser;
-      //
       const res = await signInWithPopup(auth, provider);
+      const currentUser = auth.currentUser;
+      const UserToken = currentUser.uid;
       if (!currentUser) {
         const User = {
           Name: res.user.displayName,
           email: res.user.email,
           pic: res.user.photoURL,
         };
-        console.log(User);
+        console.log(currentUser.uid);
         const docRef = doc(db, "Users", UserToken);
         await setDoc(docRef, User);
+        window.localStorage.setItem("jwt", UserToken);
+
         navigate("/register");
       } else {
+        window.localStorage.setItem("jwt", UserToken);
+        console.log(currentUser.uid);
+
         navigate("/home");
       }
     } catch (error) {
@@ -56,10 +61,10 @@ export default function Signup() {
         cred.password
       );
       const newUser = userCredential.user;
+      const currentUser = auth.currentUser;
+      const UserToken = currentUser.uid;
       console.log(newUser);
 
-      // const docRef = doc(db, "Users", UserToken);
-      // await setDoc(docRef, cred);
       window.localStorage.setItem("jwt", UserToken);
 
       navigate("/register");
