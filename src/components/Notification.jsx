@@ -8,10 +8,10 @@ export default function Notification() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState();
+  const docref = doc(db, "USERS", jwt);
 
   const getNotifications = async () => {
     try {
-      const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       setNotifications(User.data().notifications || []);
       setisloading(false);
@@ -29,8 +29,7 @@ export default function Notification() {
     try {
       const updatedNotifications = [...Notifications];
       updatedNotifications.splice(i, 1);
-      const docRef = doc(db, "USERS", jwt);
-      await updateDoc(docRef, { notifications: updatedNotifications });
+      await updateDoc(docref, { notifications: updatedNotifications });
       setNotifications(updatedNotifications);
       setisloading(false);
     } catch (error) {
@@ -38,6 +37,8 @@ export default function Notification() {
       setisloading(false);
     }
   };
+
+  const Collabrate = () => {};
 
   return (
     <>
@@ -59,7 +60,10 @@ export default function Notification() {
                       Want's to Collabrate with you
                     </p>
                     <div className="flex gap-3">
-                      <h1 className="px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full cursor-pointer">
+                      <h1
+                        onClick={Collabrate}
+                        className="px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full cursor-pointer"
+                      >
                         Accept
                       </h1>
                     </div>
