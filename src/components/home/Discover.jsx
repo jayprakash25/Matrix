@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 export default function Discover() {
   const [Notifications, setNotifications] = useState();
+  const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
 
   const getNotifications = async () => {
@@ -29,10 +30,10 @@ export default function Discover() {
         />
       </div>
       <div>
-        <div className="w-1.5 h-1.5 translate-x-4 rounded-full bg-amber-500"></div>
         {Notifications?.length > 0 ? (
-          <FaRegBell size={25} color="white" />
+          <div className="w-1.5 h-1.5 translate-x-4 rounded-full bg-amber-500"></div>
         ) : null}
+        <FaRegBell size={25} color="white" />
       </div>
     </div>
   );
