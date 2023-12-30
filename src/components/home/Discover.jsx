@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
+import { db } from "../../Firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Discover() {
+  const [Notifications, setNotifications] = useState();
+  const docref = doc(db, "USERS", jwt);
+
+  const getNotifications = async () => {
+    try {
+      const User = await getDoc(docref);
+      setNotifications(User.data().notifications || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
   return (
     <div className="flex items-center justify-between px-5 py-3">
       <div className="">
@@ -12,13 +30,10 @@ export default function Discover() {
       </div>
       <div>
         <div className="w-1.5 h-1.5 translate-x-4 rounded-full bg-amber-500"></div>
-        <FaRegBell size={25} color="white" />
+        {Notifications?.length > 0 ? (
+          <FaRegBell size={25} color="white" />
+        ) : null}
       </div>
     </div>
   );
-}
-{
-  /* <h1 className=" font-bold text-[1.75rem]">
-        Discover new mates and CONNECT!
-      </h1> */
 }
