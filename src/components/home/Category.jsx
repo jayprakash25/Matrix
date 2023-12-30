@@ -40,14 +40,14 @@ export default function Category() {
       <div>
         <h1 className="text-lg font-semibold">Categories</h1>
       </div>
-      <div className="flex space-x-4 relative overflow-x-auto">
+      <div className="relative flex space-x-4 overflow-x-auto">
         {category.map((_, index) => {
           return (
             <div key={index} className="grid  text-[0.75rem] space-y-3">
               <div className="bg-[#282828] w-16 h-16 rounded-3xl flex items-center justify-center">
                 <img className="w-7" src={_.icon} alt="" />
               </div>
-              <div className="place-items-center place-content-center grid ">
+              <div className="grid place-items-center place-content-center ">
                 <p>{_.name}</p>
               </div>
             </div>

@@ -104,7 +104,6 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
     }
   };
 
-  console.log(showUsers);
   return (
     <>
       {isloading ? (

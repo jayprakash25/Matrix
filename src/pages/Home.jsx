@@ -17,10 +17,10 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       const user = auth.currentUser;
-      if (!user) {
-        navigate("/login");
-        return;
-      }
+      // if (!user) {
+      //   navigate("/login");
+      //   return;
+      // }
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data().connectedUsers;
@@ -46,7 +46,6 @@ export default function Home() {
     <>
       {/* <Navbar /> */}
       <Discover />
-
       {isloading ? (
         <Loader />
       ) : (
