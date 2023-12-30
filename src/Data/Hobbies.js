@@ -1,6 +1,7 @@
+import { sports, tech } from "../assets/home";
 const hobbies = [
-  { name: "Reading", image: "" },
-  { name: "Traveling", image: "" },
+  { name: "Reading", image: sports },
+  { name: "Traveling", image: tech },
   { name: "Hiking", image: "" },
   { name: "Cooking", image: "" },
   { name: "Painting", image: "" },
