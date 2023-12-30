@@ -36,9 +36,9 @@ export default function Category() {
     },
   ];
   return (
-    <div className="px-6 py-[4.5rem] space-y-8">
+    <div className="px-6 mt-5 space-y-8">
       <div>
-        <h1 className="text-lg font-semibold">Categories</h1>
+        <h1 className="text-xl font-bold">Categories</h1>
       </div>
       <div className="relative flex space-x-4 overflow-x-auto">
         {category.map((_, index) => {
