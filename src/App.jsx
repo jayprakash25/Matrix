@@ -2,6 +2,7 @@ import "./main.css";
 import "animate.css";
 import { useState } from "react";
 import {
+  Collabraters,
   Home,
   Notifications,
   People,
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/:userid" element={<ViewUserProfile />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/collabs/:id" element={<Collabraters />} />
           </Routes>
         </>
       ) : (

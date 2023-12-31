@@ -14,7 +14,6 @@ import { AiOutlineDelete } from "react-icons/ai";
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
-  const [count, setcount] = useState(10);
   const [isdelete, setisdelete] = useState(false);
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
@@ -67,6 +66,37 @@ export default function UserProfile() {
     }
   };
 
+  const dummyPosts = [
+    {
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rohit",
+      image:
+        "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+    },
+    {
+      Pic: "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rohit",
+      image:
+        "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+    },
+    {
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rohit",
+      image:
+        "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+    },
+    {
+      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Name: "Rohit",
+      image:
+        "https://images.pexels.com/photos/1245055/pexels-photo-1245055.jpeg?auto=compress&cs=tinysrgb&w=300",
+      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+    },
+  ];
+
   return (
     <>
       <main>
@@ -95,7 +125,7 @@ export default function UserProfile() {
           <div className="max-w-[55vw] space-y-3">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
             <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-            <div className="space-x-5">
+            <div className="space-x-3.5">
               <button
                 onClick={() => {
                   setisedit(true);
@@ -105,14 +135,12 @@ export default function UserProfile() {
                 Edit Profile
               </button>
               {jwt === localStorage.getItem("jwt") ? (
-                <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
-                  Collabrates {count}
-                </button>
-              ) : (
-                <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
-                  Collabrate
-                </button>
-              )}
+                <Link to={`/collabs/${jwt}`}>
+                  <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
+                    Collabrates
+                  </button>
+                </Link>
+              ) : null}
             </div>
           </div>
         </div>
@@ -125,9 +153,9 @@ export default function UserProfile() {
                 <h1>Home</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/home">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
           <li className={"flex justify-between w-full items-center"}>
             <div className={liststyle}>
@@ -145,11 +173,10 @@ export default function UserProfile() {
                 <h1>Notifications</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/notifications">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
-
           <li className={"flex justify-between w-full items-center"}>
             <Link to="/privacy">
               <div className={liststyle}>
@@ -157,9 +184,9 @@ export default function UserProfile() {
                 <h1>Private & Policy</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/privacy">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
           <li className={"flex justify-between w-full items-center"}>
             <div onClick={Logout} className={liststyle}>
@@ -172,12 +199,19 @@ export default function UserProfile() {
           </li>
         </ul>
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
-          {Userdata?.Posts?.map((item, i) => {
+          {dummyPosts?.map((item, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="border-[1px] border-zinc-800 rounded-lg shadow-sm max-w-md p-4 space-y-3.5 ">
+                <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
+                  <div>
+                    <img
+                      className="mx-auto rounded-lg w-[85vw] object-cover"
+                      src={item.image}
+                      alt={item.image}
+                    />
+                  </div>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-3 mt-5">
                       <img
                         src={item.Pic}
                         className="object-cover w-12 h-12 rounded-full"
@@ -196,16 +230,30 @@ export default function UserProfile() {
                       />
                       {isdelete ? (
                         <>
-                          <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-                            <ul className="p-10 space-y-4 rounded-md bg-zinc-800">
-                              <li
-                                className="flex items-center gap-7 px-5 cursor-pointer py-2 bg-[#232222]"
-                                onClick={deletePost}
-                              >
-                                <h1 className="text-red-500 semibold">
-                                  Delete
+                          <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-25 backdrop-blur-md">
+                            <ul className="space-y-4 rounded-md bg-zinc-900">
+                              <li className="cursor-pointer py2 px- gap-7">
+                                <h1 className="p-4 text-lg">
+                                  Are you Sure you want to delete this post?
                                 </h1>
-                                <AiOutlineDelete size={23} color={"red"} />
+                                <div className="border-b-[1px] border-zinc-700 w-full"></div>
+                                <div className="flex items-center justify-center">
+                                  <div
+                                    onClick={() => {
+                                      setisdelete(false);
+                                    }}
+                                    className="flex justify-center gap-2 px-4 pb-4 mt-3"
+                                  >
+                                    <h1 className="text-green-500">Cancel</h1>
+                                  </div>
+                                  <div
+                                    onClick={deletePost}
+                                    className="flex justify-center gap-2 px-4 pb-4 mt-3"
+                                  >
+                                    <h1 className="text-red-500">Delete</h1>
+                                    <AiOutlineDelete size={22} color="red" />
+                                  </div>
+                                </div>
                               </li>
                             </ul>
                           </div>
@@ -214,16 +262,7 @@ export default function UserProfile() {
                       ) : null}
                     </div>
                   </div>
-                  <div>
-                    <img
-                      className="mx-auto w-[70vw]"
-                      src={item.image}
-                      alt={item.image}
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm leading-6">{item.Text}</p>
-                  </div>
+                  <p className="mt-3 text-sm leading-6">{item.Text}</p>
                 </div>
               </React.Fragment>
             );
