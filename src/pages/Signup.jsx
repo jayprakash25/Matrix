@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../Firebase";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -23,24 +23,27 @@ export default function Signup() {
     try {
       const res = await signInWithPopup(auth, provider);
       const currentUser = auth.currentUser;
-      const UserToken = currentUser.uid;
-      if (!currentUser) {
-        const User = {
-          Name: res.user.displayName,
-          email: res.user.email,
-          pic: res.user.photoURL,
-        };
-        console.log(currentUser.uid);
-        const docRef = doc(db, "Users", UserToken);
-        await setDoc(docRef, User);
+
+      if (currentUser) {
+        const UserToken = currentUser.uid;
         window.localStorage.setItem("jwt", UserToken);
 
-        navigate("/register");
-      } else {
-        window.localStorage.setItem("jwt", UserToken);
-        console.log(currentUser.uid);
+        const docRef = doc(db, "USERS", UserToken);
+        const userSnapshot = await getDoc(docRef);
 
-        navigate("/home");
+        if (!userSnapshot.exists()) {
+          const User = {
+            Name: res.user.displayName,
+            email: res.user.email,
+            pic: res.user.photoURL,
+          };
+
+          await setDoc(docRef, User);
+          navigate("/register");
+        } else {
+          console.log(currentUser.uid);
+          navigate("/home");
+        }
       }
     } catch (error) {
       console.log(error);

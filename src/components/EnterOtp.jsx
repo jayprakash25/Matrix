@@ -1,11 +1,11 @@
 import { doc, setDoc } from "firebase/firestore";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function EnterOtp({ user }) {
-  const userjwt = useId();
+  const userjwt = window.localStorage.getItem("jwt");
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 

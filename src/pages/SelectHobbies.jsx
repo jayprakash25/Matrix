@@ -62,7 +62,7 @@ export default function SelectHobbies() {
             key={i}
             onClick={() => {
               toggleSelection(i);
-              addHobbies(hobby);
+              addHobbies(hobby.name);
             }}
             className={`${
               selectedHobbies.includes(i)
@@ -70,7 +70,7 @@ export default function SelectHobbies() {
                 : null
             }   cursor-pointer w-[8rem] text-center px-6 py-2 border-amber-500 rounded-full`}
           >
-            <h1 className="text-sm font-semibold ">{hobby}</h1>
+            <h1 className="text-sm font-semibold ">{hobby.name}</h1>
           </div>
         ))}
       </main>
