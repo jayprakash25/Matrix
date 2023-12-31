@@ -31,7 +31,6 @@ export default function SelectHobbies() {
         // await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
         const userJWT = localStorage.getItem("jwt");
         const docRef = doc(db, "USERS", userJWT);
-
         await updateDoc(docRef, { hobbies: Userhobbies });
         alert("Success");
       }

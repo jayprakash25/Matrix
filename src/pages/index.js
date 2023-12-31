@@ -6,6 +6,7 @@ import People from "./People";
 import Notifications from "./Notifications";
 import ViewUserProfile from "./ViewUserProfile";
 import Privacy from "./Privacy";
+import Collabraters from "./Collabraters";
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   People,
   Notifications,
   ViewUserProfile,
+  Collabraters,
 };
