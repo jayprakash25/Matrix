@@ -15,6 +15,7 @@ import {
 import { Routes, Route } from "react-router-dom";
 import { RegistrationForm } from "./components";
 import Login from "./pages/Login";
+import ProfileByCat from "./components/People/ProfileByCat";
 
 export default function App() {
   const [isphone, setisphone] = useState();
@@ -42,6 +43,7 @@ export default function App() {
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile/:category" element={<ProfileByCat />} />
             <Route path="/people" element={<People />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/:userid" element={<ViewUserProfile />} />
