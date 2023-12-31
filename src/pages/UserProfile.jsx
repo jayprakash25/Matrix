@@ -14,7 +14,6 @@ import { AiOutlineDelete } from "react-icons/ai";
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
-  const [count, setcount] = useState(10);
   const [isdelete, setisdelete] = useState(false);
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
@@ -126,7 +125,7 @@ export default function UserProfile() {
           <div className="max-w-[55vw] space-y-3">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
             <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-            <div className="space-x-5">
+            <div className="space-x-3.5">
               <button
                 onClick={() => {
                   setisedit(true);
@@ -137,7 +136,7 @@ export default function UserProfile() {
               </button>
               {jwt === localStorage.getItem("jwt") ? (
                 <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
-                  Collabrates {count}
+                  Collabrates
                 </button>
               ) : (
                 <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
@@ -156,9 +155,9 @@ export default function UserProfile() {
                 <h1>Home</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/home">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
           <li className={"flex justify-between w-full items-center"}>
             <div className={liststyle}>
@@ -176,11 +175,10 @@ export default function UserProfile() {
                 <h1>Notifications</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/notifications">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
-
           <li className={"flex justify-between w-full items-center"}>
             <Link to="/privacy">
               <div className={liststyle}>
@@ -188,9 +186,9 @@ export default function UserProfile() {
                 <h1>Private & Policy</h1>
               </div>
             </Link>
-            <div>
+            <Link to="/privacy">
               <FaArrowRight size={20} color="orange" />
-            </div>
+            </Link>
           </li>
           <li className={"flex justify-between w-full items-center"}>
             <div onClick={Logout} className={liststyle}>
@@ -278,60 +276,3 @@ export default function UserProfile() {
     </>
   );
 }
-
-// {
-//   dummyPosts?.Posts?.map((item, i) => {
-//     return (
-//       <React.Fragment key={i}>
-//         <div className="border-[1px] border-zinc-800 rounded-lg shadow-sm max-w-md p-4 space-y-3.5 ">
-//           <div className="flex items-center justify-between">
-//             <div className="flex items-center gap-5">
-//               <img
-//                 src={item.Pic}
-//                 className="object-cover w-12 h-12 rounded-full"
-//                 alt={item.Pic}
-//               />
-//               <h1 className="text-xl font-semibold">{item.Name}</h1>
-//             </div>
-//             <div>
-//               <HiDotsHorizontal
-//                 onClick={() => {
-//                   setisdelete(true);
-//                 }}
-//                 size={25}
-//                 color="white"
-//                 cursor={"pointer"}
-//               />
-//               {isdelete ? (
-//                 <>
-//                   <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-//                     <ul className="p-10 space-y-4 rounded-md bg-zinc-800">
-//                       <li
-//                         className="flex items-center gap-7 px-5 cursor-pointer py-2 bg-[#232222]"
-//                         onClick={deletePost}
-//                       >
-//                         <h1 className="text-red-500 semibold">Delete</h1>
-//                         <AiOutlineDelete size={23} color={"red"} />
-//                       </li>
-//                     </ul>
-//                   </div>
-//                   {isloading ? <Loader /> : null}
-//                 </>
-//               ) : null}
-//             </div>
-//           </div>
-//           <div>
-//             <img
-//               className="mx-auto w-[70vw]"
-//               src={item.image}
-//               alt={item.image}
-//             />
-//           </div>
-//           <div>
-//             <p className="text-sm leading-6">{item.Text}</p>
-//           </div>
-//         </div>
-//       </React.Fragment>
-//     );
-//   });
-// }
