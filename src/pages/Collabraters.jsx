@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BottomBar, Loader } from "../components";
+import { BottomBar } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import NotifyLoader from "../components/notifications/NotifyLoader";

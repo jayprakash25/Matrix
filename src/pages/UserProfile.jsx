@@ -140,11 +140,7 @@ export default function UserProfile() {
                     Collabrates
                   </button>
                 </Link>
-              ) : (
-                <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
-                  Collabrate
-                </button>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
