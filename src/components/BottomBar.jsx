@@ -4,15 +4,23 @@ import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
+import AddPost from "./AddPost";
+import { useState } from "react";
 
-const BottomBarItem = ({ to, icon }) => (
+const BottomBarItem = ({ to, icon, clickFn }) => (
   <Link to={to}>
-    <li className="flex flex-col items-center gap-1 cursor-pointer">{icon}</li>
+    <li
+      onClick={clickFn}
+      className="flex flex-col items-center gap-1 cursor-pointer"
+    >
+      {icon}
+    </li>
   </Link>
 );
 
 const BottomBar = () => {
   const iconColor = "#fff";
+  const [isPost, setisPost] = useState(false);
 
   return (
     <footer className="fixed bottom-0 w-full">
@@ -27,6 +35,9 @@ const BottomBar = () => {
             icon={<MdPeopleAlt size={25} color={iconColor} />}
           />
           <BottomBarItem
+            clickFn={() => {
+              setisPost(true);
+            }}
             icon={<IoCreate size={25} color={iconColor} />}
           />
           <BottomBarItem
@@ -34,6 +45,7 @@ const BottomBar = () => {
             icon={<CgProfile size={25} color={iconColor} />}
           />
         </ul>
+        {isPost ? <AddPost setisPost={setisPost} /> : null}
       </div>
     </footer>
   );

@@ -55,7 +55,9 @@ export default function AddPost({ setisPost }) {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md`}
+      >
         {isloading ? <Loader /> : null}
         <div className="bg-white p-5 w-[90vw]">
           <div className="flex justify-end">
@@ -64,6 +66,7 @@ export default function AddPost({ setisPost }) {
                 setisPost(false);
               }}
               size={25}
+              color="black"
               cursor={"pointer"}
             />
           </div>
