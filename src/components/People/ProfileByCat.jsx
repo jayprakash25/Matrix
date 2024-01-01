@@ -4,17 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function ProfileByCat() {
-  // const jwt = window.localStorage.getItem("jwt");
   const { category } = useParams();
-  // const [currentUser, setCurrentUser] = useState("");
   const [allUsers, setAllUsers] = useState([]);
 
   const fetchProfileByCat = useCallback(async () => {
-    //getting current user details
-    // const currentDocRef = doc(db, "USERS", jwt);
-    // const currentUserSnapshot = await getDoc(currentDocRef);
-    // const currentUser = currentUserSnapshot.data();
-
     //getting all users details
     const docRef = collection(db, "USERS");
     const userSnapshot = await getDocs(docRef);
@@ -48,9 +41,6 @@ export default function ProfileByCat() {
   useEffect(() => {
     fetchProfileByCat();
   }, [fetchProfileByCat]);
-
-  //   console.log(currentUser);
-  //   console.log(allUsers);
 
   return <div></div>;
 }
