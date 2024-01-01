@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { db } from "../Firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 export default function EditProfile({ setisedit }) {
   const jwt = window.localStorage.getItem("jwt");
   const [user, setUser] = useState("");

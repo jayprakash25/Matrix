@@ -4,18 +4,20 @@ import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHouse } from "react-icons/pi";
 import { ImExit } from "react-icons/im";
 import { BottomBar, EditProfile, Loader } from "../components";
-import { Link } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaRegBell, FaSketch } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft, FaArrowRight, FaRegBell } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../Firebase";
+import { auth, db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
+import { signOut } from "firebase/auth";
 
 export default function UserProfile() {
   const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
   const [isdelete, setisdelete] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
   const [Userdata, setUserdata] = useState({
@@ -45,8 +47,18 @@ export default function UserProfile() {
     getPosts();
   }, []);
 
-  const Logout = () => {
-    localStorage.setItem("logout", true);
+  // const Logout = () => {
+  //   localStorage.setItem("logout", true);
+  // };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      await window.localStorage.removeItem("jwt");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deletePost = async (postid) => {
@@ -189,7 +201,7 @@ export default function UserProfile() {
             </Link>
           </li>
           <li className={"flex justify-between w-full items-center"}>
-            <div onClick={Logout} className={liststyle}>
+            <div onClick={handleLogout} className={liststyle}>
               <ImExit size={25} color="orange" />
               <h1 className="text-red-500">Logout</h1>
             </div>
