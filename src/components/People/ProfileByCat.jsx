@@ -30,10 +30,18 @@ export default function ProfileByCat() {
 
   //to filter users based on hobbies
   const filterHobbies = async (currentUser, users) => {
-    users.filter();
+    return users.filter((user) => {
+      // Assuming currentUser.hobbies is an array, check if user has any common hobbies
+      return user.hobbies.some((hobby) => currentUser.hobbies.includes(hobby));
+    });
   };
 
-  filterHobbies(currentUser, allUsers);
+  const fil = async () => {
+    const filteredUsers = await filterHobbies(currentUser, allUsers);
+    console.log(filteredUsers);
+  };
+
+  fil();
 
   useEffect(() => {
     fetchProfileByCat();
