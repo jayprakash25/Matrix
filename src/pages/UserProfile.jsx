@@ -137,12 +137,12 @@ export default function UserProfile() {
           <div className="max-w-[55vw] space-y-3">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
             <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-            <div className="space-x-3.5">
+            <div className="space-x-3.5 flex">
               <button
                 onClick={() => {
                   setisedit(true);
                 }}
-                className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7"
+                className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-4 "
               >
                 Edit Profile
               </button>
