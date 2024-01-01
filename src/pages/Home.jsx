@@ -6,13 +6,12 @@ import Discover from "../components/home/Discover";
 import Category from "../components/home/Category";
 // import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
-// import { useNavigate } from "react-router-dom";
-// import Loader from "../components/home/Loader";
+import Loader from "../components/home/Loader";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
-  // const [isloading, setisloading] = useState(true);
+  const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
   const navigate = useNavigate();
   const fetchPosts = async () => {
@@ -28,14 +27,14 @@ export default function Home() {
       const posts = currentConnectedUser?.map(async (userid) => {
         const userdocref = await doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
-        console.log(UserPosts?.data());
+        // console.log(UserPosts?.data());
         setposts(UserPosts?.data()?.Posts);
-        // setisloading(false);
+        setisloading(false);
       });
       await Promise.all(posts);
     } catch (error) {
       console.log(error);
-      // setisloading(false);
+      setisloading(false);
     }
   };
 
@@ -48,13 +47,11 @@ export default function Home() {
       {/* <Navbar /> */}
       <Discover />
       <Category />
-      {/* {isloading ? (
+      {isloading ? (
         <Loader />
       ) : (
-        <div>
-          {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
-        </div>
-      )} */}
+        <div>{posts == undefined ? null : <UsersPosts posts={posts} />}</div>
+      )}
       {/* <Empty /> */}
       <UsersPosts posts={posts} />
       <BottomBar />

@@ -54,7 +54,7 @@ export default function UserProfile() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      await window.localStorage.removeItem("jwt");
+      window.localStorage.clear();
       navigate("/login");
     } catch (error) {
       console.log(error);
