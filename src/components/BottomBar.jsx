@@ -4,7 +4,9 @@ import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
+import { ImExit } from "react-icons/im";
 import AddPost from "./AddPost";
+
 import { useState } from "react";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
@@ -39,6 +41,10 @@ const BottomBar = () => {
               setisPost(true);
             }}
             icon={<IoCreate size={25} color={iconColor} />}
+          />
+          <BottomBarItem
+            to="/profile"
+            icon={<ImExit size={25} color={iconColor} />}
           />
           <BottomBarItem
             to="/profile"

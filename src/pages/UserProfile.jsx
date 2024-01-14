@@ -110,28 +110,6 @@ export default function UserProfile() {
       Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
     },
   ];
-
-  const menuItems = [
-    { to: "/home", icon: <PiHouse size={25} color="" /> },
-    { icon: <MdOutlineLocalPhone size={25} color="" /> },
-    {
-      to: "/notifications",
-      icon: <FaRegBell size={20} color="" />,
-      label: "Notifications",
-    },
-    {
-      to: "/privacy",
-      icon: <CgProfile size={25} color="" />,
-      label: "Private & Policy",
-    },
-    {
-      onClick: handleLogout,
-      icon: <ImExit size={25} color="" />,
-      label: "Logout",
-      className: "text-red-500",
-    },
-  ];
-
   return (
     <>
       <main>
@@ -179,29 +157,6 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-
-        {/* icons */}
-        <ul className="grid grid-cols-5   items-start justify-start gap-10 px-8 text-sm text-center py-7">
-          {menuItems.map((item, index) => (
-            <li
-              key={index}
-              className="flex justify-between w-full items-center"
-            >
-              {item.to ? (
-                <Link to={item.to}>
-                  <div className={liststyle}>{item.icon}</div>
-                </Link>
-              ) : (
-                <div
-                  onClick={item.onClick}
-                  className={liststyle + " " + item.className}
-                >
-                  {item.icon}
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
 
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
           {dummyPosts?.map((item, i) => {
