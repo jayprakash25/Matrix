@@ -88,7 +88,7 @@ export default function ViewUserProfile() {
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
           <button
             onClick={sendCollab}
-            className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7"
+            className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0"
           >
             Collabrates
           </button>
