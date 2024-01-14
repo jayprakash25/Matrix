@@ -47,7 +47,7 @@ export default function SelectHobbies() {
   return (
     <>
       <div className="px-8 pt-5 space-y-4">
-        <h1 className="text-5xl font-semibold text-transparent bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 bg-clip-text">
+        <h1 className="text-5xl font-semibold text-transparent bg-[#1d9bf0] bg-clip-text">
           Hello.
         </h1>
         <p className="text-sm ">
@@ -65,7 +65,7 @@ export default function SelectHobbies() {
             }}
             className={`${
               selectedHobbies.includes(i)
-                ? "bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  text-white ease-in-out duration-500"
+                ? "bg-[#1d9bf0]  text-white ease-in-out duration-500"
                 : null
             }   cursor-pointer w-[8rem] text-center px-6 py-2 border-amber-500 rounded-full`}
           >
@@ -76,7 +76,7 @@ export default function SelectHobbies() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={saveHobbies}
-          className="py-4 px-8  w-[85vw] text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 "
+          className="py-4 px-8  w-[85vw] text-white rounded-lg bg-[#1d9bf0] "
         >
           Next
         </button>

@@ -176,7 +176,7 @@ export default function RegistrationForm() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={onNumSubmit}
-          className="w-[80vw] py-4  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-lg px-29 "
+          className="w-[80vw] py-4  bg-[#1d9bf0]   text-white rounded-lg px-29 "
         >
           Create Account
         </button>

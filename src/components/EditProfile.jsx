@@ -124,7 +124,7 @@ export default function EditProfile({ setisedit }) {
         <div className="flex justify-center">
           <button
             onClick={handleSubmit}
-            className="w-[80vw] py-2  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-xl  "
+            className="w-[80vw] py-2  bg-[#1d9bf0]   text-white rounded-xl  "
           >
             Edit
           </button>

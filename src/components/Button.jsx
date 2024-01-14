@@ -9,7 +9,6 @@ export default function Button({ title, logo, handleSubmit }) {
           className="font-semibold text-sm  bg-[#1d9bf0]
  w-[85vw] text-white rounded-lg px-20 py-3.5"
         >
-          {/* bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 */}
           <div className="flex items-center justify-center space-x-2">
             {logo}
             <p> {title}</p>

@@ -47,7 +47,7 @@ export default function EnterOtp({ user }) {
         />
         <button
           onClick={createUser}
-          className="py-2 text-sm  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  rounded-xl"
+          className="py-2 text-sm  bg-[#1d9bf0]  rounded-xl"
         >
           Done
         </button>
