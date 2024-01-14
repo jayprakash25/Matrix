@@ -138,7 +138,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                           return (
                             <li
                               key={index}
-                              className="px-2 py-1 text-xs text-white rounded-full bg-gradient-to-r from-yellow-600 via-amber-600 to-amber-700 "
+                              className="px-2 py-1 text-xs font-semibold rounded-full bg-[#1d9bf0]"
                             >
                               {i}
                             </li>
@@ -149,7 +149,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                         onClick={() => {
                           connectUser(_.id);
                         }}
-                        className={`w-full py-2 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-yellow-600 via-yellow-600 to-amber-700  active:brightness-75 ease-in-out duration-300`}
+                        className={`w-full py-2 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                       >
                         Connect
                       </button>

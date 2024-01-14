@@ -35,19 +35,19 @@ export default function EnterOtp({ user }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="flex flex-col gap-8   w-[70vw] rounded-md px-5 py-9">
+      <div className="flex flex-col gap-8 bg-[#161616] space-y-3   w-[90vw] rounded-xl px-8 py-16">
         <input
-          type="text"
+          type="number"
           placeholder="Enter OTP"
           value={otp}
           onChange={(e) => {
             setOtp(e.target.value);
           }}
-          className="px-2 text-center border-b-2 outline-none "
+          className="px-2 py-3 text-black text-xl text-center border-b-2 rounded-xl outline-none "
         />
         <button
           onClick={createUser}
-          className="py-2 text-sm  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  rounded-md"
+          className="py-2 text-sm  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700  rounded-xl"
         >
           Done
         </button>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BottomBar } from "../components";
+import { BottomBar, EnterOtp } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import Discover from "../components/home/Discover";

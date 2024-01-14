@@ -111,6 +111,27 @@ export default function UserProfile() {
     },
   ];
 
+  const menuItems = [
+    { to: "/home", icon: <PiHouse size={25} color="" /> },
+    { icon: <MdOutlineLocalPhone size={25} color="" /> },
+    {
+      to: "/notifications",
+      icon: <FaRegBell size={20} color="" />,
+      label: "Notifications",
+    },
+    {
+      to: "/privacy",
+      icon: <CgProfile size={25} color="" />,
+      label: "Private & Policy",
+    },
+    {
+      onClick: handleLogout,
+      icon: <ImExit size={25} color="" />,
+      label: "Logout",
+      className: "text-red-500",
+    },
+  ];
+
   return (
     <>
       <main>
@@ -119,7 +140,7 @@ export default function UserProfile() {
           <div className="flex items-center w-[55vw] justify-between">
             <div>
               <Link to={"/home"}>
-                <FaArrowLeft size={20} color="orange" />
+                <FaArrowLeft size={20} color="" />
               </Link>
             </div>
 
@@ -144,13 +165,13 @@ export default function UserProfile() {
                 onClick={() => {
                   setisedit(true);
                 }}
-                className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-4 "
+                className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-4 "
               >
                 Edit Profile
               </button>
               {jwt === localStorage.getItem("jwt") ? (
                 <Link to={`/collabs/${jwt}`}>
-                  <button className="py-2 text-xs font-semibold text-white rounded-lg bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700 px-7">
+                  <button className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-7">
                     Collabrates
                   </button>
                 </Link>
@@ -159,59 +180,29 @@ export default function UserProfile() {
           </div>
         </div>
 
-        <ul className="flex flex-col items-start justify-start gap-10 px-8 text-sm text-center py-7 ">
-          <li className={"flex justify-between w-full items-center"}>
-            <Link to="/home">
-              <div className={liststyle}>
-                <PiHouse size={25} color="orange" />
-                <h1>Home</h1>
-              </div>
-            </Link>
-            <Link to="/home">
-              <FaArrowRight size={20} color="orange" />
-            </Link>
-          </li>
-          <li className={"flex justify-between w-full items-center"}>
-            <div className={liststyle}>
-              <MdOutlineLocalPhone size={25} color="orange" />
-              <h1>Contact Us</h1>
-            </div>
-            <div>
-              <FaArrowRight size={20} color="orange" />
-            </div>
-          </li>
-          <li className={"flex justify-between w-full items-center"}>
-            <Link to="/notifications">
-              <div className={liststyle}>
-                <FaRegBell size={20} color="orange" />
-                <h1>Notifications</h1>
-              </div>
-            </Link>
-            <Link to="/notifications">
-              <FaArrowRight size={20} color="orange" />
-            </Link>
-          </li>
-          <li className={"flex justify-between w-full items-center"}>
-            <Link to="/privacy">
-              <div className={liststyle}>
-                <CgProfile size={25} color="orange" />
-                <h1>Private & Policy</h1>
-              </div>
-            </Link>
-            <Link to="/privacy">
-              <FaArrowRight size={20} color="orange" />
-            </Link>
-          </li>
-          <li className={"flex justify-between w-full items-center"}>
-            <div onClick={handleLogout} className={liststyle}>
-              <ImExit size={25} color="orange" />
-              <h1 className="text-red-500">Logout</h1>
-            </div>
-            <div>
-              <FaArrowRight size={20} color="orange" />
-            </div>
-          </li>
+        {/* icons */}
+        <ul className="grid grid-cols-5   items-start justify-start gap-10 px-8 text-sm text-center py-7">
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              className="flex justify-between w-full items-center"
+            >
+              {item.to ? (
+                <Link to={item.to}>
+                  <div className={liststyle}>{item.icon}</div>
+                </Link>
+              ) : (
+                <div
+                  onClick={item.onClick}
+                  className={liststyle + " " + item.className}
+                >
+                  {item.icon}
+                </div>
+              )}
+            </li>
+          ))}
         </ul>
+
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
           {dummyPosts?.map((item, i) => {
             return (
