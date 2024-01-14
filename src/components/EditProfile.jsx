@@ -1,14 +1,22 @@
 import { RxCross2 } from "react-icons/rx";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import PropTypes from "prop-types";
-import { db } from "../Firebase";
+import { db, storage } from "../Firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 export default function EditProfile({ setisedit }) {
   const jwt = window.localStorage.getItem("jwt");
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({
+    Name: "",
+    Bio: "",
+    Pic: "",
+  });
+  const [userImg, setUserImg] = useState({ image: "" });
+  const [uploadimage, setuploadimage] = useState();
 
-  console.log(user);
+  const imageRef = useRef();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,22 +44,23 @@ export default function EditProfile({ setisedit }) {
 
     try {
       // Upload the image to Firebase Storage
-      // const imageRef = ref(
-      //   storage,
-      //   `images/${form.Category}/${form.Image.name}`
-      // );
-      // await uploadBytesResumable(imageRef, form.Image);
-      // const url = await getDownloadURL(imageRef);
-      // const formData = {
-      //   ...form,
-      //   Image: url,
-      // };
+      const Storageref = ref(storage, `image/userImage/${uploadimage?.name}`);
+      await uploadBytesResumable(Storageref, uploadimage);
+      const downloadURL = await getDownloadURL(Storageref);
+
+      const updatedProfile = {
+        ...user,
+        Pic: downloadURL,
+      };
+
       const docRef = doc(db, "USERS", jwt);
-      await updateDoc(docRef);
+      await updateDoc(docRef, updatedProfile);
+      console.log("profile updated");
     } catch (error) {
       console.error("Error submitting data: ", error);
     }
   };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
       <div className="p-6 rounded-xl bg-[#161616] w-[90vw]">
@@ -66,9 +75,27 @@ export default function EditProfile({ setisedit }) {
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
-          <IoCloudUploadOutline size={70} className="mx-auto" color="white" />
+          <IoCloudUploadOutline
+            onClick={() => {
+              imageRef.current.click();
+            }}
+            size={70}
+            className="mx-auto"
+            color="white"
+          />
           <label className="font-semibold">ProfilePic*</label>
-          <input className="hidden px-4 py-2 outline-none" type="file" />
+          <input
+            ref={imageRef}
+            onChange={(e) => {
+              setUserImg({
+                ...userImg,
+                image: URL.createObjectURL(e.target.files[0]),
+              });
+              setuploadimage(e.target.files[0]);
+            }}
+            className="hidden px-4 py-2 outline-none"
+            type="file"
+          />
         </div>
         <div className="flex flex-col justify-center gap-3 my-6">
           <label className="font-semibold">Name*</label>
