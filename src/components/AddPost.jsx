@@ -56,17 +56,17 @@ export default function AddPost({ setisPost }) {
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md`}
+        className={`fixed  inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md`}
       >
         {isloading ? <Loader /> : null}
-        <div className="bg-white p-5 w-[90vw]">
+        <div className="bg-[#161616] rounded-xl p-5 w-[90vw]">
           <div className="flex justify-end">
             <RxCross2
               onClick={() => {
                 setisPost(false);
               }}
               size={25}
-              color="black"
+              color="white"
               cursor={"pointer"}
             />
           </div>
@@ -99,7 +99,7 @@ export default function AddPost({ setisPost }) {
             </div>
             <textarea
               placeholder="Write"
-              className="border-[1px] p-5 outline-none border-gray-300"
+              className="border-[1px] p-5 outline-none bg-[#383838] rounded-xl border-gray-300"
               cols="35"
               rows="8"
               value={post.Text}
@@ -109,7 +109,7 @@ export default function AddPost({ setisPost }) {
             ></textarea>
             <button
               onClick={uploadPost}
-              className="p-2 font-semibold text-white bg-black"
+              className="p-2 font-semibold rounded-xl text-white bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700"
             >
               Post
             </button>

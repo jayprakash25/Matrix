@@ -52,8 +52,9 @@ const BottomBar = () => {
 };
 
 BottomBarItem.propTypes = {
-  to: propTypes.string.isRequired,
+  to: propTypes.string,
   icon: propTypes.object,
+  clickFn: propTypes,
 };
 
 export default BottomBar;

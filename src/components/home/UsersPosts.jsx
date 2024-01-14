@@ -64,5 +64,5 @@ export default function UsersPosts({ posts }) {
 }
 
 UsersPosts.propTypes = {
-  posts: PropTypes.array.isRequired,
+  posts: PropTypes.array,
 };

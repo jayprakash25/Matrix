@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../components/Button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase";
-import { useNavigate } from "react-router-dom/dist";
+import { Link, useNavigate } from "react-router-dom/dist";
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -91,9 +91,9 @@ export default function Login() {
 
           <div className="flex text-sm items-center space-x-2 text-center justify-center">
             <p>New User?</p>
-            <a className=" text-sm " href="/">
-              Sign-Up
-            </a>
+            <Link to={"/"}>
+              <p className=" text-sm text-amber-500">Sign-Up</p>
+            </Link>
           </div>
         </div>
       )}

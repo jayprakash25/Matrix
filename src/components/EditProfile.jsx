@@ -54,7 +54,7 @@ export default function EditProfile({ setisedit }) {
   };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="p-6 rounded-lg bg-[#161616] w-[90vw]">
+      <div className="p-6 rounded-xl bg-[#161616] w-[90vw]">
         <div className="flex justify-end">
           <RxCross2
             cursor={"pointer"}
@@ -77,7 +77,7 @@ export default function EditProfile({ setisedit }) {
             onChange={(e) => {
               setUser({ ...user, Name: e.target.value });
             }}
-            className="px-4 py-2  outline-none bg-[#383838]"
+            className="px-4 py-2  rounded-xl  outline-none bg-[#383838]"
             type="text"
           />
         </div>
@@ -88,7 +88,7 @@ export default function EditProfile({ setisedit }) {
             onChange={(e) => {
               setUser({ ...user, Bio: e.target.value });
             }}
-            className="px-4 py-2 outline-none bg-[#383838]"
+            className="px-4 py-2 outline-none  rounded-xl bg-[#383838]"
             id=""
             cols="30"
             rows="5"
@@ -97,7 +97,7 @@ export default function EditProfile({ setisedit }) {
         <div className="flex justify-center">
           <button
             onClick={handleSubmit}
-            className="w-[80vw] py-2  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-lg  "
+            className="w-[80vw] py-2  bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700   text-white rounded-xl  "
           >
             Edit
           </button>
