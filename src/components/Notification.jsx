@@ -63,7 +63,7 @@ export default function Notification() {
                   <div className="space-y-2.5">
                     <h1 className="text-lg font-bold">{_.Name}</h1>
                     <p className="text-sm font-semibold">
-                      Want's to Collabrate with you
+                      Want&apos;s to Collabrate with you
                     </p>
                     {/* <div className="flex gap-3">
                       <h1

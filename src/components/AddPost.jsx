@@ -109,7 +109,7 @@ export default function AddPost({ setisPost }) {
             ></textarea>
             <button
               onClick={uploadPost}
-              className="p-2 font-semibold rounded-xl text-white bg-gradient-to-r from-yellow-500 via-amber-600 to-amber-700"
+              className="p-2 font-semibold rounded-xl text-white bg-[#1d9bf0]"
             >
               Post
             </button>
