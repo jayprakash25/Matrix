@@ -13,6 +13,7 @@ export default function RegistrationForm() {
     location: "",
     collage: "",
     Profession: "",
+    Bio: " ",
     UserHobbies: [" "],
   });
 

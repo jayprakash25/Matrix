@@ -27,6 +27,8 @@ export default function UserProfile() {
     Posts: [],
   });
 
+  console.log(Userdata.Pic);
+
   const getPosts = async () => {
     try {
       const User = await getDoc(docref);
