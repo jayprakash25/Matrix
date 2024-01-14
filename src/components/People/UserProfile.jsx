@@ -69,7 +69,8 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
       const docref = doc(db, "USERS", userid);
       const User = await getDoc(docref);
       // current User
-      const currentUser = await getDoc(docref);
+      const currentUserdocref = doc(db, "USERS", jwt);
+      const currentUser = await getDoc(currentUserdocref);
       console.log(currentUser);
       const currentNotifications = User?.data()?.notifications || [];
       const notification = {
