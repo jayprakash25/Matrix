@@ -20,11 +20,8 @@ export default function EditProfile({ setisedit }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const docRef = doc(db, "WHATWEDO", category);
         const docRef = doc(db, "USERS", jwt);
-
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
           const data = docSnap.data();
           setUser(data);
@@ -43,16 +40,13 @@ export default function EditProfile({ setisedit }) {
     e.preventDefault();
 
     try {
-      // Upload the image to Firebase Storage
       const Storageref = ref(storage, `image/userImage/${uploadimage?.name}`);
       await uploadBytesResumable(Storageref, uploadimage);
       const downloadURL = await getDownloadURL(Storageref);
-
       const updatedProfile = {
         ...user,
         Pic: downloadURL,
       };
-
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, updatedProfile);
       console.log("profile updated");
@@ -124,7 +118,7 @@ export default function EditProfile({ setisedit }) {
         <div className="flex justify-center">
           <button
             onClick={handleSubmit}
-            className="w-[80vw] py-2  bg-[#1d9bf0]   text-white rounded-xl  "
+            className="w-[80vw] py-2  bg-[#1d9bf0]   text-white rounded-full  "
           >
             Edit
           </button>
