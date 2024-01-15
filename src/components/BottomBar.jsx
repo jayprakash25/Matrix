@@ -60,16 +60,18 @@ const BottomBar = () => {
             }}
             icon={<IoCreate size={25} color={iconColor} />}
           />
-          <BottomBarItem
+          {/* <BottomBarItem
             to="/profile"
             icon={<ImExit size={25} color={iconColor} />}
-          />
+          /> */}
           {Pic !== "" ? (
-            <img
-              src={Pic}
-              className="object-cover w-8 h-8 rounded-full"
-              alt=""
-            />
+            <Link to={"/profile"}>
+              <img
+                src={Pic}
+                className="object-cover w-8 h-8 rounded-full"
+                alt=""
+              />
+            </Link>
           ) : (
             <BottomBarItem
               to="/profile"
