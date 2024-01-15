@@ -49,10 +49,6 @@ export default function UserProfile() {
     getPosts();
   }, []);
 
-  // const Logout = () => {
-  //   localStorage.setItem("logout", true);
-  // };
-
   const handleLogout = async () => {
     try {
       await signOut(auth);

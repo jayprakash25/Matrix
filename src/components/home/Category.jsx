@@ -13,7 +13,7 @@ export default function Category() {
             <Link key={index} to={`/profile/${_.name}`}>
               <div className="grid  text-[0.75rem] space-y-3">
                 <div className="bg-[#282828] w-16 h-16 rounded-3xl flex items-center justify-center">
-                  <img className="w-7" src={_.image} alt="" />
+                  {_.image}
                 </div>
                 <div className="grid place-items-center place-content-center ">
                   <p>{_.name}</p>
