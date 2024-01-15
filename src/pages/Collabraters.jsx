@@ -3,6 +3,8 @@ import { BottomBar } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import NotifyLoader from "../components/notifications/NotifyLoader";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 export default function Collabraters() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
@@ -39,6 +41,18 @@ export default function Collabraters() {
 
   return (
     <>
+      <nav className="p-4">
+        <div className="flex items-center w-[60vw] justify-between">
+          <div>
+            <Link to={"/home"}>
+              <FaArrowLeft size={20} color="white" />
+            </Link>
+          </div>
+          <div className="text-center">
+            <h1 className="text-lg font-semibold">Your collabrations</h1>
+          </div>
+        </div>
+      </nav>
       {isloading ? (
         <NotifyLoader collabs={true} />
       ) : (

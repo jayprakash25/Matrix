@@ -38,7 +38,7 @@ export default function UsersPosts({ posts }) {
       {dummyPosts?.map((item, i) => {
         return (
           <React.Fragment key={i}>
-            <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
+            <div className="max-w-md px-4 py-3 rounded-lg shadow-sm lg border-[1px] mx-4 p-3 border-zinc-800">
               <div>
                 <img
                   className="mx-auto rounded-lg w-[85vw] object-cover"
