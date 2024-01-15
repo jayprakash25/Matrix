@@ -49,7 +49,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
   const fetchData = useCallback(async () => {
     try {
       const User = await getDoc(docref);
-      const currentConnectedUser = User?.data()?.connectedUsers;
+      const currentConnectedUser = User?.data()?.collabs;
       setCurrentConnectedUser(currentConnectedUser);
       setisloading(false);
     } catch (error) {
@@ -92,9 +92,9 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
     setisloading(true);
     try {
       const User = await getDoc(docref);
-      const currentConnectedUser = (await User?.data()?.connectedUsers) || [];
+      const collabs = (await User?.data()?.collabs) || [];
       await updateDoc(docref, {
-        connectedUsers: [...currentConnectedUser, id],
+        collabs: [...collabs, id],
       });
       await sendNotification(id);
       setshowUsers((prevShowUsers) =>

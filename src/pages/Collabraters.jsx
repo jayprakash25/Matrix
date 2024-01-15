@@ -20,9 +20,15 @@ export default function Collabraters() {
         currentConnectedUserCollabs.map(async (userId) => {
           const userDocRef = doc(db, "USERS", userId);
           const userDoc = await getDoc(userDocRef);
-          const { Name, Pic, Phone, Bio, location, Profession } =
-            userDoc?.data() || {};
-          return { userId, Name, Pic, Phone, Bio, location, Profession };
+
+          const otherUsercollablist = userDoc?.data()?.collabs || [];
+          if (otherUsercollablist?.includes(jwt)) {
+            const { Name, Pic, Phone, Bio, location, Profession } =
+              userDoc?.data() || {};
+            return { userId, Name, Pic, Phone, Bio, location, Profession };
+          } else {
+            return;
+          }
         })
       );
       const collabsArray = collabUsersData;
@@ -63,11 +69,11 @@ export default function Collabraters() {
                 <div className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
                   <div className="flex items-start gap-5">
                     <div className="space-y-2.5">
-                      <h1 className="text-lg font-bold">{item.Name}</h1>
-                      <h1 className="font-semibold ">{item.Profession}</h1>
-                      <p className="font-semibold ">{item.Phone}</p>
-                      <p className="text-xs leading-6">{item.Bio}</p>
-                      <p className="text-xs leading-6">{item.location}</p>
+                      <h1 className="text-lg font-bold">{item?.Name}</h1>
+                      <h1 className="font-semibold ">{item?.Profession}</h1>
+                      <p className="font-semibold ">{item?.Phone}</p>
+                      <p className="text-xs leading-6">{item?.Bio}</p>
+                      <p className="text-xs leading-6">{item?.location}</p>
                     </div>
                   </div>
                 </div>

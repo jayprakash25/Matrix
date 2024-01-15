@@ -43,11 +43,11 @@ export default function EnterOtp({ user }) {
           onChange={(e) => {
             setOtp(e.target.value);
           }}
-          className="px-2 py-3 text-black text-xl text-center border-b-2 rounded-xl outline-none "
+          className="px-2 py-3 text-xl text-center text-black border-b-2 outline-none rounded-xl "
         />
         <button
           onClick={createUser}
-          className="py-2 text-sm  bg-[#1d9bf0]  rounded-xl"
+          className="py-2 text-sm  bg-[#1d9bf0] rounded-full"
         >
           Done
         </button>
