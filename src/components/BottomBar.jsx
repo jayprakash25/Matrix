@@ -1,13 +1,15 @@
 import propTypes from "prop-types";
 import { PiHouse } from "react-icons/pi";
-import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 import { MdPeopleAlt } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 import AddPost from "./AddPost";
+import { db } from "../Firebase";
+import { doc, getDoc } from "firebase/firestore";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
   <Link to={to}>
@@ -23,6 +25,22 @@ const BottomBarItem = ({ to, icon, clickFn }) => (
 const BottomBar = () => {
   const iconColor = "#fff";
   const [isPost, setisPost] = useState(false);
+  const [Pic, setPic] = useState();
+  const jwt = localStorage.getItem("jwt");
+  const docref = doc(db, "USERS", jwt);
+
+  const getPic = async () => {
+    try {
+      const User = await getDoc(docref);
+      setPic(User?.data()?.Pic);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPic();
+  }, []);
 
   return (
     <footer className="fixed bottom-0 w-full">
@@ -46,10 +64,18 @@ const BottomBar = () => {
             to="/profile"
             icon={<ImExit size={25} color={iconColor} />}
           />
-          <BottomBarItem
-            to="/profile"
-            icon={<CgProfile size={25} color={iconColor} />}
-          />
+          {Pic !== "" ? (
+            <img
+              src={Pic}
+              className="object-cover w-8 h-8 rounded-full"
+              alt=""
+            />
+          ) : (
+            <BottomBarItem
+              to="/profile"
+              icon={<CgProfile size={25} color={iconColor} />}
+            />
+          )}
         </ul>
         {isPost ? <AddPost setisPost={setisPost} /> : null}
       </div>

@@ -77,6 +77,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
         message: "Connected with you",
         Name: currentUser?.data()?.Name,
         Pic: currentUser?.data()?.Pic,
+        id: currentUser?.id,
       };
       await updateDoc(docref, {
         notifications: [...currentNotifications, notification],
@@ -129,12 +130,12 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                         alt={_.Pic}
                       />
                     </div>
-                    <div className="max-w-xs space-y-3.5">
+                    <div className="max-w-xs ">
                       <h1 className="text-xl font-semibold">{_.Name}</h1>
-                      <p className="text-xs leading-5 text-slate-400">
+                      <p className="mt-3 text-xs leading-5 text-slate-400">
                         {_.Bio}
                       </p>
-                      <ul className="flex gap-4 overflow-x-scroll">
+                      <ul className="flex gap-4 mt-5 overflow-x-scroll">
                         {_.hobbies.map((i, index) => {
                           return (
                             <li
@@ -150,9 +151,9 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                         onClick={() => {
                           connectUser(_.id);
                         }}
-                        className={`w-full py-2 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
+                        className={`w-full py-2 mt-6 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                       >
-                        Connect
+                        Collab
                       </button>
                     </div>
                   </div>

@@ -135,21 +135,21 @@ export default function UserProfile() {
               alt=""
             />
           </div>
-          <div className="max-w-[55vw] space-y-3">
+          <div className="max-w-[55vw] space-y-2">
             <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
             <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-            <div className="space-x-3.5 flex">
+            <div className="space-x-3.5 flex ">
               <button
                 onClick={() => {
                   setisedit(true);
                 }}
-                className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-4 "
+                className="py-2 text-xs mt-3 font-semibold text-white rounded-lg bg-[#1d9bf0] px-4 "
               >
                 Edit Profile
               </button>
               {jwt === localStorage.getItem("jwt") ? (
                 <Link to={`/collabs/${jwt}`}>
-                  <button className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-7">
+                  <button className="py-2  mt-3 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-7">
                     Collabrates
                   </button>
                 </Link>

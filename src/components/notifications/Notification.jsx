@@ -3,17 +3,21 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
+import { RxCross2 } from "react-icons/rx";
+import { TiTickOutline } from "react-icons/ti";
 
 export default function Notification() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState();
+  const [collabs, setcollabs] = useState();
 
   const getNotifications = async () => {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       setNotifications(User.data().notifications || []);
+      setNotifications(User.data().collabs || []);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -39,6 +43,17 @@ export default function Notification() {
     }
   };
 
+  const acceptRequest = async (userid) => {
+    try {
+      console.log(userid);
+      const updatedCuurentCollabs = [...collabs, userid];
+      const docRef = doc(db, "USERS", jwt);
+      await updateDoc(docRef, { notifications: updatedCuurentCollabs });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {isloading ? (
@@ -48,7 +63,7 @@ export default function Notification() {
           {Notifications?.map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
+                <div className="flex items-center justify-around gap-2 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
                   <div className="flex items-center gap-5">
                     <img
                       className="object-cover w-16 h-16 rounded-full"
@@ -62,14 +77,23 @@ export default function Notification() {
                       </p>
                     </div>
                   </div>
-                  <AiOutlineDelete
-                    onClick={() => {
-                      DeleteNotification(i);
-                    }}
-                    size={27}
-                    cursor={"pointer"}
-                    color="white"
-                  />
+                  <div className="flex gap-5">
+                    <RxCross2
+                      onClick={() => {
+                        DeleteNotification(i);
+                      }}
+                      size={25}
+                      cursor={"pointer"}
+                      color="red"
+                    />
+                    <TiTickOutline
+                      onClick={() => {
+                        acceptRequest(_.id);
+                      }}
+                      size={25}
+                      color="green"
+                    />
+                  </div>
                 </div>
               </React.Fragment>
             );
