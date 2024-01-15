@@ -10,7 +10,7 @@ export default function Notifications() {
         <div className="flex items-center w-[60vw] justify-between">
           <div>
             <Link to={"/home"}>
-              <FaArrowLeft size={20} color="#1d9bf0" />
+              <FaArrowLeft size={20} color="white" />
             </Link>
           </div>
           <div className="text-center">

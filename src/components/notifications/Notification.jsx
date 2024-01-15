@@ -16,8 +16,9 @@ export default function Notification() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
+      console.log(User?.data().notifications);
       setNotifications(User.data().notifications || []);
-      setNotifications(User.data().collabs || []);
+      setcollabs(User.data().collabs || []);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -48,11 +49,16 @@ export default function Notification() {
       console.log(userid);
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
-      await updateDoc(docRef, { notifications: updatedCuurentCollabs });
+      await updateDoc(docRef, { collabs: updatedCuurentCollabs });
+      setNotifications((prev) =>
+        prev?.filter((notification) => notification.id !== userid)
+      );
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(Notifications);
 
   return (
     <>

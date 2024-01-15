@@ -36,10 +36,10 @@ export default function Login() {
   };
 
   return (
-    <div className="px-5 lg:flex items-center justify-center lg:h-screen">
+    <div className="items-center justify-center px-5 lg:flex lg:h-screen">
       {loading ? (
         // Display the loading spinner or GIF while content is loading
-        <div className="flex  items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen">
           {/* <img className="w-20" src={loader} alt="Loading" /> */}
         </div>
       ) : (
@@ -51,7 +51,8 @@ export default function Login() {
             <p className="text-center">
               {/* As a <span className="text-slate-500">user</span>, I am entering
               my */}
-              Connect with students on your campus!
+              Collab with <span className="text-[#1d9bf0]">People</span> with
+              similar Hobbies
             </p>
             <form className="space-y-4" action="POST">
               <input
@@ -83,16 +84,16 @@ export default function Login() {
                   Invalid email or password. Please check your credentials.
                 </div>
               )}
-              <div className="  py-5 space-y-6">
+              <div className="py-5 space-y-6 ">
                 <Button handleSubmit={submit} title="Login" />
               </div>
             </form>
           </div>
 
-          <div className="flex text-sm items-center space-x-2 text-center justify-center">
+          <div className="flex items-center justify-center space-x-2 text-center">
             <p>New User?</p>
             <Link to={"/"}>
-              <p className=" text-sm text-amber-500">Sign-Up</p>
+              <p className=" text-[#1d9bf0] font-semibold">Sign-Up</p>
             </Link>
           </div>
         </div>

@@ -72,8 +72,8 @@ export default function RegistrationForm() {
   return (
     <>
       <div className="text-center mt-7">
-        <h1 className="text-3xl font-semibold text-amber-500">
-          Create Account
+        <h1 className="text-3xl font-semibold ">
+          Create <span className="text-[#1d9bf0]">Account</span>
         </h1>
       </div>
       <form className="flex flex-col items-center justify-center gap-10 mt-10">
@@ -165,7 +165,7 @@ export default function RegistrationForm() {
         <p>
           Agree with{" "}
           <Link to={"/privacy"}>
-            <span className="font-semibold text-amber-500">
+            <span className="font-semibold text-[#1d9bf0]">
               Term & Conditions
             </span>
           </Link>
@@ -176,7 +176,7 @@ export default function RegistrationForm() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={onNumSubmit}
-          className="w-[80vw] py-4  bg-[#1d9bf0]   text-white rounded-lg px-29 "
+          className="w-[75vw] py-3  bg-[#1d9bf0]   text-white rounded-full px-29 "
         >
           Create Account
         </button>
