@@ -139,13 +139,13 @@ export default function UserProfile() {
                 onClick={() => {
                   setisedit(true);
                 }}
-                className="py-2 text-xs mt-3 font-semibold text-white rounded-lg bg-[#1d9bf0] px-4 "
+                className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-5 "
               >
                 Edit Profile
               </button>
               {jwt === localStorage.getItem("jwt") ? (
                 <Link to={`/collabs/${jwt}`}>
-                  <button className="py-2  mt-3 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0] px-7">
+                  <button className="py-2  mt-3 text-xs font-semibold text-white rounded-full bg-[#1d9bf0] px-7">
                     Collabrates
                   </button>
                 </Link>
@@ -162,18 +162,18 @@ export default function UserProfile() {
                   <div>
                     <img
                       className="mx-auto rounded-lg w-[85vw] object-cover"
-                      src={item.image}
-                      alt={item.image}
+                      src={item?.image}
+                      alt={item?.image}
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3 mt-5">
                       <img
-                        src={item.Pic}
+                        src={item?.Pic}
                         className="object-cover w-12 h-12 rounded-full"
-                        alt={item.Pic}
+                        alt={item?.Pic}
                       />
-                      <h1 className="text-xl font-semibold">{item.Name}</h1>
+                      <h1 className="text-xl font-semibold">{item?.Name}</h1>
                     </div>
                     <div>
                       <HiDotsHorizontal
@@ -218,7 +218,7 @@ export default function UserProfile() {
                       ) : null}
                     </div>
                   </div>
-                  <p className="mt-3 text-sm leading-6">{item.Text}</p>
+                  <p className="mt-3 text-sm leading-6">{item?.Text}</p>
                 </div>
               </React.Fragment>
             );

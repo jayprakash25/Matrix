@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { BottomBar, EnterOtp } from "../components";
+import { BottomBar } from "../components";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import Discover from "../components/home/Discover";
 import Category from "../components/home/Category";
-// import Empty from "../components/home/Empty";
+import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
 import Loader from "../components/home/Loader";
 import { useNavigate } from "react-router-dom";
@@ -44,16 +44,15 @@ export default function Home() {
 
   return (
     <>
-      {/* <Navbar /> */}
       <Discover />
       <Category />
       {isloading ? (
         <Loader />
       ) : (
-        <div>{posts == undefined ? null : <UsersPosts posts={posts} />}</div>
+        <div>
+          {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
+        </div>
       )}
-      {/* <Empty /> */}
-      <UsersPosts posts={posts} />
       <BottomBar />
     </>
   );

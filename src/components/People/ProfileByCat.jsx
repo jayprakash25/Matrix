@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 export default function ProfileByCat() {
   const { category } = useParams();
   const [allUsers, setAllUsers] = useState([]);
+  const [showusers, setshowusers] = useState([]);
 
   const fetchProfileByCat = useCallback(async () => {
     //getting all users details
@@ -13,34 +14,33 @@ export default function ProfileByCat() {
     const userSnapshot = await getDocs(docRef);
     const usersData = [];
     userSnapshot.forEach((doc) => {
-      const userData = doc.data();
-      if (userData.hobbies) {
-        usersData.push(userData);
+      const userData = doc?.data();
+      if (userData?.hobbies) {
+        usersData?.push(userData);
       }
     });
-
     // setCurrentUser(currentUser);
     setAllUsers(usersData);
   }, []);
 
-  //to filter users based on hobbies
   const filterHobbies = async (category, users) => {
-    return users.filter((user) => {
-      // Assuming currentUser.hobbies is an array, check if user has any common hobbies
-      return user.hobbies.some((hobby) => category === hobby);
+    return users?.filter((user) => {
+      return user?.hobbies?.some((hobby) => category === hobby);
     });
   };
 
   const fil = async () => {
     const filteredUsers = await filterHobbies(category, allUsers);
     console.log(filteredUsers);
+    setshowusers(filteredUsers);
   };
-
-  fil();
 
   useEffect(() => {
     fetchProfileByCat();
   }, [fetchProfileByCat]);
+  useEffect(() => {
+    fil();
+  }, []);
 
   return <div></div>;
 }
