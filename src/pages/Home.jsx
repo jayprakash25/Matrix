@@ -8,12 +8,14 @@ import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
 import Loader from "../components/home/Loader";
 import { useNavigate } from "react-router-dom";
-
+import { useAnimation, motion } from "framer-motion";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
+  const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
-  const navigate = useNavigate();
+
   const fetchPosts = async () => {
     try {
       const user = auth.currentUser;
@@ -42,17 +44,45 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const startAnimation = async () => {
+      await controls.start("animate");
+    };
+    startAnimation();
+  }, [controls]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const pageVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
+  const pageTransition = { duration: 0.5 };
+
   return (
     <>
-      <Discover />
-      <Category />
-      {isloading ? (
-        <Loader />
-      ) : (
-        <div>
-          {posts == undefined ? <Empty /> : <UsersPosts posts={posts} />}
-        </div>
-      )}
+      <motion.div
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+        transition={pageTransition}
+      >
+        <Discover />
+        <Category />
+
+        {posts == undefined ? (
+          <Empty />
+        ) : isloading ? (
+          <Loader />
+        ) : (
+          <UsersPosts posts={posts} />
+        )}
+      </motion.div>
       <BottomBar />
     </>
   );

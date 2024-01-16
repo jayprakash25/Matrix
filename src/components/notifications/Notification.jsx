@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
