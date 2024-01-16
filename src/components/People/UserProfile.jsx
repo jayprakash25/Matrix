@@ -140,7 +140,7 @@ export default function UserProfile({ searchpeople, setsearchpeople }) {
                           return (
                             <li
                               key={index}
-                              className="px-2 py-1 text-xs font-semibold rounded-full bg-[#1d9bf0]"
+                              className="px-2 py-1 text-xs font-semibold rounded-full bg-sky-600"
                             >
                               {i}
                             </li>

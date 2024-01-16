@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 
@@ -66,6 +66,7 @@ export default function Profiles() {
       ) : (
         showusers.map((_, index) => {
           return (
+            <Link to={`/${_.id}`}>
             <div
               key={index}
               className="w-full p-4 border rounded-lg shadow max border-zinc-800"
@@ -86,11 +87,11 @@ export default function Profiles() {
                 </div>
                 <div className="flex">
                   {connectedUser.some((user) => user === _.id) ? (
-                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
                       Collaborated
                     </button>
                   ) : (
-                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                       Colloborate
                     </button>
                   )}
@@ -98,6 +99,8 @@ export default function Profiles() {
                 </div>
               </div>
             </div>
+            </Link>
+
           );
         })
       )}

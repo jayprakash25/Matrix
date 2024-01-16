@@ -38,21 +38,18 @@ export default function ViewUserProfile() {
   }, []);
 
   const sendCollab = async () => {
-    // send Notification to other User for collab
     try {
       const User = await getDoc(docref);
-      const userCurrentCollabsNotification =
-        User?.data()?.collabNotification || [];
-      const collabNotification = {
-        Name: Userdocref?.data().Name,
-        Bio: Userdocref?.data().Bio,
-        Pic: Userdocref?.data().Pic,
+      const me = await getDoc(Userdocref);
+      const userCurrentCollabsNotification = User?.data()?.notifications || [];
+      const notification = {
+        Name: me?.data()?.Name,
+        Bio: me?.data()?.Bio,
+        Pic: me?.data()?.Pic,
+        id: me?.id,
       };
       await updateDoc(docref, {
-        collabNotification: [
-          ...userCurrentCollabsNotification,
-          collabNotification,
-        ],
+        notifications: [...userCurrentCollabsNotification, notification],
       });
     } catch (error) {
       console.log(error);
@@ -79,18 +76,18 @@ export default function ViewUserProfile() {
         <div className="">
           <img
             src={Userdata.Pic}
-            className="object-cover rounded-full w-36 h-36"
+            className="object-cover w-32 h-32 rounded-full"
             alt=""
           />
         </div>
-        <div className="max-w-[55vw] space-y-3">
+        <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
           <button
             onClick={sendCollab}
-            className="py-2 text-xs font-semibold text-white rounded-lg bg-[#1d9bf0"
+            className="py-2 px-20  text-xs font-semibold text-white rounded-full bg-[#1d9bf0]"
           >
-            Collabrates
+            Collab
           </button>
         </div>
       </div>
