@@ -18,8 +18,13 @@ export default function Notification() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      console.log(User?.data().notifications);
-      setNotifications(User.data().notifications || []);
+      const filteredNotifications = User.data().notifications.filter(
+        (notification) => {
+          return !collabs.includes(notification.id);
+        }
+      );
+      console.log(filteredNotifications);
+      setNotifications(filteredNotifications || []);
       setcollabs(User.data().collabs || []);
       setisloading(false);
     } catch (error) {

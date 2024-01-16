@@ -5,13 +5,13 @@ import { auth } from "../Firebase";
 import { Link, useNavigate } from "react-router-dom/dist";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [invalid, setInvalid] = useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [invalid, setInvalid] = useState(false);
-  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();

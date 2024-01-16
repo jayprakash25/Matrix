@@ -51,6 +51,8 @@ export default function Signup() {
     }
   };
 
+  const sendPushNotification = () => {};
+
   const SignIn = async () => {
     try {
       if (cred.password.length < 6) {
@@ -72,6 +74,7 @@ export default function Signup() {
       // await setDoc(docRef, cred);
       window.localStorage.setItem("jwt", UserToken);
       navigate("/register");
+      sendPushNotification();
     } catch (error) {
       console.log(error);
     }
