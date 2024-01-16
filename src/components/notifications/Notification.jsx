@@ -53,9 +53,8 @@ export default function Notification() {
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
-      setNotifications((prev) =>
-        prev?.filter((notification) => notification.id !== userid)
-      );
+      console.log(Notifications);
+      DeleteNotification(Notifications?.id);
       navigate(`/collabs/${jwt}`);
     } catch (error) {
       console.log(error);
