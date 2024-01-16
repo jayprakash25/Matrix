@@ -127,7 +127,7 @@ export default function ViewUserProfile() {
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
           {userCollabs.some((collab) => collab === Userdata.id) ? (
-            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full   px-7 ">
               Collaborated
             </button>
           ) : (

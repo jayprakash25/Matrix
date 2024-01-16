@@ -1,4 +1,10 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
@@ -32,8 +38,8 @@ export default function Profiles() {
   const fetchCollabs = useCallback(async () => {
     const docRef = doc(db, "USERS", jwt);
     const User = await getDoc(docRef);
-    const collabs = User.data().collabs;
-    setConnectedUser(collabs);
+    const collabs = User?.data()?.collabs || [];
+    setConnectedUser(collabs || []);
     setisloading(false);
   }, [jwt]);
 
@@ -58,14 +64,56 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
+  const sendNotification = async (userid) => {
+    try {
+      const docref = doc(db, "USERS", userid);
+      const User = await getDoc(docref);
+      const currentUserdocref = doc(db, "USERS", jwt);
+      const currentUser = await getDoc(currentUserdocref);
+      console.log(currentUser);
+      const currentNotifications = User?.data()?.notifications || [];
+      const notification = {
+        message: "Connected with you",
+        Name: currentUser?.data()?.Name,
+        Pic: currentUser?.data()?.Pic,
+        id: currentUser?.id,
+      };
+      await updateDoc(docref, {
+        notifications: [...currentNotifications, notification],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Collab = async (id) => {
+    console.log("connected to user " + id + " from " + jwt);
+    setisloading(true);
+    try {
+      const docref = doc(db, "USERS", jwt);
+      const User = await getDoc(docref);
+      const collabs = (await User?.data()?.collabs) || [];
+      await updateDoc(docref, {
+        collabs: [...collabs, id],
+      });
+      await sendNotification(id);
+      // setshowusers((prevShowUsers) =>
+      //   prevShowUsers.filter((user) => user.id !== id)
+      // );
+      setisloading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="p-5">
+    <div className="flex flex-col justify-center gap-5 p-5">
       {isloading ? (
         <NotifyLoader />
       ) : (
-        showusers.map((_, index) => {
+        showusers.map((user, index) => {
           return (
-            <Link to={`/${_.id}`} key={index}>
+            <Link to={`/${user.id}`} key={index}>
               <div
                 key={index}
                 className="w-full p-4 border rounded-lg shadow max border-zinc-800"
@@ -74,24 +122,29 @@ export default function Profiles() {
                   <div className="flex items-center space-x-5 ">
                     <img
                       className="w-20 h-20 rounded-full shadow-lg"
-                      src={_.Pic}
+                      src={user.Pic}
                       alt="Bonnie image"
                     />
                     <div className="space-y-2">
                       <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-                        {_.Name}
+                        {user.Name}
                       </h5>
-                      <p className="text-sm font-semibold">{_.Profession}</p>
+                      <p className="text-sm font-semibold">{user.Profession}</p>
                     </div>
                   </div>
                   <div className="flex">
-                    {connectedUser.some((user) => user === _.id) ? (
-                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    {connectedUser?.includes(user.id) ? (
+                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full px-7 ">
                         Collaborated
                       </button>
                     ) : (
-                      <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Colloborate
+                      <button
+                        onClick={() => {
+                          Collab(user.id);
+                        }}
+                        className="inline-flex items-center py-2 text-sm text-center text-white bg-blue-600 rounded-full px-7"
+                      >
+                        Collaborate
                       </button>
                     )}
                   </div>
