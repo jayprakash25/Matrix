@@ -9,7 +9,7 @@ import {
 import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
-export default function UserProfile() {
+export default function UserProfile({ userProfiles, search }) {
   const jwt = localStorage.getItem("jwt");
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
@@ -35,7 +35,7 @@ export default function UserProfile() {
           return commonHobbies?.length > 0;
         });
       setshowUsers(usersData);
-      console.log(usersData);
+      // console.log(usersData);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -63,6 +63,8 @@ export default function UserProfile() {
     fetchData();
   }, [fetchData]);
 
+  console.log(userProfiles, search);
+
   const sendNotification = async (userid) => {
     try {
       // connected User
@@ -71,7 +73,7 @@ export default function UserProfile() {
       // current User
       const currentUserdocref = doc(db, "USERS", jwt);
       const currentUser = await getDoc(currentUserdocref);
-      console.log(currentUser);
+      // console.log(currentUser);
       const currentNotifications = User?.data()?.notifications || [];
       const notification = {
         message: "Connected with you",
@@ -106,6 +108,8 @@ export default function UserProfile() {
     }
   };
 
+  const usersToMap = search ? userProfiles : showUsers;
+
   return (
     <>
       {isloading ? (
@@ -116,7 +120,7 @@ export default function UserProfile() {
         </div>
       ) : null}
       <div className="flex flex-col gap-4 mb-20">
-        {showUsers
+        {usersToMap
           ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
           .map((_, i) => {
             return (

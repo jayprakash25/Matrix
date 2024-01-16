@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BottomBar } from "../components";
 import SearchBar from "../components/People/SearchBar";
 import UserProfiles from "../components/People/UserProfiles";
@@ -9,10 +9,9 @@ export default function People() {
   const jwt = window.localStorage.getItem("jwt");
   const [searchQuery, setSearchQuery] = useState("");
   const [allUserProfiles, setAllUserProfiles] = useState([]);
-  const [filteredUserProfiles, setFilteredUserProfiles] =
-    useState(allUserProfiles);
+  const [filteredUserProfiles, setFilteredUserProfiles] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const docRef = collection(db, "USERS");
     const snapshot = await getDocs(docRef);
     const userData = snapshot.docs
@@ -27,8 +26,8 @@ export default function People() {
       });
 
     setAllUserProfiles(userData);
-    setFilteredUserProfiles();
-  };
+    setFilteredUserProfiles(userData);
+  }, [jwt]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -40,7 +39,7 @@ export default function People() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   // console.log(allUserProfiles);
   console.log(filteredUserProfiles);
@@ -49,7 +48,7 @@ export default function People() {
     <>
       {/* <Navbar /> */}
       <SearchBar onSearch={handleSearch} />
-      <UserProfiles UserProfiles={filteredUserProfiles} />
+      <UserProfiles userProfiles={filteredUserProfiles} search={searchQuery} />
       <BottomBar />
     </>
   );
