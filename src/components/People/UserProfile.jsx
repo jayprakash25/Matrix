@@ -108,7 +108,7 @@ export default function UserProfile({ userProfiles, search }) {
     }
   };
 
-  const usersToMap = search ? userProfiles : showUsers;
+  const usersToMap = search == " " ? showUsers : userProfiles;
 
   return (
     <>
