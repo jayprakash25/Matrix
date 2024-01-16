@@ -46,7 +46,7 @@ export default function Profiles() {
   const fil = useCallback(async () => {
     const filteredUsers = await filterHobbies(category, allUsers);
     setshowusers(filteredUsers);
-  }, [allUsers, category]);
+  }, [category, allUsers]);
 
   console.log(showusers);
 
@@ -58,7 +58,6 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
-  console.log(connectedUser);
   return (
     <div className="p-5">
       {isloading ? (
@@ -66,7 +65,7 @@ export default function Profiles() {
       ) : (
         showusers.map((_, index) => {
           return (
-            <Link to={`/${_.id}`}>
+            <Link to={`/${_.id}`} key={index}>
               <div
                 key={index}
                 className="w-full p-4 border rounded-lg shadow max border-zinc-800"
@@ -95,7 +94,6 @@ export default function Profiles() {
                         Colloborate
                       </button>
                     )}
-                    {console.log(_.id)}
                   </div>
                 </div>
               </div>

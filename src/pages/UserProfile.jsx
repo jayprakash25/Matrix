@@ -135,7 +135,7 @@ export default function UserProfile() {
         <main>
           {isloading ? <Loader /> : null}
           <nav className="p-4">
-            <div className="flex items-center w-[55vw] justify-between">
+            <div className="flex items-center w-full justify-between">
               <div>
                 <Link to={"/home"}>
                   <FaArrowLeft size={20} color="" />
@@ -144,6 +144,12 @@ export default function UserProfile() {
 
               <div className="text-center">
                 <h1 className="text-lg font-semibold ">My Profile</h1>
+              </div>
+
+              <div>
+                <button onClick={handleLogout} className="text-red-500">
+                  Log Out
+                </button>
               </div>
             </div>
           </nav>
@@ -163,7 +169,7 @@ export default function UserProfile() {
                   onClick={() => {
                     setisedit(true);
                   }}
-                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-5 "
+                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 "
                 >
                   Edit Profile
                 </button>

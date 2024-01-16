@@ -9,7 +9,7 @@ import {
 import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
-export default function UserProfile({ searchpeople, setsearchpeople }) {
+export default function UserProfile() {
   const jwt = localStorage.getItem("jwt");
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
   const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
