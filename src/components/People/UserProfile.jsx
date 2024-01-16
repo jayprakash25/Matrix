@@ -126,16 +126,16 @@ export default function UserProfile() {
                     <div>
                       <img
                         src={_.Pic}
-                        className="object-cover rounded-full w-28 h-28"
+                        className="object-cover rounded-full w-28 h-28 max-w-md"
                         alt={_.Pic}
                       />
                     </div>
-                    <div className="max-w-xs ">
+                    <div className="">
                       <h1 className="text-xl font-semibold">{_.Name}</h1>
-                      <p className="mt-3 text-xs leading-5 text-slate-400">
+                      {/* <p className="mt-3 text-xs leading-5 text-slate-400">
                         {_.Bio}
-                      </p>
-                      <ul className="flex gap-4 mt-5 overflow-x-scroll">
+                      </p> */}
+                      <ul className="flex gap-4 mt-5 w-60 overflow-x-scroll">
                         {_.hobbies.map((i, index) => {
                           return (
                             <li
@@ -151,7 +151,7 @@ export default function UserProfile() {
                         onClick={() => {
                           connectUser(_.id);
                         }}
-                        className={`w-full py-2 mt-6 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
+                        className={` py-2 mt-6 w-44 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                       >
                         Collab
                       </button>
