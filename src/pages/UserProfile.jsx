@@ -9,6 +9,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { signOut } from "firebase/auth";
 import { useAnimation, motion } from "framer-motion";
 import ModelLogout from "../components/ModelLogout";
+import { GiNothingToSay } from "react-icons/gi";
 
 export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
@@ -90,36 +91,36 @@ export default function UserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
-  const dummyPosts = [
-    {
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rohit",
-      image:
-        "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
-    },
-    {
-      Pic: "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rohit",
-      image:
-        "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
-    },
-    {
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rohit",
-      image:
-        "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
-    },
-    {
-      Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Name: "Rohit",
-      image:
-        "https://images.pexels.com/photos/1245055/pexels-photo-1245055.jpeg?auto=compress&cs=tinysrgb&w=300",
-      Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
-    },
-  ];
+  // const dummyPosts = [
+  //   {
+  //     Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Name: "Rohit",
+  //     image:
+  //       "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+  //   },
+  //   {
+  //     Pic: "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Name: "Rohit",
+  //     image:
+  //       "https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+  //   },
+  //   {
+  //     Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Name: "Rohit",
+  //     image:
+  //       "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+  //   },
+  //   {
+  //     Pic: "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Name: "Rohit",
+  //     image:
+  //       "https://images.pexels.com/photos/1245055/pexels-photo-1245055.jpeg?auto=compress&cs=tinysrgb&w=300",
+  //     Text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus aspernatur asperiores cum neque vero beatae quisquam harum dolores error expedita eius eaque minima, illo at ducimus voluptatum placeat totam voluptates veritatis velit est culpa voluptatem? Voluptas in, obcaecati veritatis pariatur sequi voluptatibus ex nostrum dolores, consequuntur aliquid illo, enim sunt!",
+  //   },
+  // ];
   return (
     <>
       <motion.div
@@ -187,77 +188,98 @@ export default function UserProfile() {
           </div>
 
           <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
-            {dummyPosts?.map((item, i) => {
-              return (
-                <React.Fragment key={i}>
-                  <div className="max-w-md px-4 py-3 rounded-lg shadow-sm lg border-[1px]  border-zinc-800">
-                    <div>
-                      <img
-                        className="mx-auto rounded-lg w-[85vw] object-cover"
-                        src={item?.image}
-                        alt={item?.image}
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 mt-5">
-                        <img
-                          src={item?.Pic}
-                          className="object-cover w-12 h-12 rounded-full"
-                          alt={item?.Pic}
-                        />
-                        <h1 className="text-xl font-semibold">{item?.Name}</h1>
-                      </div>
+            {Userdata?.Posts != "" ? (
+              Userdata?.Posts.map((item, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    <div className="max-w-md px-4 py-3 rounded-lg shadow-sm lg border-[1px]  border-zinc-800">
                       <div>
-                        <HiDotsHorizontal
-                          onClick={() => {
-                            setisdelete(true);
-                          }}
-                          size={25}
-                          color="white"
-                          cursor={"pointer"}
+                        <img
+                          className="mx-auto rounded-lg w-[85vw] object-cover"
+                          src={item?.image}
+                          alt={item?.image}
                         />
-                        {isdelete ? (
-                          <>
-                            <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-25 backdrop-blur-md">
-                              <ul className="space-y-4 rounded-md bg-zinc-900">
-                                <li className="cursor-pointer py2 px- gap-7">
-                                  <h1 className="p-4 text-lg">
-                                    Are you Sure you want to delete this post?
-                                  </h1>
-                                  <div className="border-b-[1px] border-zinc-700 w-full"></div>
-                                  <div className="flex items-center justify-center">
-                                    <div
-                                      onClick={() => {
-                                        setisdelete(false);
-                                      }}
-                                      className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                                    >
-                                      <h1 className="text-green-500">Cancel</h1>
-                                    </div>
-                                    <div
-                                      onClick={deletePost}
-                                      className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                                    >
-                                      <h1 className="text-red-500">Delete</h1>
-                                      <AiOutlineDelete size={22} color="red" />
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            {isloading ? <Loader /> : null}
-                          </>
-                        ) : null}
                       </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3 mt-5">
+                          <img
+                            src={item?.Pic}
+                            className="object-cover w-12 h-12 rounded-full"
+                            alt={item?.Pic}
+                          />
+                          <h1 className="text-xl font-semibold">
+                            {item?.Name}
+                          </h1>
+                        </div>
+                        <div>
+                          <HiDotsHorizontal
+                            onClick={() => {
+                              setisdelete(true);
+                            }}
+                            size={25}
+                            color="white"
+                            cursor={"pointer"}
+                          />
+                          {isdelete ? (
+                            <>
+                              <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-25 backdrop-blur-md">
+                                <ul className="space-y-4 rounded-md bg-zinc-900">
+                                  <li className="cursor-pointer py2 px- gap-7">
+                                    <h1 className="p-4 text-lg">
+                                      Are you Sure you want to delete this post?
+                                    </h1>
+                                    <div className="border-b-[1px] border-zinc-700 w-full"></div>
+                                    <div className="flex items-center justify-center">
+                                      <div
+                                        onClick={() => {
+                                          setisdelete(false);
+                                        }}
+                                        className="flex justify-center gap-2 px-4 pb-4 mt-3"
+                                      >
+                                        <h1 className="text-green-500">
+                                          Cancel
+                                        </h1>
+                                      </div>
+                                      <div
+                                        onClick={deletePost}
+                                        className="flex justify-center gap-2 px-4 pb-4 mt-3"
+                                      >
+                                        <h1 className="text-red-500">Delete</h1>
+                                        <AiOutlineDelete
+                                          size={22}
+                                          color="red"
+                                        />
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              {isloading ? <Loader /> : null}
+                            </>
+                          ) : null}
+                        </div>
+                      </div>
+                      <p className="mt-3 text-sm leading-6">{item?.Text}</p>
                     </div>
-                    <p className="mt-3 text-sm leading-6">{item?.Text}</p>
-                  </div>
-                </React.Fragment>
-              );
-            })}
+                  </React.Fragment>
+                );
+              })
+            ) : (
+              <div className="flex flex-col items-center space-y-3 text-center mt-36">
+                <GiNothingToSay size={90} color="#252424" />
+                <h1 className="text-sm font-semibold ">
+                  You haven&apos;t posted anything yet!
+                </h1>
+              </div>
+            )}
           </div>
           {isedit ? <EditProfile setisedit={setisedit} /> : null}
-          {islogout ? <ModelLogout setislogout={setislogout} handleLogout={handleLogout} /> : null}
+          {islogout ? (
+            <ModelLogout
+              setislogout={setislogout}
+              handleLogout={handleLogout}
+            />
+          ) : null}
         </main>
       </motion.div>
       <BottomBar />
