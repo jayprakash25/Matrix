@@ -46,7 +46,7 @@ export default function Profiles() {
   const fil = useCallback(async () => {
     const filteredUsers = await filterHobbies(category, allUsers);
     setshowusers(filteredUsers);
-  }, [allUsers, category]);
+  }, [category, allUsers]);
 
   console.log(showusers);
 
@@ -58,7 +58,6 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
-  console.log(showusers);
   return (
     <div className="p-5">
       {isloading ? (

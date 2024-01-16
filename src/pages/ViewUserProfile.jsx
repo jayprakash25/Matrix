@@ -14,7 +14,7 @@ export default function ViewUserProfile() {
   const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [popup, setpopup] = useState(false);
-
+  const [userCollabs, setUserCollabs] = useState([]);
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
@@ -37,30 +37,40 @@ export default function ViewUserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
-  const getPosts = async () => {
-    try {
-      const User = await getDoc(docref);
-      setUserdata({
-        ...Userdata,
-        Pic: User?.data().Pic,
-        Name: User?.data().Name,
-        Bio: User?.data().Bio,
-        Posts: User?.data().Posts || [],
-      });
-      setisloading(false);
-    } catch (error) {
-      console.log(error);
-      setisloading(false);
-    }
+  const currentUser = async () => {
+    const snapshot = await getDoc(Userdocref);
+    const user = snapshot.data().collabs;
+    setUserCollabs(user);
   };
+
   useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const User = await getDoc(docref);
+        setUserdata((prevUserdata) => ({
+          ...prevUserdata,
+          id: User.id,
+          Pic: User?.data().Pic,
+          Name: User?.data().Name,
+          Bio: User?.data().Bio,
+          Posts: User?.data().Posts || [],
+        }));
+        setisloading(false);
+      } catch (error) {
+        console.log(error);
+        setisloading(false);
+      }
+    };
+
     getPosts();
+    currentUser();
   }, []);
 
   const sendCollab = async () => {
     try {
       const User = await getDoc(docref);
       const me = await getDoc(Userdocref);
+
       const userCurrentCollabsNotification = User?.data()?.notifications || [];
       const notification = {
         Name: me?.data()?.Name,
@@ -116,12 +126,18 @@ export default function ViewUserProfile() {
         <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-          <button
-            onClick={sendCollab}
-            className="py-2 px-20  text-xs font-semibold text-white rounded-full bg-[#1d9bf0]"
-          >
-            Collab
-          </button>
+          {userCollabs.some((collab) => collab === Userdata.id) ? (
+            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
+              Collaborated
+            </button>
+          ) : (
+            <button
+              onClick={sendCollab}
+              className="py-2 px-20  text-xs font-semibold text-white rounded-full bg-[#1d9bf0]"
+            >
+              Colloborate
+            </button>
+          )}
         </div>
       </div>
       <div className="flex flex-col items-center justify-center my-10 gap-7">
