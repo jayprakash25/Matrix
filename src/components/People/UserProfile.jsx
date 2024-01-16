@@ -121,12 +121,12 @@ export default function UserProfile() {
           .map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <Link to="/home">
+                <Link to="/">
                   <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
                     <div>
                       <img
                         src={_.Pic}
-                        className="object-cover rounded-full w-28 h-28 max-w-md"
+                        className="object-cover max-w-md rounded-full w-28 h-28"
                         alt={_.Pic}
                       />
                     </div>
@@ -135,7 +135,7 @@ export default function UserProfile() {
                       {/* <p className="mt-3 text-xs leading-5 text-slate-400">
                         {_.Bio}
                       </p> */}
-                      <ul className="flex gap-4 mt-5 w-60 overflow-x-scroll">
+                      <ul className="flex gap-4 mt-5 overflow-x-scroll w-60">
                         {_.hobbies.map((i, index) => {
                           return (
                             <li
