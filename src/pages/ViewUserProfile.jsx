@@ -4,18 +4,38 @@ import { Link, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "../components";
+import { useAnimation, motion } from "framer-motion";
+
 export default function ViewUserProfile() {
-  const [isloading, setisloading] = useState(true);
   const { userid } = useParams();
   const jwt = localStorage.getItem("jwt");
   const Userdocref = doc(db, "USERS", jwt);
   const docref = doc(db, "USERS", userid);
+  const controls = useAnimation();
+  const [isloading, setisloading] = useState(true);
+  const [popup, setpopup] = useState(false);
+
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
     Bio: "",
     Posts: [],
   });
+
+  useEffect(() => {
+    const startAnimation = async () => {
+      await controls.start("animate");
+    };
+    startAnimation();
+  }, [controls]);
+
+  const pageVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
+  const pageTransition = { duration: 0.5 };
 
   const getPosts = async () => {
     try {
@@ -48,22 +68,35 @@ export default function ViewUserProfile() {
         Pic: me?.data()?.Pic,
         id: me?.id,
       };
-      await updateDoc(docref, {
-        notifications: [...userCurrentCollabsNotification, notification],
-      });
+      const idExists = userCurrentCollabsNotification.some(
+        (notif) => notif.id === notification.id
+      );
+      if (!idExists) {
+        await updateDoc(docref, {
+          notifications: [...userCurrentCollabsNotification, notification],
+        });
+      } else {
+        setpopup(true);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <main>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       {isloading ? <Loader /> : null}
       <nav className="p-4">
         <div className="flex items-center w-[55vw] justify-between">
           <div>
             <Link to={"/people"}>
-              <FaArrowLeft size={20} color="orange" />
+              <FaArrowLeft size={20} color="white" />
             </Link>
           </div>
           <div className="text-center">
@@ -121,6 +154,7 @@ export default function ViewUserProfile() {
           })}
         </div>
       </div>
-    </main>
+      {popup ? alert("req already sent") : null}
+    </motion.div>
   );
 }

@@ -29,7 +29,6 @@ export default function Home() {
       const posts = currentConnectedUser?.map(async (userid) => {
         const userdocref = doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
-        // console.log(UserPosts?.data());
         setposts(UserPosts?.data()?.Posts);
         setisloading(false);
       });
