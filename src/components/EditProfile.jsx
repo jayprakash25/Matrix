@@ -12,7 +12,6 @@ export default function EditProfile({ setisedit }) {
     Bio: "",
     Pic: "",
   });
-  const [userImg, setUserImg] = useState({ image: "" });
   const [uploadimage, setuploadimage] = useState();
   const [blobimg, setblobimg] = useState({ image: "" });
 
@@ -89,8 +88,8 @@ export default function EditProfile({ setisedit }) {
           <input
             ref={imageref}
             onChange={(e) => {
-              setUserImg({
-                ...userImg,
+              setblobimg({
+                ...blobimg,
                 image: URL.createObjectURL(e.target.files[0]),
               });
               setuploadimage(e.target.files[0]);
