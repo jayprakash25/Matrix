@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { CgProfile } from "react-icons/cg";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { PiHouse } from "react-icons/pi";
-import { ImExit } from "react-icons/im";
 import { BottomBar, EditProfile, Loader } from "../components";
 import { Link, useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaRegBell } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { signOut } from "firebase/auth";
 import { useAnimation, motion } from "framer-motion";
+import ModelLogout from "../components/ModelLogout";
 
 export default function UserProfile() {
-  const liststyle = "flex items-center gap-10 cursor-pointer text-lg";
   const [isedit, setisedit] = useState(false);
   const [isdelete, setisdelete] = useState(false);
   const [isloading, setisloading] = useState(true);
   const navigate = useNavigate();
   const controls = useAnimation();
   const jwt = localStorage.getItem("jwt");
+  const [islogout, setislogout] = useState(false);
   const docref = doc(db, "USERS", jwt);
   const [Userdata, setUserdata] = useState({
     Pic: "",
@@ -135,7 +132,7 @@ export default function UserProfile() {
         <main>
           {isloading ? <Loader /> : null}
           <nav className="p-4">
-            <div className="flex items-center w-full justify-between">
+            <div className="flex items-center justify-between w-full">
               <div>
                 <Link to={"/home"}>
                   <FaArrowLeft size={20} color="" />
@@ -147,7 +144,12 @@ export default function UserProfile() {
               </div>
 
               <div>
-                <button onClick={handleLogout} className="text-red-500">
+                <button
+                  onClick={() => {
+                    setislogout(true);
+                  }}
+                  className="text-red-500"
+                >
                   Log Out
                 </button>
               </div>
@@ -255,6 +257,7 @@ export default function UserProfile() {
             })}
           </div>
           {isedit ? <EditProfile setisedit={setisedit} /> : null}
+          {islogout ? <ModelLogout setislogout={setislogout} handleLogout={handleLogout} /> : null}
         </main>
       </motion.div>
       <BottomBar />
