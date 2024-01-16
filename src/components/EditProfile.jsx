@@ -14,8 +14,9 @@ export default function EditProfile({ setisedit }) {
   });
   const [userImg, setUserImg] = useState({ image: "" });
   const [uploadimage, setuploadimage] = useState();
+  const [blobimg, setblobimg] = useState({ image: "" });
 
-  const imageRef = useRef();
+  const imageref = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +39,10 @@ export default function EditProfile({ setisedit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!blobimg) {
+      alert("Post");
+      return;
+    }
     try {
       const Storageref = ref(storage, `image/userImage/${uploadimage?.name}`);
       await uploadBytesResumable(Storageref, uploadimage);
@@ -69,17 +73,21 @@ export default function EditProfile({ setisedit }) {
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
-          <IoCloudUploadOutline
-            onClick={() => {
-              imageRef.current.click();
-            }}
-            size={70}
-            className="mx-auto"
-            color="white"
-          />
           <label className="font-semibold">ProfilePic*</label>
+          {blobimg.image ? (
+            <img src={blobimg.image} className="object-cover w-36 h-36" />
+          ) : (
+            <IoCloudUploadOutline
+              onClick={() => {
+                imageref.current.click();
+              }}
+              size={70}
+              className="mx-auto"
+              color="white"
+            />
+          )}
           <input
-            ref={imageRef}
+            ref={imageref}
             onChange={(e) => {
               setUserImg({
                 ...userImg,
