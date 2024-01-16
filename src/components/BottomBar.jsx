@@ -1,10 +1,9 @@
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import { PiHouse } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdPeopleAlt } from "react-icons/md";
-import { ImExit } from "react-icons/im";
 import AddPost from "./AddPost";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -86,9 +85,9 @@ const BottomBar = () => {
 };
 
 BottomBarItem.propTypes = {
-  to: propTypes.string,
-  icon: propTypes.object,
-  clickFn: propTypes,
+  to: PropTypes.string,
+  icon: PropTypes.object,
+  clickFn: PropTypes.func,
 };
 
 export default BottomBar;

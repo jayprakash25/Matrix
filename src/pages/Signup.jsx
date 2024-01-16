@@ -42,7 +42,7 @@ export default function Signup() {
           await setDoc(docRef, User);
           navigate("/register");
         } else {
-          console.log(currentUser.uid);
+          // console.log(currentUser.uid);
           navigate("/home");
         }
       }
@@ -68,7 +68,7 @@ export default function Signup() {
       const newUser = userCredential.user;
       const currentUser = auth.currentUser;
       const UserToken = currentUser.uid;
-      console.log(newUser);
+      // console.log(newUser);
 
       // const docRef = doc(db, "Users", UserToken);
       // await setDoc(docRef, cred);

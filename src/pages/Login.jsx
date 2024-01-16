@@ -25,7 +25,7 @@ export default function Login() {
       const currentUser = auth.currentUser;
       const userToken = currentUser.uid;
       window.localStorage.setItem("jwt", userToken);
-      console.log(userCredential);
+      // console.log(userCredential);
       navigate("/home");
     } catch (error) {
       setLoading(false);

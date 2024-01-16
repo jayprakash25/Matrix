@@ -1,4 +1,3 @@
-import React from "react";
 import { RxCross2 } from "react-icons/rx";
 
 export default function logoutmodel({ setislogout, handleLogout }) {
@@ -17,7 +16,7 @@ export default function logoutmodel({ setislogout, handleLogout }) {
         </div>
         <div className="space-y-4 text-center">
           <p className="text-lg">Are you sure you want to Logout</p>
-          <div className="border-b-[1px] border-zinc-700  "></div>
+          <div className="border-b-[1px] border-zinc-700"></div>
         </div>
         <div className="flex items-center justify-center gap-5 mt-4">
           <button

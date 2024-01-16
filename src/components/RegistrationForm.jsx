@@ -4,8 +4,10 @@ import { auth } from "../Firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import collegesInHyderabad from "../Data/cllg";
 import { EnterOtp } from "./index";
+import PopUp from "./models/PopUp";
 export default function RegistrationForm() {
   const [isshow, setisshow] = useState(false);
+  const [fillForm, setFillForm] = useState(false);
   const [user, setuser] = useState({
     Name: "",
     Phone: "",
@@ -14,7 +16,7 @@ export default function RegistrationForm() {
     collage: "",
     Profession: "",
     Bio: " ",
-    UserHobbies: [" "],
+    // UserHobbies: [" "],
   });
 
   const configureCaptcha = () => {
@@ -45,7 +47,8 @@ export default function RegistrationForm() {
           console.log(error);
         });
     } else {
-      alert("Please fill the form!");
+      // alert("Please fill the form!");
+      setFillForm(true);
     }
   };
 
@@ -71,6 +74,13 @@ export default function RegistrationForm() {
 
   return (
     <>
+      {fillForm ? (
+        <PopUp
+          setFillForm={setFillForm}
+          text="Ensure all fields are filled out."
+        />
+      ) : null}
+
       <div className="text-center mt-7">
         <h1 className="text-3xl font-semibold ">
           Create <span className="text-[#1d9bf0]">Account</span>
