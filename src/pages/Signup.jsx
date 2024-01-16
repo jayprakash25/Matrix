@@ -6,7 +6,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../Firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  const jwt = localStorage.getItem("jwt");
   const [errorMessage, setErrorMessage] = useState("");
   const GoogleSignIn = async () => {
     try {
@@ -75,6 +76,12 @@ export default function Signup() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (jwt) {
+      navigate("/home");
+    }
+  }, [jwt, navigate]);
 
   return (
     <div className="flex flex-col justify-center h-screen px-5">

@@ -66,41 +66,39 @@ export default function Profiles() {
       ) : (
         showusers.map((_, index) => {
           return (
-            <Link to={`/${_.id}`}>
-            <div
-              key={index}
-              className="w-full p-4 border rounded-lg shadow max border-zinc-800"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-5 ">
-                  <img
-                    className="w-20 h-20 rounded-full shadow-lg"
-                    src={_.Pic}
-                    alt="Bonnie image"
-                  />
-                  <div className="space-y-2">
-                    <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-                      {_.Name}
-                    </h5>
-                    <p className="text-sm font-semibold">{_.Profession}</p>
+            <Link to={`/${_.id}`} key={index}>
+              <div
+                key={index}
+                className="w-full p-4 border rounded-lg shadow max border-zinc-800"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-5 ">
+                    <img
+                      className="w-20 h-20 rounded-full shadow-lg"
+                      src={_.Pic}
+                      alt="Bonnie image"
+                    />
+                    <div className="space-y-2">
+                      <h5 className="text-xl font-medium text-gray-900 dark:text-white">
+                        {_.Name}
+                      </h5>
+                      <p className="text-sm font-semibold">{_.Profession}</p>
+                    </div>
+                  </div>
+                  <div className="flex">
+                    {connectedUser.some((user) => user === _.id) ? (
+                      <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white rounded-full px-7 focus:ring-4 focus:outline-none ">
+                        Collaborated
+                      </button>
+                    ) : (
+                      <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Colloborate
+                      </button>
+                    )}
                   </div>
                 </div>
-                <div className="flex">
-                  {connectedUser.some((user) => user === _.id) ? (
-                    <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                      Collaborated
-                    </button>
-                  ) : (
-                    <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-full px-7 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      Colloborate
-                    </button>
-                  )}
-                  {console.log(_.id)}
-                </div>
               </div>
-            </div>
             </Link>
-
           );
         })
       )}

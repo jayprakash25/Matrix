@@ -18,8 +18,8 @@ export default function Home() {
 
   const fetchPosts = async () => {
     try {
-      const user = auth.currentUser;
-      if (!user) {
+      // const user = auth.currentUser;
+      if (!jwt) {
         navigate("/login");
         return;
       }
