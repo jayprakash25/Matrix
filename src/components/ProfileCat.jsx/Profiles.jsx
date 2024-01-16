@@ -58,7 +58,7 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
-  console.log(connectedUser);
+  console.log(showusers);
   return (
     <div className="p-5">
       {isloading ? (
@@ -87,7 +87,7 @@ export default function Profiles() {
                   </div>
                   <div className="flex">
                     {connectedUser.some((user) => user === _.id) ? (
-                      <button className="inline-flex items-center py-2 text-sm font-medium text-center text-white rounded-full px-7 focus:ring-4 focus:outline-none ">
+                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
                         Collaborated
                       </button>
                     ) : (

@@ -16,7 +16,6 @@ export default function Login() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -38,10 +37,7 @@ export default function Login() {
   return (
     <div className="items-center justify-center px-5 lg:flex lg:h-screen">
       {loading ? (
-        // Display the loading spinner or GIF while content is loading
-        <div className="flex items-center justify-center h-screen">
-          {/* <img className="w-20" src={loader} alt="Loading" /> */}
-        </div>
+        <div className="flex items-center justify-center h-screen"></div>
       ) : (
         <div className="flex flex-col justify-center h-screen w-full lg:w-[35vw] lg:h-auto lg:p-6 lg:shadow-md lg:border">
           <div className="flex items-center justify-center w-full">
@@ -49,8 +45,6 @@ export default function Login() {
           </div>
           <div className="flex flex-col items-center px-2 py-5 space-y-4 text-2xl font-semibold">
             <p className="text-center">
-              {/* As a <span className="text-slate-500">user</span>, I am entering
-              my */}
               Collab with <span className="text-[#1d9bf0]">People</span> with
               similar Hobbies
             </p>
@@ -89,7 +83,6 @@ export default function Login() {
               </div>
             </form>
           </div>
-
           <div className="flex items-center justify-center space-x-2 text-center">
             <p>New User?</p>
             <Link to={"/"}>
