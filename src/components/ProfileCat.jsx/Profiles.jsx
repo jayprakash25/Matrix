@@ -6,7 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 
@@ -17,6 +17,7 @@ export default function Profiles() {
   const [connectedUser, setConnectedUser] = useState([]);
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
 
   const fetchProfileByCat = useCallback(async () => {
     const docRef = collection(db, "USERS");
@@ -97,6 +98,7 @@ export default function Profiles() {
         collabs: [...collabs, id],
       });
       await sendNotification(id);
+      navigate(`/${id}`);
       // setshowusers((prevShowUsers) =>
       //   prevShowUsers.filter((user) => user.id !== id)
       // );
@@ -113,7 +115,7 @@ export default function Profiles() {
       ) : (
         showusers.map((user, index) => {
           return (
-            <Link to={`/${user.id}`} key={index}>
+            <div key={index}>
               <div
                 key={index}
                 className="w-full p-4 border rounded-lg shadow max border-zinc-800"
@@ -150,7 +152,7 @@ export default function Profiles() {
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })
       )}

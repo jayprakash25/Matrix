@@ -121,7 +121,7 @@ export default function UserProfile() {
           .map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <Link to="/">
+                <Link to={`/${_.id}`}>
                   <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
                     <div>
                       <img
@@ -132,9 +132,6 @@ export default function UserProfile() {
                     </div>
                     <div className="">
                       <h1 className="text-xl font-semibold">{_.Name}</h1>
-                      {/* <p className="mt-3 text-xs leading-5 text-slate-400">
-                        {_.Bio}
-                      </p> */}
                       <ul className="flex gap-4 mt-5 overflow-x-scroll w-60">
                         {_.hobbies.map((i, index) => {
                           return (
@@ -151,7 +148,7 @@ export default function UserProfile() {
                         onClick={() => {
                           connectUser(_.id);
                         }}
-                        className={` py-2 mt-6 w-44 text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
+                        className={`w-full py-2 px-10 mt-6  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                       >
                         Collab
                       </button>
