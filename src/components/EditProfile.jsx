@@ -52,7 +52,8 @@ export default function EditProfile({ setisedit }) {
       };
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, updatedProfile);
-      console.log("profile updated");
+      // console.log("profile updated");
+      setisedit(false);
     } catch (error) {
       console.error("Error submitting data: ", error);
     }
