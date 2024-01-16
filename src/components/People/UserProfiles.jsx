@@ -1,9 +1,9 @@
 import UserProfile from "./UserProfile";
 
-export default function UserProfiles() {
+export default function UserProfiles({ userProfiles, search }) {
   return (
     <div className="px-3.5 my-7">
-      <UserProfile />
+      <UserProfile userProfiles={userProfiles} search={search} />
     </div>
   );
 }
