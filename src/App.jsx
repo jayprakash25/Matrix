@@ -49,26 +49,26 @@ export default function App() {
 
   return (
     <>
-      {/* {isphone ? ( */}
-      <>
-        <Routes>
-          <Route path="/" element={<Signup />} />
-          <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/hobbies" element={<SelectHobbies />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/profile/:category" element={<ProfileByCat />} />
-          <Route path="/people/" element={<People />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/:userid" element={<ViewUserProfile />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/collabs/:id" element={<Collabraters />} />
-        </Routes>
-      </>
-      {/* ) : ( */}
-      {/* <p>Not Phone</p> */}
-      {/* )} */}
+      {isphone ? (
+        <>
+          <Routes>
+            <Route path="/" element={<Signup />} />
+            <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/hobbies" element={<SelectHobbies />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile/:category" element={<ProfileByCat />} />
+            <Route path="/people/" element={<People />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/:userid" element={<ViewUserProfile />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/collabs/:id" element={<Collabraters />} />
+          </Routes>
+        </>
+      ) : (
+        <p>Not Phone</p>
+      )}
     </>
   );
 }
