@@ -194,18 +194,20 @@ export default function UserProfile() {
                   <React.Fragment key={i}>
                     <div className="max-w-md px-4 py-3 rounded-lg shadow-sm lg border-[1px]  border-zinc-800">
                       <div>
-                        <img
-                          className="mx-auto rounded-lg w-[85vw] object-cover"
-                          src={item?.image}
-                          alt={item?.image}
-                        />
+                        {item.image && (
+                          <img
+                            className="mx-auto rounded-xl w-[85vw] h-[30vh] object-cover"
+                            src={item?.image}
+                            alt=""
+                          />
+                        )}
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 mt-5">
                           <img
                             src={item?.Pic}
                             className="object-cover w-12 h-12 rounded-full"
-                            alt={item?.Pic}
+                            alt=""
                           />
                           <h1 className="text-xl font-semibold">
                             {item?.Name}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BottomBar } from "../components";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../Firebase";
+import { db } from "../Firebase";
 import Discover from "../components/home/Discover";
 import Category from "../components/home/Category";
 import Empty from "../components/home/Empty";

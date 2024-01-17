@@ -5,6 +5,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db, storage } from "../Firebase";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function AddPost({ setisPost }) {
   const imageref = useRef();
@@ -35,6 +36,7 @@ export default function AddPost({ setisPost }) {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
 
+      const existingPosts = User.data().Posts || [];
       const updatedPost = {
         ...post,
         image: downloadURL,
@@ -42,8 +44,10 @@ export default function AddPost({ setisPost }) {
         Pic: User.data().Pic,
       };
 
+      const updatedPostArray = [...existingPosts, updatedPost];
+
       await updateDoc(docref, {
-        Posts: [...User.data().Posts, updatedPost],
+        Posts: updatedPostArray,
       });
 
       setisloading(false);
@@ -119,3 +123,7 @@ export default function AddPost({ setisPost }) {
     </>
   );
 }
+
+AddPost.propTypes = {
+  setisPost: PropTypes.func.isRequired,
+};
