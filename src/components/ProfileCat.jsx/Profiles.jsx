@@ -129,7 +129,7 @@ export default function Profiles() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-5 ">
-                    {!user.Pic ? (
+                    {user.Pic ? (
                       <img
                         className="w-20 h-20 rounded-full shadow-lg"
                         src={user.Pic}
@@ -153,7 +153,7 @@ export default function Profiles() {
                         notification.message === "Connected with you"
                     ) ? (
                       <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full px-7 ">
-                      Collaboration Sent
+                        Collaboration Sent
                       </button>
                     ) : (
                       <button
