@@ -6,10 +6,11 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import { GiNothingToSay } from "react-icons/gi";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -131,11 +132,16 @@ export default function Profiles() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-5 ">
-                    <img
-                      className="w-20 h-20 rounded-full shadow-lg"
-                      src={user.Pic}
-                      alt="Bonnie image"
-                    />
+                    {user.Pic ? (
+                      <img
+                        className="w-20 h-20 rounded-full shadow-lg"
+                        src={user.Pic}
+                        alt="Bonnie image"
+                      />
+                    ) : (
+                      <AccountCircleIcon color="primary" fontSize="large" />
+                    )}
+
                     <div className="space-y-2">
                       <h5 className="text-xl font-medium text-gray-900 dark:text-white">
                         {user.Name}

@@ -9,6 +9,9 @@ import {
 import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PropTypes from "prop-types";
+
 export default function UserProfile({ userProfiles, search }) {
   const jwt = localStorage.getItem("jwt");
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
@@ -128,11 +131,15 @@ export default function UserProfile({ userProfiles, search }) {
                 <Link to={`/${_.id}`}>
                   <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
                     <div>
-                      <img
-                        src={_.Pic}
-                        className="object-cover max-w-md rounded-full w-28 h-28"
-                        alt={_.Pic}
-                      />
+                      {_.Pic ? (
+                        <img
+                          src={_.Pic}
+                          className="object-cover max-w-md rounded-full w-28 h-28"
+                          alt={_.Pic}
+                        />
+                      ) : (
+                        <AccountCircleIcon color="primary" fontSize="large" />
+                      )}
                     </div>
                     <div className="">
                       <h1 className="text-xl font-semibold">{_.Name}</h1>
@@ -166,3 +173,8 @@ export default function UserProfile({ userProfiles, search }) {
     </>
   );
 }
+
+UserProfile.propTypes = {
+  userProfiles: PropTypes.array.isRequired,
+  search: PropTypes.string.isRequired,
+};
