@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { PiHouse } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
 import { MdPeopleAlt } from "react-icons/md";
 import AddPost from "./AddPost";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { useEffect, useState } from "react";
 
@@ -63,7 +63,7 @@ const BottomBar = () => {
             to="/profile"
             icon={<ImExit size={25} color={iconColor} />}
           /> */}
-          {Pic !== "" ? (
+          {Pic ? (
             <Link to={"/profile"}>
               <img
                 src={Pic}
@@ -74,7 +74,8 @@ const BottomBar = () => {
           ) : (
             <BottomBarItem
               to="/profile"
-              icon={<CgProfile size={25} color={iconColor} />}
+              // icon={<CgProfile size={25} color={iconColor} icon/>}
+              icon={<AccountCircleIcon color="primary" fontSize="large" />}
             />
           )}
         </ul>

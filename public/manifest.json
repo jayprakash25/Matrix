@@ -1,6 +1,6 @@
 {
-    "short_name": "The Hub",
-    "name": "The Hub PWA",
+    "short_name": "MATRIX",
+    "name": "MATRIX",
     "icons" : [
         {
             "src":"/src/assets/logo.png",

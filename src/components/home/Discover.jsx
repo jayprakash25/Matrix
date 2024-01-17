@@ -3,6 +3,7 @@ import { FaRegBell } from "react-icons/fa";
 import { db } from "../../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export default function Discover() {
   const [Notifications, setNotifications] = useState();
   const [Pic, setPic] = useState();
@@ -25,7 +26,15 @@ export default function Discover() {
   return (
     <div className="flex items-center justify-between px-5 py-3">
       <div>
-        <img src={Pic} className="object-cover w-10 h-10 rounded-full" alt="" />
+        {Pic ? (
+          <img
+            src={Pic}
+            className="object-cover w-10 h-10 rounded-full"
+            alt=""
+          />
+        ) : (
+          <AccountCircleIcon color="primary" fontSize="large" />
+        )}
       </div>
       <div>
         <Link to={"/notifications"}>

@@ -159,9 +159,9 @@ export default function UserProfile() {
 
           {isloading ? (
             <div className="grid">
-              {Array.from({ length: 5 }, (i) => {
-                <UserProfileLoader key={i} />;
-              })}
+              <UserProfileLoader />;
+              <UserProfileLoader />;
+              <UserProfileLoader />;
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
