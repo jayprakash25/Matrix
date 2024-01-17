@@ -38,7 +38,6 @@ export default function UserProfile({ userProfiles, search }) {
           return commonHobbies?.length > 0;
         });
       setshowUsers(usersData);
-      // console.log(usersData);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -66,17 +65,12 @@ export default function UserProfile({ userProfiles, search }) {
     fetchData();
   }, [fetchData]);
 
-  console.log(userProfiles, search);
-
   const sendNotification = async (userid) => {
     try {
-      // connected User
       const docref = doc(db, "USERS", userid);
       const User = await getDoc(docref);
-      // current User
       const currentUserdocref = doc(db, "USERS", jwt);
       const currentUser = await getDoc(currentUserdocref);
-      // console.log(currentUser);
       const currentNotifications = User?.data()?.notifications || [];
       const notification = {
         message: "Connected with you",
@@ -111,7 +105,7 @@ export default function UserProfile({ userProfiles, search }) {
     }
   };
 
-  const usersToMap = search == " " ? showUsers : userProfiles;
+  const usersToMap = search === " " ? showUsers : userProfiles;
 
   return (
     <>
@@ -124,51 +118,51 @@ export default function UserProfile({ userProfiles, search }) {
       ) : null}
       <div className="flex flex-col gap-4 mb-20">
         {usersToMap
-          ?.filter((user) => !CurrentConnectedUser?.includes(user.id))
-          .map((_, i) => {
-            return (
-              <React.Fragment key={i}>
-                <Link to={`/${_.id}`}>
-                  <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
-                    <div>
-                      {_.Pic ? (
-                        <img
-                          src={_.Pic}
-                          className="object-cover max-w-md rounded-full w-28 h-28"
-                          alt={_.Pic}
-                        />
-                      ) : (
-                        <AccountCircleIcon color="primary" fontSize="large" />
-                      )}
-                    </div>
-                    <div className="">
-                      <h1 className="text-xl font-semibold">{_.Name}</h1>
-                      <ul className="flex gap-4 mt-5 overflow-x-scroll w-60">
-                        {_.hobbies.map((i, index) => {
-                          return (
-                            <li
-                              key={index}
-                              className="px-2 py-1 text-xs font-semibold rounded-full bg-sky-600"
-                            >
-                              {i}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      <button
-                        onClick={() => {
-                          connectUser(_.id);
-                        }}
-                        className={`w-full py-2 px-10 mt-6  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
-                      >
-                        Collab
-                      </button>
-                    </div>
+          ?.filter(
+            (user) =>
+              !CurrentConnectedUser?.includes(user.id) &&
+              !user.notifications?.some((notif) => notif.id === jwt)
+          )
+          .map((user, index) => (
+            <React.Fragment key={index}>
+              <Link to={`/${user.id}`}>
+                <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
+                  <div>
+                    {user.Pic ? (
+                      <img
+                        src={user.Pic}
+                        className="object-cover max-w-md rounded-full w-28 h-28"
+                        alt={user.Pic}
+                      />
+                    ) : (
+                      <AccountCircleIcon color="primary" fontSize="large" />
+                    )}
                   </div>
-                </Link>
-              </React.Fragment>
-            );
-          })}
+                  <div className="">
+                    <h1 className="text-xl font-semibold">{user.Name}</h1>
+                    <ul className="flex gap-4 mt-5 overflow-x-scroll w-60">
+                      {user.hobbies?.map((hobby, hobbyIndex) => (
+                        <li
+                          key={hobbyIndex}
+                          className="px-2 py-1 text-xs font-semibold rounded-full bg-sky-600"
+                        >
+                          {hobby}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => {
+                        connectUser(user.id);
+                      }}
+                      className={`w-full py-2 px-10 mt-6  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
+                    >
+                      Collab
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            </React.Fragment>
+          ))}
       </div>
     </>
   );

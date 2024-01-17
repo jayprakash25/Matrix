@@ -11,6 +11,7 @@ import { useAnimation, motion } from "framer-motion";
 import ModelLogout from "../components/ModelLogout";
 import { GiNothingToSay } from "react-icons/gi";
 import UserProfileLoader from "../components/UserProfileLoader";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
@@ -127,12 +128,18 @@ export default function UserProfile() {
             </div>
           </nav>
           <div className="flex items-start justify-center gap-5 mt-5">
-            <div className="">
-              <img
-                src={Userdata.Pic}
-                className="object-cover rounded-full w-36 h-36"
-                alt=""
-              />
+            <div>
+              {Userdata?.Pic ? (
+                <Link to={"/profile"}>
+                  <img
+                    src={Userdata?.Pic}
+                    className="object-cover rounded-full w-36 h-36"
+                    alt=""
+                  />
+                </Link>
+              ) : (
+                <AccountCircleIcon color="primary" fontSize="large" />
+              )}
             </div>
             <div className="max-w-[55vw] space-y-2">
               <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
@@ -158,7 +165,7 @@ export default function UserProfile() {
           </div>
 
           {isloading ? (
-            <div className="grid">
+            <div className="flex flex-col items-center justify-center mt-10">
               <UserProfileLoader />;
               <UserProfileLoader />;
               <UserProfileLoader />;
