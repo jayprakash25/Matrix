@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
+import { GiNothingToSay } from "react-icons/gi";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -112,6 +113,14 @@ export default function Profiles() {
     <div className="flex flex-col justify-center gap-5 p-5">
       {isloading ? (
         <NotifyLoader />
+      ) : showusers.length === 0 ? (
+        <div className="flex flex-col items-center space-y-3 text-center mt-36">
+          <GiNothingToSay size={90} color="#252424" />
+          <h1 className="text-sm font-semibold leading-10">
+            The specified category is currently empty, but we expect new users
+            to join soon!
+          </h1>
+        </div>
       ) : (
         showusers.map((user, index) => {
           return (
