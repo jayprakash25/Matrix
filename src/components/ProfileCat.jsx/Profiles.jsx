@@ -58,12 +58,11 @@ export default function Profiles() {
     setshowusers(filteredUsers);
   }, [category, allUsers]);
 
-  console.log(showusers);
-
   useEffect(() => {
     fetchProfileByCat();
     fetchCollabs();
   }, [fetchProfileByCat, fetchCollabs]);
+
   useEffect(() => {
     fil();
   }, [fil]);
@@ -102,9 +101,6 @@ export default function Profiles() {
       });
       await sendNotification(id);
       navigate(`/${id}`);
-      // setshowusers((prevShowUsers) =>
-      //   prevShowUsers.filter((user) => user.id !== id)
-      // );
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -151,9 +147,13 @@ export default function Profiles() {
                     </div>
                   </div>
                   <div className="flex">
-                    {connectedUser?.includes(user.id) ? (
+                    {user?.notifications?.some(
+                      (notification) =>
+                        notification.id === jwt &&
+                        notification.message === "Connected with you"
+                    ) ? (
                       <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full px-7 ">
-                        Collaborated
+                      Collaboration Sent
                       </button>
                     ) : (
                       <button

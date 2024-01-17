@@ -38,8 +38,8 @@ export default function ViewUserProfile() {
   const pageTransition = { duration: 0.5 };
 
   const currentUser = async () => {
-    const snapshot = await getDoc(Userdocref);
-    const user = snapshot.data().collabs;
+    const snapshot = await getDoc(docref);
+    const user = snapshot.data().notifications || [];
     setUserCollabs(user);
   };
 
@@ -126,9 +126,9 @@ export default function ViewUserProfile() {
         <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-          {userCollabs.some((collab) => collab === Userdata.id) ? (
-            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full   px-7 ">
-              Collaborated
+          {userCollabs.some((collab) => collab.id === jwt) ? (
+            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
+              Collaboration Sent
             </button>
           ) : (
             <button

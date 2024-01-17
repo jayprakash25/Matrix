@@ -6,6 +6,7 @@ import { db, storage } from "../Firebase";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function AddPost({ setisPost }) {
   const imageref = useRef();
@@ -79,10 +80,9 @@ export default function AddPost({ setisPost }) {
               {blobimg.image ? (
                 <img src={blobimg.image} className="object-cover w-36 h-36" />
               ) : (
-                <img
-                  className="w-32 cursor-pointer"
-                  src="https://static.thenounproject.com/png/485834-200.png"
-                  alt=""
+                <IoCloudUploadOutline
+                  className="mx-auto"
+                  size={80}
                   onClick={() => {
                     imageref.current.click();
                   }}
