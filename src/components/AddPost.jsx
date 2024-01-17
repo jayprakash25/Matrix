@@ -51,7 +51,7 @@ export default function AddPost({ setisPost }) {
       });
 
       setisloading(false);
-      navigate("/home");
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
