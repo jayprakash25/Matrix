@@ -20,7 +20,7 @@ export default function Notification() {
       const User = await getDoc(docref);
       const filteredNotifications = User.data().notifications.filter(
         (notification) => {
-          return !collabs.includes(notification.id);
+          return !collabs?.includes(notification.id);
         }
       );
       console.log(filteredNotifications);
