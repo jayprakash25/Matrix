@@ -10,7 +10,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import { GiNothingToSay } from "react-icons/gi";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { CgProfile } from "react-icons/cg";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -132,14 +133,14 @@ export default function Profiles() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-5 ">
-                    {user.Pic ? (
+                    {!user.Pic ? (
                       <img
                         className="w-20 h-20 rounded-full shadow-lg"
                         src={user.Pic}
                         alt="Bonnie image"
                       />
                     ) : (
-                      <AccountCircleIcon color="primary" fontSize="large" />
+                      <CgProfile color="#1d9bf0" size={40} />
                     )}
 
                     <div className="space-y-2">
