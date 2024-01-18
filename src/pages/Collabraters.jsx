@@ -48,7 +48,7 @@ export default function Collabraters() {
   return (
     <>
       <nav className="p-4">
-        <div className="flex items-center w-[60vw] justify-between">
+        <div className="flex items-center w-[65vw] justify-between">
           <div>
             <Link to={"/home"}>
               <FaArrowLeft size={20} color="white" />
