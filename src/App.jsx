@@ -46,7 +46,11 @@ export default function App() {
       {isphone ? (
         <>
           <Routes>
-            {jwt ? null : <Route path="/" element={<Signup />} />}
+            {jwt ? (
+              <Route path="/" element={<Home />} />
+            ) : (
+              <Route path="/" element={<Signup />} />
+            )}
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/:category" element={<ProfileByCat />} />
