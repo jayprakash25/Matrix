@@ -11,6 +11,7 @@ import Loader from "./Loader";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PropTypes from "prop-types";
+import { CgProfile } from "react-icons/cg";
 
 export default function UserProfile({ userProfiles, search }) {
   const jwt = localStorage.getItem("jwt");
@@ -126,7 +127,7 @@ export default function UserProfile({ userProfiles, search }) {
           .map((user, index) => (
             <React.Fragment key={index}>
               <Link to={`/${user.id}`}>
-                <div className="flex items-start justify-center gap-3 border-[1px] border-zinc-800 p-5">
+                <div className="flex items-center justify-around gap-3 border-[1px] border-zinc-800 p-5 px-2">
                   <div>
                     {user.Pic ? (
                       <img
@@ -135,12 +136,12 @@ export default function UserProfile({ userProfiles, search }) {
                         alt={user.Pic}
                       />
                     ) : (
-                      <AccountCircleIcon color="primary" fontSize="large" />
+                      <CgProfile color="" size={50} />
                     )}
                   </div>
                   <div className="">
                     <h1 className="text-xl font-semibold">{user.Name}</h1>
-                    <ul className="flex gap-4 mt-5 overflow-x-scroll w-60">
+                    <ul className="flex gap-4 mt-3 overflow-x-scroll w-60">
                       {user.hobbies?.map((hobby, hobbyIndex) => (
                         <li
                           key={hobbyIndex}
@@ -154,9 +155,9 @@ export default function UserProfile({ userProfiles, search }) {
                       onClick={() => {
                         connectUser(user.id);
                       }}
-                      className={`w-full py-2 px-10 mt-6  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
+                      className={`w-full py-2 px-10 mt-5  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                     >
-                      Collab
+                      Collaborate
                     </button>
                   </div>
                 </div>

@@ -7,7 +7,7 @@ export default function Button({ title, logo, handleSubmit }) {
         <button
           onClick={handleSubmit}
           className="font-semibold text-sm  bg-[#1d9bf0]
- w-[85vw] text-white rounded-full px-20 py-3.5"
+ w-[85vw] text-white rounded-full  py-3.5"
         >
           <div className="flex items-center justify-center space-x-2">
             {logo}

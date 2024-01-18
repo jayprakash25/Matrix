@@ -29,8 +29,6 @@ export default function UserProfile() {
     Posts: [],
   });
 
-  console.log(Userdata.Pic);
-
   const getPosts = async () => {
     try {
       const User = await getDoc(docref);
@@ -129,7 +127,7 @@ export default function UserProfile() {
           </nav>
           <div className="flex items-start justify-center gap-5 mt-5">
             <div>
-              {localStorage.getItem("UserPic") ? (
+              {localStorage.getItem("UserPic") !== "" ? (
                 <Link to={"/profile"}>
                   <img
                     src={localStorage.getItem("UserPic")}
@@ -149,7 +147,7 @@ export default function UserProfile() {
                   onClick={() => {
                     setisedit(true);
                   }}
-                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 "
+                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-2 "
                 >
                   Edit Profile
                 </button>

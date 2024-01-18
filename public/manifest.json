@@ -3,13 +3,19 @@
     "name": "MATRIX",
     "icons" : [
         {
-            "src":"/src/assets/logo.png",
+            "src":"../src/assets/logo.png",
             "type": "image/png",
-            "sizes": "1024*1024"
+            "sizes": "512x512"
+        },
+        {
+            "src":"../src/assets/logo.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
         }
     ],
     "start_url": ".",
     "display": "standalone",
     "theme_color": "#000000",
-    "background_colour": "#161616"
+    "background_color": "#161616"
 }

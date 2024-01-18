@@ -152,7 +152,7 @@ export default function Profiles() {
                         notification.id === jwt &&
                         notification.message === "Connected with you"
                     ) ? (
-                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full px-7 ">
+                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-[#1d9bf0] rounded-full px-3 ">
                         Collaboration Sent
                       </button>
                     ) : (
@@ -160,7 +160,7 @@ export default function Profiles() {
                         onClick={() => {
                           Collab(user.id);
                         }}
-                        className="inline-flex items-center py-2 text-sm text-center text-white bg-blue-600 rounded-full px-7"
+                        className="inline-flex items-center py-2 text-sm text-center text-white bg-[#1d9bf0] rounded-full px-3"
                       >
                         Collaborate
                       </button>

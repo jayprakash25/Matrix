@@ -41,7 +41,7 @@ export default function Login() {
       ) : (
         <div className="flex flex-col justify-center h-screen w-full lg:w-[35vw] lg:h-auto lg:p-6 lg:shadow-md lg:border">
           <div className="flex items-center justify-center w-full">
-            <img src="" className="w-20" alt="user" />
+            {/* <img src="" className="w-20" alt="user" /> */}
           </div>
           <div className="flex flex-col items-center px-2 py-5 space-y-4 text-2xl font-semibold">
             <p className="text-center">

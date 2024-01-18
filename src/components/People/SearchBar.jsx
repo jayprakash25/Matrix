@@ -12,7 +12,7 @@ export default function SearchBar({ onSearch }) {
   };
   return (
     <div className="mt-3">
-      <div className="relative flex items-center justify-center w-[88vw] mx-auto">
+      <div className="relative flex items-center justify-center w-[96vw] mx-auto">
         <input
           className="w-[100vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838] "
           type="text"
