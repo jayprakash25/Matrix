@@ -24,7 +24,7 @@ export default function Discover() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-5 py-3">
+    <div className="flex items-center justify-between px-2 py-3">
       <div>
         {Pic ? (
           <img
