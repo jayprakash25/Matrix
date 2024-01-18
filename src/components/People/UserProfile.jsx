@@ -151,14 +151,14 @@ export default function UserProfile({ userProfiles, search }) {
                         </li>
                       ))}
                     </ul>
-                    {/* <button
+                    <button
                       onClick={() => {
                         connectUser(user.id);
                       }}
                       className={`w-full py-2 px-10 mt-5  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                     >
                       Collaborate
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </Link>
