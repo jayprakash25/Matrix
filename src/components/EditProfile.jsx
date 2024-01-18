@@ -50,9 +50,9 @@ export default function EditProfile({ setisedit }) {
         ...user,
         Pic: downloadURL,
       };
+      localStorage.setItem("UserPic", downloadURL);
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, updatedProfile);
-      // console.log("profile updated");
       setisedit(false);
     } catch (error) {
       console.error("Error submitting data: ", error);

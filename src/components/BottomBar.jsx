@@ -24,14 +24,15 @@ const BottomBarItem = ({ to, icon, clickFn }) => (
 const BottomBar = () => {
   const iconColor = "#fff";
   const [isPost, setisPost] = useState(false);
-  const [Pic, setPic] = useState();
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
 
   const getPic = async () => {
     try {
-      const User = await getDoc(docref);
-      setPic(User?.data()?.Pic);
+      if (localStorage.getItem("UserPic") == null) {
+        const User = await getDoc(docref);
+        localStorage.setItem(User?.data().Pic);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -63,10 +64,10 @@ const BottomBar = () => {
             to="/profile"
             icon={<ImExit size={25} color={iconColor} />}
           /> */}
-          {Pic ? (
+          {localStorage.getItem("UserPic") !== "" ? (
             <Link to={"/profile"}>
               <img
-                src={Pic}
+                src={localStorage.getItem("UserPic")}
                 className="object-cover w-8 h-8 rounded-full"
                 alt=""
               />

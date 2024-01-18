@@ -26,9 +26,9 @@ export default function Discover() {
   return (
     <div className="flex items-center justify-between px-5 py-3">
       <div>
-        {Pic ? (
+        {localStorage.getItem("UserPic") !== "" ? (
           <img
-            src={Pic}
+            src={localStorage.getItem("UserPic")}
             className="object-cover w-10 h-10 rounded-full"
             alt=""
           />

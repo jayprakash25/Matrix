@@ -129,10 +129,10 @@ export default function UserProfile() {
           </nav>
           <div className="flex items-start justify-center gap-5 mt-5">
             <div>
-              {Userdata?.Pic ? (
+              {localStorage.getItem("UserPic") ? (
                 <Link to={"/profile"}>
                   <img
-                    src={Userdata?.Pic}
+                    src={localStorage.getItem("UserPic")}
                     className="object-cover rounded-full w-36 h-36"
                     alt=""
                   />
