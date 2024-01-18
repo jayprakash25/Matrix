@@ -145,13 +145,13 @@ export default function UserProfile() {
                   onClick={() => {
                     setisedit(true);
                   }}
-                  className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-2 "
+                  className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 "
                 >
                   Edit Profile
                 </button>
                 {jwt === localStorage.getItem("jwt") ? (
                   <Link to={`/collabs/${jwt}`}>
-                    <button className="py-2  mt-3 text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0] px-7">
+                    <button className="py-2  mt-3 text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0] px-4">
                       Collabrates
                     </button>
                   </Link>
