@@ -43,7 +43,7 @@ const BottomBar = () => {
 
   return (
     <footer className="fixed bottom-0 w-full items-center justify-center flex">
-      <div className="w-[80vw] bg-[#282828] rounded-t-xl">
+      <div className="w-full bg-[#282828] rounded-t-xl">
         <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly">
           <BottomBarItem
             to="/home"
