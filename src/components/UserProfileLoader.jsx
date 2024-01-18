@@ -11,7 +11,6 @@ function UserProfileLoader() {
                   <div className="h-2 bg-[#282828] rounded col-span-1"></div>
                   <div className="h-2 bg-[#282828] rounded col-span-2"></div>
                 </div>
-                
               </div>
             </div>
           </div>

@@ -162,9 +162,9 @@ export default function UserProfile() {
 
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
-              <UserProfileLoader />;
-              <UserProfileLoader />;
-              <UserProfileLoader />;
+              <UserProfileLoader />
+              <UserProfileLoader />
+              <UserProfileLoader />
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">

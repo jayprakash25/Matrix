@@ -7,11 +7,9 @@ import Category from "../components/home/Category";
 import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
 import Loader from "../components/home/Loader";
-import { useNavigate } from "react-router-dom";
 import { useAnimation, motion } from "framer-motion";
 export default function Home() {
   const jwt = localStorage.getItem("jwt");
-  const navigate = useNavigate();
   const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
@@ -19,10 +17,6 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       // const user = auth.currentUser;
-      if (!jwt) {
-        navigate("/login");
-        return;
-      }
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data().connectedUsers;
