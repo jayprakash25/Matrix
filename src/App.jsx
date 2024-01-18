@@ -25,9 +25,7 @@ export default function App() {
     const checkIsPhone = () => {
       setisphone(window.innerWidth < 1000);
     };
-
     checkIsPhone();
-
     let resizeTimeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
