@@ -30,9 +30,9 @@ export default function Home() {
         const userdocref = doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
         setposts(UserPosts?.data()?.Posts);
-        setisloading(false);
       });
       await Promise.all(posts);
+      setisloading(false);
     } catch (error) {
       console.log(error);
       setisloading(false);

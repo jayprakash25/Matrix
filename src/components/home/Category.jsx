@@ -3,8 +3,8 @@ import hobbies from "../../Data/Hobbies";
 
 export default function Category() {
   return (
-    <div className="pl-2 mt-5 space-y-8">
-      <div>{/* <h1 className="text-xl font-bold">Categories</h1> */}</div>
+    <div className="pl-2 mt-3">
+      {/* <div><h1 className="text-xl font-bold">Categories</h1></div> */}
       <div className="relative flex space-x-4 overflow-x-auto">
         {hobbies.map((_, index) => {
           return (
