@@ -6,6 +6,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Loader from "./Loader";
+import { useNavigate } from "react-router-dom";
 export default function EditProfile({ setisedit }) {
   const jwt = window.localStorage.getItem("jwt");
   const [user, setUser] = useState({
@@ -17,7 +18,7 @@ export default function EditProfile({ setisedit }) {
   const [blobimg, setblobimg] = useState({ image: "" });
   const [isloading, setisloading] = useState(false);
   const imageref = useRef();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,6 +57,7 @@ export default function EditProfile({ setisedit }) {
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, updatedProfile);
       setisedit(false);
+      navigate("/home");
     } catch (error) {
       console.error("Error submitting data: ", error);
       setisloading(false);
