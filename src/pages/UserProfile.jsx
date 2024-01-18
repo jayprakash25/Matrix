@@ -34,10 +34,10 @@ export default function UserProfile() {
       const User = await getDoc(docref);
       setUserdata({
         ...Userdata,
-        Pic: User?.data().Pic,
-        Name: User?.data().Name,
-        Bio: User?.data().Bio,
-        Posts: User?.data().Posts || [],
+        Pic: User?.data()?.Pic,
+        Name: User?.data()?.Name,
+        Bio: User?.data()?.Bio,
+        Posts: User?.data()?.Posts || [],
       });
       setisloading(false);
     } catch (error) {
@@ -140,18 +140,18 @@ export default function UserProfile() {
             <div className="max-w-[55vw] space-y-2">
               <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
               <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-              <div className="space-x-3.5 flex ">
+              <div className="space-x-3 flex ">
                 <button
                   onClick={() => {
                     setisedit(true);
                   }}
-                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-2 "
+                  className="py-2 text-[12px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-2 "
                 >
                   Edit Profile
                 </button>
                 {jwt === localStorage.getItem("jwt") ? (
                   <Link to={`/collabs/${jwt}`}>
-                    <button className="py-2  mt-3 text-xs font-semibold text-white rounded-full bg-[#1d9bf0] px-7">
+                    <button className="py-2  mt-3 text-[12px] font-semibold text-white rounded-full bg-[#1d9bf0] px-7">
                       Collabrates
                     </button>
                   </Link>
