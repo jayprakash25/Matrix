@@ -127,7 +127,7 @@ export default function UserProfile({ userProfiles, search }) {
           .map((user, index) => (
             <React.Fragment key={index}>
               <Link to={`/${user.id}`}>
-                <div className="flex items-start justify-around gap-3 border-[1px] border-zinc-800 p-5 px-2">
+                <div className="flex items-center justify-around gap-3 border-[1px] border-zinc-800 p-5 px-2">
                   <div>
                     {user.Pic ? (
                       <img
@@ -136,9 +136,7 @@ export default function UserProfile({ userProfiles, search }) {
                         alt={user.Pic}
                       />
                     ) : (
-                      <div className="rounded-full p-4 flex items-center justify-center border-[1px] border-zinc-800">
-                        <CgProfile color="" size={40} />
-                      </div>
+                      <CgProfile color="" size={50} />
                     )}
                   </div>
                   <div className="">
@@ -153,14 +151,14 @@ export default function UserProfile({ userProfiles, search }) {
                         </li>
                       ))}
                     </ul>
-                    <button
+                    {/* <button
                       onClick={() => {
                         connectUser(user.id);
                       }}
                       className={`w-full py-2 px-10 mt-5  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                     >
                       Collaborate
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </Link>

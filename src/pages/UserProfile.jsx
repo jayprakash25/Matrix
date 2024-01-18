@@ -133,7 +133,7 @@ export default function UserProfile() {
                 <Link to={"/profile"}>
                   <img
                     src={Userdata?.Pic}
-                    className="object-cover rounded-full w-36 h-36"
+                    className="object-cover rounded-full w-32 h-32"
                     alt=""
                   />
                 </Link>
@@ -149,7 +149,7 @@ export default function UserProfile() {
                   onClick={() => {
                     setisedit(true);
                   }}
-                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 "
+                  className="py-2 text-xs mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-2 "
                 >
                   Edit Profile
                 </button>
