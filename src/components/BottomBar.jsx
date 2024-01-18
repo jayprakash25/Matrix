@@ -7,7 +7,6 @@ import AddPost from "./AddPost";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
 import { useEffect, useState } from "react";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
@@ -64,7 +63,7 @@ const BottomBar = () => {
             to="/profile"
             icon={<ImExit size={25} color={iconColor} />}
           /> */}
-          {localStorage.getItem("UserPic") !== "" ? (
+          {localStorage.getItem("UserPic") ? (
             <Link to={"/profile"}>
               <img
                 src={localStorage.getItem("UserPic")}
