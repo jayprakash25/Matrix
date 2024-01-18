@@ -41,12 +41,10 @@ export default function People() {
     fetchData();
   }, [fetchData]);
 
-  // console.log(allUserProfiles);
   console.log(filteredUserProfiles);
 
   return (
     <>
-      {/* <Navbar /> */}
       <SearchBar onSearch={handleSearch} />
       <UserProfiles userProfiles={filteredUserProfiles} search={searchQuery} />
       <BottomBar />

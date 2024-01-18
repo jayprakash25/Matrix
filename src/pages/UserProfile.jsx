@@ -108,11 +108,9 @@ export default function UserProfile() {
                   <FaArrowLeft size={20} color="" />
                 </Link>
               </div>
-
               <div className="text-center">
                 <h1 className="text-lg font-semibold ">My Profile</h1>
               </div>
-
               <div>
                 <button
                   onClick={() => {
