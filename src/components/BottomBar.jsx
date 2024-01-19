@@ -30,7 +30,7 @@ const BottomBar = () => {
     try {
       if (localStorage.getItem("UserPic") == null) {
         const User = await getDoc(docref);
-        localStorage.setItem(User?.data().Pic);
+        localStorage.setItem("UserPic", User?.data().Pic);
       }
     } catch (error) {
       console.log(error);
