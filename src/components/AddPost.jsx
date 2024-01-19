@@ -27,16 +27,13 @@ export default function AddPost({ setisPost }) {
       alert("Post");
       return;
     }
-
     setisloading(true);
-
     try {
       const Storageref = ref(storage, `${"image"}/${uploadimage?.name}`);
       await uploadBytes(Storageref, uploadimage);
       const downloadURL = await getDownloadURL(Storageref);
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-
       const existingPosts = User.data().Posts || [];
       const updatedPost = {
         ...post,
@@ -44,13 +41,10 @@ export default function AddPost({ setisPost }) {
         Name: User.data().Name,
         Pic: User.data().Pic,
       };
-
       const updatedPostArray = [...existingPosts, updatedPost];
-
       await updateDoc(docref, {
         Posts: updatedPostArray,
       });
-
       setisloading(false);
       navigate("/profile");
     } catch (error) {
