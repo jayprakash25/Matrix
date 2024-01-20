@@ -92,7 +92,7 @@ export default function Collabraters() {
           {collabs?.map((collab, collabIndex) => (
             <div
               key={collabIndex}
-              className="border-[1px] border-zinc-800 mx-4 py-4 px-5 rounded-lg"
+              className="border-[1px] border-zinc-800 mx-2.5 py-4 px-5 rounded-lg"
             >
               <h2 className="text-lg font-semibold text-center">
                 Tasks from {"Jay"}
