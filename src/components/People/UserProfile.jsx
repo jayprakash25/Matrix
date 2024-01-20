@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Firebase";
 import Loader from "./Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PropTypes from "prop-types";
 import { CgProfile } from "react-icons/cg";
@@ -20,7 +20,7 @@ export default function UserProfile({ userProfiles, search }) {
   const [showUsers, setshowUsers] = useState([]);
   const [isloading, setisloading] = useState(true);
   const docref = doc(db, "USERS", jwt);
-
+  const navigate = useNavigate();
   // Matching-Algorithm
   const fetchUsersWithSimilarHobbies = async () => {
     try {
@@ -66,45 +66,45 @@ export default function UserProfile({ userProfiles, search }) {
     fetchData();
   }, [fetchData]);
 
-  const sendNotification = async (userid) => {
-    try {
-      const docref = doc(db, "USERS", userid);
-      const User = await getDoc(docref);
-      const currentUserdocref = doc(db, "USERS", jwt);
-      const currentUser = await getDoc(currentUserdocref);
-      const currentNotifications = User?.data()?.notifications || [];
-      const notification = {
-        message: "Connected with you",
-        Name: currentUser?.data()?.Name,
-        Pic: currentUser?.data()?.Pic,
-        id: currentUser?.id,
-      };
-      await updateDoc(docref, {
-        notifications: [...currentNotifications, notification],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const sendNotification = async (userid) => {
+  //   try {
+  //     const docref = doc(db, "USERS", userid);
+  //     const User = await getDoc(docref);
+  //     const currentUserdocref = doc(db, "USERS", jwt);
+  //     const currentUser = await getDoc(currentUserdocref);
+  //     const currentNotifications = User?.data()?.notifications || [];
+  //     const notification = {
+  //       message: "Connected with you",
+  //       Name: currentUser?.data()?.Name,
+  //       Pic: currentUser?.data()?.Pic,
+  //       id: currentUser?.id,
+  //     };
+  //     await updateDoc(docref, {
+  //       notifications: [...currentNotifications, notification],
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const connectUser = async (id) => {
-    console.log("connected to user " + id + " from " + jwt);
-    setisloading(true);
-    try {
-      const User = await getDoc(docref);
-      const collabs = (await User?.data()?.collabs) || [];
-      await updateDoc(docref, {
-        collabs: [...collabs, id],
-      });
-      await sendNotification(id);
-      setshowUsers((prevShowUsers) =>
-        prevShowUsers.filter((user) => user.id !== id)
-      );
-      setisloading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const connectUser = async (id) => {
+  //   console.log("connected to user " + id + " from " + jwt);
+  //   setisloading(true);
+  //   try {
+  //     const User = await getDoc(docref);
+  //     const collabs = (await User?.data()?.collabs) || [];
+  //     await updateDoc(docref, {
+  //       collabs: [...collabs, id],
+  //     });
+  //     await sendNotification(id);
+  //     setshowUsers((prevShowUsers) =>
+  //       prevShowUsers.filter((user) => user.id !== id)
+  //     );
+  //     setisloading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const usersToMap = search === " " ? showUsers : userProfiles;
 
@@ -126,23 +126,23 @@ export default function UserProfile({ userProfiles, search }) {
           )
           .map((user, index) => (
             <React.Fragment key={index}>
-              <Link to={`/${user.id}`}>
+              <>
                 <div className="flex items-center justify-around gap-3 border-[1px] border-zinc-800 p-5 px-2">
                   <div>
                     {user.Pic ? (
                       <img
-                        src={user.Pic}
+                        src={user?.Pic}
                         className="object-cover max-w-md rounded-full w-28 h-28"
-                        alt={user.Pic}
+                        alt={user?.Pic}
                       />
                     ) : (
-                      <CgProfile color="" size={50} />
+                      <CgProfile size={50} />
                     )}
                   </div>
                   <div className="">
-                    <h1 className="text-xl font-semibold">{user.Name}</h1>
+                    <h1 className="text-xl font-semibold">{user?.Name}</h1>
                     <ul className="flex gap-4 mt-3 overflow-x-scroll w-60">
-                      {user.hobbies?.map((hobby, hobbyIndex) => (
+                      {user?.hobbies?.map((hobby, hobbyIndex) => (
                         <li
                           key={hobbyIndex}
                           className="px-2 py-1 text-xs font-semibold rounded-full bg-sky-600"
@@ -153,15 +153,15 @@ export default function UserProfile({ userProfiles, search }) {
                     </ul>
                     <button
                       onClick={() => {
-                        connectUser(user.id);
+                        navigate(`/${user?.id}`);
                       }}
                       className={`w-full py-2 px-10 mt-5  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                     >
-                      Collaborate
+                      View Profile
                     </button>
                   </div>
                 </div>
-              </Link>
+              </>
             </React.Fragment>
           ))}
       </div>

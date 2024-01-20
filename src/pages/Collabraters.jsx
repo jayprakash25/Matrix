@@ -12,21 +12,46 @@ export default function Collabraters() {
   const [Tasks, setTasks] = useState();
   const docref = doc(db, "USERS", jwt);
 
-  // const collabs = [
-  //   {
-  //     Tasks: [
-  //       { Task: "Task 1", Status: "Completed" },
-  //       { Task: "Task 2", Status: "Pending" },
-  //       { Task: "Task 2", Status: "Pending" },
-  //     ],
-  //   },
-  //   {
-  //     Tasks: [
-  //       { Task: "Task 3", Status: "In Progress" },
-  //       { Task: "Task 4", Status: "Completed" },
-  //     ],
-  //   },
-  // ];
+  const collabs = [
+    {
+      Tasks: [
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+          Status: "Completed",
+        },
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+          Status: "Pending",
+        },
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet",
+          Status: "Pending",
+        },
+      ],
+    },
+    {
+      Tasks: [
+        { Task: "Task 3", Status: "Pending" },
+        { Task: "Task 4", Status: "Completed" },
+      ],
+    },
+    {
+      Tasks: [
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+          Status: "Completed",
+        },
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.",
+          Status: "Pending",
+        },
+        {
+          Task: "Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet",
+          Status: "Pending",
+        },
+      ],
+    },
+  ];
 
   // fetching User collabs list
   const fetchUserCollabs = async () => {
@@ -60,39 +85,40 @@ export default function Collabraters() {
           </div>
         </div>
       </nav>
-      {/* <section className="flex flex-col mt-5 ">
-          {collabs.map((collab, collabIndex) => (
-            <div key={collabIndex}>
-              <h2>Tasks for User {collabIndex}</h2>
-              {collab.Tasks.map((task, taskIndex) => (
-                <div
-                  key={taskIndex}
-                  className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900"
-                >
-                  <div className="flex items-start gap-5">
-                    <div className="space-y-2.5">{task.Task}</div>
-                    <p className="space-y-2.5">{task.Status}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))}
-        </section> */}
       {isloading ? (
         <NotifyLoader collabs={true} />
       ) : (
-        <section className="flex flex-col mt-5 ">
-          {Tasks?.map((collab, collabIndex) => (
-            <div key={collabIndex}>
-              <h2>Tasks for User {collabIndex}</h2>
+        <section className="flex flex-col gap-5 mb-20 mt-3">
+          {collabs?.map((collab, collabIndex) => (
+            <div
+              key={collabIndex}
+              className="border-[1px] border-zinc-800 mx-4 p-4 rounded-lg"
+            >
+              <h2 className="text-lg font-semibold text-center">
+                Tasks from {"Jay"}
+              </h2>
               {collab?.Tasks?.map((task, taskIndex) => (
-                <div
-                  key={taskIndex}
-                  className="flex items-center justify-around gap-10 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900"
-                >
-                  <div className="flex items-start gap-5">
-                    <div className="space-y-2.5">{task?.Task}</div>
-                    <p className="space-y-2.5">{task?.Status}</p>
+                <div className="">
+                  <div
+                    key={taskIndex}
+                    className="flex items-center justify-around gap-10 mt-5 p-3 mx-4  "
+                  >
+                    <div className="flex items-start justify-between w-full gap-5">
+                      <div>
+                        <div className="space-y-2.5 text-sm w-44">
+                          {task?.Task}
+                        </div>
+                      </div>
+                      <p
+                        className={`space-y-2.5 text-sm ${
+                          task?.Status === "Completed"
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        {task?.Status}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -100,7 +126,6 @@ export default function Collabraters() {
           ))}
         </section>
       )}
-
       <BottomBar />
     </>
   );
