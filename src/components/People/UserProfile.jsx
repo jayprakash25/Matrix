@@ -131,18 +131,18 @@ export default function UserProfile({ userProfiles, search }) {
                   <div>
                     {user.Pic ? (
                       <img
-                        src={user?.Pic}
+                        src={user.Pic}
                         className="object-cover max-w-md rounded-full w-28 h-28"
-                        alt={user?.Pic}
+                        alt={user.Pic}
                       />
                     ) : (
                       <CgProfile size={50} />
                     )}
                   </div>
                   <div className="">
-                    <h1 className="text-xl font-semibold">{user?.Name}</h1>
+                    <h1 className="text-xl font-semibold">{user.Name}</h1>
                     <ul className="flex gap-4 mt-3 overflow-x-scroll w-60">
-                      {user?.hobbies?.map((hobby, hobbyIndex) => (
+                      {user.hobbies?.map((hobby, hobbyIndex) => (
                         <li
                           key={hobbyIndex}
                           className="px-2 py-1 text-xs font-semibold rounded-full bg-sky-600"
@@ -153,7 +153,7 @@ export default function UserProfile({ userProfiles, search }) {
                     </ul>
                     <button
                       onClick={() => {
-                        navigate(`/${user?.id}`);
+                        navigate(`/${user.id}`);
                       }}
                       className={`w-full py-2 px-10 mt-5  text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                     >

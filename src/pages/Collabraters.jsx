@@ -92,7 +92,7 @@ export default function Collabraters() {
           {collabs?.map((collab, collabIndex) => (
             <div
               key={collabIndex}
-              className="border-[1px] border-zinc-800 mx-4 p-4 rounded-lg"
+              className="border-[1px] border-zinc-800 mx-4 py-4 px-5 rounded-lg"
             >
               <h2 className="text-lg font-semibold text-center">
                 Tasks from {"Jay"}
@@ -101,11 +101,11 @@ export default function Collabraters() {
                 <div className="">
                   <div
                     key={taskIndex}
-                    className="flex items-center justify-around gap-10 mt-5   "
+                    className="flex items-center justify-around gap-10 mt-5"
                   >
                     <div className="flex items-start justify-between w-full gap-5">
                       <div>
-                        <div className="space-y-2.5 text-[12px] w-44 leading-6">
+                        <div className="space-y-2.5 text-[13px] w-44 leading-6">
                           {task?.Task}
                         </div>
                       </div>
