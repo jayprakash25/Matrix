@@ -105,7 +105,7 @@ export default function Collabraters() {
                   >
                     <div className="flex items-start justify-between w-full gap-5">
                       <div>
-                        <div className="space-y-2.5 text-sm w-44">
+                        <div className="space-y-2.5 text-sm w-44 leading-6">
                           {task?.Task}
                         </div>
                       </div>
