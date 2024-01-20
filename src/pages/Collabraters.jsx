@@ -101,7 +101,7 @@ export default function Collabraters() {
                 <div className="">
                   <div
                     key={taskIndex}
-                    className="flex items-center justify-around gap-10 mt-5 p-3 mx-4  "
+                    className="flex items-center justify-around gap-10 mt-5   "
                   >
                     <div className="flex items-start justify-between w-full gap-5">
                       <div>
@@ -126,6 +126,7 @@ export default function Collabraters() {
           ))}
         </section>
       )}
+
       <BottomBar />
     </>
   );
