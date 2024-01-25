@@ -129,14 +129,14 @@ export default function ViewUserProfile() {
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
           {userCollabs.some((collab) => collab.id === jwt) ? (
             <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 focus:ring-4 focus:outline-none focus:ring-blue-300">
-              Collaboration Sent
+              Connection Sent
             </button>
           ) : (
             <button
               onClick={sendCollab}
-              className="py-2 px-20  text-xs font-semibold text-white rounded-full bg-[#1d9bf0]"
+              className="py-2 px-4  text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0]"
             >
-              Colloborate
+              Connect
             </button>
           )}
         </div>
