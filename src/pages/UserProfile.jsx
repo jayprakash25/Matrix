@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BottomBar, EditProfile, Loader } from "../components";
+import { BottomBar, EditProfile, HobbiesModel, Loader } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -12,20 +12,24 @@ import ModelLogout from "../components/ModelLogout";
 import { GiNothingToSay } from "react-icons/gi";
 import UserProfileLoader from "../components/UserProfileLoader";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { RxCross2 } from "react-icons/rx";
+import { IoIosAdd } from "react-icons/io";
 
 export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
   const [isdelete, setisdelete] = useState(false);
+  const [isselect, setisselect] = useState(false);
+  const [islogout, setislogout] = useState(false);
   const [isloading, setisloading] = useState(true);
   const navigate = useNavigate();
   const controls = useAnimation();
   const jwt = localStorage.getItem("jwt");
-  const [islogout, setislogout] = useState(false);
   const docref = doc(db, "USERS", jwt);
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
     Bio: "",
+    hobbies: [],
     Posts: [],
   });
 
@@ -37,6 +41,7 @@ export default function UserProfile() {
         Pic: User?.data()?.Pic,
         Name: User?.data()?.Name,
         Bio: User?.data()?.Bio,
+        hobbies: User?.data()?.hobbies,
         Posts: User?.data()?.Posts || [],
       });
       setisloading(false);
@@ -74,6 +79,16 @@ export default function UserProfile() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const deletehobbie = async (id) => {
+    const currenthobbies = [...Userdata.hobbies];
+    currenthobbies.splice(id, 1);
+    await updateDoc(docref, { hobbies: currenthobbies });
+    setUserdata({
+      ...Userdata,
+      hobbies: currenthobbies,
+    });
   };
 
   useEffect(() => {
@@ -161,6 +176,37 @@ export default function UserProfile() {
               </div>
             </div>
           </div>
+          <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
+          <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
+            <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
+              <IoIosAdd
+                cursor={"pointer"}
+                onClick={() => {
+                  setisselect(true);
+                }}
+                size={22}
+                color={"white"}
+              />
+            </p>
+            {Userdata?.hobbies?.map((item, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
+                    {item}{" "}
+                    <RxCross2
+                      onClick={() => {
+                        deletehobbie(i);
+                      }}
+                      cursor={"pointer"}
+                      size={17}
+                      color={"white"}
+                    />
+                  </p>
+                </React.Fragment>
+              );
+            })}
+          </div>
+          <h1 className="text-xl font-bold px-7 my-7">Your Posts</h1>
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
               <UserProfileLoader />
@@ -177,7 +223,7 @@ export default function UserProfile() {
                         <div>
                           {item.image && (
                             <img
-                              className="mx-auto rounded-xl w-[85vw]  object-cover"
+                              className="mx-auto rounded-xl w-[85vw] object-cover"
                               src={item?.image}
                               alt=""
                             />
@@ -270,6 +316,7 @@ export default function UserProfile() {
         </main>
       </motion.div>
       <BottomBar />
+      {isselect ? <HobbiesModel setisselect={setisselect} /> : null}
     </>
   );
 }

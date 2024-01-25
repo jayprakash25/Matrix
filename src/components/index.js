@@ -6,8 +6,10 @@ import EnterOtp from "./EnterOtp";
 import AddPost from "./AddPost";
 import Loader from "./Loader";
 import PageTransistion from "./PageTransistion";
+import HobbiesModel from "./HobbiesModel";
 
 export {
+  HobbiesModel,
   PageTransistion,
   AddPost,
   Loader,
