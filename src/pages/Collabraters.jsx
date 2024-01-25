@@ -88,7 +88,7 @@ export default function Collabraters() {
       {isloading ? (
         <NotifyLoader collabs={true} />
       ) : (
-        <section className="flex flex-col gap-5 mb-20 mt-3">
+        <section className="flex flex-col gap-5 mt-3 mb-20">
           {collabs?.map((collab, collabIndex) => (
             <div
               key={collabIndex}
@@ -105,7 +105,7 @@ export default function Collabraters() {
                   >
                     <div className="flex items-start justify-between w-full gap-5">
                       <div>
-                        <div className="space-y-2.5 text-[13px] w-44 leading-6">
+                        <div className="space-y-2.5 text-[12px] w-48 leading-6">
                           {task?.Task}
                         </div>
                       </div>

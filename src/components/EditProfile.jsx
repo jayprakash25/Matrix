@@ -78,7 +78,7 @@ export default function EditProfile({ setisedit }) {
               color={"white"}
             />
           </div>
-          <div className="flex flex-col items-center justify-center gap-3">
+          {/* <div className="flex flex-col items-center justify-center gap-3">
             <label className="font-semibold">ProfilePic*</label>
             {blobimg.image ? (
               <img src={blobimg.image} className="object-cover w-36 h-36" />
@@ -104,7 +104,7 @@ export default function EditProfile({ setisedit }) {
               className="hidden px-4 py-2 outline-none"
               type="file"
             />
-          </div>
+          </div> */}
           <div className="flex flex-col justify-center gap-3 my-6">
             <label className="font-semibold">Name*</label>
             <input
@@ -129,10 +129,11 @@ export default function EditProfile({ setisedit }) {
               rows="5"
             ></textarea>
           </div>
+
           <div className="flex justify-center">
             <button
               onClick={handleSubmit}
-              className="w-[80vw] py-2  bg-[#1d9bf0]   text-white rounded-full  "
+              className="w-[80vw] py-2 bg-[#1d9bf0]  text-white rounded-xl"
             >
               Edit
             </button>

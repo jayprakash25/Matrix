@@ -138,8 +138,8 @@ export default function UserProfile() {
               )}
             </div>
             <div className="max-w-[55vw] space-y-2">
-              <h1 className="text-lg font-bold ">{Userdata.Name}</h1>
-              <p className="text-sm text-slate-400">{Userdata.Bio}</p>
+              <h1 className="text-lg font-bold ">{Userdata?.Name}</h1>
+              <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
                 <button
                   onClick={() => {
