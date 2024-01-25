@@ -70,7 +70,6 @@ export default function ViewUserProfile() {
     try {
       const User = await getDoc(docref);
       const me = await getDoc(Userdocref);
-
       const userCurrentCollabsNotification = User?.data()?.notifications || [];
       const notification = {
         Name: me?.data()?.Name,
