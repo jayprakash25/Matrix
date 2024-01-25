@@ -37,7 +37,7 @@ export default function Works() {
                     <CiLock size={70} />
                   </div>
                 </div>
-                <div className="space-y-3 text-center">
+                <div className="space-y-3 ">
                   <h1 className="font-semibold text-[15px]">{item.Tittle}</h1>
                   <p className="text-[11px] leading-5">{item.Para}</p>
                 </div>
