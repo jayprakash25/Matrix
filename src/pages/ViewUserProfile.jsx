@@ -120,7 +120,7 @@ export default function ViewUserProfile() {
         <div className="">
           <img
             src={Userdata.Pic}
-            className="object-cover w-32 h-32 rounded-full"
+            className="object-cover rounded-full w-36 h-36"
             alt=""
           />
         </div>
@@ -134,7 +134,7 @@ export default function ViewUserProfile() {
           ) : (
             <button
               onClick={sendCollab}
-              className="py-2 px-4  text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0]"
+              className="py-1.5 px-8  text-[11px] font-semibold text-white rounded-full bg-[#1d9bf0]"
             >
               Connect
             </button>
