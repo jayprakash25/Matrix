@@ -38,7 +38,7 @@ export default function Works() {
                   </div>
                 </div>
                 <div className="space-y-3 text-center">
-                  <h1 className="font-semibold">{item.Tittle}</h1>
+                  <h1 className="font-semibold text-[15px]">{item.Tittle}</h1>
                   <p className="text-[11px] leading-5">{item.Para}</p>
                 </div>
               </div>
