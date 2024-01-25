@@ -83,7 +83,7 @@ export default function UserProfile({ userProfiles, search }) {
             return (
               <React.Fragment key={index}>
                 <>
-                  <div className="flex flex-col justify-center  border-[1px] border-zinc-800 p-5">
+                  <div className="flex flex-col justify-center border-[1px] border-zinc-800 p-5">
                     <div>
                       {user.Pic ? (
                         <img
