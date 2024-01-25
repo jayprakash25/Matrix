@@ -142,7 +142,7 @@ export default function ViewUserProfile() {
         </div>
       </div>
 
-      <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
+      <h1 className="text-xl font-bold px-7 my-7">Hobbies</h1>
       <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
         {Userdata?.hobbies?.map((item, i) => {
           return (
