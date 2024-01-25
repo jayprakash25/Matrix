@@ -51,7 +51,7 @@ export default function HobbiesModel({ setisselect }) {
     <>
       {isloading ? <Loader /> : null}
       <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
-        <div className="p-6 rounded-xl bg-[#161616] w-[90vw]">
+        <div className="p-6 rounded-xl bg-[#161616] w-[96vw]">
           {isloading ? <Loader /> : null}
           <div className="grid justify-center grid-cols-3 gap-3.5 px-3.5 mt-7 mb-5 place-items-center">
             {hobbies.map((hobby, i) => (
@@ -62,7 +62,7 @@ export default function HobbiesModel({ setisselect }) {
                   Userhobbies.includes(hobby.name)
                     ? "bg-[#1d9bf0]  text-white ease-in-out duration-500"
                     : null
-                }   cursor-pointer w-[8rem] text-center px-6 py-2 border-amber-500 rounded-full`}
+                }   cursor-pointer w-[4rem] text-center px-4 py-2 border-amber-500 rounded-full`}
               >
                 <h1 className="text-sm font-semibold ">{hobby.name}</h1>
               </div>
