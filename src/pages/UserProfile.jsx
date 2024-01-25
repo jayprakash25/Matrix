@@ -271,7 +271,9 @@ export default function UserProfile() {
                                           </h1>
                                         </div>
                                         <div
-                                          onClick={deletePost}
+                                          onClick={() => {
+                                            deletePost(i);
+                                          }}
                                           className="flex justify-center gap-2 px-4 pb-4 mt-3"
                                         >
                                           <h1 className="text-red-500">
