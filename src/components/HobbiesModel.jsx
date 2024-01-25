@@ -62,7 +62,7 @@ export default function HobbiesModel({ setisselect }) {
                   Userhobbies.includes(hobby.name)
                     ? "bg-[#1d9bf0]  text-white ease-in-out duration-500"
                     : null
-                }   cursor-pointer w-[4rem] text-center px-4 py-2 border-amber-500 rounded-full`}
+                }   cursor-pointer  text-center px-4 py-2 border-amber-500 rounded-full`}
               >
                 <h1 className="text-sm font-semibold ">{hobby.name}</h1>
               </div>
