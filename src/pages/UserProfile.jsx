@@ -91,6 +91,8 @@ export default function UserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
+  console.log(Userdata);
+
   return (
     <>
       <motion.div
@@ -175,7 +177,7 @@ export default function UserProfile() {
                         <div>
                           {item.image && (
                             <img
-                              className="mx-auto rounded-xl w-[85vw] h-[30vh] object-cover"
+                              className="mx-auto rounded-xl w-[85vw]  object-cover"
                               src={item?.image}
                               alt=""
                             />
