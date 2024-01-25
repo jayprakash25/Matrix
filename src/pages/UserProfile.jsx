@@ -178,7 +178,7 @@ export default function UserProfile() {
           </div>
           <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
           <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
-            <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
+            <p className="px-6 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
               <IoIosAdd
                 cursor={"pointer"}
                 onClick={() => {

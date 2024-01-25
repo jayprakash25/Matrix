@@ -28,7 +28,6 @@ export default function SelectHobbies() {
     e.preventDefault();
     try {
       if (!Userhobbies == "") {
-        // await addDoc(collection(db, "User-Hobbies"), { hobbies: Userhobbies });
         const userJWT = localStorage.getItem("jwt");
         const docRef = doc(db, "USERS", userJWT);
         await updateDoc(docRef, { hobbies: Userhobbies });

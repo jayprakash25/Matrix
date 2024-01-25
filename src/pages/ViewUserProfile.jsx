@@ -20,6 +20,7 @@ export default function ViewUserProfile() {
     Name: "",
     Bio: "",
     Posts: [],
+    hobbies: [],
   });
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export default function ViewUserProfile() {
           Name: User?.data().Name,
           Bio: User?.data().Bio,
           Posts: User?.data().Posts || [],
+          hobbies: User?.data().hobbies || [],
         }));
         setisloading(false);
       } catch (error) {
@@ -139,6 +141,20 @@ export default function ViewUserProfile() {
           )}
         </div>
       </div>
+
+      <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
+      <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
+        {Userdata?.hobbies?.map((item, i) => {
+          return (
+            <React.Fragment key={i}>
+              <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
+                {item}
+              </p>
+            </React.Fragment>
+          );
+        })}
+      </div>
+
       <div className="flex flex-col items-center justify-center my-10 gap-7">
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
           {Userdata?.Posts?.map((item, i) => {

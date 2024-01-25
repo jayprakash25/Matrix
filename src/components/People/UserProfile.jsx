@@ -52,13 +52,14 @@ export default function UserProfile({ userProfiles, search }) {
   const fetchData = useCallback(async () => {
     try {
       const User = await getDoc(docref);
-      const currentConnectedUser = User?.data()?.collabs;
-      setCurrentConnectedUser(currentConnectedUser);
+      const currentConnectedUser = User?.data()?.collabs || [];
+      setCurrentConnectedUser(Array.isArray(currentConnectedUser) ? currentConnectedUser : []);
       setisloading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setisloading(false);
     }
+  
   }, [jwt]);
 
   useEffect(() => {
