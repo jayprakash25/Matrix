@@ -25,7 +25,7 @@ export default function UserProfile({ userProfiles, search }) {
   const fetchUsersWithSimilarHobbies = async () => {
     try {
       const currentUserDoc = await getDoc(docref);
-      const currentUserHobbies = currentUserDoc.data().hobbies;
+      const currentUserHobbies = currentUserDoc.data()?.hobbies;
       const Users = await getDocs(collection(db, "USERS"));
       const usersData = Users?.docs
         ?.map((user) => ({ id: user.id, ...user.data() }))

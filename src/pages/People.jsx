@@ -21,10 +21,8 @@ export default function People() {
       }))
       .filter((doc) => {
         if (doc.id === jwt) return false;
-
         return true;
       });
-
     setAllUserProfiles(userData);
     setFilteredUserProfiles(userData);
   }, [jwt]);
