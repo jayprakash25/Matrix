@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BottomBar, EditProfile, HobbiesModel, Loader } from "../components";
+import {
+  BottomBar,
+  EditProfile,
+  HobbiesModel,
+  Loader,
+  Works,
+} from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -208,6 +214,9 @@ export default function UserProfile() {
               );
             })}
           </div>
+
+          <h1 className="text-xl font-bold px-7 my-7">Your Works</h1>
+          <Works />
           <h1 className="text-xl font-bold px-7 my-7">Your Posts</h1>
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">

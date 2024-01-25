@@ -7,8 +7,10 @@ import AddPost from "./AddPost";
 import Loader from "./Loader";
 import PageTransistion from "./PageTransistion";
 import HobbiesModel from "./HobbiesModel";
+import Works from "./Works";
 
 export {
+  Works,
   HobbiesModel,
   PageTransistion,
   AddPost,
