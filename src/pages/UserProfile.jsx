@@ -67,13 +67,15 @@ export default function UserProfile() {
   const deletePost = async (postid) => {
     try {
       setisloading(true);
-      const UpdatedPosts = [...Userdata.Posts];
-      UpdatedPosts.splice(postid, 1);
-      await updateDoc(docref, { Posts: UpdatedPosts });
+      const updatedPosts = Userdata.Posts.filter(
+        (post, index) => index !== postid
+      );
+      console.log(updatedPosts);
+      await updateDoc(docref, { Posts: updatedPosts });
       setisdelete(false);
       setUserdata({
         ...Userdata,
-        Posts: UpdatedPosts,
+        Posts: updatedPosts,
       });
       setisloading(false);
     } catch (error) {
@@ -177,7 +179,7 @@ export default function UserProfile() {
             </div>
           </div>
           <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
-          <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
+          <div className="grid grid-cols-3 gap-2 px-4 mx-auto my-3 text-center">
             <p className="px-6 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
               <IoIosAdd
                 cursor={"pointer"}

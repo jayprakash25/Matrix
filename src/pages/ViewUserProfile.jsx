@@ -143,7 +143,7 @@ export default function ViewUserProfile() {
       </div>
 
       <h1 className="text-xl font-bold px-7 my-7">Hobbies</h1>
-      <div className="grid grid-cols-3 gap-2 mx-auto my-3 text-center px-7">
+      <div className="grid grid-cols-3 gap-2 px-5 mx-auto my-3 text-center">
         {Userdata?.hobbies?.map((item, i) => {
           return (
             <React.Fragment key={i}>
