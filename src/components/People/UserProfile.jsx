@@ -72,7 +72,7 @@ export default function UserProfile({ userProfiles, search }) {
           ))}
         </div>
       ) : null}
-      <div className="flex flex-col gap-6 px-4 mb-20">
+      <div className="flex flex-col gap-6 px-2.5 mb-20">
         {usersToMap
           ?.filter(
             (user) =>
