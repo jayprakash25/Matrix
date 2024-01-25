@@ -159,7 +159,6 @@ export default function UserProfile() {
               </div>
             </div>
           </div>
-
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
               <UserProfileLoader />
@@ -185,7 +184,7 @@ export default function UserProfile() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3 mt-5">
                             <img
-                              src={item?.Pic}
+                              src={Userdata?.Pic}
                               className="object-cover w-12 h-12 rounded-full"
                               alt=""
                             />
