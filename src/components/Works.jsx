@@ -31,7 +31,7 @@ export default function Works() {
         {works.map((item, i) => {
           return (
             <React.Fragment key={i}>
-              <div className="border-[1px] p-5 border-zinc-800 ">
+              <div className="border-[1px] p-5 border-zinc-800 max-w-[90vw]">
                 <div className="blur-sm  w-[50vw] h-[20vh] border-[1px] border-slate-900">
                   <div className="flex justify-center mt-5">
                     <CiLock size={70} />
