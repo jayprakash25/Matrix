@@ -9,7 +9,7 @@ import {
 import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { Link, useNavigate } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PropTypes from "prop-types";
 import { CgProfile } from "react-icons/cg";
 

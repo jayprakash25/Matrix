@@ -1,5 +1,5 @@
 import UserProfile from "./UserProfile";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 export default function UserProfiles({ userProfiles, search }) {
   return (
@@ -9,7 +9,7 @@ export default function UserProfiles({ userProfiles, search }) {
   );
 }
 
-UserProfiles.propTypes = {
-  userProfiles: PropTypes.array.isRequired,
-  search: PropTypes.string.isRequired,
-};
+// UserProfiles.propTypes = {
+//   userProfiles: PropTypes.array.isRequired,
+//   search: PropTypes.string.isRequired,
+// };
