@@ -24,6 +24,8 @@ export default function Notification() {
     getNotifications();
   }, []);
 
+  console.log(Notifications);
+
   const DeleteNotification = async (i) => {
     setisloading(true);
     try {

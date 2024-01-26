@@ -54,7 +54,7 @@ export default function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/profile/:category" element={<ProfileByCat />} />
-            <Route path="/people/" element={<People />} />
+            <Route path="/people" element={<People />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/:userid" element={<ViewUserProfile />} />
             <Route path="/privacy" element={<Privacy />} />
