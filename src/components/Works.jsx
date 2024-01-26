@@ -27,7 +27,7 @@ export default function Works({ id }) {
     <section className="overflow-x-scroll">
       <div className="flex gap-6 ml-5 mr-5 overflow-x-scroll">
         <div className="border-[1px] p-5 border-zinc-800 cursor-pointer">
-          <div className="w-[55vw] border-[1px] h-[20vh] border-slate-900">
+          <div className="w-[55vw] border-[0.9px] h-[20vh] border-slate-900">
             <div className="flex justify-center mt-5">
               <IoAdd size={70} />
             </div>
@@ -43,8 +43,8 @@ export default function Works({ id }) {
         {works.map((item, i) => {
           return (
             <React.Fragment key={i}>
-              <div className="border-[1px] p-5 border-zinc-800 max-w-[90vw]">
-                <div className="blur-sm  w-[50vw] h-[20vh] border-[1px] border-slate-900">
+              <div className="border-[1px] p-5 border-zinc-800 ">
+                <div className="blur-sm  w-[55vw] h-[20vh] border-[1px] border-slate-900">
                   <div className="flex justify-center mt-5">
                     <CiLock size={70} />
                   </div>
