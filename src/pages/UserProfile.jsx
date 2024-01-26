@@ -20,6 +20,7 @@ import UserProfileLoader from "../components/UserProfileLoader";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
+import ProfileImage from "../components/EditProfile/profileImage";
 
 export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
@@ -27,6 +28,7 @@ export default function UserProfile() {
   const [isselect, setisselect] = useState(false);
   const [islogout, setislogout] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const [editImage, setEditImage] = useState(false);
   const navigate = useNavigate();
   const controls = useAnimation();
   const jwt = localStorage.getItem("jwt");
@@ -147,8 +149,12 @@ export default function UserProfile() {
             </div>
           </nav>
           <div className="flex items-start justify-center gap-5 mt-5">
-            <div>
-              {localStorage.getItem("UserPic") !== "" ? (
+            <div
+              onClick={() => {
+                setEditImage(true);
+              }}
+            >
+              {localStorage.getItem("UserPic") ? (
                 <Link to={"/profile"}>
                   <img
                     src={localStorage.getItem("UserPic")}
@@ -160,6 +166,11 @@ export default function UserProfile() {
                 <AccountCircleIcon color="primary" fontSize="large" />
               )}
             </div>
+            {editImage && (
+              <div>
+                <ProfileImage setEditImage={setEditImage} />
+              </div>
+            )}
             <div className="max-w-[55vw] space-y-2">
               <h1 className="text-lg font-bold ">{Userdata?.Name}</h1>
               <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
