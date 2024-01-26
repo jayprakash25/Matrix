@@ -10,7 +10,7 @@ export default function Notification() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState();
-  const [collabs, setcollabs] = useState();
+  const [collabs, setcollabs] = useState([]);
   const [isshow, setisshow] = useState(false);
   const navigate = useNavigate();
 
@@ -18,14 +18,15 @@ export default function Notification() {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      const filteredNotifications = User.data().notifications.filter(
+      const filteredCollabs = User?.data()?.collabs || [];
+      setcollabs(filteredCollabs);
+      const filteredNotifications = User.data()?.notifications.filter(
         (notification) => {
-          return !collabs?.includes(notification.id);
+          return !filteredCollabs.includes(notification.id);
         }
       );
-      console.log(filteredNotifications);
+
       setNotifications(filteredNotifications || []);
-      setcollabs(User.data().collabs || []);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -35,6 +36,8 @@ export default function Notification() {
   useEffect(() => {
     getNotifications();
   }, []);
+
+  console.log(Notifications);
 
   const DeleteNotification = async (i) => {
     setisloading(true);
@@ -53,18 +56,15 @@ export default function Notification() {
 
   const acceptRequest = async (userid) => {
     try {
-      console.log(userid);
+      console.log(collabs);
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
-      console.log(Notifications);
       DeleteNotification(Notifications?.id);
-      navigate(`/collabs/${jwt}`);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(Notifications);
 
   return (
     <>

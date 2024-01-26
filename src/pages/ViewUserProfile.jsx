@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-import { Loader } from "../components";
+import { Loader, Works } from "../components";
 import { useAnimation, motion } from "framer-motion";
 
 export default function ViewUserProfile() {
+  const navigate = useNavigate();
   const { userid } = useParams();
   const jwt = localStorage.getItem("jwt");
   const Userdocref = doc(db, "USERS", jwt);
@@ -40,7 +41,7 @@ export default function ViewUserProfile() {
 
   const currentUser = async () => {
     const snapshot = await getDoc(docref);
-    const user = snapshot.data().notifications || [];
+    const user = snapshot.data()?.notifications || [];
     setUserCollabs(user);
   };
 
@@ -86,6 +87,7 @@ export default function ViewUserProfile() {
         await updateDoc(docref, {
           notifications: [...userCurrentCollabsNotification, notification],
         });
+        navigate("/people");
       } else {
         setpopup(true);
       }
@@ -154,7 +156,8 @@ export default function ViewUserProfile() {
           );
         })}
       </div>
-
+      <h1 className="text-xl font-bold px-7 my-7">Works</h1>
+      <Works id={userid} />
       <div className="flex flex-col items-center justify-center my-10 gap-7">
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
           {Userdata?.Posts?.map((item, i) => {

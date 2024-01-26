@@ -1,11 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  BottomBar,
-  EditProfile,
-  HobbiesModel,
-  Loader,
-  Works,
-} from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -21,6 +14,13 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/profileImage";
+import {
+  BottomBar,
+  EditProfile,
+  HobbiesModel,
+  Loader,
+  Works,
+} from "../components";
 
 export default function UserProfile() {
   const [isedit, setisedit] = useState(false);
