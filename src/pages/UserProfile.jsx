@@ -114,8 +114,6 @@ export default function UserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
-  console.log(Userdata);
-
   return (
     <>
       <motion.div
