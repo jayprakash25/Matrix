@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { db, storage } from "../../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { RxCross2 } from "react-icons/rx";
 import LoaderImage from "./LoaderImage";
 
@@ -13,6 +13,9 @@ function ProfileImage({ setEditImage }) {
   const handleEditImage = () => {
     fileInputRef.current.click();
   };
+
+  const docRef = doc(db, "USERS", jwt);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -37,11 +40,19 @@ function ProfileImage({ setEditImage }) {
           // Handle successful uploads
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           console.log(downloadURL);
-          const docRef = doc(db, "USERS", jwt);
           await updateDoc(docRef, { Pic: downloadURL });
           window.localStorage.setItem("UserPic", downloadURL);
         }
       );
+    }
+  };
+
+  const deleteImage = async () => {
+    try {
+      await updateDoc(docRef, { Pic: null });
+      window.localStorage.removeItem("UserPic");
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -92,6 +103,7 @@ function ProfileImage({ setEditImage }) {
               <button
                 data-modal-hide="popup-modal"
                 type="button"
+                onClick={deleteImage}
                 className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               >
                 Remove Image
