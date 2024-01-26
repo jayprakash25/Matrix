@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { db, storage } from "../../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { RxCross2 } from "react-icons/rx";
+import LoaderImage from "./LoaderImage";
 
 function ProfileImage({ setEditImage }) {
   const userPic = window.localStorage.getItem("UserPic");
   const jwt = window.localStorage.getItem("jwt");
+  const [progress, setProgress] = useState(0);
   const fileInputRef = useRef(null);
   const handleEditImage = () => {
     fileInputRef.current.click();
@@ -24,6 +26,7 @@ function ProfileImage({ setEditImage }) {
           // Optional: Handle progress
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress);
           console.log("Upload is " + progress + "% done");
         },
         (error) => {
@@ -57,8 +60,19 @@ function ProfileImage({ setEditImage }) {
                 color={"white"}
               />
             </div>
-            <div className="flex items-center justify-center">
-              <img src={userPic} />
+            <div
+              className={`${
+                progress > 0 && progress < 100 ? "hidden" : "block"
+              } items-center flex justify-center rounded-full p-4 pt-0 `}
+            >
+              <img src={userPic} className="w-40 h-40 rounded-full" />
+            </div>
+            <div
+              className={` ${
+                progress > 0 && progress < 100 ? "block" : "hidden"
+              } py-4`}
+            >
+              <LoaderImage progress={progress} />
             </div>
             <div className="p-4 md:p-5 text-center">
               {/* <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"></h3> */}

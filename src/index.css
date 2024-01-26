@@ -10,3 +10,18 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes load {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @layer utilities {
+    .animate-load-animation {
+      animation: load 2s linear infinite;
+    }
+  }
