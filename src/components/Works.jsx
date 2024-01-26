@@ -27,12 +27,12 @@ export default function Works({ id }) {
     <section className="overflow-x-scroll">
       <div className="flex gap-6 ml-5 mr-5 overflow-x-scroll">
         <div className="border-[1px] p-5 border-zinc-800 cursor-pointer">
-          <div className="w-[55vw] border-[0.9px] h-[20vh] border-slate-900">
+          <div className="w-[60vw] border-[0.9px]  border-slate-900">
             <div className="flex justify-center mt-5">
               <IoAdd size={70} />
             </div>
           </div>
-          <div className="space-y-3 text-center">
+          <div className="mt-8 space-y-3 text-center">
             <h1 className="font-bold text-[15.4px]">Add Work</h1>
             <p className="text-[11.5px] leading-5 font-semibold">
               You can add your work for collaboration. Share your projects,
@@ -44,12 +44,12 @@ export default function Works({ id }) {
           return (
             <React.Fragment key={i}>
               <div className="border-[1px] p-5 border-zinc-800 ">
-                <div className="blur-sm  w-[55vw] h-[20vh] border-[1px] border-slate-900">
+                <div className="blur-sm  w-[60vw]  border-[1px] border-slate-900">
                   <div className="flex justify-center mt-5">
                     <CiLock size={70} />
                   </div>
                 </div>
-                <div className="space-y-3 ">
+                <div className="mt-8 space-y-3">
                   <p className="text-[11px] leading-5">{item.Para}</p>
                   {jwt !== id ? (
                     <div className="flex justify-center">
