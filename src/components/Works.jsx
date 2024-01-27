@@ -51,13 +51,13 @@ export default function Works({ id }) {
                 </div>
                 <div className="mt-8 space-y-3">
                   <p className="text-[11px] leading-5">{item.Para}</p>
-                  {jwt !== id ? (
+                  {jwt == id ? null : (
                     <div className="flex justify-center">
                       <button className="py-2 text-[12.5px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 w-[50vw] mx-auto">
                         Collab
                       </button>
                     </div>
-                  ) : null}
+                  )}
                 </div>
               </div>
             </React.Fragment>

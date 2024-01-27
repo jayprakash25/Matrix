@@ -123,7 +123,7 @@ export default function ViewUserProfile() {
           <img
             src={Userdata.Pic}
             className="object-cover rounded-full w-36 h-36"
-            alt=""
+            alt={Userdata.Pic}
           />
         </div>
         <div className="max-w-[55vw] space-y-4">

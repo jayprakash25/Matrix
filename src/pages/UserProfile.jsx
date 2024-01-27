@@ -214,7 +214,7 @@ export default function UserProfile() {
           </div>
 
           <h1 className="text-xl font-bold px-7 my-7">Your Works</h1>
-          <Works />
+          <Works id={jwt}/>
           <h1 className="text-xl font-bold px-7 my-7">Your Posts</h1>
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
