@@ -5,31 +5,21 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
-import { signOut } from "firebase/auth";
 import { useAnimation, motion } from "framer-motion";
-import ModelLogout from "../components/ModelLogout";
 import { GiNothingToSay } from "react-icons/gi";
 import UserProfileLoader from "../components/UserProfileLoader";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/profileImage";
-import {
-  BottomBar,
-  EditProfile,
-  HobbiesModel,
-  Loader,
-  Works,
-} from "../components";
+import { CiMenuFries } from "react-icons/ci";
+import { BottomBar, HobbiesModel, Loader, Works } from "../components";
 
 export default function UserProfile() {
-  const [isedit, setisedit] = useState(false);
   const [isdelete, setisdelete] = useState(false);
   const [isselect, setisselect] = useState(false);
-  const [islogout, setislogout] = useState(false);
   const [isloading, setisloading] = useState(true);
   const [editImage, setEditImage] = useState(false);
-  const navigate = useNavigate();
   const controls = useAnimation();
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
@@ -61,16 +51,6 @@ export default function UserProfile() {
   useEffect(() => {
     getPosts();
   }, []);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      window.localStorage.clear();
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const deletePost = async (postid) => {
     try {
@@ -137,14 +117,9 @@ export default function UserProfile() {
                 <h1 className="text-lg font-semibold ">My Profile</h1>
               </div>
               <div>
-                <button
-                  onClick={() => {
-                    setislogout(true);
-                  }}
-                  className="text-red-500"
-                >
-                  Log Out
-                </button>
+                <Link to="/sidebar">
+                  <CiMenuFries size={27} color="white" />
+                </Link>
               </div>
             </div>
           </nav>
@@ -175,12 +150,7 @@ export default function UserProfile() {
               <h1 className="text-lg font-bold ">{Userdata?.Name}</h1>
               <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
-                <button
-                  onClick={() => {
-                    setisedit(true);
-                  }}
-                  className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 "
-                >
+                <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
                   Edit Profile
                 </button>
                 {jwt === localStorage.getItem("jwt") ? (
@@ -225,7 +195,7 @@ export default function UserProfile() {
           </div>
 
           <h1 className="text-xl font-bold px-7 my-7">Your Works</h1>
-          <Works id={jwt}/>
+          <Works id={jwt} />
           <h1 className="text-xl font-bold px-7 my-7">Your Posts</h1>
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
@@ -328,13 +298,6 @@ export default function UserProfile() {
               )}
             </div>
           )}
-          {isedit ? <EditProfile setisedit={setisedit} /> : null}
-          {islogout ? (
-            <ModelLogout
-              setislogout={setislogout}
-              handleLogout={handleLogout}
-            />
-          ) : null}
         </main>
       </motion.div>
       <BottomBar />

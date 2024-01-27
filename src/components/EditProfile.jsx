@@ -15,9 +15,8 @@ export default function EditProfile({ setisedit }) {
     Pic: "",
   });
   const [uploadimage, setuploadimage] = useState();
-  const [blobimg, setblobimg] = useState({ image: "" });
+  // const [blobimg, setblobimg] = useState({ image: "" });
   const [isloading, setisloading] = useState(false);
-  const imageref = useRef();
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
@@ -46,16 +45,12 @@ export default function EditProfile({ setisedit }) {
     }
     try {
       setisloading(true);
-      const Storageref = ref(storage, `image/userImage/${uploadimage?.name}`);
-      await uploadBytesResumable(Storageref, uploadimage);
-      const downloadURL = await getDownloadURL(Storageref);
-      const updatedProfile = {
-        ...user,
-        Pic: downloadURL,
-      };
-      localStorage.setItem("UserPic", downloadURL);
+      // const Storageref = ref(storage, `image/userImage/${uploadimage?.name}`);
+      // await uploadBytesResumable(Storageref, uploadimage);
+      // const downloadURL = await getDownloadURL(Storageref);
+      // localStorage.setItem("UserPic", downloadURL);
       const docRef = doc(db, "USERS", jwt);
-      await updateDoc(docRef, updatedProfile);
+      await updateDoc(docRef, user);
       setisedit(false);
       navigate("/home");
     } catch (error) {

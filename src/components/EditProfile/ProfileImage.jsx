@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { db, storage } from "../../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {  doc, updateDoc } from "firebase/firestore";
 import { RxCross2 } from "react-icons/rx";
 import LoaderImage from "./LoaderImage";
 
@@ -19,25 +19,20 @@ function ProfileImage({ setEditImage }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Upload the file to Firebase Storage
-      // const uploadTask = storage.ref(`images/${file.name}`).put(file);
       const imageRef = ref(storage, `profileimage/${file.name}`);
       const uploadTask = uploadBytesResumable(imageRef, file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Optional: Handle progress
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setProgress(progress);
           console.log("Upload is " + progress + "% done");
         },
         (error) => {
-          // Handle unsuccessful uploads
           console.error("Upload failed:", error);
         },
         async () => {
-          // Handle successful uploads
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           console.log(downloadURL);
           await updateDoc(docRef, { Pic: downloadURL });
@@ -85,7 +80,7 @@ function ProfileImage({ setEditImage }) {
             >
               <LoaderImage progress={progress} />
             </div>
-            <div className="p-4 md:p-5 text-center">
+            <div className="p-4 text-center md:p-5">
               {/* <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"></h3> */}
               <button
                 onClick={handleEditImage}
@@ -104,7 +99,7 @@ function ProfileImage({ setEditImage }) {
                 data-modal-hide="popup-modal"
                 type="button"
                 onClick={deleteImage}
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                className="bg-red-500 text-white font-semibold px-5 py-2.5"
               >
                 Remove Image
               </button>

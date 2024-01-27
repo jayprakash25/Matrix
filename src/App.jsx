@@ -13,7 +13,7 @@ import {
   ViewUserProfile,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
-import { RegistrationForm } from "./components";
+import { RegistrationForm, SideBar } from "./components";
 import Login from "./pages/Login";
 import ProfileByCat from "./components/People/ProfileByCat";
 
@@ -62,6 +62,7 @@ export default function App() {
             <Route path="/register" element={<RegistrationForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
+            <Route path="/sidebar" element={<SideBar />} />
           </Routes>
         </>
       ) : (
