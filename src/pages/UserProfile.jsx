@@ -151,7 +151,7 @@ export default function UserProfile() {
               <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
                 <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
-                  Edit Profile
+                  Collabrates
                 </button>
                 {jwt === localStorage.getItem("jwt") ? (
                   <Link to={`/collabs/${jwt}`}>
