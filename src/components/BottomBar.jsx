@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 import { PiHouse } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
-import AddPost from "./AddPost";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
   <Link to={to}>
@@ -22,10 +21,9 @@ const BottomBarItem = ({ to, icon, clickFn }) => (
 
 const BottomBar = () => {
   const iconColor = "#fff";
-  const [isPost, setisPost] = useState(false);
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
-
+  const navigate = useNavigate();
   const getPic = async () => {
     try {
       // if (localStorage.getItem("UserPic") == null) {
@@ -42,7 +40,7 @@ const BottomBar = () => {
   }, []);
 
   return (
-    <footer className="fixed bottom-0 w-full items-center justify-center flex">
+    <footer className="fixed bottom-0 flex items-center justify-center w-full">
       <div className="w-full bg-[#282828] rounded-t-xl">
         <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly">
           <BottomBarItem
@@ -54,15 +52,10 @@ const BottomBar = () => {
             icon={<MdPeopleAlt size={25} color={iconColor} />}
           />
           <BottomBarItem
-            clickFn={() => {
-              setisPost(true);
-            }}
+            to="/post"
             icon={<IoCreate size={25} color={iconColor} />}
           />
-          {/* <BottomBarItem
-            to="/profile"
-            icon={<ImExit size={25} color={iconColor} />}
-          /> */}
+
           {localStorage.getItem("UserPic") ? (
             <Link to={"/profile"}>
               <img
@@ -74,12 +67,10 @@ const BottomBar = () => {
           ) : (
             <BottomBarItem
               to="/profile"
-              // icon={<CgProfile size={25} color={iconColor} icon/>}
               icon={<AccountCircleIcon color="primary" fontSize="large" />}
             />
           )}
         </ul>
-        {isPost ? <AddPost setisPost={setisPost} /> : null}
       </div>
     </footer>
   );

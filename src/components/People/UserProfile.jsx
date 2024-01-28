@@ -85,14 +85,20 @@ export default function UserProfile({ userProfiles, search }) {
                 <>
                   <div className="flex flex-col justify-center border-[1px] border-zinc-800 p-5">
                     <div>
-                      {user.Pic ? (
+                      {user.Pic == "" || user.Pic == null ? (
                         <img
-                          src={user.Pic}
-                          className="object-cover max-w-md mx-auto rounded-full w-36 h-36"
-                          alt={user.Pic}
+                          src={
+                            "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                          }
+                          className="object-cover mx-auto rounded-full w-36 h-36"
+                          alt={null}
                         />
                       ) : (
-                        <CgProfile className="mx-auto" size={80} />
+                        <img
+                          src={user.Pic}
+                          className="object-cover mx-auto rounded-full w-36 h-36"
+                          alt={user.Pic}
+                        />
                       )}
                     </div>
                     <div className="mt-2.5 space-y-5">

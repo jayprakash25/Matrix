@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../Firebase";
+import { db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useAnimation, motion } from "framer-motion";
 import { GiNothingToSay } from "react-icons/gi";
 import UserProfileLoader from "../components/UserProfileLoader";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/profileImage";
 import { CiMenuFries } from "react-icons/ci";
-import { BottomBar, HobbiesModel, Loader, Works } from "../components";
+import { BottomBar, HobbiesModel, Loader } from "../components";
 
 export default function UserProfile() {
+  const controls = useAnimation();
+  const jwt = localStorage.getItem("jwt");
+  const docref = doc(db, "USERS", jwt);
   const [isdelete, setisdelete] = useState(false);
   const [isselect, setisselect] = useState(false);
   const [isloading, setisloading] = useState(true);
   const [editImage, setEditImage] = useState(false);
-  const controls = useAnimation();
-  const jwt = localStorage.getItem("jwt");
-  const docref = doc(db, "USERS", jwt);
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
@@ -58,7 +57,6 @@ export default function UserProfile() {
       const updatedPosts = Userdata.Posts.filter(
         (post, index) => index !== postid
       );
-      console.log(updatedPosts);
       await updateDoc(docref, { Posts: updatedPosts });
       setisdelete(false);
       setUserdata({
@@ -138,7 +136,13 @@ export default function UserProfile() {
                   />
                 </Link>
               ) : (
-                <AccountCircleIcon color="primary" fontSize="large" />
+                <img
+                  src={
+                    "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                  }
+                  className="object-cover rounded-full w-36 h-36"
+                  alt=""
+                />
               )}
             </div>
             {editImage && (
@@ -153,13 +157,6 @@ export default function UserProfile() {
                 <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
                   Collabrates
                 </button>
-                {jwt === localStorage.getItem("jwt") ? (
-                  <Link to={`/collabs/${jwt}`}>
-                    <button className="py-2  mt-3 text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0] px-4">
-                      My Tasks
-                    </button>
-                  </Link>
-                ) : null}
               </div>
             </div>
           </div>
@@ -178,14 +175,14 @@ export default function UserProfile() {
             {Userdata?.hobbies?.map((item, i) => {
               return (
                 <React.Fragment key={i}>
-                  <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
+                  <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[11.8px]">
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
                         deletehobbie(i);
                       }}
                       cursor={"pointer"}
-                      size={17}
+                      size={14}
                       color={"white"}
                     />
                   </p>
@@ -193,9 +190,6 @@ export default function UserProfile() {
               );
             })}
           </div>
-
-          <h1 className="text-xl font-bold px-7 my-7">Your Works</h1>
-          <Works id={jwt} />
           <h1 className="text-xl font-bold px-7 my-7">Your Posts</h1>
           {isloading ? (
             <div className="flex flex-col items-center justify-center mt-10">
