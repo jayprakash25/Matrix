@@ -4,7 +4,7 @@ import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { CgProfile } from "react-icons/cg";
+import Emptyimg from "../../images/Empty.png";
 
 export default function UserProfile({ userProfiles, search }) {
   const jwt = localStorage.getItem("jwt");
@@ -73,65 +73,74 @@ export default function UserProfile({ userProfiles, search }) {
         </div>
       ) : null}
       <div className="flex flex-col gap-6 px-2.5 mb-20">
-        {usersToMap
-          ?.filter(
-            (user) =>
-              !CurrentConnectedUser?.includes(user.id) &&
-              !user.notifications?.some((notif) => notif.id === jwt)
-          )
-          .map((user, index) => {
-            return (
-              <React.Fragment key={index}>
-                <>
-                  <div className="flex flex-col justify-center border-[1px] border-zinc-800 p-5">
-                    <div>
-                      {user.Pic == "" || user.Pic == null ? (
-                        <img
-                          src={
-                            "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
-                          }
-                          className="object-cover mx-auto rounded-full w-36 h-36"
-                          alt={null}
-                        />
-                      ) : (
-                        <img
-                          src={user.Pic}
-                          className="object-cover mx-auto rounded-full w-36 h-36"
-                          alt={user.Pic}
-                        />
-                      )}
-                    </div>
-                    <div className="mt-2.5 space-y-5">
-                      <h1 className="text-lg font-bold text-center">
-                        {user.Name}
-                      </h1>
-                      <p className="text-center text-[13.5px]">{user.Bio}</p>
-                      <ul className="grid max-w-xs grid-cols-3 gap-2 mx-auto">
-                        {user.hobbies?.map((hobby, hobbyIndex) => (
-                          <li
-                            key={hobbyIndex}
-                            className="text-[11px] font-semibold text-center rounded-full py-1.5 bg-sky-600"
+        {usersToMap.length > 0 ? (
+          usersToMap
+            ?.filter(
+              (user) =>
+                !CurrentConnectedUser?.includes(user.id) &&
+                !user.notifications?.some((notif) => notif.id === jwt)
+            )
+            .map((user, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <>
+                    <div className="flex flex-col justify-center border-[1px] border-zinc-800 p-5">
+                      <div>
+                        {user.Pic == "" || user.Pic == null ? (
+                          <img
+                            src={
+                              "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                            }
+                            className="object-cover mx-auto rounded-full w-36 h-36"
+                            alt={null}
+                          />
+                        ) : (
+                          <img
+                            src={user.Pic}
+                            className="object-cover mx-auto rounded-full w-36 h-36"
+                            alt={user.Pic}
+                          />
+                        )}
+                      </div>
+                      <div className="mt-2.5 space-y-5">
+                        <h1 className="text-lg font-bold text-center">
+                          {user.Name}
+                        </h1>
+                        <p className="text-center text-[13.5px]">{user.Bio}</p>
+                        <ul className="grid max-w-xs grid-cols-3 gap-2 mx-auto">
+                          {user.hobbies?.map((hobby, hobbyIndex) => (
+                            <li
+                              key={hobbyIndex}
+                              className="text-[11px] font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                            >
+                              {hobby}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex justify-center ">
+                          <button
+                            onClick={() => {
+                              navigate(`/${user.id}`);
+                            }}
+                            className={`py-2 px-4 w-[50vw] text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
                           >
-                            {hobby}
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="flex justify-center ">
-                        <button
-                          onClick={() => {
-                            navigate(`/${user.id}`);
-                          }}
-                          className={`py-2 px-4 w-[50vw] text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
-                        >
-                          View Profile
-                        </button>
+                            View Profile
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              </React.Fragment>
-            );
-          })}
+                  </>
+                </React.Fragment>
+              );
+            })
+        ) : (
+          <div className="flex flex-col items-center mt-1 space-y-3 text-cemt-11">
+            <img src={Emptyimg} alt="" className="w-60" />
+            <h1 className="text-sm font-semibold ">
+              There are 
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );

@@ -10,7 +10,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
-import { CgProfile } from "react-icons/cg";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -46,6 +45,8 @@ export default function Profiles() {
     setisloading(false);
   }, [jwt]);
 
+  console.log(connectedUser)
+
   const filterHobbies = async (category, users) => {
     return users?.filter((user) => {
       return user?.hobbies?.some((hobby) => category === hobby);
@@ -72,7 +73,6 @@ export default function Profiles() {
       const User = await getDoc(docref);
       const currentUserdocref = doc(db, "USERS", jwt);
       const currentUser = await getDoc(currentUserdocref);
-      console.log(currentUser);
       const currentNotifications = User?.data()?.notifications || [];
       const notification = {
         message: "Connected with you",
