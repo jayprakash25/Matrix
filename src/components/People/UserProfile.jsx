@@ -134,10 +134,10 @@ export default function UserProfile({ userProfiles, search }) {
               );
             })
         ) : (
-          <div className="flex flex-col items-center mt-1 space-y-3 text-cemt-11">
+          <div className="flex flex-col items-center mt-20 space-y-3 text-cemt-11">
             <img src={Emptyimg} alt="" className="w-60" />
             <h1 className="text-sm font-semibold ">
-              There are 
+              There are no people right now..
             </h1>
           </div>
         )}
