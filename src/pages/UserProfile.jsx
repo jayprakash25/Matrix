@@ -6,7 +6,7 @@ import { db } from "../Firebase";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useAnimation, motion } from "framer-motion";
-import { GiNothingToSay } from "react-icons/gi";
+import Emptyimg from "../images/Empty.png";
 import UserProfileLoader from "../components/UserProfileLoader";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
@@ -283,8 +283,9 @@ export default function UserProfile() {
                   );
                 })
               ) : (
-                <div className="flex flex-col items-center space-y-3 text-center mt-36">
-                  <GiNothingToSay size={90} color="#252424" />
+                <div className="flex flex-col items-center mt-1 space-y-3 text-cemt-11">
+                  <img src={Emptyimg} alt="" className="w-60" />
+
                   <h1 className="text-sm font-semibold ">
                     You haven&apos;t posted anything yet!
                   </h1>

@@ -9,8 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
-import { GiNothingToSay } from "react-icons/gi";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Emptyimg from "../../images/Empty.png";
 import { CgProfile } from "react-icons/cg";
 
 export default function Profiles() {
@@ -112,9 +111,9 @@ export default function Profiles() {
       {isloading ? (
         <NotifyLoader />
       ) : showusers.length === 0 ? (
-        <div className="flex flex-col items-center space-y-3 text-center mt-36">
-          <GiNothingToSay size={90} color="#252424" />
-          <h1 className="text-sm font-semibold leading-10">
+        <div className="flex flex-col items-center mt-20 space-y-3 text-center">
+          <img src={Emptyimg} alt="" className="w-60" />
+          <h1 className="max-w-xs text-sm font-semibold leading-8">
             The specified category is currently empty, but we expect new users
             to join soon!
           </h1>
@@ -136,9 +135,14 @@ export default function Profiles() {
                         alt="Bonnie image"
                       />
                     ) : (
-                      <CgProfile color="#1d9bf0" size={40} />
+                      <img
+                        src={
+                          "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                        }
+                        className="object-cover w-16 h-16 rounded-full"
+                        alt=""
+                      />
                     )}
-
                     <div className="space-y-2">
                       <h5 className="text-xl font-medium text-gray-900 dark:text-white">
                         {user.Name}
