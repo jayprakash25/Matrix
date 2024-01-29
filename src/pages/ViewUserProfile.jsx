@@ -171,7 +171,7 @@ export default function ViewUserProfile() {
           {Userdata?.Posts?.map((item, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
+                <div className="max-w-md px-4 py-3 rounded-lg shadow-sm border-[1px] border-zinc-800">
                   <div>
                     <img
                       className="mx-auto rounded-lg w-[85vw] object-cover"
