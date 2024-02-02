@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-import { Loader, Works } from "../components";
+import { Loader } from "../components";
 import { useAnimation, motion } from "framer-motion";
 
 export default function ViewUserProfile() {
@@ -120,11 +120,21 @@ export default function ViewUserProfile() {
 
       <div className="flex items-start justify-center gap-5 mt-7">
         <div className="">
-          <img
-            src={Userdata.Pic}
-            className="object-cover rounded-full w-36 h-36"
-            alt={Userdata.Pic}
-          />
+          {Userdata.Pic == "" || Userdata.Pic == null ? (
+            <img
+              src={
+                "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+              }
+              className="object-cover rounded-full w-36 h-36"
+              alt={Userdata.Pic}
+            />
+          ) : (
+            <img
+              src={Userdata.Pic}
+              className="object-cover rounded-full w-36 h-36"
+              alt={Userdata.Pic}
+            />
+          )}
         </div>
         <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
@@ -156,14 +166,12 @@ export default function ViewUserProfile() {
           );
         })}
       </div>
-      <h1 className="text-xl font-bold px-7 my-7">Works</h1>
-      <Works id={userid} />
       <div className="flex flex-col items-center justify-center my-10 gap-7">
         <div className="flex flex-col items-center justify-center mt-5 mb-20 gap-7">
           {Userdata?.Posts?.map((item, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="max-w-md px-4 py-3 rounded-lg shadow-sm">
+                <div className="max-w-md px-4 py-3 rounded-lg shadow-sm border-[1px] border-zinc-800">
                   <div>
                     <img
                       className="mx-auto rounded-lg w-[85vw] object-cover"

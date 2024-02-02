@@ -6,9 +6,10 @@ import People from "./People";
 import Notifications from "./Notifications";
 import ViewUserProfile from "./ViewUserProfile";
 import Privacy from "./Privacy";
-import Collabraters from "./Collabraters";
+import Post from "./Post";
 
 export {
+  Post,
   Home,
   Privacy,
   Signup,
@@ -17,5 +18,4 @@ export {
   People,
   Notifications,
   ViewUserProfile,
-  Collabraters,
 };

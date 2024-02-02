@@ -2,10 +2,10 @@ import "./main.css";
 import "animate.css";
 import { useState, useEffect } from "react";
 import {
-  Collabraters,
   Home,
   Notifications,
   People,
+  Post,
   Privacy,
   SelectHobbies,
   Signup,
@@ -59,12 +59,12 @@ export default function App() {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/:userid" element={<ViewUserProfile />} />
             <Route path="/privacy" element={<Privacy />} />
-            <Route path="/collabs/:id" element={<Collabraters />} />
             <Route path="/register" element={<RegistrationForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/sidebar" element={<SideBar />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/post" element={<Post />} />
           </Routes>
         </>
       ) : (
