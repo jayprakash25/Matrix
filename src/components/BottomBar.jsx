@@ -28,10 +28,11 @@ const BottomBar = () => {
 
   const getPic = async () => {
     try {
-      // if (localStorage.getItem("UserPic") == null) {
-      const User = await getDoc(docref);
-      localStorage.setItem("UserPic", User?.data().Pic);
-      // }
+      if (localStorage.getItem("UserPic") == null) {
+        const User = await getDoc(docref);
+        localStorage.setItem("UserPic", User?.data().Pic);
+        console.log(User?.data().Pic);
+      }
     } catch (error) {
       console.log(error);
     }

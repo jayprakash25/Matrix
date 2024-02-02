@@ -16,6 +16,7 @@ import { Routes, Route } from "react-router-dom";
 import { RegistrationForm, SideBar } from "./components";
 import Login from "./pages/Login";
 import ProfileByCat from "./components/People/ProfileByCat";
+import Chat from "./pages/Chat";
 
 export default function App() {
   const [isphone, setisphone] = useState(false);
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/sidebar" element={<SideBar />} />
+            <Route path="/chat" element={<Chat />} />
           </Routes>
         </>
       ) : (

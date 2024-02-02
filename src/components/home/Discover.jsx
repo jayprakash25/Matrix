@@ -21,6 +21,13 @@ export default function Discover() {
   };
   useEffect(() => {
     getNotifications();
+
+    const fetchPic = async () => {
+      if (localStorage.getItem("UserPic") === null) {
+        localStorage.setItem("UserPic", Pic);
+      }
+    };
+    fetchPic();
   }, []);
 
   return (

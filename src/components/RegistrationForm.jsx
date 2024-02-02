@@ -96,7 +96,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Name: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
@@ -108,7 +108,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Phone: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
@@ -120,7 +120,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, age: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
@@ -133,7 +133,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, location: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
         <div className="relative">
@@ -142,7 +142,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, collage: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           >
             {collegesInHyderabad.map((item, i) => {
               return (
@@ -162,7 +162,7 @@ export default function RegistrationForm() {
             onChange={(e) => {
               setuser({ ...user, Profession: e.target.value });
             }}
-            className="w-[80vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
       </form>
