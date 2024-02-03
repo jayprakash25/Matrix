@@ -3,6 +3,7 @@ import "animate.css";
 import { useState, useEffect } from "react";
 import {
   Home,
+  Messages,
   Notifications,
   People,
   Post,
@@ -65,6 +66,7 @@ export default function App() {
             <Route path="/sidebar" element={<SideBar />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/post" element={<Post />} />
+            <Route path="/messages" element={<Messages />} />
           </Routes>
         </>
       ) : (

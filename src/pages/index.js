@@ -7,8 +7,10 @@ import Notifications from "./Notifications";
 import ViewUserProfile from "./ViewUserProfile";
 import Privacy from "./Privacy";
 import Post from "./Post";
+import Messages from "./Messages";
 
 export {
+  Messages,
   Post,
   Home,
   Privacy,

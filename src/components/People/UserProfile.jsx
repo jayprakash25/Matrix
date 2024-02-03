@@ -151,7 +151,7 @@ UserProfile.propTypes = {
   search: PropTypes.string.isRequired,
 };
 
-//   Dont remove this
+//  Dont remove this
 // const sendNotification = async (userid) => {
 //   try {
 //     const docref = doc(db, "USERS", userid);

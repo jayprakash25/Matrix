@@ -7,8 +7,10 @@ import Loader from "./Loader";
 import PageTransistion from "./PageTransistion";
 import HobbiesModel from "./HobbiesModel";
 import SideBar from "./SideBar";
+import Chats from "./Chats";
 
 export {
+  Chats,
   SideBar,
   HobbiesModel,
   PageTransistion,
