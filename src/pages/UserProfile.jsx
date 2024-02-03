@@ -10,7 +10,7 @@ import Emptyimg from "../images/Empty.png";
 import UserProfileLoader from "../components/UserProfileLoader";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
-import ProfileImage from "../components/EditProfile/profileImage";
+import ProfileImage from "../components/EditProfile/ProfileImage";
 import { CiMenuFries } from "react-icons/ci";
 import { BottomBar, HobbiesModel, Loader } from "../components";
 
