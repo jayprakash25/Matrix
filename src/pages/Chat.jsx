@@ -1,17 +1,20 @@
 import {
   addDoc,
   collection,
-  limit,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../Firebase";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
+  const messageRef = collection(db, "messages");
+  let room = 2;
+  const { uid, displayName, photoURL } = auth.currentUser;
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -19,13 +22,13 @@ export default function Chat() {
       alert("Enter valid message");
       return;
     }
-    const { uid, displayName, photoURL } = auth.currentUser;
     await addDoc(collection(db, "messages"), {
       text: message,
       name: displayName,
       avatar: photoURL,
       createdAt: serverTimestamp(),
       uid,
+      room,
     });
     setMessage("");
   };
@@ -34,64 +37,70 @@ export default function Chat() {
   console.log(messages);
 
   useEffect(() => {
-    const q = query(
-      collection(db, "messages"),
-      orderBy("createdAt", "desc"),
-      limit(50)
+    const queryMessages = query(
+      messageRef,
+      where("room", "==", room),
+      orderBy("createdAt")
     );
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      const fetchedMessages = [];
-      QuerySnapshot.forEach((doc) => {
-        fetchedMessages.push({ ...doc.data(), id: doc.id });
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
+      let messages = [];
+      snapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
       });
-      const sortedMessages = fetchedMessages.sort(
-        (a, b) => a.createdAt - b.createdAt
-      );
-      setMessages(sortedMessages);
+
+      setMessages(messages);
     });
-    return () => unsubscribe;
+
+    return () => unsubscribe();
   }, []);
 
   return (
-    <div>
-      <div className="flex items-start gap-2.5">
-        <img
-          className="w-8 h-8 rounded-full"
-          src={window.localStorage.getItem("UserPic")}
-          alt="Jese image"
-        />
-        <div className="flex flex-col gap-1 w-full max-w-[320px]">
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">
-              Bonnie Green
-            </span>
+    <div className="space-y-2">
+      {messages.map((message) => (
+        <div
+          key={message.id}
+          className={`flex ${
+            message.uid === uid ? " flex-row-reverse" : "items-start"
+          }  gap-2.5`}
+        >
+          <img
+            className="w-8 h-8 rounded-full"
+            src={message.userProfilePic}
+            alt={`${message.name} image`}
+          />
+          <div className="flex flex-col gap-1 w-[50vw] max-w-[320px]">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                {message.name}
+              </span>
+              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                {/* {message.createdAt} */}
+              </span>
+            </div>
+            <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+              <p className="text-sm font-normal text-gray-900 dark:text-white">
+                {message.text}
+              </p>
+            </div>
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-              11:46
+              {/* {message.status} */}
+              Delivered
             </span>
           </div>
-          <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
-            <p className="text-sm font-normal text-gray-900 dark:text-white">
-              {" "}
-              That's awesome. I think our users will really appreciate the
-              improvements.
-            </p>
-          </div>
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            Delivered
-          </span>
         </div>
-      </div>
+      ))}
 
-      <div className="flex items-center justify-around">
+      <div className="flex items-center justify-around ">
         <input
           type="text"
+          placeholder="type you message here"
           value={message}
           onChange={(e) => {
             setMessage(e.target.value);
           }}
           className="w-[70vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
         />
-        <button className="" onClick={sendMessage}>
+        <button className="outline-none" onClick={sendMessage}>
           Send
         </button>
       </div>
