@@ -25,12 +25,12 @@ export default function SideBar() {
     <>
       <aside>
         <div className="flex justify-between p-5">
-          <h1 className="text-xl font-semibold">Menu</h1>
+          <h1 className="text-lg font-semibold">Menu</h1>
           <Link to={`/profile`}>
             <IoMdArrowBack size={28} color="white" />
           </Link>
         </div>
-        <ul className="px-6 mt-16 space-y-10">
+        <ul className="px-6 mt-16 space-y-5">
           <li className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800">
             <IoMdHelp size={30} color="white" />
             <h1>Help</h1>
@@ -63,14 +63,6 @@ export default function SideBar() {
           </li>
         </ul>
       </aside>
-      <footer className="pt-24">
-        <div>
-          <p className="font-semibold text-center text-zinc-700">
-            Powerd by Saas Studios
-          </p>
-        </div>
-      </footer>
-
       {islogout ? (
         <ModelLogout setislogout={setislogout} handleLogout={handleLogout} />
       ) : null}

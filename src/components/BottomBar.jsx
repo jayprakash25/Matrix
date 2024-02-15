@@ -43,7 +43,7 @@ const BottomBar = () => {
   return (
     <footer className="fixed bottom-0 flex items-center justify-center w-full">
       <div className="w-full bg-[#282828] rounded-t-xl">
-        <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly">
+        <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly gap-7">
           <BottomBarItem
             to="/home"
             icon={<PiHouse size={25} color={iconColor} />}
