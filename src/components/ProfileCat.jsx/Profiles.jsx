@@ -45,7 +45,7 @@ export default function Profiles() {
     setisloading(false);
   }, [jwt]);
 
-  console.log(connectedUser)
+  console.log(connectedUser);
 
   const filterHobbies = async (category, users) => {
     return users?.filter((user) => {
@@ -130,7 +130,7 @@ export default function Profiles() {
                   <div className="flex items-center space-x-5 ">
                     {user.Pic ? (
                       <img
-                        className="w-20 h-20 rounded-full shadow-lg"
+                        className="object-cover w-20 h-20 rounded-full"
                         src={user.Pic}
                         alt="Bonnie image"
                       />
