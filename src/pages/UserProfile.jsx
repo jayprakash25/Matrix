@@ -112,7 +112,7 @@ export default function UserProfile() {
                 </Link>
               </div>
               <div className="text-center">
-                <h1 className="text-lg font-semibold ">My Profile</h1>
+                <h1 className="font-semibold ">My Profile</h1>
               </div>
               <div>
                 <Link to="/sidebar">

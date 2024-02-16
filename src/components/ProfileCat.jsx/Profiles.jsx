@@ -5,8 +5,8 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
@@ -89,7 +89,6 @@ export default function Profiles() {
   };
 
   const Collab = async (id) => {
-    console.log("connected to user " + id + " from " + jwt);
     setisloading(true);
     try {
       const docref = doc(db, "USERS", jwt);
@@ -107,7 +106,7 @@ export default function Profiles() {
   };
 
   return (
-    <div className="flex flex-col justify-center gap-5 p-5">
+    <div className="flex flex-col gap-5 p-5">
       {isloading ? (
         <NotifyLoader />
       ) : showusers.length === 0 ? (
@@ -121,61 +120,75 @@ export default function Profiles() {
       ) : (
         showusers.map((user, index) => {
           return (
-            <div key={index}>
-              <div
-                key={index}
-                className="w-full p-4 border rounded-lg shadow max border-zinc-800"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-5 ">
-                    {user.Pic ? (
+            <>
+              <React.Fragment key={index}>
+                <div
+                  key={index}
+                  className="w-[87vw] border-[1px] border-zinc-800 mx-auto mb-5  p-5"
+                >
+                  <Link to={`/${user.id}`}>
+                    <div>
                       <img
-                        className="object-cover w-20 h-20 rounded-full"
                         src={user.Pic}
-                        alt="Bonnie image"
-                      />
-                    ) : (
-                      <img
-                        src={
-                          "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
-                        }
-                        className="object-cover w-16 h-16 rounded-full"
+                        className="object-cover w-24 h-24 mx-auto rounded-full "
                         alt=""
                       />
-                    )}
-                    <div className="space-y-2">
-                      <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-                        {user.Name}
-                      </h5>
-                      <p className="text-sm font-semibold">{user.Profession}</p>
                     </div>
-                  </div>
-                  <div className="flex">
+                    <div className="mt-4 space-y-3 text-center">
+                      <h1 className="font-semibold ">{user.Name}</h1>
+                      <p className="text-[12.5px]">{user.Bio}</p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3 mt-4">
+                      {user?.hobbies?.map((item, i) => {
+                        return (
+                          <React.Fragment key={i}>
+                            <p className="px-2.5 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
+                              {item}{" "}
+                            </p>
+                          </React.Fragment>
+                        );
+                      })}
+                    </div>
+                  </Link>
+                  <div className="flex justify-center mt-4">
                     {user?.notifications?.some(
                       (notification) =>
                         notification.id === jwt &&
                         notification.message === "Connected with you"
-                    ) ? (
-                      <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-[#1d9bf0] rounded-full px-3 ">
-                        Collaboration Sent
+                    ) && connectedUser.includes(user.id) ? (
+                      <button className="px-10 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        Connection Sent
                       </button>
                     ) : (
-                      <button
-                        onClick={() => {
-                          Collab(user.id);
-                        }}
-                        className="inline-flex items-center py-2 text-sm text-center text-white bg-[#1d9bf0] rounded-full px-3"
-                      >
-                        Collaborate
+                      <button className="px-10 py-2 text-xs text-center text-white bg-blue-500 rounded-full">
+                        Connect
                       </button>
                     )}
                   </div>
                 </div>
-              </div>
-            </div>
+              </React.Fragment>
+            </>
           );
         })
       )}
     </div>
   );
+}
+
+{
+  /* <div>
+                    {user?.notifications?.some(
+                      (notification) =>
+                        notification.id === jwt &&
+                        notification.message === "Connected with you"
+                    ) && connectedUser.includes(user.id) ? (
+                      <button className="px-6 py-2  text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        Connection Sent
+                      </button>
+                    ) : (
+                      <button className="px-6 py-1.5 text-xs text-center text-white bg-blue-500 rounded-full">
+                        Connect
+                      </button>
+                    )}
+                  </div> */
 }
