@@ -5,7 +5,6 @@ import { db } from "../Firebase";
 export default function Chats() {
   const jwt = localStorage.getItem("jwt");
   const [Users, setUsers] = useState([]);
-  // getting connected users
   const fetchPosts = async () => {
     try {
       const docref = doc(db, "USERS", jwt);

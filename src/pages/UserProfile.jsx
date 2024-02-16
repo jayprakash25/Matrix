@@ -175,7 +175,7 @@ export default function UserProfile() {
             {Userdata?.hobbies?.map((item, i) => {
               return (
                 <React.Fragment key={i}>
-                  <p className="px-4 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[11.8px]">
+                  <p className="px-8 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
                     {item}{" "}
                     <RxCross2
                       onClick={() => {

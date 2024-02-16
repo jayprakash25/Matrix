@@ -55,7 +55,7 @@ export default function Post() {
     <>
       {isloading ? <Loader /> : null}
       <div className="flex justify-between p-5">
-        <h1 className="text-xl font-semibold">Post</h1>
+        <h1 className="text-lg font-semibold">Post</h1>
         <Link to={`/profile`}>
           <IoMdArrowBack size={28} color="white" />
         </Link>
@@ -93,7 +93,7 @@ export default function Post() {
           <div className="flex items-center justify-center ">
             <textarea
               placeholder="Write"
-              className="border-[1px] w-[100vw]  p-5 outline-none bg-[#383838] rounded-xl border-zinc-800"
+              className="border-[1px] w-[100vw] p-5 outline-none bg-[#383838] rounded-xl border-zinc-800"
               cols="30"
               rows="8"
               value={post.Text}
@@ -105,20 +105,13 @@ export default function Post() {
           <div className="flex justify-center">
             <button
               onClick={uploadPost}
-              className="p-2.5 font-semibold w-[90vw] rounded-full text-white bg-[#1d9bf0]"
+              className="p-2.5 font-semibold w-[90vw] text-[13px] rounded-full text-white bg-[#1d9bf0]"
             >
               Post
             </button>
           </div>
         </div>
       </div>
-      <footer className="pt-24">
-        <div>
-          <p className="font-semibold text-center text-zinc-700">
-            Powerd by Saas Studios
-          </p>
-        </div>
-      </footer>
     </>
   );
 }

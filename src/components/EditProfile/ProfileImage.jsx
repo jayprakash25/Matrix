@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { db, storage } from "../../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import {  doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { RxCross2 } from "react-icons/rx";
 import LoaderImage from "./LoaderImage";
 
@@ -59,7 +59,6 @@ function ProfileImage({ setEditImage }) {
               <RxCross2
                 cursor={"pointer"}
                 onClick={() => {
-                  // setisedit(false);
                   setEditImage(false);
                 }}
                 size={25}
@@ -80,11 +79,10 @@ function ProfileImage({ setEditImage }) {
             >
               <LoaderImage progress={progress} />
             </div>
-            <div className="p-4 text-center md:p-5">
-              {/* <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"></h3> */}
+            <div className="flex items-center justify-center gap-6 p-4">
               <button
                 onClick={handleEditImage}
-                className="text-white  focus:ring-4 bg-[#1d9bf0] focus:outline-none font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
+                className="text-green-500 text-[13.5px]"
               >
                 Edit Image
               </button>
@@ -99,7 +97,7 @@ function ProfileImage({ setEditImage }) {
                 data-modal-hide="popup-modal"
                 type="button"
                 onClick={deleteImage}
-                className="bg-red-500 text-white font-semibold px-5 py-2.5"
+                className="text-red-500 text-[13.5px]"
               >
                 Remove Image
               </button>
