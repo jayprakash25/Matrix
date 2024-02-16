@@ -3,7 +3,7 @@ import Emptyimg from "../../images/Empty.png";
 export default function Empty() {
   return (
     <div className="flex flex-col items-center mt-24 space-y-3 text-center">
-      <img src={Emptyimg} alt="" className="w-60" />
+      <img src={Emptyimg} alt="" className="w-56" />
       <h1 className="font-semibold text-[14.6px] ">
         No Posts{" "}
         <span className="text-[#1d9bf0] cursor-pointer">

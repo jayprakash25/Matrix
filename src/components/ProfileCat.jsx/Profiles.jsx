@@ -137,7 +137,7 @@ export default function Profiles() {
                     ) : (
                       <img
                         src={
-                          "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                          "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
                         }
                         className="object-cover w-16 h-16 rounded-full"
                         alt=""
