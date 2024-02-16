@@ -7,17 +7,20 @@ export default function Connections() {
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
   const [isloading, setisloading] = useState(true);
-  const [Userdata, setUserdata] = useState({
-    connections: [],
-  });
+  const [users, setusers] = useState();
 
   const getConnections = async () => {
     try {
       const User = await getDoc(docref);
-      setUserdata({
-        ...Userdata,
-        connections: User?.data()?.Posts || [],
+      const currentConnectedUser = (await User?.data()?.collabs) || [];
+      const AllUsers = currentConnectedUser?.map(async (userid) => {
+        const userdocref = doc(db, "USERS", userid);
+        const UsersData = await getDoc(userdocref);
+        const userarray = [];
+        userarray.push(UsersData?.data());
+        setusers(userarray);
       });
+      await Promise.all(AllUsers);
       setisloading(false);
     } catch (error) {
       console.log(error);
@@ -27,6 +30,8 @@ export default function Connections() {
   useEffect(() => {
     getConnections();
   }, []);
+
+  console.log(users);
 
   return (
     <>
