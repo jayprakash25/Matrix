@@ -154,9 +154,11 @@ export default function UserProfile() {
               <h1 className="text-lg font-bold ">{Userdata?.Name}</h1>
               <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
-                <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
-                  Collabrates
-                </button>
+                <Link to={"/connections"}>
+                  <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
+                    Collabrates
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

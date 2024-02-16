@@ -8,8 +8,10 @@ import ViewUserProfile from "./ViewUserProfile";
 import Privacy from "./Privacy";
 import Post from "./Post";
 import Messages from "./Messages";
+import Connections from "./Connections";
 
 export {
+  Connections,
   Messages,
   Post,
   Home,
