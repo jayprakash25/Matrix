@@ -175,14 +175,14 @@ export default function UserProfile() {
             {Userdata?.hobbies?.map((item, i) => {
               return (
                 <React.Fragment key={i}>
-                  <p className="px-8 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
+                  <p className="px-2.5 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
                         deletehobbie(i);
                       }}
                       cursor={"pointer"}
-                      size={14}
+                      size={10}
                       color={"white"}
                     />
                   </p>
