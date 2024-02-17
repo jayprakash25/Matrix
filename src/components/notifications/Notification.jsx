@@ -59,25 +59,28 @@ export default function Notification() {
     try {
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
-      const CurrentUser = await getDoc(docRef);
-      const otheruser = doc(db, "USERS", userid);
-      const otheruserdata = await getDoc(otheruser);
+      const currentUser = await getDoc(docRef);
+      const otherUser = doc(db, "USERS", userid);
+      const otherUserData = await getDoc(otherUser);
+  
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
-      const userCurrentCollabsNotification =
-        CurrentUser?.data()?.notifications || [];
+  
+      const otherUserNotifications = otherUserData?.data()?.notifications || [];
       const notification = {
-        id: userid,
-        Pic: otheruserdata?.data()?.Pic,
-        message: `${otheruserdata?.data()?.Name}  accepted your Request`,
+        id: jwt,
+        Pic: currentUser?.data()?.Pic,
+        message: `${currentUser?.data()?.Name} accepted your request`,
       };
-      await updateDoc(otheruser, {
-        notifications: [...userCurrentCollabsNotification, notification],
+      await updateDoc(otherUser, {
+        notifications: [...otherUserNotifications, notification],
       });
+  
       DeleteNotification(Notifications?.id);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   return (
     <>
