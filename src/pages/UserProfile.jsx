@@ -112,7 +112,7 @@ export default function UserProfile() {
                 </Link>
               </div>
               <div className="text-center">
-                <h1 className="text-lg font-semibold ">My Profile</h1>
+                <h1 className="font-semibold ">My Profile</h1>
               </div>
               <div>
                 <Link to="/sidebar">
@@ -138,7 +138,7 @@ export default function UserProfile() {
               ) : (
                 <img
                   src={
-                    "https://i.pinimg.com/564x/51/96/b3/5196b34be5aec2079e4b68190299a544.jpg"
+                    "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
                   }
                   className="object-cover rounded-full w-36 h-36"
                   alt=""
@@ -154,9 +154,11 @@ export default function UserProfile() {
               <h1 className="text-lg font-bold ">{Userdata?.Name}</h1>
               <p className="text-sm text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
-                <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
-                  Collabrates
-                </button>
+                <Link to={"/connections"}>
+                  <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
+                    Collabrates
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -175,14 +177,14 @@ export default function UserProfile() {
             {Userdata?.hobbies?.map((item, i) => {
               return (
                 <React.Fragment key={i}>
-                  <p className="px-8 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
+                  <p className="px-2.5 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
                     {item}{" "}
                     <RxCross2
                       onClick={() => {
                         deletehobbie(i);
                       }}
                       cursor={"pointer"}
-                      size={14}
+                      size={10}
                       color={"white"}
                     />
                   </p>

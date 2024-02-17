@@ -12,6 +12,7 @@ import {
   Signup,
   UserProfile,
   ViewUserProfile,
+  Connections,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { RegistrationForm, SideBar } from "./components";
@@ -67,6 +68,7 @@ export default function App() {
             <Route path="/chat" element={<Chat />} />
             <Route path="/post" element={<Post />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/connections" element={<Connections />} />
           </Routes>
         </>
       ) : (
