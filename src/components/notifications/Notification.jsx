@@ -4,6 +4,7 @@ import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 import Emptyimg from "../../images/Empty.png";
 
 export default function Notification() {
@@ -12,6 +13,7 @@ export default function Notification() {
   const [Notifications, setNotifications] = useState();
   const [collabs, setcollabs] = useState([]);
   const [isshow, setisshow] = useState(false);
+  const navigate = useNavigate();
 
   const getNotifications = async () => {
     try {
@@ -36,6 +38,8 @@ export default function Notification() {
     getNotifications();
   }, []);
 
+  console.log(Notifications);
+
   const DeleteNotification = async (i) => {
     setisloading(true);
     try {
@@ -55,19 +59,17 @@ export default function Notification() {
     try {
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
-      const userDocRef = doc(db, "USERS", userid);
-      const userDoc = await getDoc(userDocRef);
-      const userName = userDoc?.data()?.Name;
-      const userPic = userDoc?.data()?.Pic;
+      const otheruser = doc(db, "USERS", userid);
+      const otheruserdata = await getDoc(otheruser);
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
       const userCurrentCollabsNotification =
         docRef?.data()?.notifications || [];
       const notification = {
         id: userid,
-        userPic: userPic,
-        message: `Your Request was accepted! by ${userName} `,
+        Pic: otheruserdata?.data()?.Pic,
+        message: `${otheruserdata?.data()?.Name}  accepted your Request`,
       };
-      await updateDoc(docref, {
+      await updateDoc(docRef, {
         notifications: [...userCurrentCollabsNotification, notification],
       });
       DeleteNotification(Notifications?.id);
