@@ -1,49 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../Firebase";
+import { auth, db } from "../Firebase";
+import { Link } from "react-router-dom";
 
 export default function Chats() {
   const jwt = localStorage.getItem("jwt");
   const [Users, setUsers] = useState([]);
-  const fetchPosts = async () => {
+
+  const fetchUsers = async () => {
     try {
-      const docref = doc(db, "USERS", jwt);
-      const User = await getDoc(docref);
-      const currentConnectedUser = await User.data().collabs;
-      const usersDataArray = [];
-      const users = currentConnectedUser?.map(async (userid) => {
-        const userdocref = doc(db, "USERS", userid);
-        const Users = await getDoc(userdocref);
-        usersDataArray.push(Users.data());
-      });
-      await Promise.all(users);
-      setUsers(usersDataArray);
+      const docRef = doc(db, "USERS", jwt);
+      const userSnapshot = await getDoc(docRef);
+      const currentConnectedUser = userSnapshot.data()?.collabs;
+      if (currentConnectedUser) {
+        const usersDataArray = await Promise.all(
+          currentConnectedUser.map(async (userId) => {
+            const userDocRef = doc(db, "USERS", userId);
+            const userSnapshot = await getDoc(userDocRef);
+            const userData = userSnapshot.data();
+            const chatId = generateChatId(userId, auth.currentUser.uid);
+            const chatIdHash = await generateSHA256Hash(chatId);
+            return { ...userData, userId: userId, chatIdHash: chatIdHash };
+          })
+        );
+        setUsers(usersDataArray);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching users:", error);
     }
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchUsers();
   }, []);
+
+  async function generateSHA256Hash(input) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+    return hashHex;
+  }
+
+  const generateChatId = (userId1, userId2) => {
+    const ids = [userId1, userId2].sort();
+
+    const chatId = ids.join("-");
+
+    return chatId;
+  };
 
   return (
     <main className="flex flex-col gap-5 mx-4 mt-6">
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
-            <div className="flex items-start gap-6 border-[1.2px] border-zinc-800 p-4">
-              <div>
-                <img
-                  src={item.Pic}
-                  className="object-cover w-20 h-20 rounded-full "
-                  alt=""
-                />
+            <Link to={`/chat/${item.chatIdHash}`}>
+              <div className="flex items-start gap-6 border-[1.2px] border-zinc-800 p-4">
+                <div>
+                  <img
+                    src={item.Pic}
+                    className="object-cover w-20 h-20 rounded-full "
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h1 className="text-lg font-semibold">{item.Name}</h1>
+                </div>
               </div>
-              <div>
-                <h1 className="text-lg font-semibold">{item.Name}</h1>
-              </div>
-            </div>
+            </Link>
           </React.Fragment>
         );
       })}

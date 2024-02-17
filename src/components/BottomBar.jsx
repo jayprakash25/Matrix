@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import { PiHouse } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { TbMessageCircle2 } from "react-icons/tb";
 import { useEffect } from "react";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
@@ -23,7 +24,6 @@ const BottomBar = () => {
   const iconColor = "#fff";
   const jwt = localStorage.getItem("jwt");
   const docref = doc(db, "USERS", jwt);
-  const navigate = useNavigate();
   const getPic = async () => {
     try {
       if (localStorage.getItem("UserPic") == null) {
@@ -43,19 +43,20 @@ const BottomBar = () => {
   return (
     <footer className="fixed bottom-0 flex items-center justify-center w-full">
       <div className="w-full bg-[#282828] rounded-t-xl">
-        <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly gap-7">
+        <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly gap-4">
           <BottomBarItem
             to="/home"
-            icon={<PiHouse size={25} color={iconColor} />}
+            icon={<PiHouse size={30} color={iconColor} />}
           />
           <BottomBarItem
             to="/people"
-            icon={<MdPeopleAlt size={25} color={iconColor} />}
+            icon={<MdPeopleAlt size={30} color={iconColor} />}
           />
           <BottomBarItem
             to="/post"
-            icon={<IoCreate size={25} color={iconColor} />}
+            icon={<IoCreate size={30} color={iconColor} />}
           />
+          <BottomBarItem to="/messages" icon={<TbMessageCircle2 size={30} />} />
 
           {localStorage.getItem("UserPic") ? (
             <Link to={"/profile"}>

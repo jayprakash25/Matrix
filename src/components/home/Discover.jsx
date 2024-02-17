@@ -15,6 +15,7 @@ export default function Discover() {
       const User = await getDoc(docref);
       setNotifications(User?.data()?.notifications || []);
       setPic(User?.data()?.Pic);
+      console.log(User.data());
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +24,10 @@ export default function Discover() {
     getNotifications();
 
     const fetchPic = async () => {
-      if (localStorage.getItem("UserPic") === null) {
+      if (
+        localStorage.getItem("UserPic") === null ||
+        localStorage.getItem("UserPic") === undefined
+      ) {
         localStorage.setItem("UserPic", Pic);
       }
     };

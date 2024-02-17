@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoMdArrowBack, IoMdHelp, IoIosLogOut } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { MdSecurity, MdOutlinePrivacyTip } from "react-icons/md";
@@ -6,6 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { signOut } from "firebase/auth";
 import ModelLogout from "../components/ModelLogout";
 import EditProfile from "./EditProfile";
+import { auth } from "../Firebase";
 export default function SideBar() {
   const [islogout, setislogout] = useState(false);
   const [isedit, setisedit] = useState(false);

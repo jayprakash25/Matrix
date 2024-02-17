@@ -90,7 +90,7 @@ export default function Notification() {
         <NotifyLoader />
       ) : (
         <main className="flex flex-col gap-4 mt-2">
-          {Notifications.length > 0 ? (
+          {Notifications?.length > 0 ? (
             Notifications?.map((_, i) => {
               return (
                 <React.Fragment key={i}>
