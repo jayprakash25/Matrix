@@ -1,12 +1,6 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
@@ -18,7 +12,6 @@ export default function Profiles() {
   const [connectedUser, setConnectedUser] = useState([]);
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
-  const navigate = useNavigate();
 
   const fetchProfileByCat = useCallback(async () => {
     const docRef = collection(db, "USERS");
@@ -49,7 +42,15 @@ export default function Profiles() {
 
   const filterHobbies = async (category, users) => {
     return users?.filter((user) => {
-      return user?.hobbies?.some((hobby) => category === hobby);
+      const isNotConnected = !connectedUser.includes(user.id);
+      const isNotRequested = !user.notifications?.some(
+        (notification) => notification.id === jwt
+      );
+      return (
+        isNotConnected &&
+        isNotRequested &&
+        user?.hobbies?.some((hobby) => category === hobby)
+      );
     });
   };
 
@@ -66,44 +67,6 @@ export default function Profiles() {
   useEffect(() => {
     fil();
   }, [fil]);
-
-  const sendNotification = async (userid) => {
-    try {
-      const docref = doc(db, "USERS", userid);
-      const User = await getDoc(docref);
-      const currentUserdocref = doc(db, "USERS", jwt);
-      const currentUser = await getDoc(currentUserdocref);
-      const currentNotifications = User?.data()?.notifications || [];
-      const notification = {
-        message: "Connected with you",
-        Name: currentUser?.data()?.Name,
-        Pic: currentUser?.data()?.Pic,
-        id: currentUser?.id,
-      };
-      await updateDoc(docref, {
-        notifications: [...currentNotifications, notification],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Collab = async (id) => {
-    setisloading(true);
-    try {
-      const docref = doc(db, "USERS", jwt);
-      const User = await getDoc(docref);
-      const collabs = (await User?.data()?.collabs) || [];
-      await updateDoc(docref, {
-        collabs: [...collabs, id],
-      });
-      await sendNotification(id);
-      navigate(`/${id}`);
-      setisloading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="flex flex-col gap-5 p-5">
@@ -173,22 +136,4 @@ export default function Profiles() {
       )}
     </div>
   );
-}
-
-{
-  /* <div>
-                    {user?.notifications?.some(
-                      (notification) =>
-                        notification.id === jwt &&
-                        notification.message === "Connected with you"
-                    ) && connectedUser.includes(user.id) ? (
-                      <button className="px-6 py-2  text-xs text-center text-white rounded-full border-[1px] border-blue-500">
-                        Connection Sent
-                      </button>
-                    ) : (
-                      <button className="px-6 py-1.5 text-xs text-center text-white bg-blue-500 rounded-full">
-                        Connect
-                      </button>
-                    )}
-                  </div> */
 }

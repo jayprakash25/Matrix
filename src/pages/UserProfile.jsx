@@ -21,6 +21,7 @@ export default function UserProfile() {
   const [isdelete, setisdelete] = useState(false);
   const [isselect, setisselect] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const [isPage, setisPage] = useState(true);
   const [editImage, setEditImage] = useState(false);
   const [Userdata, setUserdata] = useState({
     Pic: "",
@@ -42,6 +43,7 @@ export default function UserProfile() {
         Posts: User?.data()?.Posts || [],
       });
       setisloading(false);
+      setisPage(false);
     } catch (error) {
       console.log(error);
       setisloading(false);
@@ -94,8 +96,11 @@ export default function UserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
+
   return (
     <>
+      {" "}
+      {isPage ? <Loader /> : null}
       <motion.div
         initial="initial"
         animate="animate"
@@ -127,23 +132,23 @@ export default function UserProfile() {
                 setEditImage(true);
               }}
             >
-              {localStorage.getItem("UserPic") ? (
-                <Link to={"/profile"}>
+              <Link to={"/profile"}>
+                {localStorage.getItem("UserPic") === undefined ? (
+                  <img
+                    src={
+                      "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                    }
+                    className="object-cover rounded-full w-36 h-36"
+                    alt=""
+                  />
+                ) : (
                   <img
                     src={localStorage.getItem("UserPic")}
                     className="object-cover rounded-full w-36 h-36"
                     alt=""
                   />
-                </Link>
-              ) : (
-                <img
-                  src={
-                    "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
-                  }
-                  className="object-cover rounded-full w-36 h-36"
-                  alt=""
-                />
-              )}
+                )}
+              </Link>
             </div>
             {editImage && (
               <div>

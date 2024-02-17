@@ -71,6 +71,7 @@ export default function ViewUserProfile() {
 
   const sendCollab = async () => {
     try {
+      setisloading(true);
       const User = await getDoc(docref);
       const me = await getDoc(Userdocref);
       const userCurrentCollabsNotification = User?.data()?.notifications || [];
