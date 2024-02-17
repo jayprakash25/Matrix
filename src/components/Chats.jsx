@@ -19,8 +19,8 @@ export default function Chats() {
             const userSnapshot = await getDoc(userDocRef);
             const userData = userSnapshot.data();
             const chatId = generateChatId(userId, auth.currentUser.uid);
-            const chatIdHash = await generateSHA256Hash(chatId);
-            return { ...userData, userId: userId, chatIdHash: chatIdHash };
+            // const chatIdHash = await generateSHA256Hash(chatId);
+            return { ...userData, userId: userId, chatIdHash: chatId };
           })
         );
         setUsers(usersDataArray);
@@ -34,16 +34,16 @@ export default function Chats() {
     fetchUsers();
   }, []);
 
-  async function generateSHA256Hash(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-    return hashHex;
-  }
+  // async function generateSHA256Hash(input) {
+  //   const encoder = new TextEncoder();
+  //   const data = encoder.encode(input);
+  //   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  //   const hashArray = Array.from(new Uint8Array(hashBuffer));
+  //   const hashHex = hashArray
+  //     .map((b) => b.toString(16).padStart(2, "0"))
+  //     .join("");
+  //   return hashHex;
+  // }
 
   const generateChatId = (userId1, userId2) => {
     const ids = [userId1, userId2].sort();
