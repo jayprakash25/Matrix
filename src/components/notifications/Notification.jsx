@@ -70,7 +70,7 @@ export default function Notification() {
         Pic: otheruserdata?.data()?.Pic,
         message: `${otheruserdata?.data()?.Name}  accepted your Request`,
       };
-      await updateDoc(docRef, {
+      await updateDoc(otheruser, {
         notifications: [...userCurrentCollabsNotification, notification],
       });
       DeleteNotification(Notifications?.id);
