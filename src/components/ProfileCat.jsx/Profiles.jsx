@@ -64,8 +64,6 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
-  console.log(connectedUser);
-
   return (
     <div className="flex flex-col gap-5 p-5">
       {isloading ? (
@@ -82,7 +80,7 @@ export default function Profiles() {
         showusers.map((user, index) => (
           <div
             key={index}
-            className={`w-[87vw] border-[1px] border-zinc-800 mx-auto mb-5  p-5 ${
+            className={`w-[87vw] border-[1px] border-zinc-800 mx-auto mb-6  p-5 ${
               connectedUser.includes(user.id) ? "connected" : ""
             }`}
           >

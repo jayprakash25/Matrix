@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
@@ -9,59 +9,25 @@ import Emptyimg from "../../images/Empty.png";
 export default function UserProfile({ userProfiles, search }) {
   const jwt = localStorage.getItem("jwt");
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
-  const [CurrentConnectedUser, setCurrentConnectedUser] = useState([]);
-  const [showUsers, setshowUsers] = useState([]);
+  const [connectedUserIds, setConnectedUserIds] = useState(new Set());
   const [isloading, setisloading] = useState(true);
-  const docref = doc(db, "USERS", jwt);
   const navigate = useNavigate();
-  // Matching-Algorithm
-  const fetchUsersWithSimilarHobbies = async () => {
+
+  const fetchConnectedUsers = useCallback(async () => {
     try {
-      const currentUserDoc = await getDoc(docref);
-      const currentUserHobbies = currentUserDoc.data()?.hobbies;
-      const Users = await getDocs(collection(db, "USERS"));
-      const usersData = Users?.docs
-        ?.map((user) => ({ id: user.id, ...user.data() }))
-        ?.filter((user) => {
-          if (user.id === jwt) {
-            return false;
-          }
-          const commonHobbies = currentUserHobbies?.filter((hobby) =>
-            user?.hobbies?.includes(hobby)
-          );
-          return commonHobbies?.length > 0;
-        });
-      setshowUsers(usersData);
+      const userDoc = await getDoc(doc(db, "USERS", jwt));
+      const collabs = userDoc?.data()?.collabs || [];
+      setConnectedUserIds(new Set(collabs));
       setisloading(false);
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsersWithSimilarHobbies();
-  }, []);
-
-  const fetchData = useCallback(async () => {
-    try {
-      const User = await getDoc(docref);
-      const currentConnectedUser = User?.data()?.collabs || [];
-      setCurrentConnectedUser(
-        Array.isArray(currentConnectedUser) ? currentConnectedUser : []
-      );
-      setisloading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching connected users:", error);
       setisloading(false);
     }
   }, [jwt]);
 
   useEffect(() => {
-    setshowUsers();
-    fetchData();
-  }, [fetchData]);
-
-  const usersToMap = search === " " ? showUsers : userProfiles;
+    fetchConnectedUsers();
+  }, [fetchConnectedUsers]);
 
   return (
     <>
@@ -71,77 +37,75 @@ export default function UserProfile({ userProfiles, search }) {
             <Loader key={index} />
           ))}
         </div>
-      ) : null}
-      <div className="flex flex-col gap-6 px-2.5 mb-20">
-        {usersToMap.length > 0 ? (
-          usersToMap
-            ?.filter(
-              (user) =>
-                !CurrentConnectedUser?.includes(user.id) &&
-                !user.notifications?.some((notif) => notif.id === jwt)
-            )
-            .map((user, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <>
-                    <div className="flex flex-col justify-center border-[1px] border-zinc-800 p-5">
-                      <div>
-                        {user.Pic == "" || user.Pic == null ? (
-                          <img
-                            src={
-                              "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
-                            }
-                            className="object-cover mx-auto rounded-full w-36 h-36"
-                            alt={null}
-                          />
-                        ) : (
-                          <img
-                            src={user.Pic}
-                            className="object-cover mx-auto rounded-full w-36 h-36"
-                            alt={user.Pic}
-                          />
-                        )}
-                      </div>
-                      <div className="mt-2.5 space-y-5">
-                        <h1 className="text-lg font-bold text-center">
-                          {user.Name}
-                        </h1>
-                        <p className="text-center text-[13.5px]">{user.Bio}</p>
-                        <ul className="grid max-w-xs grid-cols-3 gap-2 mx-auto">
-                          {user.hobbies?.map((hobby, hobbyIndex) => (
-                            <li
-                              key={hobbyIndex}
-                              className="text-[11px] font-semibold text-center rounded-full py-1.5 bg-sky-600"
-                            >
-                              {hobby}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="flex justify-center ">
-                          <button
-                            onClick={() => {
-                              navigate(`/${user.id}`);
-                            }}
-                            className={`py-2 px-4 w-[50vw] text-sm font-semibold text-white rounded-full bg-[#1d9bf0]`}
-                          >
-                            View Profile
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                </React.Fragment>
-              );
-            })
-        ) : (
-          <div className="flex flex-col items-center mt-20 space-y-3 text-cemt-11">
-            <img src={Emptyimg} alt="" className="w-60" />
-            <h1 className="text-sm font-semibold ">
-              There are no people right now..
-            </h1>
-          </div>
-        )}
-      </div>
+      ) : (
+        <div className="flex flex-col gap-6 px-2.5 mb-20">
+          {userProfiles.length > 0 ? (
+            userProfiles.map((user, index) => (
+              <div
+                key={index}
+                className={`flex flex-col justify-center border-[1px] border-zinc-800 p-5 ${
+                  connectedUserIds.has(user.id) ? "connected" : ""
+                }`}
+              >
+                <div>
+                  {user.Pic == "" || user.Pic == null ? (
+                    <img
+                      src={
+                        "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                      }
+                      className="object-cover mx-auto rounded-full w-36 h-36"
+                      alt={null}
+                    />
+                  ) : (
+                    <img
+                      src={user.Pic}
+                      className="object-cover mx-auto rounded-full w-36 h-36"
+                      alt={user.Pic}
+                    />
+                  )}
+                </div>
+                <div className="mt-2.5 space-y-5">
+                  <h1 className="text-lg font-bold text-center">{user.Name}</h1>
+                  <p className="text-center text-[13.5px]">{user.Bio}</p>
+                  <ul className="grid max-w-xs grid-cols-3 gap-2 mx-auto">
+                    {user.hobbies?.map((hobby, hobbyIndex) => (
+                      <li
+                        key={hobbyIndex}
+                        className="text-[11px] font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                      >
+                        {hobby}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex justify-center">
+                    {connectedUserIds.has(user.id) ? (
+                      <button className="px-10 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        Connected
+                      </button>
+                    ) : (
+                      <button
+                        className="px-10 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                        onClick={() => {
+                          navigate(`/${user.id}`);
+                        }}
+                      >
+                        View Profile
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="flex flex-col items-center mt-20 space-y-3 text-cemt-11">
+              <img src={Emptyimg} alt="" className="w-60" />
+              <h1 className="text-sm font-semibold ">
+                There are no people right now..
+              </h1>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 }
@@ -150,45 +114,3 @@ UserProfile.propTypes = {
   userProfiles: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
 };
-
-//  Dont remove this
-// const sendNotification = async (userid) => {
-//   try {
-//     const docref = doc(db, "USERS", userid);
-//     const User = await getDoc(docref);
-//     const currentUserdocref = doc(db, "USERS", jwt);
-//     const currentUser = await getDoc(currentUserdocref);
-//     const currentNotifications = User?.data()?.notifications || [];
-//     const notification = {
-//       message: "Connected with you",
-//       Name: currentUser?.data()?.Name,
-//       Pic: currentUser?.data()?.Pic,
-//       id: currentUser?.id,
-//     };
-//     await updateDoc(docref, {
-//       notifications: [...currentNotifications, notification],
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// const connectUser = async (id) => {
-//   console.log("connected to user " + id + " from " + jwt);
-//   setisloading(true);
-//   try {
-//     const User = await getDoc(docref);
-//     const collabs = (await User?.data()?.collabs) || [];
-//     await updateDoc(docref, {
-//       collabs: [...collabs, id],
-//     });
-//     await sendNotification(id);
-//     setshowUsers((prevShowUsers) =>
-//       prevShowUsers.filter((user) => user.id !== id)
-//     );
-//     setisloading(false);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-//   Dont remove this
