@@ -48,7 +48,6 @@ export default function Chat() {
       snapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-
       setMessages(messages);
     });
 
@@ -91,7 +90,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <div className="flex items-center justify-around absolute bottom-0 space-x-4 left-10 py-2">
+      <div className="absolute bottom-0 flex items-center justify-around py-2 space-x-4 left-10">
         <input
           type="text"
           placeholder="type you message here"

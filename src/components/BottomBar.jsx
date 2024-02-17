@@ -46,36 +46,38 @@ const BottomBar = () => {
         <ul className="flex items-center px-2 py-2.5 text-sm font-semibold text-center text-white justify-evenly gap-4">
           <BottomBarItem
             to="/home"
-            icon={<PiHouse size={30} color={iconColor} />}
+            icon={<PiHouse size={25} color={iconColor} />}
           />
           <BottomBarItem
             to="/people"
-            icon={<MdPeopleAlt size={30} color={iconColor} />}
+            icon={<MdPeopleAlt size={25} color={iconColor} />}
           />
           <BottomBarItem
             to="/post"
-            icon={<IoCreate size={30} color={iconColor} />}
+            icon={<IoCreate size={25} color={iconColor} />}
           />
-          <BottomBarItem to="/messages" icon={<TbMessageCircle2 size={30} />} />
+          <BottomBarItem to="/messages" icon={<TbMessageCircle2 size={25} />} />
 
-          {localStorage.getItem("UserPic") == "" ||
-          localStorage.getItem("UserPic") == undefined ? (
-            <Link to={"/profile"}>
+          <Link to={"/profile"}>
+            {localStorage.getItem("UserPic") == "" ||
+            localStorage.getItem("UserPic") == undefined ? (
+              <>
+                <img
+                  src={
+                    "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                  }
+                  className="object-cover rounded-full w-9 h-9"
+                  alt={null}
+                />
+              </>
+            ) : (
               <img
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
-                }
-                className="object-cover mx-auto rounded-full w-36 h-36"
-                alt={null}
+                src={localStorage.getItem("UserPic")}
+                className="object-cover rounded-full w-9 h-9"
+                alt={localStorage.getItem("UserPic")}
               />
-            </Link>
-          ) : (
-            <img
-              src={localStorage.getItem("UserPic")}
-              className="object-cover w-8 h-8 rounded-full"
-              alt=""
-            />
-          )}
+            )}
+          </Link>
         </ul>
       </div>
     </footer>

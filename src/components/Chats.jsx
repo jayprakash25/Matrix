@@ -47,9 +47,7 @@ export default function Chats() {
 
   const generateChatId = (userId1, userId2) => {
     const ids = [userId1, userId2].sort();
-
     const chatId = ids.join("-");
-
     return chatId;
   };
 
@@ -59,7 +57,7 @@ export default function Chats() {
         return (
           <React.Fragment key={i}>
             <Link to={`/chat/${item.chatIdHash}`}>
-              <div className="flex items-start gap-6 border-[1.2px] border-zinc-800 p-4">
+              <div className="flex items-center gap-8 border-[1.2px] border-zinc-800 p-3">
                 <div>
                   <img
                     src={item.Pic}
@@ -67,8 +65,9 @@ export default function Chats() {
                     alt=""
                   />
                 </div>
-                <div>
-                  <h1 className="text-lg font-semibold">{item.Name}</h1>
+                <div className="space-y-2.5">
+                  <h1 className="text-xl font-bold">{item.Name}</h1>
+                  <p className="text-sm font-semibold ">{item.Profession}</p>
                 </div>
               </div>
             </Link>
