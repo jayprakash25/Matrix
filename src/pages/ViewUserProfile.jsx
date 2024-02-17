@@ -41,8 +41,9 @@ export default function ViewUserProfile() {
 
   const currentUser = async () => {
     const snapshot = await getDoc(docref);
-    const user = snapshot.data()?.notifications || [];
-    setUserCollabs(user);
+    (await snapshot.data()?.notifications) || [];
+    const collabs = (await snapshot.data()?.collabs) || [];
+    setUserCollabs(collabs);
   };
 
   useEffect(() => {
@@ -98,6 +99,8 @@ export default function ViewUserProfile() {
     }
   };
 
+  console.log(userCollabs);
+
   return (
     <motion.div
       initial="initial"
@@ -141,9 +144,9 @@ export default function ViewUserProfile() {
         <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
           <p className="text-sm text-slate-400">{Userdata.Bio}</p>
-          {userCollabs.some((collab) => collab.id === jwt) ? (
+          {userCollabs.includes(jwt) ? (
             <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
-              Connection Sent
+              Connected
             </button>
           ) : (
             <button
