@@ -58,18 +58,22 @@ const BottomBar = () => {
           />
           <BottomBarItem to="/messages" icon={<TbMessageCircle2 size={30} />} />
 
-          {localStorage.getItem("UserPic") ? (
+          {localStorage.getItem("UserPic") == "" ||
+          localStorage.getItem("UserPic") == undefined ? (
             <Link to={"/profile"}>
               <img
-                src={localStorage.getItem("UserPic")}
-                className="object-cover w-8 h-8 rounded-full"
-                alt=""
+                src={
+                  "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                }
+                className="object-cover mx-auto rounded-full w-36 h-36"
+                alt={null}
               />
             </Link>
           ) : (
-            <BottomBarItem
-              to="/profile"
-              icon={<AccountCircleIcon color="primary" fontSize="large" />}
+            <img
+              src={localStorage.getItem("UserPic")}
+              className="object-cover w-8 h-8 rounded-full"
+              alt=""
             />
           )}
         </ul>
