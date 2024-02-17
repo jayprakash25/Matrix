@@ -4,7 +4,6 @@ import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
 import Emptyimg from "../../images/Empty.png";
 
 export default function Notification() {
@@ -13,7 +12,6 @@ export default function Notification() {
   const [Notifications, setNotifications] = useState();
   const [collabs, setcollabs] = useState([]);
   const [isshow, setisshow] = useState(false);
-  const navigate = useNavigate();
 
   const getNotifications = async () => {
     try {
@@ -38,8 +36,6 @@ export default function Notification() {
     getNotifications();
   }, []);
 
-  console.log(Notifications);
-
   const DeleteNotification = async (i) => {
     setisloading(true);
     try {
@@ -57,10 +53,23 @@ export default function Notification() {
 
   const acceptRequest = async (userid) => {
     try {
-      console.log(collabs);
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
+      const userDocRef = doc(db, "USERS", userid);
+      const userDoc = await getDoc(userDocRef);
+      const userName = userDoc?.data()?.Name;
+      const userPic = userDoc?.data()?.Pic;
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
+      const userCurrentCollabsNotification =
+        docRef?.data()?.notifications || [];
+      const notification = {
+        id: userid,
+        userPic: userPic,
+        message: `Your Request was accepted! by ${userName} `,
+      };
+      await updateDoc(docref, {
+        notifications: [...userCurrentCollabsNotification, notification],
+      });
       DeleteNotification(Notifications?.id);
     } catch (error) {
       console.log(error);
@@ -86,9 +95,7 @@ export default function Notification() {
                       />
                       <div className="space-y-1">
                         <h1 className="text-lg font-bold">{_.Name}</h1>
-                        <p className="text-sm font-semibold">
-                          Want&apos;s to Collabrate with you
-                        </p>
+                        <p className="text-sm font-semibold">{_.message}</p>
                       </div>
                     </div>
                     <div className="flex gap-5">
