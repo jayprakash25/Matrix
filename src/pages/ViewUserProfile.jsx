@@ -78,8 +78,10 @@ export default function ViewUserProfile() {
       const userCurrentCollabsNotification = User?.data()?.notifications || [];
       const notification = {
         Name: me?.data()?.Name,
-        Bio: me?.data()?.Bio,
-        Pic: me?.data()?.Pic,
+        Bio: me?.data()?.Bio || "",
+        Pic:
+          me?.data()?.Pic ||
+          "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980",
         id: me?.id,
         message: "Wants to Connect with you",
       };

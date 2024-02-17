@@ -19,7 +19,8 @@ export default function Home() {
       // const user = auth.currentUser;
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      const currentConnectedUser = await User.data().connectedUsers;
+      const currentConnectedUser = await User.data()?.connectedUsers;
+      localStorage.setItem("UserPic", User.data()?.Pic);
       const posts = currentConnectedUser?.map(async (userid) => {
         const userdocref = doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
@@ -67,7 +68,6 @@ export default function Home() {
       >
         <Discover />
         <Category />
-
         {posts == undefined ? (
           <Empty />
         ) : isloading ? (

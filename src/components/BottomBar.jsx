@@ -57,7 +57,6 @@ const BottomBar = () => {
             icon={<IoCreate size={25} color={iconColor} />}
           />
           <BottomBarItem to="/messages" icon={<TbMessageCircle2 size={25} />} />
-
           <Link to={"/profile"}>
             {localStorage.getItem("UserPic") == "" ||
             localStorage.getItem("UserPic") == undefined ? (
