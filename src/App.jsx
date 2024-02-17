@@ -65,7 +65,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/hobbies" element={<SelectHobbies />} />
             <Route path="/sidebar" element={<SideBar />} />
-            <Route path="/chat" element={<Chat />} />
+            <Route path="/chat/:id" element={<Chat />} />
             <Route path="/post" element={<Post />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/connections" element={<Connections />} />

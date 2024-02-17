@@ -4,7 +4,6 @@ import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
 import Emptyimg from "../../images/Empty.png";
 
 export default function Notification() {
@@ -13,7 +12,6 @@ export default function Notification() {
   const [Notifications, setNotifications] = useState();
   const [collabs, setcollabs] = useState([]);
   const [isshow, setisshow] = useState(false);
-  const navigate = useNavigate();
 
   const getNotifications = async () => {
     try {
@@ -73,7 +71,7 @@ export default function Notification() {
         <NotifyLoader />
       ) : (
         <main className="flex flex-col gap-4 mt-2">
-          {Notifications.length > 0 ? (
+          {Notifications?.length > 0 ? (
             Notifications?.map((_, i) => {
               return (
                 <React.Fragment key={i}>

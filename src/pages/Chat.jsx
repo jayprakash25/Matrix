@@ -9,13 +9,14 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../Firebase";
+import { useParams } from "react-router-dom";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
   const messageRef = collection(db, "messages");
-  let room = 2;
+  const { id } = useParams();
   const { uid, displayName, photoURL } = auth.currentUser;
-
+  console.log(uid);
   const sendMessage = async (event) => {
     event.preventDefault();
     if (message.trim() === "") {
@@ -28,7 +29,7 @@ export default function Chat() {
       avatar: photoURL,
       createdAt: serverTimestamp(),
       uid,
-      room,
+      room: id,
     });
     setMessage("");
   };
@@ -39,7 +40,7 @@ export default function Chat() {
   useEffect(() => {
     const queryMessages = query(
       messageRef,
-      where("room", "==", room),
+      where("room", "==", id),
       orderBy("createdAt")
     );
     const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
@@ -90,7 +91,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <div className="flex items-center justify-around ">
+      <div className="flex items-center justify-around absolute bottom-0 space-x-4 left-10 py-2">
         <input
           type="text"
           placeholder="type you message here"

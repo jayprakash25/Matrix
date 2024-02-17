@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
+import { Link } from "react-router-dom";
 
 export default function Chats() {
   const jwt = localStorage.getItem("jwt");
   const [Users, setUsers] = useState([]);
-  const fetchPosts = async () => {
+  const fetchUsers = async () => {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
@@ -23,8 +24,9 @@ export default function Chats() {
     }
   };
 
+  console.log(Users);
   useEffect(() => {
-    fetchPosts();
+    fetchUsers();
   }, []);
 
   return (
@@ -32,18 +34,20 @@ export default function Chats() {
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
-            <div className="flex items-start gap-6 border-[1.2px] border-zinc-800 p-4">
-              <div>
-                <img
-                  src={item.Pic}
-                  className="object-cover w-20 h-20 rounded-full "
-                  alt=""
-                />
+            <Link to={`/chat/${Users}`}>
+              <div className="flex items-start gap-6 border-[1.2px] border-zinc-800 p-4">
+                <div>
+                  <img
+                    src={item.Pic}
+                    className="object-cover w-20 h-20 rounded-full "
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h1 className="text-lg font-semibold">{item.Name}</h1>
+                </div>
               </div>
-              <div>
-                <h1 className="text-lg font-semibold">{item.Name}</h1>
-              </div>
-            </div>
+            </Link>
           </React.Fragment>
         );
       })}
