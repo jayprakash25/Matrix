@@ -54,21 +54,27 @@ export default function Notification() {
 
   const acceptRequest = async (userid) => {
     try {
-      const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
       const currentUser = await getDoc(docRef);
-      const otherUser = doc(db, "USERS", userid);
-      const otherUserData = await getDoc(otherUser);
 
-      await updateDoc(docRef, { collabs: updatedCuurentCollabs });
+      const otherUserRef = doc(db, "USERS", userid);
+      const otherUser = await getDoc(otherUserRef);
 
-      const otherUserNotifications = otherUserData?.data()?.notifications || [];
+      const updatedCurrentCollabs = [...collabs, userid];
+      const updatedOtherCollabs = [...(otherUser?.data()?.collabs || []), jwt];
+
+      await updateDoc(docRef, { collabs: updatedCurrentCollabs });
+
+      await updateDoc(otherUserRef, { collabs: updatedOtherCollabs });
+
+      const otherUserNotifications = otherUser?.data()?.notifications || [];
       const notification = {
         id: jwt,
         Pic: currentUser?.data()?.Pic,
         message: `${currentUser?.data()?.Name} accepted your request`,
       };
-      await updateDoc(otherUser, {
+
+      await updateDoc(otherUserRef, {
         notifications: [...otherUserNotifications, notification],
       });
 

@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
@@ -12,6 +12,7 @@ export default function Profiles() {
   const [connectedUser, setConnectedUser] = useState([]);
   const [isloading, setisloading] = useState(true);
   const jwt = localStorage.getItem("jwt");
+  const navigate = useNavigate();
 
   const fetchProfileByCat = useCallback(async () => {
     const docRef = collection(db, "USERS");
@@ -68,6 +69,8 @@ export default function Profiles() {
     fil();
   }, [fil]);
 
+  console.log(connectedUser);
+
   return (
     <div className="flex flex-col gap-5 p-5">
       {isloading ? (
@@ -81,58 +84,54 @@ export default function Profiles() {
           </h1>
         </div>
       ) : (
-        showusers.map((user, index) => {
-          return (
-            <>
-              <React.Fragment key={index}>
-                <div
-                  key={index}
-                  className="w-[87vw] border-[1px] border-zinc-800 mx-auto mb-5  p-5"
+        showusers.map((user, index) => (
+          <div
+            key={index}
+            className={`w-[87vw] border-[1px] border-zinc-800 mx-auto mb-5  p-5 ${
+              connectedUser.includes(user.id) ? "connected" : ""
+            }`}
+          >
+            <Link to={`/${user.id}`}>
+              <div>
+                <img
+                  src={user.Pic}
+                  className="object-cover w-24 h-24 mx-auto rounded-full "
+                  alt=""
+                />
+              </div>
+              <div className="mt-4 space-y-3 text-center">
+                <h1 className="font-semibold ">{user.Name}</h1>
+                <p className="text-[12.5px]">{user.Bio}</p>
+              </div>
+              <div className="grid grid-cols-3 gap-3 mt-4">
+                {user?.hobbies?.map((item, i) => (
+                  <p
+                    key={i}
+                    className="px-2.5 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]"
+                  >
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </Link>
+            <div className="flex justify-center mt-4">
+              {connectedUser.includes(user.id) ? (
+                <button className="px-10 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                  Connected
+                </button>
+              ) : (
+                <button
+                  className="px-10 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                  onClick={() => {
+                    navigate(`/${user.id}`);
+                  }}
                 >
-                  <Link to={`/${user.id}`}>
-                    <div>
-                      <img
-                        src={user.Pic}
-                        className="object-cover w-24 h-24 mx-auto rounded-full "
-                        alt=""
-                      />
-                    </div>
-                    <div className="mt-4 space-y-3 text-center">
-                      <h1 className="font-semibold ">{user.Name}</h1>
-                      <p className="text-[12.5px]">{user.Bio}</p>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3 mt-4">
-                      {user?.hobbies?.map((item, i) => {
-                        return (
-                          <React.Fragment key={i}>
-                            <p className="px-2.5 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[10px]">
-                              {item}{" "}
-                            </p>
-                          </React.Fragment>
-                        );
-                      })}
-                    </div>
-                  </Link>
-                  <div className="flex justify-center mt-4">
-                    {user?.notifications?.some(
-                      (notification) =>
-                        notification.id === jwt &&
-                        notification.message === "Connected with you"
-                    ) && connectedUser.includes(user.id) ? (
-                      <button className="px-10 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
-                        Connection Sent
-                      </button>
-                    ) : (
-                      <button className="px-10 py-2 text-xs text-center text-white bg-blue-500 rounded-full">
-                        Connect
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </React.Fragment>
-            </>
-          );
-        })
+                  View Profile
+                </button>
+              )}
+            </div>
+          </div>
+        ))
       )}
     </div>
   );
