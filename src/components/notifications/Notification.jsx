@@ -62,9 +62,9 @@ export default function Notification() {
       const currentUser = await getDoc(docRef);
       const otherUser = doc(db, "USERS", userid);
       const otherUserData = await getDoc(otherUser);
-  
+
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
-  
+
       const otherUserNotifications = otherUserData?.data()?.notifications || [];
       const notification = {
         id: jwt,
@@ -74,13 +74,12 @@ export default function Notification() {
       await updateDoc(otherUser, {
         notifications: [...otherUserNotifications, notification],
       });
-  
+
       DeleteNotification(Notifications?.id);
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   return (
     <>
@@ -105,21 +104,34 @@ export default function Notification() {
                       </div>
                     </div>
                     <div className="flex gap-5">
-                      <RxCross2
-                        onClick={() => {
-                          DeleteNotification(i);
-                        }}
-                        size={25}
-                        cursor={"pointer"}
-                        color="red"
-                      />
-                      <TiTickOutline
-                        onClick={() => {
-                          setisshow(true);
-                        }}
-                        size={25}
-                        color="green"
-                      />
+                      {_.message === "Wants to Connect with you" ? (
+                        <>
+                          <RxCross2
+                            onClick={() => {
+                              DeleteNotification(i);
+                            }}
+                            size={25}
+                            cursor={"pointer"}
+                            color="red"
+                          />
+                          <TiTickOutline
+                            onClick={() => {
+                              setisshow(true);
+                            }}
+                            size={25}
+                            color="green"
+                          />
+                        </>
+                      ) : (
+                        <RxCross2
+                          onClick={() => {
+                            DeleteNotification(i);
+                          }}
+                          size={25}
+                          cursor={"pointer"}
+                          color="red"
+                        />
+                      )}
                     </div>
                   </div>
                   {isshow ? (
