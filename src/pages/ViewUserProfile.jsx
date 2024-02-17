@@ -80,7 +80,7 @@ export default function ViewUserProfile() {
         Bio: me?.data()?.Bio,
         Pic: me?.data()?.Pic,
         id: me?.id,
-        message: "Want&apos;s to Collabrate with you",
+        message: "Wants to Connect with you",
       };
       const idExists = userCurrentCollabsNotification.some(
         (notif) => notif.id === notification.id

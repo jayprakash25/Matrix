@@ -11,7 +11,6 @@ export default function Notification() {
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState();
   const [collabs, setcollabs] = useState([]);
-  const [isshow, setisshow] = useState(false);
 
   const getNotifications = async () => {
     try {
@@ -36,6 +35,8 @@ export default function Notification() {
     getNotifications();
   }, []);
 
+  console.log(Notifications);
+
   const DeleteNotification = async (i) => {
     setisloading(true);
     try {
@@ -55,21 +56,22 @@ export default function Notification() {
     try {
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
-      const userDocRef = doc(db, "USERS", userid);
-      const userDoc = await getDoc(userDocRef);
-      const userName = userDoc?.data()?.Name;
-      const userPic = userDoc?.data()?.Pic;
+      const currentUser = await getDoc(docRef);
+      const otherUser = doc(db, "USERS", userid);
+      const otherUserData = await getDoc(otherUser);
+
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
-      const userCurrentCollabsNotification =
-        docRef?.data()?.notifications || [];
+
+      const otherUserNotifications = otherUserData?.data()?.notifications || [];
       const notification = {
-        id: userid,
-        userPic: userPic,
-        message: `Your Request was accepted! by ${userName} `,
+        id: jwt,
+        Pic: currentUser?.data()?.Pic,
+        message: `${currentUser?.data()?.Name} accepted your request`,
       };
-      await updateDoc(docref, {
-        notifications: [...userCurrentCollabsNotification, notification],
+      await updateDoc(otherUser, {
+        notifications: [...otherUserNotifications, notification],
       });
+
       DeleteNotification(Notifications?.id);
     } catch (error) {
       console.log(error);
@@ -99,55 +101,36 @@ export default function Notification() {
                       </div>
                     </div>
                     <div className="flex gap-5">
-                      <RxCross2
-                        onClick={() => {
-                          DeleteNotification(i);
-                        }}
-                        size={25}
-                        cursor={"pointer"}
-                        color="red"
-                      />
-                      <TiTickOutline
-                        onClick={() => {
-                          setisshow(true);
-                        }}
-                        size={25}
-                        color="green"
-                      />
+                      {_.message === "Wants to Connect with you" ? (
+                        <>
+                          <RxCross2
+                            onClick={() => {
+                              DeleteNotification(i);
+                            }}
+                            size={25}
+                            cursor={"pointer"}
+                            color="red"
+                          />
+                          <TiTickOutline
+                            onClick={() => {
+                              acceptRequest(_.id);
+                            }}
+                            size={25}
+                            color="green"
+                          />
+                        </>
+                      ) : (
+                        <RxCross2
+                          onClick={() => {
+                            DeleteNotification(i);
+                          }}
+                          size={25}
+                          cursor={"pointer"}
+                          color="red"
+                        />
+                      )}
                     </div>
                   </div>
-                  {isshow ? (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-25 backdrop-blur-md">
-                      <ul className="mx-5 space-y-4 rounded-md bg-zinc-900">
-                        <li className="cursor-pointer gap-7">
-                          <h1 className="p-4 ">
-                            By clicking 'Collab,' you agree to share your
-                            details with other users for the purpose of
-                            connecting and collaborating.
-                          </h1>
-                          <div className="border-b-[1px] border-zinc-700 w-full"></div>
-                          <div className="flex items-center justify-center">
-                            <div
-                              onClick={() => {
-                                setisshow(false);
-                              }}
-                              className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                            >
-                              <h1 className="text-lg text-red-500">Cancel</h1>
-                            </div>
-                            <div
-                              onClick={() => {
-                                acceptRequest(_.id);
-                              }}
-                              className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                            >
-                              <h1 className="text-lg text-green-500">Collab</h1>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  ) : null}
                 </React.Fragment>
               );
             })
