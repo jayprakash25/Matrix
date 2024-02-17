@@ -59,11 +59,12 @@ export default function Notification() {
     try {
       const updatedCuurentCollabs = [...collabs, userid];
       const docRef = doc(db, "USERS", jwt);
+      const CurrentUser = await getDoc(docref);
       const otheruser = doc(db, "USERS", userid);
       const otheruserdata = await getDoc(otheruser);
       await updateDoc(docRef, { collabs: updatedCuurentCollabs });
       const userCurrentCollabsNotification =
-        docRef?.data()?.notifications || [];
+        CurrentUser?.data()?.notifications || [];
       const notification = {
         id: userid,
         Pic: otheruserdata?.data()?.Pic,
