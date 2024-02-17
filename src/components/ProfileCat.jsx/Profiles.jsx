@@ -39,18 +39,13 @@ export default function Profiles() {
     setisloading(false);
   }, [jwt]);
 
-  console.log(connectedUser);
-
   const filterHobbies = async (category, users) => {
     return users?.filter((user) => {
-      const isNotConnected = !connectedUser.includes(user.id);
       const isNotRequested = !user.notifications?.some(
         (notification) => notification.id === jwt
       );
       return (
-        isNotConnected &&
-        isNotRequested &&
-        user?.hobbies?.some((hobby) => category === hobby)
+        isNotRequested && user?.hobbies?.some((hobby) => category === hobby)
       );
     });
   };
