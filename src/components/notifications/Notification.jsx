@@ -9,28 +9,21 @@ import Emptyimg from "../../images/Empty.png";
 export default function Notification() {
   const jwt = localStorage.getItem("jwt");
   const [isloading, setisloading] = useState(true);
-  const [Notifications, setNotifications] = useState();
-  const [collabs, setcollabs] = useState([]);
+  const [Notifications, setNotifications] = useState([]);
 
   const getNotifications = async () => {
     try {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      const filteredCollabs = User?.data()?.collabs || [];
-      setcollabs(filteredCollabs);
-      const filteredNotifications = User.data()?.notifications.filter(
-        (notification) => {
-          return !filteredCollabs.includes(notification.id);
-        }
-      );
-
-      setNotifications(filteredNotifications || []);
+      const userNotifications = User.data()?.notifications || [];
+      setNotifications(userNotifications);
       setisloading(false);
     } catch (error) {
       console.log(error);
       setisloading(false);
     }
   };
+
   useEffect(() => {
     getNotifications();
   }, []);
@@ -60,7 +53,10 @@ export default function Notification() {
       const otherUserRef = doc(db, "USERS", userid);
       const otherUser = await getDoc(otherUserRef);
 
-      const updatedCurrentCollabs = [...collabs, userid];
+      const updatedCurrentCollabs = [
+        ...(currentUser.data()?.collabs || []),
+        userid,
+      ];
       const updatedOtherCollabs = [...(otherUser?.data()?.collabs || []), jwt];
 
       await updateDoc(docRef, { collabs: updatedCurrentCollabs });
