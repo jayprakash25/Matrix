@@ -125,7 +125,7 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start justify-center gap-5 mt-5">
+          <div className="flex items-start px-7 justify-start gap-5 mt-5">
             <div
               onClick={() => {
                 setEditImage(true);
@@ -168,7 +168,7 @@ export default function UserProfile() {
             </div>
           </div>
           <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
-          <div className="grid grid-cols-3 gap-2 px-4 mx-auto my-3 text-center">
+          <div className="grid grid-cols-3 gap-2 gap-y-3 px-4 mx-auto my-3 text-center">
             <p className="px-6 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
               <IoIosAdd
                 cursor={"pointer"}
