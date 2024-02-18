@@ -77,7 +77,7 @@ export default function Profiles() {
           </h1>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2 gap-y-3 p-2.5">
+        <div className="grid grid-cols-2 gap-2 gap-y-3 p-2.5 mt-3">
           {showusers.map((user, index) => (
             <div
               key={index}
