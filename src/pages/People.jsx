@@ -43,7 +43,9 @@ export default function People() {
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <div className="mb-24">
+        <SearchBar onSearch={handleSearch} />
+      </div>
       <UserProfiles userProfiles={filteredUserProfiles} search={searchQuery} />
       <BottomBar />
     </>
