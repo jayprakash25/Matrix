@@ -15,6 +15,7 @@ export default function ViewUserProfile() {
   const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [popup, setpopup] = useState(false);
+  const [isexists, setisexists] = useState(false);
   const [userCollabs, setUserCollabs] = useState([]);
   const [Userdata, setUserdata] = useState({
     Pic: "",
@@ -101,7 +102,25 @@ export default function ViewUserProfile() {
     }
   };
 
-  console.log(userCollabs);
+  const checkConnection = async () => {
+    try {
+      const User = await getDoc(docref);
+      const userCurrentCollabsNotification = User?.data().notifications || [];
+      const idExists = userCurrentCollabsNotification.some(
+        (notif) => notif.id === jwt
+      );
+      if (idExists) {
+        setisexists(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    checkConnection();
+    console.log(isexists);
+  }, []);
 
   return (
     <motion.div
@@ -149,6 +168,10 @@ export default function ViewUserProfile() {
           {userCollabs.includes(jwt) ? (
             <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
               Connected
+            </button>
+          ) : isexists ? (
+            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
+              Connection Sent
             </button>
           ) : (
             <button
