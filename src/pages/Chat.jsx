@@ -90,7 +90,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <div className="absolute bottom-0 flex items-center justify-around py-2 space-x-4 left-10">
+      <div className="fixed  bottom-0 flex items-center justify-around py-2 space-x-4 left-10">
         <input
           type="text"
           placeholder="type you message here"

@@ -52,22 +52,22 @@ export default function Chats() {
   };
 
   return (
-    <main className="flex flex-col gap-5 mx-4 mt-6">
+    <main className="flex flex-col space-y-3 mx-2 mt-6">
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
             <Link to={`/chat/${item.chatIdHash}`}>
-              <div className="flex items-center gap-8 border-[1.2px] border-zinc-800 p-3">
+              <div className="flex items-center gap-8 border-[2px] rounded-lg border-zinc-800 p-3">
                 <div>
                   <img
                     src={item.Pic}
-                    className="object-cover w-20 h-20 rounded-full "
+                    className="object-cover w-14 h-14 rounded-full "
                     alt=""
                   />
                 </div>
                 <div className="space-y-2.5">
                   <h1 className="text-xl font-bold">{item.Name}</h1>
-                  <p className="text-sm font-semibold ">{item.Profession}</p>
+                  {/* <p className="text-sm font-semibold ">{item.Profession}</p> */}
                 </div>
               </div>
             </Link>
