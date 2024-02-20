@@ -3,10 +3,12 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -17,10 +19,12 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 export default function Chat() {
   const [message, setMessage] = useState("");
   const [oppUserData, setOppositeUser] = useState({});
-  const messageRef = collection(db, "messages");
   const photoURL = localStorage.getItem("UserPic");
   const { id } = useParams();
   const { uid, displayName } = auth.currentUser;
+
+  const messageRef = collection(db, "messages");
+  const [messages, setMessages] = useState([]);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -28,17 +32,17 @@ export default function Chat() {
       alert("Enter valid message");
       return;
     }
-    await addDoc(collection(db, "messages"), {
+    await addDoc(messageRef, {
       text: message,
       name: displayName,
       avatar: photoURL,
       createdAt: serverTimestamp(),
       uid,
       room: id,
+      status: "delivered",
     });
     setMessage("");
   };
-  const [messages, setMessages] = useState([]);
 
   const getOppositeUserId = () => {
     const userIds = id.split("-");
@@ -49,10 +53,25 @@ export default function Chat() {
     const oppUserId = getOppositeUserId();
     const docRef = doc(db, "USERS", oppUserId);
     const userSnapshot = await getDoc(docRef);
-    // console.log(userSnapshot.data());
     setOppositeUser(userSnapshot.data());
+  };
 
-    console.log(oppUserData);
+  //mark messages as seen
+  const messageSeen = async () => {
+    const unseenMessageQuery = query(
+      messageRef,
+      where("room", "==", id),
+      where("status", "==", "delivered"),
+      where("uid", "!=", uid) // ---> not sent by current user
+    );
+    const querySnapshot = await getDocs(unseenMessageQuery);
+
+    querySnapshot.forEach(async (document) => {
+      const messageDocRef = doc(db, "messages", document.id);
+      await updateDoc(messageDocRef, {
+        status: "seen",
+      });
+    });
   };
 
   useEffect(() => {
@@ -61,6 +80,8 @@ export default function Chat() {
       where("room", "==", id),
       orderBy("createdAt")
     );
+
+    messageSeen();
 
     getOppUserData();
 
@@ -74,7 +95,7 @@ export default function Chat() {
     });
 
     return () => unsubscribe();
-  }, [id]);
+  }, [id, uid]);
 
   return (
     <>
@@ -89,8 +110,8 @@ export default function Chat() {
           <h1>{oppUserData.Name}</h1>
         </div>
       </div>
-      <div className="space-y-2 mb-16 px-2.5">
-        {messages.map((message) => (
+      <div className="space-y-2 mb-20 px-2.5">
+        {messages.map((message, index) => (
           <div
             key={message.id}
             className={`flex ${
@@ -116,9 +137,14 @@ export default function Chat() {
                   {message.text}
                 </p>
               </div>
-              <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                {/* {message.status} */}
-                Delivered
+              <span
+                className={`text-sm ${
+                  message.uid === uid && messages.length - 1 === index
+                    ? "flex"
+                    : "hidden"
+                } font-normal text-gray-500 dark:text-gray-400`}
+              >
+                {message.status}
               </span>
             </div>
           </div>
