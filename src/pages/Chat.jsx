@@ -87,11 +87,18 @@ export default function Chat() {
 
     const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
       let messages = [];
+      let updateSeenStatus = false;
       snapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
+        if (doc.data().status === "delivered" && doc.data().uid !== uid)
+          updateSeenStatus = true;
       });
 
       setMessages(messages);
+
+      if (updateSeenStatus) {
+        messageSeen();
+      }
     });
 
     return () => unsubscribe();
