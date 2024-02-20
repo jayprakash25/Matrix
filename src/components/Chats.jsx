@@ -52,12 +52,12 @@ export default function Chats() {
   };
 
   return (
-    <main className="flex flex-col space-y-3 mx-2 mt-6">
+    <main className="flex flex-col space-y-1 mx-2 mt-6">
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
             <Link to={`/chat/${item.chatIdHash}`}>
-              <div className="flex items-center gap-8 border-[2px] rounded-lg border-zinc-800 p-3">
+              <div className="flex items-center space-x-4 border-b-2 rounded border-zinc-800 p-3">
                 <div>
                   <img
                     src={item.Pic}
@@ -65,9 +65,11 @@ export default function Chats() {
                     alt=""
                   />
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-1">
                   <h1 className="text-xl font-bold">{item.Name}</h1>
-                  {/* <p className="text-sm font-semibold ">{item.Profession}</p> */}
+                  <p className="text-sm font-semibold text-gray-400 ">
+                    {item.Profession}
+                  </p>
                 </div>
               </div>
             </Link>
