@@ -11,7 +11,8 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, db } from "../Firebase";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
@@ -77,9 +78,16 @@ export default function Chat() {
 
   return (
     <>
-      <div className="w-full text-2xl flex space-x-5 mb-4 items-center  py-2 bg-[#383838] text-black font-semibold rounded-b-md px-4">
-        <img className="w-14 h-14 rounded-full" src={oppUserData.Pic} />
-        <h1>{oppUserData.Name}</h1>
+      <div className="w-full text-xl flex space-x-1 mb-4 items-center  pt-4 py-2 bg-[#383838] text-white font-medium rounded-b-md px-4">
+        <div>
+          <Link to={"/messages"}>
+            <IoMdArrowRoundBack />
+          </Link>
+        </div>
+        <div className="flex space-x-2 items-center">
+          <img className="w-10 h-10  rounded-full" src={oppUserData.Pic} />
+          <h1>{oppUserData.Name}</h1>
+        </div>
       </div>
       <div className="space-y-2 mb-16 px-2.5">
         {messages.map((message) => (
@@ -116,7 +124,7 @@ export default function Chat() {
           </div>
         ))}
 
-        <div className="fixed  bottom-0 flex items-center justify-around py-2 space-x-4 left-10">
+        <div className="fixed w-full left-0 px-4 bottom-0 flex items-center justify-around py-2 space-x-3 ">
           <input
             type="text"
             placeholder="type you message here"
@@ -124,9 +132,9 @@ export default function Chat() {
             onChange={(e) => {
               setMessage(e.target.value);
             }}
-            className="w-[70vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-full focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
-          <button className="outline-none" onClick={sendMessage}>
+          <button className="outline-none " onClick={sendMessage}>
             Send
           </button>
         </div>

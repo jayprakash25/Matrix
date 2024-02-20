@@ -57,7 +57,7 @@ export default function Chats() {
         return (
           <React.Fragment key={i}>
             <Link to={`/chat/${item.chatIdHash}`}>
-              <div className="flex items-center space-x-4 border-b-2 rounded border-zinc-800 p-3">
+              <div className="flex items-center space-x-4 border-b-[1px] rounded border-zinc-800 p-3">
                 <div>
                   <img
                     src={item.Pic}
