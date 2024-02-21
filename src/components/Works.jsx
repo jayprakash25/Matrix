@@ -1,9 +1,12 @@
 import React from "react";
 import { CiLock } from "react-icons/ci";
 import { IoAdd } from "react-icons/io5";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Works({ id }) {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
 
   const works = [
     {

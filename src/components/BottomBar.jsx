@@ -5,9 +5,9 @@ import { IoCreate } from "react-icons/io5";
 import { MdPeopleAlt } from "react-icons/md";
 import { db } from "../Firebase";
 import { doc, getDoc } from "firebase/firestore";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { TbMessageCircle2 } from "react-icons/tb";
 import { useEffect } from "react";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 const BottomBarItem = ({ to, icon, clickFn }) => (
   <Link to={to}>
@@ -22,7 +22,10 @@ const BottomBarItem = ({ to, icon, clickFn }) => (
 
 const BottomBar = () => {
   const iconColor = "#fff";
-  const jwt = localStorage.getItem("jwt");
+
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const docref = doc(db, "USERS", jwt);
   const getPic = async () => {
     try {

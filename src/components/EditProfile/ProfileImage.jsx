@@ -4,10 +4,13 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { RxCross2 } from "react-icons/rx";
 import LoaderImage from "./LoaderImage";
+import { useAuth } from "../../ContextProvider/AuthContext";
 
 function ProfileImage({ setEditImage }) {
   const userPic = window.localStorage.getItem("UserPic");
-  const jwt = window.localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [progress, setProgress] = useState(0);
   const fileInputRef = useRef(null);
   const handleEditImage = () => {

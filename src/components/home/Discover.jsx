@@ -4,10 +4,13 @@ import { db } from "../../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useAuth } from "../../ContextProvider/AuthContext";
 export default function Discover() {
   const [Notifications, setNotifications] = useState();
   const [Pic, setPic] = useState();
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const docref = doc(db, "USERS", jwt);
 
   const getNotifications = async () => {

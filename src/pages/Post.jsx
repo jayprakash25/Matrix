@@ -6,10 +6,13 @@ import Loader from "../components/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Post() {
   const imageref = useRef();
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [blobimg, setblobimg] = useState({ image: "" });
   const [uploadimage, setuploadimage] = useState();
   const [isloading, setisloading] = useState(false);

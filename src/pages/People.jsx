@@ -4,9 +4,12 @@ import SearchBar from "../components/People/SearchBar";
 import UserProfiles from "../components/People/UserProfiles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function People() {
-  const jwt = window.localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [searchQuery, setSearchQuery] = useState("");
   const [allUserProfiles, setAllUserProfiles] = useState([]);
   const [filteredUserProfiles, setFilteredUserProfiles] = useState([]);

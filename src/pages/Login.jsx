@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom/dist";
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [invalid, setInvalid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,20 +16,20 @@ export default function Login() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
-      const currentUser = auth.currentUser;
-      const userToken = currentUser.uid;
-      window.localStorage.setItem("jwt", userToken);
-      // console.log(userCredential);
+      await signInWithEmailAndPassword(auth, user.email, user.password);
       navigate("/home");
     } catch (error) {
       setLoading(false);
-      if (error.code == "auth/invalid-login-credentials") setInvalid(true);
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        setErrorMessage("Invalid email or password.");
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
       console.log(error.code);
     }
   };
@@ -73,10 +73,8 @@ export default function Login() {
                   });
                 }}
               />
-              {invalid && (
-                <div className="text-sm text-red-600">
-                  Invalid email or password. Please check your credentials.
-                </div>
+              {errorMessage && (
+                <p className="text-sm text-red-600">{errorMessage}</p>
               )}
               <div className="py-5 space-y-6 ">
                 <Button handleSubmit={submit} title="Login" />

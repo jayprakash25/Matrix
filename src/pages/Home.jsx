@@ -8,8 +8,11 @@ import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
 import Loader from "../components/home/Loader";
 import { useAnimation, motion } from "framer-motion";
+import { useAuth } from "../ContextProvider/AuthContext";
 export default function Home() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();

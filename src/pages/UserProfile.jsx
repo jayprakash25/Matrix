@@ -13,10 +13,13 @@ import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/ProfileImage";
 import { CiMenuFries } from "react-icons/ci";
 import { BottomBar, HobbiesModel, Loader } from "../components";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function UserProfile() {
   const controls = useAnimation();
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const docref = doc(db, "USERS", jwt);
   const [isdelete, setisdelete] = useState(false);
   const [isselect, setisselect] = useState(false);

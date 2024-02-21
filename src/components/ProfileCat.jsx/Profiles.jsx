@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
+import { useAuth } from "../../ContextProvider/AuthContext";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -11,7 +12,9 @@ export default function Profiles() {
   const [showusers, setshowusers] = useState([]);
   const [connectedUser, setConnectedUser] = useState([]);
   const [isloading, setisloading] = useState(true);
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const navigate = useNavigate();
 
   const fetchProfileByCat = useCallback(async () => {

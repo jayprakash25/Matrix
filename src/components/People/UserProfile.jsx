@@ -5,9 +5,12 @@ import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import Emptyimg from "../../images/Empty.png";
+import { useAuth } from "../../ContextProvider/AuthContext";
 
 export default function UserProfile({ userProfiles, search }) {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
   const [connectedUserIds, setConnectedUserIds] = useState(new Set());
   const [isloading, setisloading] = useState(true);

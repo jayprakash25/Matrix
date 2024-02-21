@@ -9,6 +9,7 @@ import { auth, db } from "../Firebase";
 import { useEffect, useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Signup() {
   const provider = new GoogleAuthProvider();
@@ -18,7 +19,9 @@ export default function Signup() {
     email: "",
     password: "",
   });
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  // const jwt = currentUser.uid;
   const [errorMessage, setErrorMessage] = useState("");
   const GoogleSignIn = async () => {
     try {
@@ -27,7 +30,7 @@ export default function Signup() {
 
       if (currentUser) {
         const UserToken = currentUser.uid;
-        window.localStorage.setItem("jwt", UserToken);
+        // window.localStorage.setItem("jwt", UserToken);
 
         const docRef = doc(db, "USERS", UserToken);
         const userSnapshot = await getDoc(docRef);
@@ -59,32 +62,43 @@ export default function Signup() {
         setErrorMessage("Password must be at least 6 characters long");
         return;
       }
-      // Continue with Firebase authentication
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        cred.email,
-        cred.password
-      );
-      const newUser = userCredential.user;
-      const currentUser = auth.currentUser;
-      const UserToken = currentUser.uid;
-      // console.log(newUser);
 
-      // const docRef = doc(db, "Users", UserToken);
-      // await setDoc(docRef, cred);
-      window.localStorage.setItem("jwt", UserToken);
-      navigate("/register");
+      await createUserWithEmailAndPassword(auth, cred.email, cred.password);
+      const currentUser = auth.currentUser;
+
+      if (currentUser) {
+        const UserToken = currentUser.uid;
+
+        const docRef = doc(db, "USERS", UserToken);
+        const userSnapshot = await getDoc(docRef);
+
+        if (!userSnapshot.exists()) {
+          // Assuming cred object contains name and potentially other info you want to save
+          const newUser = {
+            Name: currentUser.displayName || cred.name, // Use displayName if available, fallback to cred.name
+            email: currentUser.email,
+            // Add other fields you wish to store, such as profile picture if available
+          };
+
+          await setDoc(docRef, newUser);
+          navigate("/register");
+        } else {
+          navigate("/home");
+        }
+      }
+
       sendPushNotification();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setErrorMessage(error.message); // Displaying the error message to the user
     }
   };
 
   useEffect(() => {
-    if (jwt) {
+    if (currentUser) {
       navigate("/home");
     }
-  }, [jwt, navigate]);
+  }, []);
 
   return (
     <div className="flex flex-col justify-center h-screen px-5">

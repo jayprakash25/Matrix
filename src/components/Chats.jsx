@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import { Link } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Chats() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [Users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
