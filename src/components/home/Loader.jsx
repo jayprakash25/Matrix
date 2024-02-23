@@ -1,12 +1,16 @@
 import PostLoader from "./PostLoader";
-import CatLoader from "./CatLoader";
 
 export default function Loader() {
   return (
     <div className="pt-4">
-      <PostLoader />
-      <PostLoader />
-      <CatLoader />
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => {
+        return (
+          <>
+            <PostLoader />
+            <PostLoader />
+          </>
+        );
+      })}
     </div>
   );
 }
