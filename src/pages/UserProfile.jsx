@@ -234,7 +234,6 @@ export default function UserProfile() {
                             />
                           )}
                         </div>
-                        <p>{item?.id}</p>
                         <div className="flex items-center justify-between mt-5">
                           <div className="flex items-center gap-3 ">
                             <img
