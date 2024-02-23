@@ -19,15 +19,16 @@ export default function Home() {
 
   const fetchPosts = async () => {
     try {
-      // const user = auth.currentUser;
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
-      const currentConnectedUser = await User.data()?.connectedUsers;
+      const currentConnectedUser = await User.data()?.collabs;
+      console.log(currentConnectedUser);
       localStorage.setItem("UserPic", User.data()?.Pic);
       const posts = currentConnectedUser?.map(async (userid) => {
         const userdocref = doc(db, "USERS", userid);
         const UserPosts = await getDoc(userdocref);
-        setposts(UserPosts?.data()?.Posts);
+        setposts(UserPosts?.data()?.Posts || []);
+        console.log(UserPosts?.data()?.Posts || []);
       });
       await Promise.all(posts);
       setisloading(false);
@@ -71,7 +72,7 @@ export default function Home() {
       >
         <Discover />
         <Category />
-        {posts == undefined ? (
+        {posts?.length == 0 ? (
           <Empty />
         ) : isloading ? (
           <Loader />

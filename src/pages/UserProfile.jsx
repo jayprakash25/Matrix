@@ -56,21 +56,30 @@ export default function UserProfile() {
     getPosts();
   }, []);
 
-  const deletePost = async (postid) => {
+  const deletePost = async (postId) => {
     try {
       setisloading(true);
-      const updatedPosts = Userdata.Posts.filter(
-        (post, index) => index !== postid
-      );
-      await updateDoc(docref, { Posts: updatedPosts });
-      setisdelete(false);
-      setUserdata({
-        ...Userdata,
-        Posts: updatedPosts,
-      });
+      console.log(postId);
+      const postIndex = Userdata.Posts.findIndex((post) => post.id === postId);
+      console.log(postIndex);
+      if (postIndex !== -1) {
+        const updatedPosts = [
+          ...Userdata.Posts.slice(0, postIndex),
+          ...Userdata.Posts.slice(postIndex + 1),
+        ];
+        setUserdata({
+          ...Userdata,
+          Posts: updatedPosts,
+        });
+        await updateDoc(docref, { Posts: updatedPosts });
+        setisdelete(false);
+      } else {
+        console.error("Post not found with postId:", postId);
+      }
       setisloading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setisloading(false);
     }
   };
 
@@ -98,6 +107,8 @@ export default function UserProfile() {
   };
 
   const pageTransition = { duration: 0.5 };
+
+  console.log(Userdata?.Posts);
 
   return (
     <>
@@ -128,7 +139,7 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start px-7 justify-start gap-5 mt-5">
+          <div className="flex items-start justify-start gap-5 mt-5 px-7">
             <div
               onClick={() => {
                 setEditImage(true);
@@ -173,7 +184,7 @@ export default function UserProfile() {
             </div>
           </div>
           <h1 className="text-xl font-bold px-7 my-7">Your Hobbies</h1>
-          <div className="grid grid-cols-3 gap-2 gap-y-3 px-4 mx-auto my-3 text-center">
+          <div className="grid grid-cols-3 gap-2 px-4 mx-auto my-3 text-center gap-y-3">
             <p className="px-6 py-2 flex rounded-full justify-around items-center bg-zinc-800 text-[13px]">
               <IoIosAdd
                 cursor={"pointer"}
@@ -225,8 +236,8 @@ export default function UserProfile() {
                             />
                           )}
                         </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 mt-5">
+                        <div className="flex items-center justify-between mt-5">
+                          <div className="flex items-center gap-3 ">
                             <img
                               src={Userdata?.Pic}
                               className="object-cover w-12 h-12 rounded-full"
@@ -236,57 +247,12 @@ export default function UserProfile() {
                               {item?.Name}
                             </h1>
                           </div>
-                          <div>
-                            <HiDotsHorizontal
-                              onClick={() => {
-                                setisdelete(true);
-                              }}
-                              size={25}
-                              color="white"
-                              cursor={"pointer"}
-                            />
-                            {isdelete ? (
-                              <>
-                                <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-25 backdrop-blur-md">
-                                  <ul className="space-y-4 rounded-md bg-zinc-900">
-                                    <li className="cursor-pointer py2 px- gap-7">
-                                      <h1 className="p-4 text-lg">
-                                        Are you Sure you want to delete this
-                                        post?
-                                      </h1>
-                                      <div className="border-b-[1px] border-zinc-700 w-full"></div>
-                                      <div className="flex items-center justify-center">
-                                        <div
-                                          onClick={() => {
-                                            setisdelete(false);
-                                          }}
-                                          className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                                        >
-                                          <h1 className="text-green-500">
-                                            Cancel
-                                          </h1>
-                                        </div>
-                                        <div
-                                          onClick={() => {
-                                            deletePost(i);
-                                          }}
-                                          className="flex justify-center gap-2 px-4 pb-4 mt-3"
-                                        >
-                                          <h1 className="text-red-500">
-                                            Delete
-                                          </h1>
-                                          <AiOutlineDelete
-                                            size={22}
-                                            color="red"
-                                          />
-                                        </div>
-                                      </div>
-                                    </li>
-                                  </ul>
-                                </div>
-                                {isloading ? <Loader /> : null}
-                              </>
-                            ) : null}
+                          <div
+                            onClick={() => {
+                              deletePost(item?.id);
+                            }}
+                          >
+                            <AiOutlineDelete size={22} color="red" />
                           </div>
                         </div>
                         <p className="mt-3 text-sm leading-6">{item?.Text}</p>
