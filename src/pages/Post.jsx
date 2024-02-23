@@ -92,7 +92,7 @@ export default function Post() {
           <IoMdArrowBack size={28} color="white" />
         </Link>
       </div>
-      <div className="bg-[#302d2d] p-5 w-[88vw] rounded-xl mx-auto my-6">
+      <div className="bg-[#302d2d] p-5 w-[93vw] rounded-xl mx-auto my-6">
         <div className="flex gap-5">
           <div>
             <img
