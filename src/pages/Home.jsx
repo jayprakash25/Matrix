@@ -19,7 +19,6 @@ export default function Home() {
 
   const fetchPosts = async () => {
     try {
-      // const user = auth.currentUser;
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const currentConnectedUser = await User.data()?.collabs;
@@ -41,7 +40,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchPosts();
-    console.log(posts?.length);
   }, []);
 
   useEffect(() => {
