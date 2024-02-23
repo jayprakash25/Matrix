@@ -4,9 +4,12 @@ import { db } from "../Firebase";
 import { BottomBar, Loader } from "../components";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Connections() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const docref = doc(db, "USERS", jwt);
   const [isloading, setisloading] = useState(true);
   const [users, setusers] = useState([]);

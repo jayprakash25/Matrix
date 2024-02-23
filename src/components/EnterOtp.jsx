@@ -3,9 +3,12 @@ import { useState } from "react";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function EnterOtp({ user }) {
-  const userjwt = window.localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const userjwt = currentUser.uid;
   const [otp, setOtp] = useState("");
   // const [success, setSuccess] = useState("");
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ export default function Navbar() {
     <nav className="overflow-y-scroll  ">
       <div className="flex justify-between pt-5 px-9">
         <div>
-          <h1 className="text-xl font-semibold">Vvibe</h1>
+          <h1 className="text-xl font-semibold">Matrix</h1>
         </div>
         <div>
           <Link to="/notifications">

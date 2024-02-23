@@ -3,11 +3,15 @@ import hobbies from "../Data/Hobbies";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import Loader from "./Loader";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function HobbiesModel({ setisselect }) {
   const [Userhobbies, setUserHobbies] = useState([]);
   const [isloading, setisloading] = useState(true);
-  const jwt = localStorage.getItem("jwt");
+
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const docref = doc(db, "USERS", jwt);
 
   const addHobbies = (hobby) => {

@@ -2,11 +2,14 @@ import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
 import { db } from "../Firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 export default function EditProfile({ setisedit }) {
-  const jwt = window.localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [user, setUser] = useState({
     Name: "",
     Bio: "",

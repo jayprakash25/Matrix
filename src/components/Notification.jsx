@@ -4,8 +4,11 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import Loader from "./Loader";
 import Emptyimg from "../images/Empty.png";
+import { useAuth } from "../ContextProvider/AuthContext";
 export default function Notification() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [isloading, setisloading] = useState(true);
   const [notifications, setNotifications] = useState();
   const docref = doc(db, "USERS", jwt);

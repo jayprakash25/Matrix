@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import { Link } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Chats() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [Users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
@@ -52,22 +55,24 @@ export default function Chats() {
   };
 
   return (
-    <main className="flex flex-col gap-5 mx-4 mt-6">
+    <main className="flex flex-col space-y-1 mx-2 mt-6">
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
             <Link to={`/chat/${item.chatIdHash}`}>
-              <div className="flex items-center gap-8 border-[1.2px] border-zinc-800 p-3">
+              <div className="flex items-center space-x-4 border-b-[1px] rounded border-zinc-800 p-3">
                 <div>
                   <img
                     src={item.Pic}
-                    className="object-cover w-20 h-20 rounded-full "
+                    className="object-cover w-14 h-14 rounded-full "
                     alt=""
                   />
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-1">
                   <h1 className="text-xl font-bold">{item.Name}</h1>
-                  <p className="text-sm font-semibold ">{item.Profession}</p>
+                  <p className="text-sm font-semibold text-gray-400 ">
+                    {item.Profession}
+                  </p>
                 </div>
               </div>
             </Link>

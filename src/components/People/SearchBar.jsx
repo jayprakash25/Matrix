@@ -11,7 +11,7 @@ export default function SearchBar({ onSearch }) {
     await onSearch(query);
   };
   return (
-    <div className="mt-3">
+    <div className="mt-3 fixed top-0 left-2">
       <div className="relative flex items-center justify-center w-[96vw] mx-auto">
         <input
           className="w-[100vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838] "

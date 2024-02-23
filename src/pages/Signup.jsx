@@ -6,9 +6,10 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../Firebase";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Signup() {
   const provider = new GoogleAuthProvider();
@@ -18,73 +19,90 @@ export default function Signup() {
     email: "",
     password: "",
   });
-  const jwt = localStorage.getItem("jwt");
+  const { setIsNewUser } = useAuth();
+
+  // const jwt = currentUser.uid;
   const [errorMessage, setErrorMessage] = useState("");
+
   const GoogleSignIn = async () => {
     try {
       const res = await signInWithPopup(auth, provider);
-      const currentUser = auth.currentUser;
-
-      if (currentUser) {
-        const UserToken = currentUser.uid;
-        window.localStorage.setItem("jwt", UserToken);
-
-        const docRef = doc(db, "USERS", UserToken);
-        const userSnapshot = await getDoc(docRef);
-
-        if (!userSnapshot.exists()) {
-          const User = {
-            Name: res.user.displayName,
-            email: res.user.email,
-            pic: res.user.photoURL,
-          };
-
-          await setDoc(docRef, User);
-          navigate("/register");
-        } else {
-          // console.log(currentUser.uid);
-          navigate("/home");
-        }
-      }
+      // Directly using res.user since it's the authenticated user object
+      handleUserAfterAuth(res.user);
     } catch (error) {
       console.log(error);
+      setErrorMessage(error.message);
     }
   };
 
-  const sendPushNotification = () => {};
-
+  // Function to handle sign-in with email and password
   const SignIn = async () => {
+    if (cred.password.length < 6) {
+      setErrorMessage("Password must be at least 6 characters long");
+      return;
+    }
+
     try {
-      if (cred.password.length < 6) {
-        setErrorMessage("Password must be at least 6 characters long");
-        return;
-      }
-      // Continue with Firebase authentication
-      const userCredential = await createUserWithEmailAndPassword(
+      const res = await createUserWithEmailAndPassword(
         auth,
         cred.email,
         cred.password
       );
-      const newUser = userCredential.user;
-      const currentUser = auth.currentUser;
-      const UserToken = currentUser.uid;
-      // console.log(newUser);
+      setIsNewUser(true);
 
-      // const docRef = doc(db, "Users", UserToken);
-      // await setDoc(docRef, cred);
-      window.localStorage.setItem("jwt", UserToken);
-      navigate("/register");
-      sendPushNotification();
+      handleUserAfterAuth(res.user);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setErrorMessage(
+            "The email address is already in use by another account."
+          );
+          break;
+        case "auth/weak-password":
+          setErrorMessage(
+            "Password is too weak. Please use a stronger password."
+          );
+          break;
+        case "auth/invalid-email":
+          setErrorMessage("The email address is not valid.");
+          break;
+        default:
+          setErrorMessage("An error occurred. Please try again.");
+      }
     }
   };
 
-  useEffect(() => {
-    if (jwt) {
-      navigate("/home");
+  const handleUserAfterAuth = async (user) => {
+    if (user) {
+      const UserToken = user.uid;
+      const docRef = doc(db, "USERS", UserToken);
+      const userSnapshot = await getDoc(docRef);
+
+      if (!userSnapshot.exists()) {
+        const newUser = {
+          Name: user.displayName || "",
+          email: user.email,
+          pic: user.photoURL || "",
+        };
+        console.log(newUser);
+        await setDoc(docRef, newUser);
+        navigate("/register");
+      } else {
+        setIsNewUser(false);
+        navigate("/home");
+      }
     }
-  }, [jwt, navigate]);
+  };
+
+  // Placeholder function for push notifications
+  // const sendPushNotification = () => {};
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     navigate("/home");
+  //   }
+  // }, []);
 
   return (
     <div className="flex flex-col justify-center h-screen px-5">

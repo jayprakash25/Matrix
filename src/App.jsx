@@ -1,6 +1,7 @@
 import "./main.css";
 import "animate.css";
 import { useState, useEffect } from "react";
+import ProtectedRoute from "./Auth/ProtectedRoute";
 import {
   Home,
   Messages,
@@ -19,10 +20,12 @@ import { RegistrationForm, SideBar } from "./components";
 import Login from "./pages/Login";
 import ProfileByCat from "./components/People/ProfileByCat";
 import Chat from "./pages/Chat";
+import { useAuth } from "./ContextProvider/AuthContext";
 
 export default function App() {
+  const { currentUser, loading, isNewUser } = useAuth();
+
   const [isphone, setisphone] = useState(false);
-  const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
     const checkIsPhone = () => {
@@ -44,31 +47,83 @@ export default function App() {
     };
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {isphone ? (
         <>
           <Routes>
-            {jwt ? (
-              <Route path="/" element={<Home />} />
-            ) : (
-              <Route path="/" element={<Signup />} />
-            )}
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/profile/:category" element={<ProfileByCat />} />
-            <Route path="/people" element={<People />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/:userid" element={<ViewUserProfile />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/register" element={<RegistrationForm />} />
+            <Route
+              path="/"
+              element={
+                !currentUser ? (
+                  <Signup />
+                ) : isNewUser ? (
+                  <RegistrationForm />
+                ) : (
+                  <Home />
+                )
+              }
+            />
+            {/* Public Routes */}
             <Route path="/login" element={<Login />} />
-            <Route path="/hobbies" element={<SelectHobbies />} />
-            <Route path="/sidebar" element={<SideBar />} />
-            <Route path="/chat/:id" element={<Chat />} />
-            <Route path="/post" element={<Post />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/connections" element={<Connections />} />
+            {/* Protected Routes */}
+            <Route
+              path="/home"
+              element={<ProtectedRoute element={<Home />} />}
+            />
+            <Route
+              path="/profile"
+              element={<ProtectedRoute element={<UserProfile />} />}
+            />{" "}
+            <Route
+              path="/profile/:category"
+              element={<ProtectedRoute element={<ProfileByCat />} />}
+            />
+            <Route
+              path="/people"
+              element={<ProtectedRoute element={<People />} />}
+            />
+            <Route
+              path="/notifications"
+              element={<ProtectedRoute element={<Notifications />} />}
+            />
+            <Route
+              path="/:userid"
+              element={<ProtectedRoute element={<ViewUserProfile />} />}
+            />
+            <Route
+              path="/privacy"
+              element={<ProtectedRoute element={<Privacy />} />}
+            />
+            <Route path="/register" element={<RegistrationForm />} />
+            <Route
+              path="/hobbies"
+              element={<ProtectedRoute element={<SelectHobbies />} />}
+            />
+            <Route
+              path="/sidebar"
+              element={<ProtectedRoute element={<SideBar />} />}
+            />
+            <Route
+              path="/chat/:id"
+              element={<ProtectedRoute element={<Chat />} />}
+            />
+            <Route
+              path="/post"
+              element={<ProtectedRoute element={<Post />} />}
+            />
+            <Route
+              path="/messages"
+              element={<ProtectedRoute element={<Messages />} />}
+            />
+            <Route
+              path="/connections"
+              element={<ProtectedRoute element={<Messages />} />}
+            />
           </Routes>
         </>
       ) : (

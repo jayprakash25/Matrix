@@ -3,11 +3,15 @@ import hobbies from "../Data/Hobbies";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function SelectHobbies() {
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const [Userhobbies, setUserHobbies] = useState([]);
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  const userJWT = currentUser.uid;
   const toggleSelection = (index) => {
     if (selectedHobbies.includes(index)) {
       setSelectedHobbies(selectedHobbies.filter((i) => i !== index));
@@ -28,14 +32,13 @@ export default function SelectHobbies() {
     e.preventDefault();
     try {
       if (!Userhobbies == "") {
-        const userJWT = localStorage.getItem("jwt");
         const docRef = doc(db, "USERS", userJWT);
         await updateDoc(docRef, { hobbies: Userhobbies });
         alert("Success");
       }
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

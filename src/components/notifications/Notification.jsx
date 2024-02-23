@@ -5,9 +5,12 @@ import NotifyLoader from "./NotifyLoader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
 import Emptyimg from "../../images/Empty.png";
+import { useAuth } from "../../ContextProvider/AuthContext";
 
 export default function Notification() {
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const [isloading, setisloading] = useState(true);
   const [Notifications, setNotifications] = useState([]);
 

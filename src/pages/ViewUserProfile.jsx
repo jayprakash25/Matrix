@@ -5,11 +5,14 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "../components";
 import { useAnimation, motion } from "framer-motion";
+import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function ViewUserProfile() {
   const navigate = useNavigate();
   const { userid } = useParams();
-  const jwt = localStorage.getItem("jwt");
+  const { currentUser } = useAuth();
+
+  const jwt = currentUser.uid;
   const Userdocref = doc(db, "USERS", jwt);
   const docref = doc(db, "USERS", userid);
   const controls = useAnimation();
@@ -40,7 +43,7 @@ export default function ViewUserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
-  const currentUser = async () => {
+  const currentUserData = async () => {
     const snapshot = await getDoc(docref);
     (await snapshot.data()?.notifications) || [];
     const collabs = (await snapshot.data()?.collabs) || [];
@@ -68,7 +71,7 @@ export default function ViewUserProfile() {
     };
 
     getPosts();
-    currentUser();
+    currentUserData();
   }, []);
 
   const sendCollab = async () => {
