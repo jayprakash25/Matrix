@@ -3,11 +3,9 @@ import { FaRegBell } from "react-icons/fa";
 import { db } from "../../Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useAuth } from "../../ContextProvider/AuthContext";
 export default function Discover() {
   const [Notifications, setNotifications] = useState();
-  const [Pic, setPic] = useState();
   const { currentUser } = useAuth();
 
   const jwt = currentUser.uid;
@@ -17,7 +15,6 @@ export default function Discover() {
     try {
       const User = await getDoc(docref);
       setNotifications(User?.data()?.notifications || []);
-      setPic(User?.data()?.Pic);
       console.log(User.data());
     } catch (error) {
       console.log(error);
@@ -25,30 +22,20 @@ export default function Discover() {
   };
   useEffect(() => {
     getNotifications();
-
-    const fetchPic = async () => {
-      if (
-        localStorage.getItem("UserPic") === null ||
-        localStorage.getItem("UserPic") === undefined
-      ) {
-        localStorage.setItem("UserPic", Pic);
-      }
-    };
-    fetchPic();
   }, []);
 
   return (
     <div className="flex items-center justify-between px-2 py-3">
       <div>
-        {localStorage.getItem("UserPic") ? (
-          <img
-            src={localStorage.getItem("UserPic")}
-            className="object-cover w-10 h-10 rounded-full"
-            alt=""
-          />
-        ) : (
-          <AccountCircleIcon color="primary" fontSize="large" />
-        )}
+        <img
+          src={
+            !currentUser.pic
+              ? "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+              : currentUser.pic
+          }
+          className="object-cover w-10 h-10 rounded-full"
+          alt=""
+        />
       </div>
       <div>
         <Link to={"/notifications"}>

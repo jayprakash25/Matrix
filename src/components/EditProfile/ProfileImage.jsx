@@ -7,8 +7,8 @@ import LoaderImage from "./LoaderImage";
 import { useAuth } from "../../ContextProvider/AuthContext";
 
 function ProfileImage({ setEditImage }) {
-  const userPic = window.localStorage.getItem("UserPic");
   const { currentUser } = useAuth();
+  const userPic = currentUser.pic;
 
   const jwt = currentUser.uid;
   const [progress, setProgress] = useState(0);
@@ -48,7 +48,7 @@ function ProfileImage({ setEditImage }) {
   const deleteImage = async () => {
     try {
       await updateDoc(docRef, { Pic: null });
-      window.localStorage.removeItem("UserPic");
+      // window.localStorage.removeItem("UserPic");
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +77,7 @@ function ProfileImage({ setEditImage }) {
             </div>
             <div
               className={` ${
-                progress > 0 && progress < 100 ? "block" : "hidden"
+                progress >= 0 && progress < 100 ? "block" : "hidden"
               } py-4`}
             >
               <LoaderImage progress={progress} />
