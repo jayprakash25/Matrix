@@ -29,6 +29,7 @@ export default function Post() {
     Pic: "",
   });
 
+
   const uploadPost = async () => {
     if (!blobimg) {
       alert("Post");
@@ -42,11 +43,13 @@ export default function Post() {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const existingPosts = User.data().Posts || [];
+      const postId = `${new Date().getTime().toString()}-${Math.random().toString(36).substring(2, 9)}`;
       const updatedPost = {
         ...post,
         image: downloadURL,
         Name: User.data().Name,
         Pic: User.data().Pic,
+        id: postId,
       };
       const updatedPostArray = [...existingPosts, updatedPost];
       await updateDoc(docref, {
