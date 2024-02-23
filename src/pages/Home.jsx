@@ -41,7 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchPosts();
-    console.log(posts.length);
+    console.log(posts?.length);
   }, []);
 
   useEffect(() => {
