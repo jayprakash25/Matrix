@@ -38,7 +38,7 @@ export default function SelectHobbies() {
       }
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

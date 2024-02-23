@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../Firebase";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 import collegesInHyderabad from "../Data/cllg";
-import { EnterOtp } from "./index";
 import PopUp from "./models/PopUp";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../Firebase";
+import { useAuth } from "../ContextProvider/AuthContext";
 export default function RegistrationForm() {
-  const [isshow, setisshow] = useState(false);
+  // const [isshow, setisshow] = useState(false);
   const [fillForm, setFillForm] = useState(false);
+  const navigate = useNavigate();
+
   const [user, setuser] = useState({
     Name: "",
-    Phone: "",
+    // Phone: "",
     age: "",
     location: "",
     collage: "",
@@ -19,36 +23,50 @@ export default function RegistrationForm() {
     // UserHobbies: [" "],
   });
 
-  const configureCaptcha = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-        size: "invisible",
-        callback: () => {
-          onNumSubmit();
-        },
-      });
-    }
-  };
+  // const configureCaptcha = () => {
+  //   if (!window.recaptchaVerifier) {
+  //     window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+  //       size: "invisible",
+  //       callback: () => {
+  //         onNumSubmit();
+  //       },
+  //     });
+  //   }
+  // };
 
-  const onNumSubmit = async (e) => {
-    e.preventDefault();
-    if (Object.values(user).every((i) => i != "")) {
-      configureCaptcha();
-      const phoneNumber = "+" + 91 + user.Phone;
-      const appVerifier = window.recaptchaVerifier;
-      await signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-        .then(async (confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setisshow(true);
-          // await setDoc(doc(db, "USERS", id), user);
-          // navigate("/hobbies");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      // alert("Please fill the form!");
-      setFillForm(true);
+  // const onNumSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (Object.values(user).every((i) => i != "")) {
+  //     configureCaptcha();
+  //     const phoneNumber = "+" + 91 + user.Phone;
+  //     const appVerifier = window.recaptchaVerifier;
+  //     await signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+  //       .then(async (confirmationResult) => {
+  //         window.confirmationResult = confirmationResult;
+  //         setisshow(true);
+  //         // await setDoc(doc(db, "USERS", id), user);
+  //         // navigate("/hobbies");
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   } else {
+  //     // alert("Please fill the form!");
+  //     setFillForm(true);
+  //   }
+  // };
+
+  const { currentUser, setIsNewUser } = useAuth();
+
+  const userjwt = currentUser.uid;
+
+  const createUser = async () => {
+    try {
+      await setDoc(doc(db, "USERS", userjwt), user);
+      setIsNewUser(false);
+      navigate("/hobbies");
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -99,7 +117,7 @@ export default function RegistrationForm() {
             className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
         </div>
-        <div className="relative">
+        {/* <div className="relative">
           <input
             type="text"
             placeholder="Phone"
@@ -110,7 +128,7 @@ export default function RegistrationForm() {
             }}
             className="w-[90vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
-        </div>
+        </div> */}
         <div className="relative">
           <input
             type="text"
@@ -185,13 +203,13 @@ export default function RegistrationForm() {
 
       <div className="flex items-center justify-center my-10">
         <button
-          onClick={onNumSubmit}
+          onClick={createUser}
           className="w-[75vw] py-3  bg-[#1d9bf0]   text-white rounded-full px-29 "
         >
           Create Account
         </button>
       </div>
-      {isshow ? <EnterOtp user={user} /> : null}
+      {/* {isshow ? <EnterOtp user={user} /> : null} */}
     </>
   );
 }

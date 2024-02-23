@@ -23,7 +23,7 @@ import Chat from "./pages/Chat";
 import { useAuth } from "./ContextProvider/AuthContext";
 
 export default function App() {
-  const { currentUser } = useAuth();
+  const { currentUser, loading, isNewUser } = useAuth();
 
   const [isphone, setisphone] = useState(false);
 
@@ -47,12 +47,27 @@ export default function App() {
     };
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {isphone ? (
         <>
           <Routes>
-            <Route path="/" element={currentUser ? <Home /> : <Signup />} />
+            <Route
+              path="/"
+              element={
+                !currentUser ? (
+                  <Signup />
+                ) : isNewUser ? (
+                  <RegistrationForm />
+                ) : (
+                  <Home />
+                )
+              }
+            />
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             {/* Protected Routes */}
@@ -84,10 +99,7 @@ export default function App() {
               path="/privacy"
               element={<ProtectedRoute element={<Privacy />} />}
             />
-            <Route
-              path="/register"
-              element={<ProtectedRoute element={<RegistrationForm />} />}
-            />
+            <Route path="/register" element={<RegistrationForm />} />
             <Route
               path="/hobbies"
               element={<ProtectedRoute element={<SelectHobbies />} />}
