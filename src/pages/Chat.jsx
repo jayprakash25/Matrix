@@ -106,7 +106,7 @@ export default function Chat() {
 
   return (
     <>
-      <div className="w-full text-xl flex space-x-1 mb-4 items-center  pt-4 py-2 bg-[#383838] text-white font-medium rounded-b-md px-4">
+      <div className="w-full fixed top-0 text-xl flex space-x-1 mb-4 items-center  pt-4 py-2 bg-[#383838] text-white font-medium rounded-b-md px-4">
         <div>
           <Link to={"/messages"}>
             <IoMdArrowRoundBack />
@@ -117,7 +117,7 @@ export default function Chat() {
           <h1>{oppUserData.Name}</h1>
         </div>
       </div>
-      <div className=" mb-20 mt-10 px-2.5">
+      <div className=" my-24  px-2.5">
         {messages.map((message, index) => (
           <div
             key={message.id}
