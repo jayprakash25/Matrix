@@ -43,7 +43,7 @@ export default function UserProfile({ userProfiles, search }) {
       ) : (
         <>
           {userProfiles.length > 0 ? (
-            <div className="grid  gap-2 gap-y-4 px-2.5 mb-20">
+            <div className="grid  gap-y-4 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
                   className="bg-[#282828] p-5 rounded-2xl flex items-center justify-between "
@@ -51,9 +51,9 @@ export default function UserProfile({ userProfiles, search }) {
                 >
                   {/* first section */}
                   <div className="flex space-x-4 items-center">
-                    <div className="w-14 h-14">
+                    <div className="w-12 h-12 rounded-2xl">
                       <img
-                        className="w-full h-full"
+                        className="w-full h-full rounded-2xl"
                         src={
                           user.Pic
                             ? user.Pic
@@ -64,11 +64,11 @@ export default function UserProfile({ userProfiles, search }) {
 
                     <div className="space-y-2">
                       <h1>{user.Name}</h1>
-                      <ul className="flex overflow-x-scroll max-w-[10rem]  gap-2 mx-auto">
+                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
-                            className="text-[11px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                            className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
                           >
                             {hobby}
                           </li>
@@ -81,12 +81,12 @@ export default function UserProfile({ userProfiles, search }) {
                   <div>
                     <div className="flex justify-center">
                       {connectedUserIds.has(user.id) ? (
-                        <button className="px-6 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
                           Connected
                         </button>
                       ) : (
                         <button
-                          className="px-6 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                          className="px-4 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
                           onClick={() => {
                             navigate(`/${user.id}`);
                           }}

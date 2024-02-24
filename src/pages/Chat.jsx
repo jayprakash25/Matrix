@@ -117,12 +117,14 @@ export default function Chat() {
           <h1>{oppUserData.Name}</h1>
         </div>
       </div>
-      <div className="space-y-2 mb-20 px-2.5">
+      <div className=" mb-20 mt-10 px-2.5">
         {messages.map((message, index) => (
           <div
             key={message.id}
             className={`flex ${
-              message.uid === uid ? " flex-row-reverse" : "items-start"
+              message.uid === uid
+                ? " flex-row-reverse my-1"
+                : "items-start my-4"
             }  gap-2.5`}
           >
             <img
@@ -130,26 +132,20 @@ export default function Chat() {
               src={message.avatar}
               alt={`${message.name} image`}
             />
-            <div className="flex flex-col gap-1 w-[50vw] max-w-[320px]">
-              <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {message.name}
-                </span>
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                  {/* {message.createdAt} */}
-                </span>
-              </div>
-              <div className="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+            <div className="flex flex-col gap-1 min-w-[4rem] max-w-[320px]">
+              <div className="flex flex-col leading-1.5 p-4 py-3 border-gray-200 bg-[#282828] rounded-3xl">
                 <p className="text-sm font-normal text-gray-900 dark:text-white">
                   {message.text}
                 </p>
               </div>
               <span
-                className={`text-sm ${
-                  message.uid === uid && messages.length - 1 === index
+                className={`text-sm w-full text-right justify-end   ${
+                  message.uid === uid &&
+                  messages.length - 1 === index &&
+                  message.status === "seen"
                     ? "flex"
                     : "hidden"
-                } font-normal text-gray-500 dark:text-gray-400`}
+                } font-normal text-[#bebebe]`}
               >
                 {message.status}
               </span>
