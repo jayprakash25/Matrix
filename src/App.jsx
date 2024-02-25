@@ -16,7 +16,7 @@ import {
   Connections,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
-import { RegistrationForm, SideBar } from "./components";
+import { Loader, RegistrationForm, SideBar } from "./components";
 import Login from "./pages/Login";
 import ProfileByCat from "./components/People/ProfileByCat";
 import Chat from "./pages/Chat";
@@ -48,7 +48,13 @@ export default function App() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <div>
+          <Loader />
+        </div>
+      </>
+    );
   }
 
   return (
