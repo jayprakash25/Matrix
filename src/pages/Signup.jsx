@@ -137,15 +137,17 @@ export default function Signup() {
             className=" focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             placeholder="Re-Enter Password"
           />
-          <div className="flex items-center justify-center">
+          <div className="flex items-center  space-x-2 justify-center">
             <p>In order to </p>
             <button
               onClick={SignIn}
               className={`${
-                cred.password.length >= 6 ? "bg-black text-white" : ""
-              }  rounded-full text-[#1d9bf0] font-semibold  px-2 flex items-center text-lg py-2`}
+                cred.password.length >= 6
+                  ? "bg-[#1d9bf0]  px-4 py-2 rounded-full  text-white"
+                  : ""
+              }   text-[#1d9bf0] font-semibold   flex items-center text-lg `}
             >
-              Continue
+              continue
             </button>
           </div>
         </form>
