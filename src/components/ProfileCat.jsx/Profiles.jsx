@@ -120,7 +120,7 @@ export default function Profiles() {
                         </button>
                       ) : (
                         <button
-                          className="px-20 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                          className="px-16 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
                           onClick={() => {
                             navigate(`/${user.id}`);
                           }}
