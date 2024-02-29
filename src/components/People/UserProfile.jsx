@@ -49,10 +49,10 @@ export default function UserProfile({ userProfiles, search }) {
                   className="bg-[#282828] p-5 rounded-lg flex items-center justify-between "
                   key={index}
                 >
-                  <div className="flex items-center gap-5 ">
-                    <div className="w-12 h-12 rounded-2xl">
+                  <div className="flex gap-5 ">
+                    <div>
                       <img
-                        className="object-cover w-10 h-10 rounded-full "
+                        className="object-cover rounded-full h-14 w-14 "
                         src={
                           user.Pic
                             ? user.Pic
@@ -63,7 +63,8 @@ export default function UserProfile({ userProfiles, search }) {
 
                     <div className="space-y-2">
                       <h1>{user.Name}</h1>
-                      <ul className="flex overflow-x-scroll max-w-[14rem]  gap-2 mx-auto">
+                      <p className="text-[10px]">{user.Bio}</p>
+                      <ul className="flex overflow-x-scroll max-w-[15rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
