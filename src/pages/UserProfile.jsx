@@ -138,7 +138,7 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start justify-center gap-5 mt-5 px-7">
+          <div className="flex items-start justify-center gap-2.5 mt-5 px-7">
             <div
               onClick={() => {
                 setEditImage(true);
@@ -170,9 +170,9 @@ export default function UserProfile() {
                 <ProfileImage setEditImage={setEditImage} />
               </div>
             )}
-            <div className="max-w-[55vw] space-y-2">
+            <div className="max-w-[50vw] space-y-2">
               <h1 className="font-bold ">{Userdata?.Name}</h1>
-              <p className="text-xs text-slate-400">{Userdata?.Bio}</p>
+              <p className="text-[12.5px] text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
                 <Link to={"/connections"}>
                   <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
