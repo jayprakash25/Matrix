@@ -43,7 +43,7 @@ export default function UserProfile({ userProfiles, search }) {
       ) : (
         <>
           {userProfiles.length > 0 ? (
-            <div className="flex flex-col justify-center gap-y-5 px-2.5 mb-20">
+            <div className="flex flex-col justify-center gap-y-4 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
                   className="bg-[#282828] p-5 rounded-lg flex flex-col "
@@ -70,21 +70,21 @@ export default function UserProfile({ userProfiles, search }) {
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
-                            className="text-[9.5px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                            className="text-[8px] px-3  text-center rounded-full py-1.5 bg-sky-600"
                           >
                             {hobby}
                           </li>
                         ))}
                       </ul>
                       <div>
-                        <div className=" text-[10.5px]">
+                        <div className=" text-[8px]">
                           {connectedUserIds.has(user.id) ? (
-                            <button className="px-20 py-2  text-center text-white rounded-full border-[1px] border-blue-500">
+                            <button className="px-16 py-2  text-center text-white rounded-full border-[1px] border-blue-500">
                               Connected
                             </button>
                           ) : (
                             <button
-                              className="px-20 py-2 text-center text-white bg-blue-500 rounded-full"
+                              className="px-16 py-2 text-center text-white bg-blue-500 rounded-full"
                               onClick={() => {
                                 navigate(`/${user.id}`);
                               }}
