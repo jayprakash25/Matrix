@@ -66,7 +66,7 @@ export default function UserProfile({ userProfiles, search }) {
                       <p className="text-[10px]">
                         {user.Bio?.split(" ").slice(0, 5).join(" ")}
                       </p>
-                      <ul className="flex overflow-x-scroll max-w-[15rem]  gap-2 mx-auto">
+                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
