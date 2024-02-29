@@ -43,7 +43,7 @@ export default function UserProfile({ userProfiles, search }) {
       ) : (
         <>
           {userProfiles.length > 0 ? (
-            <div className="flex flex-col justify-center  gap-y-5 px-2.5 mb-20">
+            <div className="flex flex-col justify-center gap-y-5 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
                   className="bg-[#282828] p-5 rounded-lg flex items-center justify-between "
