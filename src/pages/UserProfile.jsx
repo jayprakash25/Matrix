@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useAnimation, motion } from "framer-motion";
 import Emptyimg from "../images/Empty.png";
@@ -139,7 +138,7 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start justify-start gap-5 mt-5 px-7">
+          <div className="flex items-start justify-center gap-5 mt-5 px-7">
             <div
               onClick={() => {
                 setEditImage(true);
@@ -154,7 +153,7 @@ export default function UserProfile() {
                       ? "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
                       : currentUser.pic
                   }
-                  className="object-cover mx-auto rounded-full w-36 h-36"
+                  className="object-cover w-36 h-36 mx-auto border-[1px] border-gray-700 rounded-full"
                   alt={null}
                 />
                 {/* ) : ( */}

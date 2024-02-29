@@ -43,17 +43,16 @@ export default function UserProfile({ userProfiles, search }) {
       ) : (
         <>
           {userProfiles.length > 0 ? (
-            <div className="grid  gap-y-4 px-2.5 mb-20">
+            <div className="flex flex-col justify-center  gap-y-5 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
-                  className="bg-[#282828] p-5 rounded-2xl flex items-center justify-between "
+                  className="bg-[#282828] p-5 rounded-lg flex items-center justify-between "
                   key={index}
                 >
-                  {/* first section */}
-                  <div className="flex space-x-4 items-center">
+                  <div className="flex items-center gap-5 ">
                     <div className="w-12 h-12 rounded-2xl">
                       <img
-                        className="w-full h-full rounded-2xl"
+                        className="object-cover w-10 h-10 rounded-full "
                         src={
                           user.Pic
                             ? user.Pic
@@ -64,11 +63,11 @@ export default function UserProfile({ userProfiles, search }) {
 
                     <div className="space-y-2">
                       <h1>{user.Name}</h1>
-                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
+                      <ul className="flex overflow-x-scroll max-w-[14rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
-                            className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                            className="text-[9.5px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
                           >
                             {hobby}
                           </li>
@@ -77,16 +76,15 @@ export default function UserProfile({ userProfiles, search }) {
                     </div>
                   </div>
 
-                  {/* button section  */}
                   <div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center text-[10.5px]">
                       {connectedUserIds.has(user.id) ? (
-                        <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        <button className="px-5 py-2  text-center text-white rounded-full border-[1px] border-blue-500">
                           Connected
                         </button>
                       ) : (
                         <button
-                          className="px-4 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                          className="px-4 py-2 text-center text-white bg-blue-500 rounded-full"
                           onClick={() => {
                             navigate(`/${user.id}`);
                           }}
@@ -132,13 +130,13 @@ className={`flex flex-col justify-center border-[2px] border-zinc-800 p-4 rounde
         "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980" ||
         user.Pic
       }
-      className="object-cover mx-auto rounded-full w-24 h-24"
+      className="object-cover w-24 h-24 mx-auto rounded-full"
       alt={null}
     />
   ) : (
     <img
       src={user.Pic}
-      className="object-cover mx-auto rounded-full w-24 h-24"
+      className="object-cover w-24 h-24 mx-auto rounded-full"
       alt={user.Pic}
     />
   )}
@@ -148,7 +146,7 @@ className={`flex flex-col justify-center border-[2px] border-zinc-800 p-4 rounde
     {user.Name}
   </h1>
   <p className="text-center text-[13.5px]">{user.Bio}</p>
-  <ul className="flex overflow-x-scroll max-w-xs  gap-2 mx-auto">
+  <ul className="flex max-w-xs gap-2 mx-auto overflow-x-scroll">
     {user.hobbies?.map((hobby, hobbyIndex) => (
       <li
         key={hobbyIndex}
