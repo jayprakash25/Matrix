@@ -46,13 +46,13 @@ export default function UserProfile({ userProfiles, search }) {
             <div className="flex flex-col justify-center gap-y-5 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
-                  className="bg-[#282828] p-5 rounded-lg flex items-center justify-between "
+                  className="bg-[#282828] p-5 rounded-lg flex flex-col "
                   key={index}
                 >
-                  <div className="flex gap-5">
-                    <div>
+                  <div className="flex items-center justify-evenly">
+                    <div className="">
                       <img
-                        className="object-cover rounded-full h-14 w-14 "
+                        className="object-cover w-24 h-24 rounded-full "
                         src={
                           user.Pic
                             ? user.Pic
@@ -61,12 +61,12 @@ export default function UserProfile({ userProfiles, search }) {
                       />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-4 w-[50vw]">
                       <h1>{user.Name}</h1>
                       <p className="text-[10px]">
                         {user.Bio?.split(" ").slice(0, 5).join(" ")}
                       </p>
-                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
+                      <ul className="flex gap-2 mx-auto overflow-x-scroll">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
@@ -76,26 +76,25 @@ export default function UserProfile({ userProfiles, search }) {
                           </li>
                         ))}
                       </ul>
+                      <div>
+                        <div className=" text-[10.5px]">
+                          {connectedUserIds.has(user.id) ? (
+                            <button className="px-20 py-2  text-center text-white rounded-full border-[1px] border-blue-500">
+                              Connected
+                            </button>
+                          ) : (
+                            <button
+                              className="px-20 py-2 text-center text-white bg-blue-500 rounded-full"
+                              onClick={() => {
+                                navigate(`/${user.id}`);
+                              }}
+                            >
+                              View Profile
+                            </button>
+                          )}
+                        </div>{" "}
+                      </div>
                     </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-center text-[10.5px]">
-                      {connectedUserIds.has(user.id) ? (
-                        <button className="px-5 py-2  text-center text-white rounded-full border-[1px] border-blue-500">
-                          Connected
-                        </button>
-                      ) : (
-                        <button
-                          className="px-4 py-2 text-center text-white bg-blue-500 rounded-full"
-                          onClick={() => {
-                            navigate(`/${user.id}`);
-                          }}
-                        >
-                          View Profile
-                        </button>
-                      )}
-                    </div>{" "}
                   </div>
                 </div>
               ))}
