@@ -29,7 +29,6 @@ export default function Post() {
     Pic: "",
   });
 
-
   const uploadPost = async () => {
     if (!blobimg) {
       alert("Post");
@@ -43,7 +42,9 @@ export default function Post() {
       const docref = doc(db, "USERS", jwt);
       const User = await getDoc(docref);
       const existingPosts = User.data().Posts || [];
-      const postId = `${new Date().getTime().toString()}-${Math.random().toString(36).substring(2, 9)}`;
+      const postId = `${new Date().getTime().toString()}-${Math.random()
+        .toString(36)
+        .substring(2, 9)}`;
       const updatedPost = {
         ...post,
         image: downloadURL,
@@ -96,7 +97,11 @@ export default function Post() {
         <div className="flex gap-5">
           <div>
             <img
-              src={user.pic}
+              src={
+                user.pic !== null
+                  ? user.pic
+                  : "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+              }
               alt={user.pic}
               className="object-cover w-16 h-16 rounded-full"
             />

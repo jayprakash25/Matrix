@@ -54,8 +54,10 @@ export default function Chats() {
     return chatId;
   };
 
+  console.log(Users);
+
   return (
-    <main className="flex flex-col space-y-1 mx-2 mt-6">
+    <main className="flex flex-col mx-2 mt-6 space-y-1">
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
@@ -64,7 +66,7 @@ export default function Chats() {
                 <div>
                   <img
                     src={item.Pic}
-                    className="object-cover w-14 h-14 rounded-full "
+                    className="object-cover rounded-full w-14 h-14 "
                     alt=""
                   />
                 </div>

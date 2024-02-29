@@ -93,9 +93,7 @@ export default function Chat() {
         if (doc.data().status === "delivered" && doc.data().uid !== uid)
           updateSeenStatus = true;
       });
-
       setMessages(messages);
-
       if (updateSeenStatus) {
         messageSeen();
       }
@@ -112,8 +110,8 @@ export default function Chat() {
             <IoMdArrowRoundBack />
           </Link>
         </div>
-        <div className="flex space-x-2 items-center">
-          <img className="w-10 h-10  rounded-full" src={oppUserData.Pic} />
+        <div className="flex items-center space-x-2">
+          <img className="w-10 h-10 rounded-full" src={oppUserData.Pic} />
           <h1>{oppUserData.Name}</h1>
         </div>
       </div>
@@ -153,7 +151,7 @@ export default function Chat() {
           </div>
         ))}
 
-        <div className="fixed w-full left-0 px-4 bottom-0 flex items-center justify-around py-2 space-x-3 ">
+        <div className="fixed bottom-0 left-0 flex items-center justify-around w-full px-4 py-2 space-x-3 ">
           <input
             type="text"
             placeholder="type you message here"
