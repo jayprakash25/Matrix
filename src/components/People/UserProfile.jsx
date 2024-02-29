@@ -49,7 +49,7 @@ export default function UserProfile({ userProfiles, search }) {
                   className="bg-[#282828] p-5 rounded-lg flex items-center justify-between "
                   key={index}
                 >
-                  <div className="flex gap-5 ">
+                  <div className="flex gap-5">
                     <div>
                       <img
                         className="object-cover rounded-full h-14 w-14 "
@@ -63,7 +63,9 @@ export default function UserProfile({ userProfiles, search }) {
 
                     <div className="space-y-2">
                       <h1>{user.Name}</h1>
-                      <p className="text-[10px]">{user.Bio}</p>
+                      <p className="text-[10px]">
+                        {user.Bio?.split(" ").slice(0, 5).join(" ")}
+                      </p>
                       <ul className="flex overflow-x-scroll max-w-[15rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
