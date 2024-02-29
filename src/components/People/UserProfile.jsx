@@ -49,7 +49,7 @@ export default function UserProfile({ userProfiles, search }) {
                   className="bg-[#282828] p-5 rounded-lg flex flex-col "
                   key={index}
                 >
-                  <div className="flex items-center justify-evenly">
+                  <div className="flex items-center gap-3 justify-evenly">
                     <div className="">
                       <img
                         className="object-cover w-24 h-24 rounded-full "
