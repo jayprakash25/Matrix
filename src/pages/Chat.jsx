@@ -104,15 +104,18 @@ export default function Chat() {
 
   return (
     <>
-      <div className="w-full fixed top-0 text-xl flex space-x-1 mb-4 items-center  pt-4 py-2 bg-[#383838] text-white font-medium rounded-b-md px-4">
+      <div className="w-full fixed top-0 text-xl flex space-x-1 mb-4 items-center py-3 bg-[#383838] text-white font-medium rounded-b-md px-4 ">
         <div>
           <Link to={"/messages"}>
             <IoMdArrowRoundBack />
           </Link>
         </div>
-        <div className="flex items-center space-x-2">
-          <img className="w-10 h-10 rounded-full" src={oppUserData.Pic} />
-          <h1>{oppUserData.Name}</h1>
+        <div className="flex items-center pl-3 space-x-5">
+          <img
+            className="object-cover w-10 h-10 rounded-full"
+            src={oppUserData.Pic}
+          />
+          <h1 className="text-[17.5px]">{oppUserData.Name}</h1>
         </div>
       </div>
       <div className=" my-24  px-2.5">
@@ -126,7 +129,7 @@ export default function Chat() {
             }  gap-2.5`}
           >
             <img
-              className="w-8 h-8 rounded-full"
+              className="object-cover w-8 h-8 rounded-full"
               src={message.avatar}
               alt={`${message.name} image`}
             />
