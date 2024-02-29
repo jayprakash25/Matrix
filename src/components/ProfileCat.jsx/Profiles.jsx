@@ -115,7 +115,7 @@ export default function Profiles() {
                     </ul>
                     <div className="mt-4">
                       {connectedUser.includes(user.id) ? (
-                        <button className="px-20 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                        <button className="px-16 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
                           Connected
                         </button>
                       ) : (
