@@ -65,13 +65,17 @@ export default function Chats() {
               <div className="flex items-center space-x-4 border-b-[1px] rounded border-zinc-800 p-3">
                 <div>
                   <img
-                    src={item.Pic}
+                    src={
+                      item.Pic != null
+                        ? item.Pic
+                        : "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                    }
                     className="object-cover rounded-full w-14 h-14 "
                     alt=""
                   />
                 </div>
                 <div className="space-y-1">
-                  <h1 className="text-xl font-bold">{item.Name}</h1>
+                  <h1 className="font-semibold ">{item.Name}</h1>
                   <p className="text-sm font-semibold text-gray-400 ">
                     {item.Profession}
                   </p>

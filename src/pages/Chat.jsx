@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../Firebase";
 import { Link, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { FiSend } from "react-icons/fi";
 
 export default function Chat() {
   const [message, setMessage] = useState("");
@@ -82,7 +83,6 @@ export default function Chat() {
     );
 
     messageSeen();
-
     getOppUserData();
 
     const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
@@ -113,7 +113,11 @@ export default function Chat() {
         <div className="flex items-center pl-3 space-x-5">
           <img
             className="object-cover w-10 h-10 rounded-full"
-            src={oppUserData.Pic}
+            src={
+              oppUserData.Pic != null
+                ? oppUserData.Pic
+                : "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+            }
           />
           <h1 className="text-[17.5px]">{oppUserData.Name}</h1>
         </div>
@@ -154,7 +158,7 @@ export default function Chat() {
           </div>
         ))}
 
-        <div className="fixed bottom-0 left-0 flex items-center justify-around w-full px-4 py-2 space-x-3 ">
+        <div className="fixed bottom-0 left-0 flex items-center w-full px-4 py-2 space-x-3 ">
           <input
             type="text"
             placeholder="type you message here"
@@ -162,10 +166,10 @@ export default function Chat() {
             onChange={(e) => {
               setMessage(e.target.value);
             }}
-            className="w-full focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
+            className="w-[85vw] focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
           />
           <button className="outline-none " onClick={sendMessage}>
-            Send
+            <FiSend size={25} color="white" />
           </button>
         </div>
       </div>
