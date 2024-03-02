@@ -6,12 +6,14 @@ import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
 import Emptyimg from "../../images/Empty.png";
 import { useAuth } from "../../ContextProvider/AuthContext";
+import Loader from "../Loader";
 
 export default function Notification() {
   const { currentUser } = useAuth();
 
   const jwt = currentUser.uid;
   const [isloading, setisloading] = useState(true);
+  const [isaccept, setisaccept] = useState(false);
   const [Notifications, setNotifications] = useState([]);
 
   const getNotifications = async () => {
@@ -50,34 +52,29 @@ export default function Notification() {
 
   const acceptRequest = async (userid) => {
     try {
+      setisaccept(true);
       const docRef = doc(db, "USERS", jwt);
       const currentUser = await getDoc(docRef);
-
       const otherUserRef = doc(db, "USERS", userid);
       const otherUser = await getDoc(otherUserRef);
-
       const updatedCurrentCollabs = [
         ...(currentUser.data()?.collabs || []),
         userid,
       ];
       const updatedOtherCollabs = [...(otherUser?.data()?.collabs || []), jwt];
-
       await updateDoc(docRef, { collabs: updatedCurrentCollabs });
-
       await updateDoc(otherUserRef, { collabs: updatedOtherCollabs });
-
       const otherUserNotifications = otherUser?.data()?.notifications || [];
       const notification = {
         id: jwt,
         Pic: currentUser?.data()?.Pic,
         message: `${currentUser?.data()?.Name} accepted your request`,
       };
-
       await updateDoc(otherUserRef, {
         notifications: [...otherUserNotifications, notification],
       });
-
       DeleteNotification(Notifications?.id);
+      setisaccept(false);
     } catch (error) {
       console.log(error);
     }
@@ -85,6 +82,7 @@ export default function Notification() {
 
   return (
     <>
+      {isaccept ? <Loader tittle={"Accepting collab"} /> : null}
       {isloading ? (
         <NotifyLoader />
       ) : (
