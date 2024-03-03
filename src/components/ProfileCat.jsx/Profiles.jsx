@@ -82,15 +82,18 @@ export default function Profiles() {
       ) : (
         <div className="grid  gap-y-4 px-2.5 mb-20">
           {showusers.map((user, index) => (
-            <>
-              <div
-                className="bg-[#282828] p-5 rounded-lg flex flex-col "
-                key={index}
-              >
-                <div className="flex items-center gap-3 justify-evenly">
-                  <div className="">
+            <div
+              key={index}
+              className={`bg-[#282828] p-5 rounded-2xl flex items-center justify-between ${
+                connectedUser.includes(user.id) ? "connected" : ""
+              }`}
+            >
+              <Link to={`/${user.id}`}>
+                {/* first section  */}
+                <div className="flex space-x-4 items-center">
+                  <div className="w-14 h-14 rounded-full">
                     <img
-                      className="object-cover w-24 h-24 rounded-full "
+                      className="w-full h-full rounded-full"
                       src={
                         user.Pic
                           ? user.Pic
@@ -98,61 +101,45 @@ export default function Profiles() {
                       }
                     />
                   </div>
-                  <div className="space-y-4 w-[50vw]">
+
+                  <div className="space-y-2">
                     <h1>{user.Name}</h1>
-                    <p className="text-[10px]">
-                      {user.Bio?.split(" ").slice(0, 5).join(" ")}
-                    </p>
-                    <ul className="flex gap-2 mx-auto overflow-x-scroll">
+                    <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
                       {user.hobbies?.map((hobby, hobbyIndex) => (
                         <li
                           key={hobbyIndex}
-                          className="text-[8px] px-3  text-center rounded-full py-1.5 bg-sky-600"
+                          className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
                         >
                           {hobby}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-4">
-                      {connectedUser.includes(user.id) ? (
-                        <button className="px-16 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
-                          Connected
-                        </button>
-                      ) : (
-                        <button
-                          className="px-16 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
-                          onClick={() => {
-                            navigate(`/${user.id}`);
-                          }}
-                        >
-                          View Profile
-                        </button>
-                      )}
-                    </div>
                   </div>
                 </div>
+              </Link>
+
+              {/* button section  */}
+
+              <div className="flex justify-center mt-4">
+                {connectedUser.includes(user.id) ? (
+                  <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
+                    Connected
+                  </button>
+                ) : (
+                  <button
+                    className="px-4 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
+                    onClick={() => {
+                      navigate(`/${user.id}`);
+                    }}
+                  >
+                    View Profile
+                  </button>
+                )}
               </div>
-            </>
+            </div>
           ))}
         </div>
       )}
     </>
   );
-}
-{
-  /* <div className="flex justify-center mt-4">
-{connectedUser.includes(user.id) ? (
-  <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
-    Connected
-  </button>
-) : (
-  <button
-    className="px-4 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
-    onClick={() => {
-      navigate(`/${user.id}`);
-    }}
-  >
-    View Profile
-  </button>
-)} */
 }
