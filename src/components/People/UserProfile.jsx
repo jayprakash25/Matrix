@@ -51,9 +51,9 @@ export default function UserProfile({ userProfiles, search }) {
                 >
                   {/* first section */}
                   <div className="flex space-x-4 items-center">
-                    <div className="w-12 h-12 rounded-2xl">
+                    <div className="w-14 h-14 rounded-full">
                       <img
-                        className="w-full h-full rounded-2xl"
+                        className="w-full h-full rounded-full"
                         src={
                           user.Pic
                             ? user.Pic
@@ -106,10 +106,6 @@ export default function UserProfile({ userProfiles, search }) {
                 There are no people right now..
               </h1>
             </div>
-
-
-
-
           )}
         </>
       )}

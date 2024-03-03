@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "../components";
 import { useAnimation, motion } from "framer-motion";
@@ -74,34 +74,37 @@ export default function ViewUserProfile() {
     currentUserData();
   }, []);
 
-  const sendCollab = async () => {
+ 
+  const sendCollab = async (senderId, receiverId) => {
     try {
-      setisloading(true);
-      const User = await getDoc(docref);
-      const me = await getDoc(Userdocref);
-      const userCurrentCollabsNotification = User?.data()?.notifications || [];
-      const notification = {
-        Name: me?.data()?.Name,
-        Bio: me?.data()?.Bio || "",
-        Pic:
-          me?.data()?.Pic ||
-          "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980",
-        id: me?.id,
-        message: "Wants to Connect with you",
-      };
-      const idExists = userCurrentCollabsNotification.some(
-        (notif) => notif.id === notification.id
-      );
-      if (!idExists) {
-        await updateDoc(docref, {
-          notifications: [...userCurrentCollabsNotification, notification],
-        });
-        navigate("/people");
+      setisloading(true); 
+      
+      // Check if a pending request already exists from sender to receiver
+      const requestsRef = collection(db, "connectionRequests");
+      const q = query(requestsRef, where("senderId", "==", senderId), where("receiverId", "==", receiverId), where("status", "==", "pending"));
+      
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        // A pending request already exists
+        console.log("A pending request already exists.");
+        setpopup(true); // Assuming you have a useState hook for managing popup state
       } else {
-        setpopup(true);
+        // No existing pending request
+        const newRequest = {
+          senderId: senderId,
+          receiverId: receiverId,
+          status: "pending",
+          timestamp: new Date() 
+        };
+        
+        await addDoc(requestsRef, newRequest);
+        console.log("Collab request sent successfully.");
+        navigate("/people"); 
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error sending collab request: ", error);
+    } finally {
+      setisloading(false); 
     }
   };
 
@@ -178,7 +181,7 @@ export default function ViewUserProfile() {
             </button>
           ) : (
             <button
-              onClick={sendCollab}
+              onClick={()=>{sendCollab(jwt, userid)}}
               className="py-1.5 px-8  text-[11px] font-semibold text-white rounded-full bg-[#1d9bf0]"
             >
               Connect

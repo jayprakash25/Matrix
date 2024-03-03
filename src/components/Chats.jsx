@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../Firebase";
 import { Link } from "react-router-dom";
 import { useAuth } from "../ContextProvider/AuthContext";
@@ -10,32 +10,64 @@ export default function Chats() {
   const jwt = currentUser.uid;
   const [Users, setUsers] = useState([]);
 
-  const fetchUsers = async () => {
-    try {
-      const docRef = doc(db, "USERS", jwt);
-      const userSnapshot = await getDoc(docRef);
-      const currentConnectedUser = userSnapshot.data()?.collabs;
-      if (currentConnectedUser) {
-        const usersDataArray = await Promise.all(
-          currentConnectedUser.map(async (userId) => {
-            const userDocRef = doc(db, "USERS", userId);
-            const userSnapshot = await getDoc(userDocRef);
-            const userData = userSnapshot.data();
-            const chatId = generateChatId(userId, auth.currentUser.uid);
-            // const chatIdHash = await generateSHA256Hash(chatId);
-            return { ...userData, userId: userId, chatIdHash: chatId };
-          })
-        );
-        setUsers(usersDataArray);
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    const generateChatId = (userId1, userId2) => {
+      const ids = [userId1, userId2].sort();
+      const chatId = ids.join("-");
+      return chatId;
+    };
+    const fetchConnectedUsers = async () => {
+      try {
+        // Define queries for sent and received accepted connection requests
+        const sentRequestsQuery = query(collection(db, "connectionRequests"), where("senderId", "==", jwt), where("status", "==", "accepted"));
+
+        const receivedRequestsQuery = query(collection(db, "connectionRequests"), where("receiverId", "==", jwt), where("status", "==", "accepted"));
+  
+        // Execute both queries concurrently
+        const [sentRequestsSnapshot, receivedRequestsSnapshot] = await Promise.all([
+          getDocs(sentRequestsQuery),
+          getDocs(receivedRequestsQuery),
+        ]);
+  
+        // Collect unique user IDs from both sets of requests
+        const connectedUserIds = new Set();
+        sentRequestsSnapshot.forEach(doc => connectedUserIds.add(doc.data().receiverId));
+        receivedRequestsSnapshot.forEach(doc => connectedUserIds.add(doc.data().senderId));
+  
+        // Fetch user details and generate chat IDs for each connected user
+        const usersDataArray = await Promise.all([...connectedUserIds].map(async userId => {
+          const userDocRef = doc(db, "USERS", userId);
+          const userDocSnap = await getDoc(userDocRef);
+  
+          if (userDocSnap.exists()) {
+            // Generate a chat ID using both user IDs
+            const chatId = generateChatId(jwt, userId);
+  
+            return { 
+              userId, 
+              ...userDocSnap.data(), 
+              chatId // Include the generated chat ID in the user data object
+            };
+          } else {
+            console.error("User not found:", userId);
+            return null;
+          }
+        }));
+  
+        // Filter out any null results
+        const filteredUsersDataArray = usersDataArray.filter(user => user !== null);
+  
+        // Update the state with the fetched users' data and their chat IDs
+        setUsers(filteredUsersDataArray);
+      } catch (error) {
+        console.error("Error fetching connected users:", error);
+      }
+    };
+  
+    // Execute the fetch function
+    fetchConnectedUsers();
+  }, [jwt]); // Re-run if jwt or the generateChatId function changes
+  
 
   // async function generateSHA256Hash(input) {
   //   const encoder = new TextEncoder();
@@ -48,11 +80,7 @@ export default function Chats() {
   //   return hashHex;
   // }
 
-  const generateChatId = (userId1, userId2) => {
-    const ids = [userId1, userId2].sort();
-    const chatId = ids.join("-");
-    return chatId;
-  };
+
 
   console.log(Users);
 
@@ -61,7 +89,7 @@ export default function Chats() {
       {Users.map((item, i) => {
         return (
           <React.Fragment key={i}>
-            <Link to={`/chat/${item.chatIdHash}`}>
+            <Link to={`/chat/${item.chatId}`}>
               <div className="flex items-center space-x-4 border-b-[1px] rounded border-zinc-800 p-3">
                 <div>
                   <img
