@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "../components";
 import { useAnimation, motion } from "framer-motion";
@@ -13,7 +13,6 @@ export default function ViewUserProfile() {
   const { currentUser } = useAuth();
 
   const jwt = currentUser.uid;
-  const Userdocref = doc(db, "USERS", jwt);
   const docref = doc(db, "USERS", userid);
   const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
@@ -81,10 +80,17 @@ export default function ViewUserProfile() {
       
       // Check if a pending request already exists from sender to receiver
       const requestsRef = collection(db, "connectionRequests");
-      const q = query(requestsRef, where("senderId", "==", senderId), where("receiverId", "==", receiverId), where("status", "==", "pending"));
-      
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
+ // Query for existing requests in both directions
+ const forwardQuery = query(requestsRef, where("senderId", "==", senderId), where("receiverId", "==", receiverId));
+ const reverseQuery = query(requestsRef, where("senderId", "==", receiverId), where("receiverId", "==", senderId));
+ 
+  // Fetch both queries concurrently
+  const [forwardSnapshot, reverseSnapshot] = await Promise.all([
+    getDocs(forwardQuery),
+    getDocs(reverseQuery),
+  ]);
+ 
+      if (!forwardSnapshot.empty || !reverseSnapshot.empty) {
         // A pending request already exists
         console.log("A pending request already exists.");
         setpopup(true); // Assuming you have a useState hook for managing popup state
