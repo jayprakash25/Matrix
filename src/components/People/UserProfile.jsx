@@ -35,7 +35,7 @@ export default function UserProfile({ userProfiles, search }) {
   return (
     <>
       {isloading ? (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
           {Array.from(load, (index) => (
             <Loader key={index} />
           ))}
@@ -50,10 +50,10 @@ export default function UserProfile({ userProfiles, search }) {
                   key={index}
                 >
                   {/* first section */}
-                  <div className="flex items-center space-x-6">
-                    <div className="">
+                  <div className="flex items-center space-x-4">
+                    <div className="rounded-full w-14 h-14">
                       <img
-                        className="object-cover rounded-full w-14 h-14"
+                        className="w-full h-full rounded-full"
                         src={
                           user.Pic
                             ? user.Pic
@@ -62,13 +62,13 @@ export default function UserProfile({ userProfiles, search }) {
                       />
                     </div>
 
-                    <div className="space-y-2.5">
-                      <h1 className="text-sm">{user.Name}</h1>
-                      <ul className="flex overflow-x-scroll max-w-[9rem]  gap-2 mx-auto">
+                    <div className="space-y-2">
+                      <h1>{user.Name}</h1>
+                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
-                            className="text-[8.5px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
+                            className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
                           >
                             {hobby}
                           </li>
@@ -76,16 +76,17 @@ export default function UserProfile({ userProfiles, search }) {
                       </ul>
                     </div>
                   </div>
+
                   {/* button section  */}
                   <div>
                     <div className="flex justify-center">
                       {connectedUserIds.has(user.id) ? (
-                        <button className="px-5 py-2 text-[11px] text-center text-white rounded-full border-[1px] border-blue-500">
+                        <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">
                           Connected
                         </button>
                       ) : (
                         <button
-                          className="px-4 py-2 text-[11px] text-center text-white bg-blue-500 rounded-full"
+                          className="px-4 py-2 text-xs text-center text-white bg-blue-500 rounded-full"
                           onClick={() => {
                             navigate(`/${user.id}`);
                           }}
