@@ -85,9 +85,7 @@ export default function ViewUserProfile() {
     try {
       setisloading(true);
 
-      // Check if a pending request already exists from sender to receiver
       const requestsRef = collection(db, "connectionRequests");
-      // Query for existing requests in both directions
       const forwardQuery = query(
         requestsRef,
         where("senderId", "==", senderId),
@@ -99,25 +97,21 @@ export default function ViewUserProfile() {
         where("receiverId", "==", senderId)
       );
 
-      // Fetch both queries concurrently
       const [forwardSnapshot, reverseSnapshot] = await Promise.all([
         getDocs(forwardQuery),
         getDocs(reverseQuery),
       ]);
 
       if (!forwardSnapshot.empty || !reverseSnapshot.empty) {
-        // A pending request already exists
         console.log("A pending request already exists.");
-        setpopup(true); // Assuming you have a useState hook for managing popup state
+        setpopup(true);
       } else {
-        // No existing pending request
         const newRequest = {
           senderId: senderId,
           receiverId: receiverId,
           status: "pending",
           timestamp: new Date(),
         };
-
         await addDoc(requestsRef, newRequest);
         console.log("Collab request sent successfully.");
         navigate("/people");
@@ -176,7 +170,7 @@ export default function ViewUserProfile() {
           {Userdata.Pic == "" || Userdata.Pic == null ? (
             <img
               src={
-                "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
               }
               className="object-cover rounded-full w-36 h-36"
               alt={Userdata.Pic}
