@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
 import { useAuth } from "../ContextProvider/AuthContext";
 import { TfiGallery } from "react-icons/tfi";
+import { BottomBar } from "../components";
 
 export default function Post() {
   const imageref = useRef();
@@ -168,6 +169,7 @@ export default function Post() {
           </div>
         ) : null}
       </div>
+      <BottomBar />
     </>
   );
 }
