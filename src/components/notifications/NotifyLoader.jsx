@@ -9,17 +9,14 @@ export default function NotifyLoader() {
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 bg-[#282828] rounded-full"></div>
             <div className="space-y-1">
-              
                 <>
                   <div className="w-20 h-3 bg-[#282828]"></div>
                   <div className="w-48 h-4 bg-[#282828]"></div>
                 </>
-             
                 <>
                   <div className="w-48 h-4 bg-[#282828]"></div>
                   <div className="w-20 h-3 bg-[#282828]"></div>
                 </>
-             
             </div>
           </div>
         

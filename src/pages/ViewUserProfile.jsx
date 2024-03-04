@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../Firebase";
 import { Loader } from "../components";
 import { useAnimation, motion } from "framer-motion";
@@ -73,23 +81,30 @@ export default function ViewUserProfile() {
     currentUserData();
   }, []);
 
- 
   const sendCollab = async (senderId, receiverId) => {
     try {
-      setisloading(true); 
-      
+      setisloading(true);
+
       // Check if a pending request already exists from sender to receiver
       const requestsRef = collection(db, "connectionRequests");
- // Query for existing requests in both directions
- const forwardQuery = query(requestsRef, where("senderId", "==", senderId), where("receiverId", "==", receiverId));
- const reverseQuery = query(requestsRef, where("senderId", "==", receiverId), where("receiverId", "==", senderId));
- 
-  // Fetch both queries concurrently
-  const [forwardSnapshot, reverseSnapshot] = await Promise.all([
-    getDocs(forwardQuery),
-    getDocs(reverseQuery),
-  ]);
- 
+      // Query for existing requests in both directions
+      const forwardQuery = query(
+        requestsRef,
+        where("senderId", "==", senderId),
+        where("receiverId", "==", receiverId)
+      );
+      const reverseQuery = query(
+        requestsRef,
+        where("senderId", "==", receiverId),
+        where("receiverId", "==", senderId)
+      );
+
+      // Fetch both queries concurrently
+      const [forwardSnapshot, reverseSnapshot] = await Promise.all([
+        getDocs(forwardQuery),
+        getDocs(reverseQuery),
+      ]);
+
       if (!forwardSnapshot.empty || !reverseSnapshot.empty) {
         // A pending request already exists
         console.log("A pending request already exists.");
@@ -100,17 +115,17 @@ export default function ViewUserProfile() {
           senderId: senderId,
           receiverId: receiverId,
           status: "pending",
-          timestamp: new Date() 
+          timestamp: new Date(),
         };
-        
+
         await addDoc(requestsRef, newRequest);
         console.log("Collab request sent successfully.");
-        navigate("/people"); 
+        navigate("/people");
       }
     } catch (error) {
       console.error("Error sending collab request: ", error);
     } finally {
-      setisloading(false); 
+      setisloading(false);
     }
   };
 
@@ -176,19 +191,21 @@ export default function ViewUserProfile() {
         </div>
         <div className="max-w-[55vw] space-y-4">
           <h1 className="text-lg font-bold">{Userdata.Name}</h1>
-          <p className="text-sm text-slate-400">{Userdata.Bio}</p>
+          <p className="text-[11px] text-slate-400">{Userdata.Bio}</p>
           {userCollabs.includes(jwt) ? (
             <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
               Connected
             </button>
           ) : isexists ? (
-            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
+            <button className="inline-flex items-center py-2 text-[9px] text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
               Connection Sent
             </button>
           ) : (
             <button
-              onClick={()=>{sendCollab(jwt, userid)}}
-              className="py-1.5 px-8  text-[11px] font-semibold text-white rounded-full bg-[#1d9bf0]"
+              onClick={() => {
+                sendCollab(jwt, userid);
+              }}
+              className="py-1.5 px-8  text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0]"
             >
               Connect
             </button>

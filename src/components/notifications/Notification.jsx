@@ -12,7 +12,6 @@ import { db } from "../../Firebase";
 import NotifyLoader from "./NotifyLoader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
-import Emptyimg from "../../images/Empty.png";
 import { useAuth } from "../../ContextProvider/AuthContext";
 import Loader from "../Loader";
 
@@ -24,6 +23,7 @@ export default function Notification() {
 
   const [requests, setRequests] = useState([]);
   const [statusReq, setStatusReq] = useState([]);
+  const [isaccept, setisaccept] = useState(false);
 
   // const getNotifications = async () => {
   //   try {
@@ -99,10 +99,12 @@ export default function Notification() {
 
   const handleAccept = async (requestId) => {
     // Logic to accept the request
+    setisaccept(true);
     const requestRef = doc(db, "connectionRequests", requestId);
     await updateDoc(requestRef, {
       status: "accepted",
     });
+    setisaccept(false);
   };
 
   const handleDeny = async (requestId) => {
@@ -123,8 +125,7 @@ export default function Notification() {
     </h1>
   </div>
 )} */}
-
-      {/* {isaccept ? <Loader tittle={"Accepting collab"} /> : null} */}
+      {isaccept ? <Loader tittle={"Accepting collab"} /> : null}
       {isloading ? (
         <NotifyLoader />
       ) : (
