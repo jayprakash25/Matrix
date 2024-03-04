@@ -30,7 +30,7 @@ export default function Discover() {
         <img
           src={
             !currentUser.pic
-              ? "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+              ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
               : currentUser.pic
           }
           className="object-cover w-10 h-10 rounded-full"

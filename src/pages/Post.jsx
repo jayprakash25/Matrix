@@ -99,9 +99,9 @@ export default function Post() {
           <div>
             <img
               src={
-                user.pic !== null
-                  ? user.pic
-                  : "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                !user.pic
+                  ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                  : user.pic
               }
               alt={user.pic}
               className="object-cover w-16 h-16 rounded-full"
@@ -146,6 +146,7 @@ export default function Post() {
         )}
         <input
           ref={imageref}
+          k
           className="hidden px-4 py-2 border-2 outline-none"
           type="file"
           onChange={(e) => {

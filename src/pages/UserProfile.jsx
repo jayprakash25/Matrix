@@ -151,7 +151,7 @@ export default function UserProfile() {
                 <img
                   src={
                     !currentUser.pic
-                      ? "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                      ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
                       : currentUser.pic
                   }
                   className="object-cover rounded-full h-36 w-36"
@@ -227,26 +227,28 @@ export default function UserProfile() {
                   return (
                     <React.Fragment key={i}>
                       <div className="max-w-md px-4 py-3 rounded-lg shadow-sm lg border-[1px]  border-zinc-800">
+                        <div className="flex items-center gap-3 ">
+                          <img
+                            src={
+                              !Userdata?.Pic
+                                ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                                : Userdata?.Pic
+                            }
+                            className="object-cover w-12 h-12 rounded-full"
+                            alt=""
+                          />
+                          <h1 className=" font-semibold">{item?.Name}</h1>
+                        </div>
                         <div>
                           {item.image && (
                             <img
-                              className="mx-auto rounded-xl w-[85vw] object-cover"
+                              className="mx-auto rounded-xl w-[85vw] mt-5 object-cover"
                               src={item?.image}
                               alt=""
                             />
                           )}
                         </div>
-                        <div className="flex items-center justify-between mt-5">
-                          <div className="flex items-center gap-3 ">
-                            <img
-                              src={Userdata?.Pic}
-                              className="object-cover w-12 h-12 rounded-full"
-                              alt=""
-                            />
-                            <h1 className="text-xl font-semibold">
-                              {item?.Name}
-                            </h1>
-                          </div>
+                        <div className="flex items-center justify-end mt-3">
                           <div
                             onClick={() => {
                               deletePost(item?.id);
@@ -255,7 +257,7 @@ export default function UserProfile() {
                             <AiOutlineDelete size={22} color="red" />
                           </div>
                         </div>
-                        <p className="mt-3 text-sm leading-6">{item?.Text}</p>
+                        <p className="mt-1 text-sm leading-6">{item?.Text}</p>
                       </div>
                     </React.Fragment>
                   );
@@ -263,7 +265,6 @@ export default function UserProfile() {
               ) : (
                 <div className="flex flex-col items-center mt-1 space-y-3 text-cemt-11">
                   <img src={Emptyimg} alt="" className="w-60" />
-
                   <h1 className="text-sm font-semibold ">
                     You haven&apos;t posted anything yet!
                   </h1>

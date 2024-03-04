@@ -49,9 +49,14 @@ export default function SideBar() {
             <FaRegEdit size={30} color="white" />
             <h1>Edit Profile</h1>
           </li>
-          <li className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800">
-            <MdOutlinePrivacyTip size={30} color="white" />
-            <h1>Privacy & Policy</h1>
+          <li>
+            <Link
+              to="/privacy"
+              className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800"
+            >
+              <MdOutlinePrivacyTip size={30} color="white" />
+              <h1>Privacy & Policy</h1>
+            </Link>
           </li>
           <li
             onClick={() => {
