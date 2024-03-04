@@ -76,7 +76,6 @@ export default function UserProfile({ userProfiles, search }) {
                       </ul>
                     </div>
                   </div>
-
                   {/* button section  */}
                   <div>
                     <div className="flex justify-center">

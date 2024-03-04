@@ -138,11 +138,12 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start justify-center gap-2.5 mt-5 px-4">
+          <div className="flex items-start justify-start gap-2.5 mt-5 px-4">
             <div
               onClick={() => {
                 setEditImage(true);
               }}
+              className="max-w-[50vw]"
             >
               <Link to={"/profile"}>
                 {/* {localStorage.getItem("UserPic") == "" ||
@@ -153,7 +154,7 @@ export default function UserProfile() {
                       ? "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
                       : currentUser.pic
                   }
-                  className="object-cover w-40 h-40 rounded-full"
+                  className="object-cover rounded-full h-36 w-36"
                   alt={null}
                 />
                 {/* ) : ( */}
@@ -172,10 +173,10 @@ export default function UserProfile() {
             )}
             <div className="max-w-[50vw] space-y-2">
               <h1 className="font-bold ">{Userdata?.Name}</h1>
-              <p className="text-[12.5px] text-slate-400">{Userdata?.Bio}</p>
+              <p className="text-[11px] text-slate-400">{Userdata?.Bio}</p>
               <div className="flex space-x-3 ">
                 <Link to={"/connections"}>
-                  <button className="py-2 text-[9px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
+                  <button className="py-2 text-[9px] mt-2 font-semibold text-white rounded-full bg-[#1d9bf0] px-4 ">
                     Collabrates
                   </button>
                 </Link>

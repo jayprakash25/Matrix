@@ -42,8 +42,6 @@ export default function People() {
     fetchData();
   }, [fetchData]);
 
-  console.log(filteredUserProfiles);
-
   return (
     <>
       <div className="mb-24">

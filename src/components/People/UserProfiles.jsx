@@ -7,4 +7,3 @@ export default function UserProfiles({ userProfiles, search }) {
     </div>
   );
 }
-

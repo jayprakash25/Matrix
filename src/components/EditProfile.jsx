@@ -84,6 +84,7 @@ export default function EditProfile({ setisedit }) {
               }}
               className="px-4 py-2 outline-none  rounded-xl bg-[#383838]"
               id=""
+              maxLength={120}
               cols="30"
               rows="5"
             ></textarea>
