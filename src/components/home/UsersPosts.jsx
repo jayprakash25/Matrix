@@ -11,19 +11,19 @@ export default function UsersPosts({ posts }) {
               <div>
                 <img
                   className="mx-auto rounded-lg w-[85vw] object-cover"
-                  src={item.image}
-                  alt={item.image}
+                  src={item?.image}
+                  alt=""
                 />
               </div>
               <div className="flex items-center gap-3 mt-5">
                 <img
-                  src={item.Pic}
+                  src={item?.Pic}
                   className="object-cover w-12 h-12 rounded-full"
-                  alt={item.Pic}
+                  alt=""
                 />
-                <h1 className="text-xl font-semibold">{item.Name}</h1>
+                <h1 className="text-xl font-semibold">{item?.Name}</h1>
               </div>
-              <p className="mt-3 text-sm leading-6">{item.Text}</p>
+              <p className="mt-3 text-sm leading-6">{item?.Text}</p>
             </div>
           </React.Fragment>
         );
