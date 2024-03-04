@@ -86,10 +86,8 @@ export default function Notification() {
             receiverDetails: senderDoc.exists() ? senderDoc.data() : null,
           };
         });
-
         const requests = await Promise.all(requestsPromises);
         setStatusReq(requests);
-        // Update the UI based on these requests and their status
       }
     );
     setisloading(false);
@@ -98,7 +96,6 @@ export default function Notification() {
   }, [jwt]);
 
   const handleAccept = async (requestId) => {
-    // Logic to accept the request
     setisaccept(true);
     const requestRef = doc(db, "connectionRequests", requestId);
     await updateDoc(requestRef, {
@@ -108,7 +105,6 @@ export default function Notification() {
   };
 
   const handleDeny = async (requestId) => {
-    // Logic to deny the request
     const requestRef = doc(db, "connectionRequests", requestId);
     await updateDoc(requestRef, {
       status: "denied",
@@ -142,7 +138,9 @@ export default function Notification() {
                     />
                     <div className="space-y-1">
                       <h1 className="text-lg font-bold">
-                        {_.senderDetails?.Name}
+                        {!_.senderDetails?.Name
+                          ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                          : _.senderDetails?.Name}
                       </h1>
                       <p className="text-sm font-semibold">
                         want&apos;s to connect with you

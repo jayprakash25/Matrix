@@ -84,7 +84,6 @@ export default function ViewUserProfile() {
   const sendCollab = async (senderId, receiverId) => {
     try {
       setisloading(true);
-
       const requestsRef = collection(db, "connectionRequests");
       const forwardQuery = query(
         requestsRef,
@@ -96,12 +95,10 @@ export default function ViewUserProfile() {
         where("senderId", "==", receiverId),
         where("receiverId", "==", senderId)
       );
-
       const [forwardSnapshot, reverseSnapshot] = await Promise.all([
         getDocs(forwardQuery),
         getDocs(reverseQuery),
       ]);
-
       if (!forwardSnapshot.empty || !reverseSnapshot.empty) {
         console.log("A pending request already exists.");
         setpopup(true);
