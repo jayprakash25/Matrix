@@ -133,14 +133,16 @@ export default function Notification() {
                   <div className="flex items-center gap-5">
                     <img
                       className="object-cover w-16 h-16 rounded-full"
-                      src={_.senderDetails?.Pic}
+                      src={
+                        !_.senderDetails?.Pic
+                          ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                          : _.senderDetails?.Pic
+                      }
                       alt=""
                     />
                     <div className="space-y-1">
                       <h1 className="text-lg font-bold">
-                        {!_.senderDetails?.Name
-                          ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
-                          : _.senderDetails?.Name}
+                        {_.senderDetails?.Name}
                       </h1>
                       <p className="text-sm font-semibold">
                         want&apos;s to connect with you
@@ -177,7 +179,11 @@ export default function Notification() {
                   <div className="flex items-center gap-5">
                     <img
                       className="object-cover w-16 h-16 rounded-full"
-                      src={_.receiverDetails?.Pic}
+                      src={
+                        !_.receiverDetails?.Pic
+                          ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                          : _.receiverDetails?.Pic
+                      }
                       alt=""
                     />
                     <div className="space-y-1">
