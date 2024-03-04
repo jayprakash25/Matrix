@@ -122,7 +122,7 @@ export default function UserProfile() {
       >
         <main>
           <nav className="p-4">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex justify-between w-full items-left">
               <div>
                 <Link to={"/home"}>
                   <FaArrowLeft size={20} color="" />

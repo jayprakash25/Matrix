@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import hobbies from "../Data/Hobbies";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../ContextProvider/AuthContext";
+import Sucess from "../components/models/Sucess";
 
 export default function SelectHobbies() {
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const [Userhobbies, setUserHobbies] = useState([]);
-  const navigate = useNavigate();
   const { currentUser } = useAuth();
-
+  const [issucess, setissucess] = useState(true);
   const userJWT = currentUser.uid;
   const toggleSelection = (index) => {
     if (selectedHobbies.includes(index)) {
@@ -34,9 +33,8 @@ export default function SelectHobbies() {
       if (!Userhobbies == "") {
         const docRef = doc(db, "USERS", userJWT);
         await updateDoc(docRef, { hobbies: Userhobbies });
-        alert("Success");
+        setissucess(true);
       }
-      navigate("/home");
     } catch (error) {
       console.log(error.message);
     }
@@ -48,6 +46,7 @@ export default function SelectHobbies() {
 
   return (
     <>
+      {issucess ? <Sucess setissucess={setissucess} /> : null}
       <div className="px-8 pt-5 space-y-4">
         <h1 className="text-5xl font-semibold text-transparent bg-[#1d9bf0] bg-clip-text">
           Hello.
