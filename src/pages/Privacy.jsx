@@ -30,7 +30,6 @@ export default function Privacy() {
       <div className="mx-4 mt-5">
         <h1 className="text-2xl font-bold ">Terms of Service</h1>
       </div>
-
       <div>
         <ul className="flex flex-col gap-5 px-4 mt-5">
           {Terms.map((item, i) => {

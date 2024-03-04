@@ -13,7 +13,9 @@ import {
   Signup,
   UserProfile,
   ViewUserProfile,
-  Connections,
+  Security,
+  // Connections,
+  Help,
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { Loader, RegistrationForm, SideBar } from "./components";
@@ -24,7 +26,6 @@ import { useAuth } from "./ContextProvider/AuthContext";
 
 export default function App() {
   const { currentUser, loading, isNewUser } = useAuth();
-
   const [isphone, setisphone] = useState(false);
 
   useEffect(() => {
@@ -129,6 +130,14 @@ export default function App() {
             <Route
               path="/connections"
               element={<ProtectedRoute element={<Messages />} />}
+            />
+            <Route
+              path="/help"
+              element={<ProtectedRoute element={<Help />} />}
+            />
+            <Route
+              path="/Security"
+              element={<ProtectedRoute element={<Security />} />}
             />
           </Routes>
         </>

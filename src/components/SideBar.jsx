@@ -32,13 +32,23 @@ export default function SideBar() {
           </Link>
         </div>
         <ul className="px-6 mt-16 space-y-5">
-          <li className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800">
-            <IoMdHelp size={30} color="white" />
-            <h1>Help</h1>
+          <li>
+            <Link
+              to="/help"
+              className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800"
+            >
+              <IoMdHelp size={30} color="white" />
+              <h1>Help</h1>
+            </Link>
           </li>
-          <li className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800">
-            <MdSecurity size={30} color="white" />
-            <h1>Security</h1>
+          <li>
+            <Link
+              to="/Security"
+              className="flex items-center p-3 cursor-pointer gap-7 active:bg-zinc-800"
+            >
+              <MdSecurity size={30} color="white" />
+              <h1>Security</h1>
+            </Link>
           </li>
           <li
             onClick={() => {

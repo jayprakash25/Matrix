@@ -9,8 +9,12 @@ import Privacy from "./Privacy";
 import Post from "./Post";
 import Messages from "./Messages";
 import Connections from "./Connections";
+import Help from "./Help";
+import Security from "./Security";
 
 export {
+  Security,
+  Help,
   Connections,
   Messages,
   Post,

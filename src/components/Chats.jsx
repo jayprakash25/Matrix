@@ -13,7 +13,6 @@ import { useAuth } from "../ContextProvider/AuthContext";
 
 export default function Chats() {
   const { currentUser } = useAuth();
-
   const jwt = currentUser.uid;
   const [Users, setUsers] = useState([]);
 
