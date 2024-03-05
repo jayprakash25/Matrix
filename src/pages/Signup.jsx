@@ -27,21 +27,19 @@ export default function Signup() {
   const GoogleSignIn = async () => {
     try {
       const res = await signInWithPopup(auth, provider);
-      // Directly using res.user since it's the authenticated user object
-      handleUserAfterAuth(res.user);
+      await handleUserAfterAuth(res.user);
     } catch (error) {
       console.log(error);
       setErrorMessage(error.message);
     }
   };
 
-  // Function to handle sign-in with email and password
-  const SignIn = async () => {
+  const SignIn = async (e) => {
+    e.preventDefault();
     if (cred.password.length < 6) {
       setErrorMessage("Password must be at least 6 characters long");
       return;
     }
-
     try {
       const res = await createUserWithEmailAndPassword(
         auth,
@@ -50,7 +48,7 @@ export default function Signup() {
       );
       setIsNewUser(true);
 
-      handleUserAfterAuth(res.user);
+      await handleUserAfterAuth(res.user);
     } catch (error) {
       console.error(error);
       switch (error.code) {
@@ -137,7 +135,7 @@ export default function Signup() {
             className=" focus:outline-none text-[#bebebe] text-sm py-4 px-6 rounded-3xl bg-[#383838]"
             placeholder="Re-Enter Password"
           />
-          <div className="flex items-center  space-x-2 justify-center">
+          <div className="flex items-center justify-center space-x-2">
             <p>In order to </p>
             <button
               onClick={SignIn}

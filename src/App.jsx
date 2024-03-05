@@ -26,6 +26,8 @@ import { useAuth } from "./ContextProvider/AuthContext";
 
 export default function App() {
   const { currentUser, loading, isNewUser } = useAuth();
+
+  console.log(currentUser);
   const [isphone, setisphone] = useState(false);
 
   useEffect(() => {
