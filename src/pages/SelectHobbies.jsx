@@ -9,7 +9,7 @@ export default function SelectHobbies() {
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const [Userhobbies, setUserHobbies] = useState([]);
   const { currentUser } = useAuth();
-  const [issucess, setissucess] = useState(true);
+  const [issucess, setissucess] = useState(false);
   const userJWT = currentUser.uid;
   const toggleSelection = (index) => {
     if (selectedHobbies.includes(index)) {
@@ -55,7 +55,6 @@ export default function SelectHobbies() {
           Pick your favorite Hobbies to set up your feed
         </p>
       </div>
-
       <main className="grid justify-center grid-cols-3 gap-3.5 px-3.5 mt-8 mb-5 place-items-center">
         {hobbies.map((hobby, i) => (
           <div

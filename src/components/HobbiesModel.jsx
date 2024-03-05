@@ -5,7 +5,7 @@ import { db } from "../Firebase";
 import Loader from "./Loader";
 import { useAuth } from "../ContextProvider/AuthContext";
 
-export default function HobbiesModel({ setisselect }) {
+export default function HobbiesModel({ setisselect, updateHobbiesCallback }) {
   const [Userhobbies, setUserHobbies] = useState([]);
   const [isloading, setisloading] = useState(true);
 
@@ -15,11 +15,13 @@ export default function HobbiesModel({ setisselect }) {
   const docref = doc(db, "USERS", jwt);
 
   const addHobbies = (hobby) => {
-    if (!Userhobbies.includes(hobby)) {
-      setUserHobbies([...Userhobbies, hobby]);
-    } else {
-      setUserHobbies(Userhobbies.filter((i) => i !== hobby));
-    }
+    setUserHobbies((prevHobbies) => {
+      if (!prevHobbies.includes(hobby)) {
+        return [...prevHobbies, hobby];
+      } else {
+        return prevHobbies.filter((i) => i !== hobby);
+      }
+    });
   };
 
   const getcurrenthobbies = async () => {
@@ -41,12 +43,15 @@ export default function HobbiesModel({ setisselect }) {
     e.preventDefault();
     try {
       if (Userhobbies.length > 0) {
+        setisloading(true);
         await updateDoc(docref, { hobbies: Userhobbies });
         setisselect(false);
+        updateHobbiesCallback(Userhobbies);
       } else {
         console.log("No hobbies selected");
       }
     } catch (error) {
+      setisloading(false);
       console.log(error);
     }
   };

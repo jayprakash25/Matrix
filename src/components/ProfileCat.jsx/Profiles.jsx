@@ -90,14 +90,14 @@ export default function Profiles() {
             >
               <Link to={`/${user.id}`}>
                 {/* first section  */}
-                <div className="flex space-x-4 items-center">
-                  <div className="w-14 h-14 rounded-full">
+                <div className="flex items-center space-x-4">
+                  <div className="rounded-full w-14 h-14">
                     <img
                       className="w-full h-full rounded-full"
                       src={
                         user.Pic
                           ? user.Pic
-                          : "https://firebasestorage.googleapis.com/v0/b/the-hub-97b71.appspot.com/o/6364b6fd26e2983209b93d18_ID_Playfal_DrawKit_Webflow_Display_2-min-png-934_2417--removebg-preview.png?alt=media&token=aa0f00e6-e1d5-4245-bfca-e5f6273ec980"
+                          : "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
                       }
                     />
                   </div>

@@ -15,6 +15,7 @@ export default function Signup() {
   const provider = new GoogleAuthProvider();
 
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [cred, setCred] = useState({
     email: "",
     password: "",
@@ -22,7 +23,6 @@ export default function Signup() {
   const { setIsNewUser } = useAuth();
 
   // const jwt = currentUser.uid;
-  const [errorMessage, setErrorMessage] = useState("");
 
   const GoogleSignIn = async () => {
     try {

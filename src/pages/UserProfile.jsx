@@ -92,6 +92,13 @@ export default function UserProfile() {
     });
   };
 
+  const handleAddHobbies = (newHobbies) => {
+    setUserdata({
+      ...Userdata,
+      hobbies: newHobbies,
+    });
+  };
+
   useEffect(() => {
     const startAnimation = async () => {
       await controls.start("animate");
@@ -138,7 +145,7 @@ export default function UserProfile() {
               </div>
             </div>
           </nav>
-          <div className="flex items-start justify-start gap-2.5 mt-5 px-4">
+          <div className="flex items-start justify-center gap-2.5 mt-5 px-4">
             <div
               onClick={() => {
                 setEditImage(true);
@@ -237,7 +244,7 @@ export default function UserProfile() {
                             className="object-cover w-12 h-12 rounded-full"
                             alt=""
                           />
-                          <h1 className=" font-semibold">{item?.Name}</h1>
+                          <h1 className="font-semibold ">{item?.Name}</h1>
                         </div>
                         <div>
                           {item.image && (
@@ -275,7 +282,12 @@ export default function UserProfile() {
         </main>
       </motion.div>
       <BottomBar />
-      {isselect ? <HobbiesModel setisselect={setisselect} /> : null}
+      {isselect ? (
+        <HobbiesModel
+          setisselect={setisselect}
+          updateHobbiesCallback={handleAddHobbies}
+        />
+      ) : null}
     </>
   );
 }
