@@ -53,7 +53,7 @@ export default function UserProfile({ userProfiles, search }) {
                   <div className="flex items-center space-x-4">
                     <div className="rounded-full w-14 h-14">
                       <img
-                        className="w-full h-full rounded-full"
+                        className="object-cover w-full h-full rounded-full"
                         src={
                           user.Pic
                             ? user.Pic
