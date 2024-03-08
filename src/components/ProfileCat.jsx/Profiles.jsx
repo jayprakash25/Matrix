@@ -5,6 +5,7 @@ import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
 import { useAuth } from "../../ContextProvider/AuthContext";
+import PeopleLoader from "./PeopleLoader";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -63,6 +64,8 @@ export default function Profiles() {
     fetchCollabs();
   }, [fetchProfileByCat, fetchCollabs]);
 
+  const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
+
   useEffect(() => {
     fil();
   }, [fil]);
@@ -70,7 +73,11 @@ export default function Profiles() {
   return (
     <>
       {isloading ? (
-        <NotifyLoader />
+        <div className="flex flex-col gap-4 ">
+          {Array.from(load, (index) => (
+            <PeopleLoader key={index} />
+          ))}
+        </div>
       ) : showusers.length === 0 ? (
         <div className="flex flex-col items-center mt-20 space-y-3 text-center">
           <img src={Emptyimg} alt="" className="w-60" />
