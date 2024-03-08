@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getMessaging, getToken } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQaxpMIfF0jymQXPcumOrnTlzSHw3yU8w",
@@ -18,5 +19,23 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
+const messaging = getMessaging(app);
 
-export { auth, db ,storage};
+const generateToken = async () => {
+  try {
+    const permission = await Notification.requestPermission();
+    console.log(permission);
+
+    if (permission === "granted") {
+      const token = await getToken(messaging, {
+        vapidkey:
+          "BIzC2Yx-lOHerjbCqjlaAgyY9pP4c80zG3wNxiAuC0A_-0eiwWBprQX0FYhHSuUWtonGkuqNI78NzG0IQPTedzA",
+      });
+      console.log(token);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { auth, db, storage, generateToken, messaging };

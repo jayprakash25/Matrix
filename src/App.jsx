@@ -23,11 +23,11 @@ import Login from "./pages/Login";
 import ProfileByCat from "./components/People/ProfileByCat";
 import Chat from "./pages/Chat";
 import { useAuth } from "./ContextProvider/AuthContext";
-
+import { generateToken, messaging } from "./Firebase";
+import { onMessage } from "firebase/messaging";
 export default function App() {
   const { currentUser, loading, isNewUser } = useAuth();
 
-  console.log(currentUser);
   const [isphone, setisphone] = useState(false);
 
   useEffect(() => {
@@ -48,6 +48,20 @@ export default function App() {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("load", checkIsPhone);
     };
+  }, []);
+
+  useEffect(() => {
+    generateToken();
+    onMessage(messaging, (payload) => {
+      if (Notification.permission === "granted") {
+        const notificationTitle = payload.notification.title;
+        const notificationOptions = {
+          body: payload.notification.body,
+          icon: payload.notification.image,
+        };
+        new Notification(notificationTitle, notificationOptions);
+      }
+    });
   }, []);
 
   if (loading) {

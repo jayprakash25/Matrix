@@ -61,7 +61,6 @@ export default function UserProfile({ userProfiles, search }) {
                         }
                       />
                     </div>
-
                     <div className="space-y-2">
                       <h1>{user.Name}</h1>
                       <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">

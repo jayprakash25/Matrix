@@ -181,7 +181,7 @@ export default function ViewUserProfile() {
           )}
         </div>
         <div className="max-w-[55vw] space-y-4">
-          <h1 className="text-lg font-bold">{Userdata.Name}</h1>
+          <h1 className="font-bold ">{Userdata.Name}</h1>
           <p className="text-[11px] text-slate-400">{Userdata.Bio}</p>
           {userCollabs.includes(jwt) ? (
             <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
