@@ -27,7 +27,6 @@ import { generateToken, messaging } from "./Firebase";
 import { onMessage } from "firebase/messaging";
 export default function App() {
   const { currentUser, loading, isNewUser } = useAuth();
-
   const [isphone, setisphone] = useState(false);
 
   useEffect(() => {

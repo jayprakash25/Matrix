@@ -104,7 +104,7 @@ export default function Chat() {
 
   return (
     <>
-      <div className="w-full fixed top-0 text-xl flex space-x-1 mb-4 items-center py-3 bg-[#383838] text-white font-medium rounded-b-md px-4 ">
+      <div className="w-full fixed top-0 text-xl flex space-x-1 mb-4 items-center py-3 bg-[#383838] text-white font-medium  px-4 ">
         <div>
           <Link to={"/messages"}>
             <IoMdArrowRoundBack />

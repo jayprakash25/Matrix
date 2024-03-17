@@ -10,9 +10,10 @@ import UserProfileLoader from "../components/UserProfileLoader";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/ProfileImage";
-import { CiMenuFries } from "react-icons/ci";
+import { CiMenuFries, CiSaveDown2 } from "react-icons/ci";
 import { BottomBar, HobbiesModel, Loader } from "../components";
 import { useAuth } from "../ContextProvider/AuthContext";
+import { BiDislike, BiLike } from "react-icons/bi";
 
 export default function UserProfile() {
   const controls = useAnimation();
@@ -25,12 +26,15 @@ export default function UserProfile() {
   const [isloading, setisloading] = useState(true);
   const [isPage, setisPage] = useState(true);
   const [editImage, setEditImage] = useState(false);
+  const [likedpost, setlikedpost] = useState();
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
     Bio: "",
     hobbies: [],
     Posts: [],
+    likedPost: [],
+    dislikedPost: [],
   });
 
   const getPosts = async () => {
@@ -43,6 +47,7 @@ export default function UserProfile() {
         Bio: User?.data()?.Bio,
         hobbies: User?.data()?.hobbies,
         Posts: User?.data()?.Posts || [],
+        likedPost: User?.data()?.likedPost || [],
       });
       setisloading(false);
       setisPage(false);
@@ -114,8 +119,6 @@ export default function UserProfile() {
 
   const pageTransition = { duration: 0.5 };
 
-  console.log(Userdata?.Posts);
-
   return (
     <>
       {" "}
@@ -153,8 +156,6 @@ export default function UserProfile() {
               className="max-w-[50vw]"
             >
               <Link to={"/profile"}>
-                {/* {localStorage.getItem("UserPic") == "" ||
-                localStorage.getItem("UserPic") == undefined ? ( */}
                 <img
                   src={
                     !currentUser.pic
@@ -164,13 +165,6 @@ export default function UserProfile() {
                   className="object-cover rounded-full h-36 w-36"
                   alt={null}
                 />
-                {/* ) : ( */}
-                {/* <img
-                    src={localStorage.getItem("UserPic")}
-                    className="object-cover mx-auto rounded-full w-36 h-36"
-                    alt={localStorage.getItem("UserPic")}
-                  /> */}
-                {/* )} */}
               </Link>
             </div>
             {editImage && (
@@ -255,16 +249,35 @@ export default function UserProfile() {
                             />
                           )}
                         </div>
-                        <div className="flex items-center justify-end mt-3">
-                          <div
-                            onClick={() => {
-                              deletePost(item?.id);
-                            }}
-                          >
-                            <AiOutlineDelete size={22} color="red" />
+                        <div className="flex items-center justify-end mt-3"></div>
+                        <p className="mt-1 text-sm leading-6">{item?.Text}</p>
+                        <div className="flex items-center justify-between gap-5 my-3">
+                          <div className="flex justify-around w-[100vw]">
+                            <div className="flex items-center justify-center gap-2">
+                              <BiLike
+                                size={20}
+                                color="white"
+                                cursor="pointer"
+                              />
+                              <h1 className="text-sm">{item.likes}</h1>
+                            </div>
+                            <div className="flex items-center justify-center gap-2">
+                              <BiDislike
+                                size={20}
+                                color="white"
+                                cursor="pointer"
+                              />
+                              <h1 className="text-sm">{item.dislikes}</h1>
+                            </div>
+                            <div
+                              onClick={() => {
+                                deletePost(item?.id);
+                              }}
+                            >
+                              <AiOutlineDelete size={22} color="red" />
+                            </div>
                           </div>
                         </div>
-                        <p className="mt-1 text-sm leading-6">{item?.Text}</p>
                       </div>
                     </React.Fragment>
                   );

@@ -4,7 +4,6 @@ import hobbies from "../../Data/Hobbies";
 export default function Category() {
   return (
     <div className="pl-2 mt-3">
-      {/* <div><h1 className="text-xl font-bold">Categories</h1></div> */}
       <div className="relative flex space-x-4 overflow-x-auto">
         {hobbies.map((_, index) => {
           return (
@@ -13,7 +12,7 @@ export default function Category() {
                 <div className="bg-[#282828] w-16 h-16 rounded-3xl flex items-center justify-center">
                   {_.image}
                 </div>
-                <div className="grid place-items-center place-content-center ">
+                <div className="grid place-items-center place-content-center text-[10px]">
                   <p>{_.name}</p>
                 </div>
               </div>

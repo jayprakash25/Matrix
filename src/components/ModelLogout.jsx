@@ -10,17 +10,17 @@ export default function logoutmodel({ setislogout, handleLogout }) {
             onClick={() => {
               setislogout(false);
             }}
-            size={25}
+            size={18}
             color={"white"}
           />
         </div>
         <div className="space-y-4 text-center">
-          <p className="text-lg">Are you sure you want to Logout</p>
+          <p className="text-sm">Are you sure you want to Logout</p>
           <div className="border-b-[1px] border-zinc-700"></div>
         </div>
         <div className="flex items-center justify-center gap-5 mt-4">
           <button
-            className="w-[50vw] px-20 py-1.5  font-semibold bg-red-600 rounded-full "
+            className="w-[50vw] px-20 py-1.5 text-[13.8px] font-semibold bg-red-600 rounded-full "
             onClick={handleLogout}
           >
             Yes

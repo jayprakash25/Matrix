@@ -51,9 +51,7 @@ export default function SelectHobbies() {
         <h1 className="text-5xl font-semibold text-transparent bg-[#1d9bf0] bg-clip-text">
           Hello.
         </h1>
-        <p className="text-sm ">
-          Pick your favorite Hobbies to set up your feed
-        </p>
+        <p className="text-sm ">Select Business's to interact with People</p>
       </div>
       <main className="grid justify-center grid-cols-3 gap-3.5 px-3.5 mt-8 mb-5 place-items-center">
         {hobbies.map((hobby, i) => (
@@ -76,7 +74,7 @@ export default function SelectHobbies() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={saveHobbies}
-          className="py-3   w-[70vw] text-white rounded-full bg-[#1d9bf0] "
+          className="py-3 text-[12px] w-[70vw] text-white rounded-full bg-[#1d9bf0] "
         >
           Next
         </button>

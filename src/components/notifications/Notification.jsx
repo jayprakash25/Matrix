@@ -75,9 +75,7 @@ export default function Notification() {
       async (snapshot) => {
         const requestsPromises = snapshot.docs.map(async (docSnap) => {
           const requestData = docSnap.data();
-          // console.log(requestData)
           const receiverId = requestData.receiverId;
-          // Fetch sender's details
           const senderDocRef = doc(db, "USERS", receiverId);
           const senderDoc = await getDoc(senderDocRef);
           return {

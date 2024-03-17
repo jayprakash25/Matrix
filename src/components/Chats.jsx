@@ -101,7 +101,7 @@ export default function Chats() {
                         ? item.Pic
                         : "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
                     }
-                    className="object-cover rounded-full w-14 h-14 "
+                    className="object-cover rounded-full w-14 h-14 "x
                     alt=""
                   />
                 </div>

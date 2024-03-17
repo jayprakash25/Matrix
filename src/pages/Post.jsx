@@ -28,6 +28,8 @@ export default function Post() {
     Text: "",
     Name: "",
     Pic: "",
+    likes: 0,
+    dislikes: 0,
   });
 
   const uploadPost = async () => {
