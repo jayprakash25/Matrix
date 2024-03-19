@@ -252,7 +252,7 @@ export default function UserProfile() {
                         <div className="flex items-center justify-end mt-3"></div>
                         <p className="mt-1 text-sm leading-6">{item?.Text}</p>
                         <div className="flex items-center justify-between gap-5 my-3">
-                          <div className="flex justify-around w-[100vw]">
+                          <div className="flex justify-around w-full">
                             <div className="flex items-center justify-center gap-2">
                               <BiLike
                                 size={20}
