@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { BiDislike, BiLike } from "react-icons/bi";
-import { CiSaveDown2 } from "react-icons/ci";
-import { updateDoc, doc, getDoc } from "firebase/firestore";
+import { updateDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
 import { useAuth } from "../../ContextProvider/AuthContext";
 import Loader from "../Loader";
+import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
+import { BiSolidDislike } from "react-icons/bi";
+
 export default function UsersPosts({ posts }) {
   const PostOwnerId = posts[0].userId;
 
@@ -17,80 +19,129 @@ export default function UsersPosts({ posts }) {
 
   const [updatedPosts, setUpdatedPosts] = useState(posts[0].posts || []);
 
+  const [likedpost, setLikedPost] = useState([]);
+
+  const [dislikedpost, setdislikedpost] = useState([]);
+
   const currentUserdocref = doc(db, "USERS", jwt);
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const currentuser = await getDoc(currentUserdocref);
+        const currentLikedPost = (await currentuser.data().likedPosts) || [];
+        const currentdisLikedPost =
+          (await currentuser.data().dislikedPosts) || [];
+        setLikedPost(currentLikedPost);
+        setdislikedpost(currentdisLikedPost);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const unsubscribe = onSnapshot(ownerdocref, (doc) => {
+      if (doc.exists()) {
+        const userData = doc.data();
+        const userPosts = userData.Posts || [];
+        setUpdatedPosts(userPosts);
+      }
+    });
+
+    fetchUserData();
+
+    return () => {
+      unsubscribe();
+    };
+  }, [currentUserdocref, ownerdocref]);
+
+  const unlike = async (post) => {
+    try {
+      setLoading(true);
+
+      const updatelikedpost = likedpost.filter((id) => id !== post.id);
+      setLikedPost(updatelikedpost);
+
+      const updateremovelike = updatedPosts.map((item) => {
+        if (item.id === post.id) {
+          return { ...item, likes: item.likes - 1 };
+        }
+        return item;
+      });
+
+      setUpdatedPosts(updateremovelike);
+
+      await updateDoc(currentUserdocref, {
+        likedPosts: updatelikedpost,
+      });
+
+      await updateDoc(ownerdocref, {
+        Posts: updateremovelike,
+      });
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   const like = async (post) => {
     try {
       setLoading(true);
-      const currentuser = await getDoc(currentUserdocref);
-      const currentLikedPost = currentuser.data().likedPosts || [];
-      const currentDislikedPost = currentuser.data().dislikedPosts || [];
-      const userdata = await getDoc(ownerdocref);
-      const userPosts = userdata.data().Posts;
 
-      if (currentDislikedPost.includes(post.id)) {
-        return;
-      }
+      const updatePostWithLike = updatedPosts.map((item) => {
+        if (item.id === post.id) {
+          return { ...item, likes: item.likes + 1 };
+        }
+        return item;
+      });
 
-      if (currentLikedPost.includes(post.id)) {
-        const updatePostremoveLike = userPosts.map((item) => {
-          if (item.id == post.id) {
-            if (item.likes !== 0) {
-              return { ...item, likes: item.likes - 1 };
-            }
-          }
-          return item;
-        });
+      setUpdatedPosts(updatePostWithLike);
 
-        await updateDoc(ownerdocref, {
-          Posts: updatePostremoveLike,
-        });
+      await updateDoc(ownerdocref, {
+        Posts: updatePostWithLike,
+      });
 
-        const filterPostWithoutId = currentLikedPost.filter(
-          (id) => id !== post.id
-        );
+      const updatedLikedPost = [...likedpost, post.id];
+      setLikedPost(updatedLikedPost);
 
-        await updateDoc(currentUserdocref, {
-          likedPosts: filterPostWithoutId,
-        });
+      await updateDoc(currentUserdocref, {
+        likedPosts: updatedLikedPost,
+      });
 
-        const updatedPostIndex = updatedPosts.findIndex(
-          (item) => item.id === post.id
-        );
-        const updatedPostsCopy = [...updatedPosts];
-        updatedPostsCopy[updatedPostIndex] = {
-          ...updatedPostsCopy[updatedPostIndex],
-          likes: updatedPostsCopy[updatedPostIndex].likes - 1,
-        };
-        setUpdatedPosts(updatedPostsCopy);
-      } else {
-        const updatePostWithLike = userPosts.map((item) => {
-          if (item.id == post.id) {
-            return { ...item, likes: item.likes + 1 };
-          }
-          return item;
-        });
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
-        await updateDoc(ownerdocref, {
-          Posts: updatePostWithLike,
-        });
+  const undislike = async (Post) => {
+    try {
+      setLoading(true);
 
-        await updateDoc(currentUserdocref, {
-          likedPosts: [...currentLikedPost, post.id],
-        });
+      const updatedislikedpost = dislikedpost.filter((id) => id !== Post.id);
+      setdislikedpost(updatedislikedpost);
 
-        const updatedPostIndex = updatedPosts.findIndex(
-          (item) => item.id === post.id
-        );
-        const updatedPostsCopy = [...updatedPosts];
-        updatedPostsCopy[updatedPostIndex] = {
-          ...updatedPostsCopy[updatedPostIndex],
-          likes: updatedPostsCopy[updatedPostIndex].likes + 1,
-        };
-        setUpdatedPosts(updatedPostsCopy);
-      }
+      await updateDoc(currentUserdocref, {
+        dislikedPosts: updatedislikedpost,
+      });
+
+      const updateremovedislike = updatedPosts.map((item) => {
+        if (item.id === Post.id) {
+          return { ...item, dislikes: item.dislikes - 1 };
+        }
+        return item;
+      });
+
+      setUpdatedPosts(updateremovedislike);
+
+      await updateDoc(ownerdocref, {
+        Posts: updateremovedislike,
+      });
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -101,81 +152,37 @@ export default function UsersPosts({ posts }) {
   const dislike = async (post) => {
     try {
       setLoading(true);
-      const currentuser = await getDoc(currentUserdocref);
-      const currentDislikedPost = currentuser.data().dislikedPosts || [];
-      const currentLikedPost = currentuser.data().likedPosts || [];
-      const userdata = await getDoc(ownerdocref);
-      const userPosts = userdata.data().Posts;
 
-      if (currentLikedPost.includes(post.id)) {
-        return;
-      }
+      const updatePostWithDislike = updatedPosts.map((item) => {
+        if (item.id === post.id) {
+          return { ...item, dislikes: item.dislikes + 1 };
+        }
+        return item;
+      });
 
-      if (currentDislikedPost.includes(post.id)) {
-        const updatePostRemoveDislike = userPosts.map((item) => {
-          if (item.id == post.id) {
-            return { ...item, dislikes: item.dislikes - 1 };
-          }
-          return item;
-        });
+      setUpdatedPosts(updatePostWithDislike);
 
-        await updateDoc(ownerdocref, {
-          Posts: updatePostRemoveDislike,
-        });
+      await updateDoc(ownerdocref, {
+        Posts: updatePostWithDislike,
+      });
 
-        const filterPostWithoutId = currentDislikedPost.filter(
-          (id) => id !== post.id
-        );
+      const updatedDislikedPost = [...likedpost, post.id];
+      setLikedPost(updatedDislikedPost);
 
-        await updateDoc(currentUserdocref, {
-          dislikedPosts: filterPostWithoutId,
-        });
+      await updateDoc(currentUserdocref, {
+        dislikedPosts: updatedDislikedPost,
+      });
 
-        const updatedPostIndex = updatedPosts.findIndex(
-          (item) => item.id === post.id
-        );
-        const updatedPostsCopy = [...updatedPosts];
-        updatedPostsCopy[updatedPostIndex] = {
-          ...updatedPostsCopy[updatedPostIndex],
-          dislikes: updatedPostsCopy[updatedPostIndex].dislikes - 1,
-        };
-        setUpdatedPosts(updatedPostsCopy);
-      } else {
-        const updatePostWithDislike = userPosts.map((item) => {
-          if (item.id == post.id) {
-            return { ...item, dislikes: item.dislikes + 1 };
-          }
-          return item;
-        });
-
-        await updateDoc(ownerdocref, {
-          Posts: updatePostWithDislike,
-        });
-
-        await updateDoc(currentUserdocref, {
-          dislikedPosts: [...currentDislikedPost, post.id],
-        });
-
-        const updatedPostIndex = updatedPosts.findIndex(
-          (item) => item.id === post.id
-        );
-        const updatedPostsCopy = [...updatedPosts];
-        updatedPostsCopy[updatedPostIndex] = {
-          ...updatedPostsCopy[updatedPostIndex],
-          dislikes: updatedPostsCopy[updatedPostIndex].dislikes + 1,
-        };
-        setUpdatedPosts(updatedPostsCopy);
-      }
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   return (
     <>
       {loading ? <Loader /> : null}
-
       <main className="flex flex-col items-center justify-center gap-5 mb-20 mt-7">
         {updatedPosts?.map((item, i) => {
           return (
@@ -199,25 +206,47 @@ export default function UsersPosts({ posts }) {
                 <p className="mt-3 text-sm leading-6">{item?.Text}</p>
                 <div className="flex justify-around my-2">
                   <div className="flex items-center justify-center gap-3">
-                    <BiLike
-                      onClick={() => {
-                        like(item);
-                      }}
-                      size={20}
-                      color="white"
-                      cursor="pointer"
-                    />
+                    {likedpost?.includes(item.id) ? (
+                      <AiTwotoneLike
+                        onClick={() => {
+                          unlike(item);
+                        }}
+                        size={20}
+                        color="white"
+                        cursor="pointer"
+                      />
+                    ) : (
+                      <BiLike
+                        onClick={() => {
+                          like(item);
+                        }}
+                        size={20}
+                        color="white"
+                        cursor="pointer"
+                      />
+                    )}
                     <h1 className="text-sm">{item.likes}</h1>
                   </div>
                   <div className="flex items-center justify-center gap-3">
-                    <BiDislike
-                      onClick={() => {
-                        dislike(item);
-                      }}
-                      size={20}
-                      color="white"
-                      cursor="pointer"
-                    />
+                    {dislikedpost.includes(item.id) ? (
+                      <BiSolidDislike
+                        onClick={() => {
+                          undislike(item);
+                        }}
+                        size={20}
+                        color="white"
+                        cursor="pointer"
+                      />
+                    ) : (
+                      <BiDislike
+                        onClick={() => {
+                          dislike(item);
+                        }}
+                        size={20}
+                        color="white"
+                        cursor="pointer"
+                      />
+                    )}
                     <h1 className="text-sm">{item.dislikes}</h1>
                   </div>
                 </div>
