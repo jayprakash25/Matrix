@@ -13,7 +13,7 @@ export default function UserProfile({ userProfiles, search }) {
   const jwt = currentUser.uid;
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
   const [connectedUserIds, setConnectedUserIds] = useState(new Set());
-  const [isloading, setisloading] = useState(true);
+  const [isloading, setisloading] = useState(false);
 
   const fetchConnectedUsers = useCallback(async () => {
     try {
@@ -41,11 +41,11 @@ export default function UserProfile({ userProfiles, search }) {
         </div>
       ) : (
         <>
-          {userProfiles.length > 0 ? (
-            <div className="grid  gap-y-4 px-2.5 mb-20">
+          {userProfiles ? (
+            <div className="grid  gap-y-3 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
-                  className="bg-[#282828] p-5 rounded-2xl flex items-center justify-between "
+                  className="bg-[#282828] p-5 rounded-full flex items-center justify-between"
                   key={index}
                 >
                   {/* first section */}
@@ -61,8 +61,11 @@ export default function UserProfile({ userProfiles, search }) {
                       />
                     </div>
                     <div className="space-y-2">
-                      <h1>{user.Name}</h1>
-                      <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
+                      <h1 className="text-[12px]">{user.Name}</h1>
+                      <h1 className="text-[10px]">
+                        {user.Bio?.split(" ").splice(0, 5).join(" ")}
+                      </h1>
+                      {/* <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
                         {user.hobbies?.map((hobby, hobbyIndex) => (
                           <li
                             key={hobbyIndex}
@@ -71,7 +74,7 @@ export default function UserProfile({ userProfiles, search }) {
                             {hobby}
                           </li>
                         ))}
-                      </ul>
+                      </ul> */}
                     </div>
                   </div>
                   {/* button section  */}

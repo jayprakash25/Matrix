@@ -93,7 +93,6 @@ export default function Home() {
 
   const pageTransition = { duration: 0.5 };
 
-
   return (
     <>
       <motion.div

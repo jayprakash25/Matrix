@@ -5,16 +5,27 @@ import UserProfiles from "../components/People/UserProfiles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useAuth } from "../ContextProvider/AuthContext";
+import Loader from "../components/People/Loader";
 
 export default function People() {
   const { currentUser } = useAuth();
-
+  const [isloading, setisloading] = useState(false);
   const jwt = currentUser.uid;
   const [searchQuery, setSearchQuery] = useState("");
   const [allUserProfiles, setAllUserProfiles] = useState([]);
   const [filteredUserProfiles, setFilteredUserProfiles] = useState([]);
+  const load = [1, 2, 3, 4, 5, 6, 7, 8, 10];
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filteredProfiles = allUserProfiles.filter((profile) =>
+      profile.Name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredUserProfiles(filteredProfiles);
+  };
 
   const fetchData = useCallback(async () => {
+    setisloading(true);
     const docRef = collection(db, "USERS");
     const snapshot = await getDocs(docRef);
     const userData = snapshot.docs
@@ -28,26 +39,30 @@ export default function People() {
       });
     setAllUserProfiles(userData);
     setFilteredUserProfiles(userData);
+    setisloading(false);
   }, [jwt]);
-
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    const filteredProfiles = allUserProfiles.filter((profile) =>
-      profile.Name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredUserProfiles(filteredProfiles);
-  };
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
       <div className="mb-24">
         <SearchBar onSearch={handleSearch} />
       </div>
-      <UserProfiles userProfiles={filteredUserProfiles} search={searchQuery} />
+      {isloading ? (
+        <div className="flex flex-col gap-4 ">
+          {Array.from(load, (index) => (
+            <Loader key={index} />
+          ))}
+        </div>
+      ) : (
+        <UserProfiles
+          userProfiles={filteredUserProfiles}
+          search={searchQuery}
+        />
+      )}
       <BottomBar />
     </>
   );
