@@ -24,7 +24,7 @@ export default function SideBar() {
 
   return (
     <>
-      <aside>
+      <aside data-aos="fade-left">
         <div className="flex justify-between p-5">
           <h1 className="text-lg font-semibold">Menu</h1>
           <Link to={`/profile`}>
