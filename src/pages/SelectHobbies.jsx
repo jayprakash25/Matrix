@@ -74,7 +74,7 @@ export default function SelectHobbies() {
       <div className="flex items-center justify-center my-10">
         <button
           onClick={saveHobbies}
-          className="py-3 text-[12px] w-[70vw] text-white rounded-full bg-[#1d9bf0] "
+          className="py-3 text-[11px] w-[70vw] text-white rounded-full bg-[#1d9bf0] "
         >
           Next
         </button>

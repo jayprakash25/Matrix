@@ -46,7 +46,6 @@ export default function Chats() {
         receivedRequestsSnapshot.forEach((doc) =>
           connectedUserIds.add(doc.data().senderId)
         );
-
         const usersDataArray = await Promise.all(
           [...connectedUserIds].map(async (userId) => {
             const userDocRef = doc(db, "USERS", userId);
@@ -76,17 +75,6 @@ export default function Chats() {
     fetchConnectedUsers();
   }, [jwt]);
 
-  // async function generateSHA256Hash(input) {
-  //   const encoder = new TextEncoder();
-  //   const data = encoder.encode(input);
-  //   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  //   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  //   const hashHex = hashArray
-  //     .map((b) => b.toString(16).padStart(2, "0"))
-  //     .join("");
-  //   return hashHex;
-  // }
-
   return (
     <main className="flex flex-col mx-2 mt-6 space-y-1">
       {Users.map((item, i) => {
@@ -101,7 +89,8 @@ export default function Chats() {
                         ? item.Pic
                         : "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
                     }
-                    className="object-cover rounded-full w-14 h-14 "x
+                    className="object-cover rounded-full w-14 h-14 "
+                    x
                     alt=""
                   />
                 </div>

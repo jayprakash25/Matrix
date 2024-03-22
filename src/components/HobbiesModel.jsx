@@ -73,14 +73,14 @@ export default function HobbiesModel({ setisselect, updateHobbiesCallback }) {
                     : null
                 }   cursor-pointer  text-center px-4 py-2 border-amber-500 rounded-full`}
               >
-                <h1 className="text-sm font-semibold ">{hobby.name}</h1>
+                <h1 className="text-xs font-semibold ">{hobby.name}</h1>
               </div>
             ))}
           </div>
           <div className="flex items-center justify-center my-10">
             <button
               onClick={saveHobbies}
-              className="py-3   w-[70vw] text-white rounded-full bg-[#1d9bf0] "
+              className="py-3  text-[13px] w-[50vw] text-white rounded-full bg-[#1d9bf0] "
             >
               Next
             </button>

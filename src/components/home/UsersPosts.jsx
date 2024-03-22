@@ -5,7 +5,7 @@ import { updateDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../Firebase";
 import { useAuth } from "../../ContextProvider/AuthContext";
 import Loader from "../Loader";
-import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai";
+import { AiTwotoneLike } from "react-icons/ai";
 import { BiSolidDislike } from "react-icons/bi";
 
 export default function UsersPosts({ posts }) {
@@ -48,9 +48,7 @@ export default function UsersPosts({ posts }) {
         setUpdatedPosts(userPosts);
       }
     });
-
     fetchUserData();
-
     return () => {
       unsubscribe();
     };
@@ -89,29 +87,36 @@ export default function UsersPosts({ posts }) {
 
   const like = async (post) => {
     try {
-      setLoading(true);
+      const Userdata = await getDoc(currentUserdocref);
 
-      const updatePostWithLike = updatedPosts.map((item) => {
-        if (item.id === post.id) {
-          return { ...item, likes: item.likes + 1 };
-        }
-        return item;
-      });
+      const dislikedids = Userdata.data().dislikedPosts || [];
 
-      setUpdatedPosts(updatePostWithLike);
+      if (dislikedids.includes(post.id)) {
+        return;
+      } else {
+        setLoading(true);
+        const updatePostWithLike = updatedPosts.map((item) => {
+          if (item.id === post.id) {
+            return { ...item, likes: item.likes + 1 };
+          }
+          return item;
+        });
 
-      await updateDoc(ownerdocref, {
-        Posts: updatePostWithLike,
-      });
+        setUpdatedPosts(updatePostWithLike);
 
-      const updatedLikedPost = [...likedpost, post.id];
-      setLikedPost(updatedLikedPost);
+        await updateDoc(ownerdocref, {
+          Posts: updatePostWithLike,
+        });
 
-      await updateDoc(currentUserdocref, {
-        likedPosts: updatedLikedPost,
-      });
+        const updatedLikedPost = [...likedpost, post.id];
+        setLikedPost(updatedLikedPost);
 
-      setLoading(false);
+        await updateDoc(currentUserdocref, {
+          likedPosts: updatedLikedPost,
+        });
+
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -151,29 +156,36 @@ export default function UsersPosts({ posts }) {
 
   const dislike = async (post) => {
     try {
-      setLoading(true);
+      const Userdata = await getDoc(currentUserdocref);
 
-      const updatePostWithDislike = updatedPosts.map((item) => {
-        if (item.id === post.id) {
-          return { ...item, dislikes: item.dislikes + 1 };
-        }
-        return item;
-      });
+      const likedids = Userdata.data().likedPosts || [];
 
-      setUpdatedPosts(updatePostWithDislike);
+      if (likedids.includes(post.id)) {
+        return;
+      } else {
+        setLoading(true);
+        const updatePostWithDislike = updatedPosts.map((item) => {
+          if (item.id === post.id) {
+            return { ...item, dislikes: item.dislikes + 1 };
+          }
+          return item;
+        });
 
-      await updateDoc(ownerdocref, {
-        Posts: updatePostWithDislike,
-      });
+        setUpdatedPosts(updatePostWithDislike);
 
-      const updatedDislikedPost = [...likedpost, post.id];
-      setLikedPost(updatedDislikedPost);
+        await updateDoc(ownerdocref, {
+          Posts: updatePostWithDislike,
+        });
 
-      await updateDoc(currentUserdocref, {
-        dislikedPosts: updatedDislikedPost,
-      });
+        const updatedDislikedPost = [...likedpost, post.id];
+        setLikedPost(updatedDislikedPost);
 
-      setLoading(false);
+        await updateDoc(currentUserdocref, {
+          dislikedPosts: updatedDislikedPost,
+        });
+
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
