@@ -91,12 +91,12 @@ export default function Profiles() {
           {showusers.map((user, index) => (
             <div
               key={index}
+              data-aos="fade-up"
               className={`bg-[#282828] p-5 rounded-2xl flex items-center justify-between ${
                 connectedUser.includes(user.id) ? "connected" : ""
               }`}
             >
               <Link to={`/${user.id}`}>
-                {/* first section  */}
                 <div className="flex items-center space-x-4">
                   <div className="rounded-full w-14 h-14">
                     <img
@@ -108,7 +108,6 @@ export default function Profiles() {
                       }
                     />
                   </div>
-
                   <div className="space-y-2">
                     <h1>{user.Name}</h1>
                     <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
@@ -124,9 +123,6 @@ export default function Profiles() {
                   </div>
                 </div>
               </Link>
-
-              {/* button section  */}
-
               <div className="flex justify-center mt-4">
                 {connectedUser.includes(user.id) ? (
                   <button className="px-5 py-2 text-xs text-center text-white rounded-full border-[1px] border-blue-500">

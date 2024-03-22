@@ -12,13 +12,12 @@ import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import SportsTennisIcon from "@mui/icons-material/SportsTennis";
 import GamesIcon from "@mui/icons-material/Games";
 import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
-import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 const hobbies = [
   {
-    name: "AI Solutions",
+    name: "AI ",
     image: <GiteIcon color="primary" fontSize="small" />,
   },
   {
@@ -53,12 +52,6 @@ const hobbies = [
     name: "Content  ",
     image: <PianoIcon color="primary" fontSize="small" />,
   },
-
-  {
-    name: "Fashion",
-    image: <TheatersIcon color="primary" fontSize="small" />,
-  },
-
   {
     name: "Marketing",
     image: <MicIcon color="primary" fontSize="small" />,
@@ -68,14 +61,6 @@ const hobbies = [
     image: <AutoFixHighIcon color="primary" fontSize="small" />,
   },
   {
-    name: "Logistics",
-    image: <SportsTennisIcon color="primary" fontSize="small" />,
-  },
-  {
-    name: "HR",
-    image: <GamesIcon color="primary" fontSize="small" />,
-  },
-  {
     name: "Design",
     image: <HolidayVillageIcon color="primary" fontSize="small" />,
   },
@@ -83,14 +68,9 @@ const hobbies = [
     name: "Real Estate",
     image: <HolidayVillageIcon color="primary" fontSize="small" />,
   },
-
   {
-    name: "Fitness",
+    name: "Agency",
     image: <FitnessCenterIcon color="primary" fontSize="small" />,
-  },
-  {
-    name: "Travel-Agency",
-    image: <PhotoCameraIcon color="primary" fontSize="small" />,
   },
   {
     name: "Supply-Chain",

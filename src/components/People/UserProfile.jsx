@@ -45,6 +45,7 @@ export default function UserProfile({ userProfiles, search }) {
             <div className="grid  gap-y-3 px-2.5 mb-20">
               {userProfiles.map((user, index) => (
                 <div
+                  data-aos="fade-up"
                   className="bg-[#282828] p-5 rounded-full flex items-center justify-between"
                   key={index}
                 >
@@ -65,16 +66,6 @@ export default function UserProfile({ userProfiles, search }) {
                       <h1 className="text-[10px]">
                         {user.Bio?.split(" ").splice(0, 5).join(" ")}
                       </h1>
-                      {/* <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
-                        {user.hobbies?.map((hobby, hobbyIndex) => (
-                          <li
-                            key={hobbyIndex}
-                            className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
-                          >
-                            {hobby}
-                          </li>
-                        ))}
-                      </ul> */}
                     </div>
                   </div>
                   {/* button section  */}

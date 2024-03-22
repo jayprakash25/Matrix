@@ -14,9 +14,10 @@ import {
   UserProfile,
   ViewUserProfile,
   Security,
-  // Connections,
   Help,
 } from "./pages/index";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Routes, Route } from "react-router-dom";
 import { Loader, RegistrationForm, SideBar } from "./components";
 import Login from "./pages/Login";
@@ -28,6 +29,8 @@ import { onMessage } from "firebase/messaging";
 export default function App() {
   const { currentUser, loading, isNewUser } = useAuth();
   const [isphone, setisphone] = useState(false);
+
+  AOS.init();
 
   useEffect(() => {
     const checkIsPhone = () => {
