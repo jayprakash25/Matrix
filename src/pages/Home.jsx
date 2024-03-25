@@ -14,13 +14,10 @@ import Category from "../components/home/Category";
 import Empty from "../components/home/Empty";
 import UsersPosts from "../components/home/UsersPosts";
 import Loader from "../components/home/Loader";
-import { useAnimation, motion } from "framer-motion";
 import { useAuth } from "../ContextProvider/AuthContext";
 export default function Home() {
   const { currentUser } = useAuth();
-
   const jwt = currentUser.uid;
-  const controls = useAnimation();
   const [isloading, setisloading] = useState(true);
   const [posts, setposts] = useState();
 
@@ -78,30 +75,9 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-    const startAnimation = async () => {
-      await controls.start("animate");
-    };
-    startAnimation();
-  }, [controls]);
-
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const pageTransition = { duration: 0.5 };
-
   return (
     <>
-      <motion.div
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
-        transition={pageTransition}
-      >
+      <div data-aos="fade-left">
         <Discover />
         <Category />
         {posts?.length == 0 ? (
@@ -111,7 +87,7 @@ export default function Home() {
         ) : (
           <UsersPosts posts={posts} />
         )}
-      </motion.div>
+      </div>
       <BottomBar />
     </>
   );

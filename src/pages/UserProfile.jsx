@@ -4,19 +4,17 @@ import { FaArrowLeft } from "react-icons/fa";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useAnimation, motion } from "framer-motion";
 import Emptyimg from "../images/Empty.png";
 import UserProfileLoader from "../components/UserProfileLoader";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosAdd } from "react-icons/io";
 import ProfileImage from "../components/EditProfile/ProfileImage";
-import { CiMenuFries, CiSaveDown2 } from "react-icons/ci";
 import { BottomBar, HobbiesModel, Loader } from "../components";
 import { useAuth } from "../ContextProvider/AuthContext";
 import { BiDislike, BiLike } from "react-icons/bi";
+import { CiMenuFries } from "react-icons/ci";
 
 export default function UserProfile() {
-  const controls = useAnimation();
   const { currentUser } = useAuth();
 
   const jwt = currentUser.uid;
@@ -26,7 +24,6 @@ export default function UserProfile() {
   const [isloading, setisloading] = useState(true);
   const [isPage, setisPage] = useState(true);
   const [editImage, setEditImage] = useState(false);
-  const [likedpost, setlikedpost] = useState();
   const [Userdata, setUserdata] = useState({
     Pic: "",
     Name: "",
@@ -104,32 +101,11 @@ export default function UserProfile() {
     });
   };
 
-  useEffect(() => {
-    const startAnimation = async () => {
-      await controls.start("animate");
-    };
-    startAnimation();
-  }, [controls]);
-
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const pageTransition = { duration: 0.5 };
-
   return (
     <>
       {" "}
       {isPage ? <Loader /> : null}
-      <motion.div
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
-        transition={pageTransition}
-      >
+      <div >
         <main>
           <nav className="p-4">
             <div className="flex justify-between w-full items-left">
@@ -293,7 +269,7 @@ export default function UserProfile() {
             </div>
           )}
         </main>
-      </motion.div>
+      </div>
       <BottomBar />
       {isselect ? (
         <HobbiesModel

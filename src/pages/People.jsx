@@ -47,23 +47,25 @@ export default function People() {
   }, []);
 
   return (
-    <>
+    <main>
       <div className="mb-24">
         <SearchBar onSearch={handleSearch} />
       </div>
-      {isloading ? (
-        <div className="flex flex-col gap-4 ">
-          {Array.from(load, (index) => (
-            <Loader key={index} />
-          ))}
-        </div>
-      ) : (
-        <UserProfiles
-          userProfiles={filteredUserProfiles}
-          search={searchQuery}
-        />
-      )}
+      <div data-aos="fade-right">
+        {isloading ? (
+          <div className="flex flex-col gap-4 ">
+            {Array.from(load, (index) => (
+              <Loader key={index} />
+            ))}
+          </div>
+        ) : (
+          <UserProfiles
+            userProfiles={filteredUserProfiles}
+            search={searchQuery}
+          />
+        )}
+      </div>
       <BottomBar />
-    </>
+    </main>
   );
 }

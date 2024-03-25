@@ -138,6 +138,5 @@ export default function Profiles() {
         </div>
       )}
     </>
-
   );
 }

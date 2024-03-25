@@ -9,34 +9,18 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../Firebase";
-import NotifyLoader from "./NotifyLoader";
+import Loader from "../People/Loader";
 import { RxCross2 } from "react-icons/rx";
 import { TiTickOutline } from "react-icons/ti";
 import { useAuth } from "../../ContextProvider/AuthContext";
-import Loader from "../Loader";
-
+import acceptLoader from "../Loader";
 export default function Notification() {
   const { currentUser } = useAuth();
-
   const jwt = currentUser.uid;
-  const [isloading, setisloading] = useState(true);
-
+  const [isloading, setisloading] = useState(false);
   const [requests, setRequests] = useState([]);
   const [statusReq, setStatusReq] = useState([]);
   const [isaccept, setisaccept] = useState(false);
-
-  // const getNotifications = async () => {
-  //   try {
-  //     const docref = doc(db, "USERS", jwt);
-  //     const User = await getDoc(docref);
-  //     const userNotifications = User.data()?.notifications || [];
-  //     setNotifications(userNotifications);
-  //     setisloading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setisloading(false);
-  //   }
-  // };
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -46,6 +30,7 @@ export default function Notification() {
         where("status", "==", "pending")
       ),
       async (snapshot) => {
+        setisloading(true);
         const requestsPromises = snapshot.docs.map(async (docSnap) => {
           const requestData = docSnap.data();
           // console.log(requestData)
@@ -65,7 +50,6 @@ export default function Notification() {
       }
     );
     setisloading(false);
-
     return () => unsubscribe();
   }, [jwt]);
 
@@ -111,23 +95,24 @@ export default function Notification() {
 
   return (
     <>
-      {/* {requests.length === 0 && (!statusReq || statusReq.length === 0) && (
-  <div className="flex flex-col items-center mt-24 space-y-3 text-center">
-    <img src={Emptyimg} alt="" className="w-60" />
-    <h1 className="text-sm font-semibold">
-      You don't have any Notifications!
-    </h1>
-  </div>
-)} */}
-      {isaccept ? <Loader tittle={"Accepting collab"} /> : null}
+      {isaccept ? <acceptLoader tittle={"Accepting collab"} /> : null}
       {isloading ? (
-        <NotifyLoader />
+        <div className="space-y-4">
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+          <Loader />
+        </div>
       ) : (
         <main className="flex flex-col gap-4 mt-2">
           {requests?.map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="flex items-center justify-around gap-2 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
+                <div className="flex items-center justify-around gap-2 rounded-full border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
                   <div className="flex items-center gap-5">
                     <img
                       className="object-cover w-16 h-16 rounded-full"
@@ -142,7 +127,7 @@ export default function Notification() {
                       <h1 className="text-lg font-bold">
                         {_.senderDetails?.Name}
                       </h1>
-                      <p className="text-sm font-semibold">
+                      <p className="text-sm ">
                         want&apos;s to connect with you
                       </p>
                     </div>
@@ -173,7 +158,7 @@ export default function Notification() {
           {statusReq?.map((_, i) => {
             return (
               <React.Fragment key={i}>
-                <div className="flex items-center justify-start gap-2 rounded-lg border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
+                <div className="flex items-center justify-start gap-2 rounded-full border-[1px] mx-4 p-3 border-zinc-800 shadow-lg shadow-zinc-900">
                   <div className="flex items-center gap-5">
                     <img
                       className="object-cover w-16 h-16 rounded-full"
@@ -185,16 +170,16 @@ export default function Notification() {
                       alt=""
                     />
                     <div className="space-y-1">
-                      <h1 className="text-lg font-bold">
+                      <h1 className="text-sm font-bold">
                         {_.receiverDetails?.Name}
                       </h1>
-                      <p className="text-sm font-semibold text-green-600">
+                      <p className="text-xs text-green-600">
                         {_.status === "accepted" && "accepted your request"}
                       </p>
-                      <p className="text-sm font-semibold text-red-500">
+                      <p className="text-xs text-red-500">
                         {_.status === "denied" && "denied your request"}
                       </p>
-                      <p className="text-sm font-semibold">
+                      <p className="text-xs ">
                         {_.status === "pending" && "your request is pending..."}
                       </p>
                     </div>
@@ -203,14 +188,6 @@ export default function Notification() {
               </React.Fragment>
             );
           })}
-          {/* ) : (
-            <div className="flex flex-col items-center mt-24 space-y-3 text-cemt-11">
-              <img src={Emptyimg} alt="" className="w-60" />
-              <h1 className="text-sm font-semibold ">
-                You dont have any Notifications !
-              </h1>
-            </div> */}
-          {/* )} */}
         </main>
       )}
     </>

@@ -12,7 +12,6 @@ import { BottomBar } from "../components";
 export default function Post() {
   const imageref = useRef();
   const { currentUser } = useAuth();
-
   const jwt = currentUser.uid;
   const [blobimg, setblobimg] = useState({ image: "" });
   const [uploadimage, setuploadimage] = useState();
@@ -89,88 +88,90 @@ export default function Post() {
 
   return (
     <>
-      {isloading ? <Loader /> : null}
-      <div className="flex justify-between p-5">
-        <h1 className="text-lg font-semibold">Post</h1>
-        <Link to={`/profile`}>
-          <IoMdArrowBack size={28} color="white" />
-        </Link>
-      </div>
-      <div className="bg-[#302d2d] p-5 w-[93vw] rounded-xl mx-auto my-6">
-        <div className="flex gap-5">
-          <div>
-            <img
-              src={
-                !user.pic
-                  ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
-                  : user.pic
-              }
-              alt={user.pic}
-              className="object-cover w-16 h-16 rounded-full"
-            />
-          </div>
-          <div className="space-y-0.5">
-            <h1 className="text-lg font-semibold">{user.name}</h1>
-            <p className="text-sm">{user.profession}</p>
-          </div>
+      <div data-aos="fade-left">
+        {isloading ? <Loader /> : null}
+        <div className="flex justify-between p-5">
+          <h1 className="text-lg font-semibold">Post</h1>
+          <Link to={`/profile`}>
+            <IoMdArrowBack size={28} color="white" />
+          </Link>
         </div>
-
-        <div>
-          <textarea
-            value={post.Text}
-            onChange={(e) => {
-              setpost({ ...post, Text: e.target.value });
-            }}
-            type="text"
-            placeholder="Whats happening today ?"
-            className="bg-transparent border-b-[2px] py-8 w-full border-zinc-700 outline-none"
-          />
-        </div>
-
-        {blobimg.image ? (
-          <div>
-            <img
-              className="mx-auto my-5 rounded-lg"
-              src={blobimg.image}
-              alt=""
-            />
-          </div>
-        ) : (
-          <div className="flex gap-3 mt-4">
-            <TfiGallery
-              onClick={() => {
-                imageref.current.click();
-              }}
-              color="zinc"
-              cursor={"pointer"}
-            />
-          </div>
-        )}
-        <input
-          ref={imageref}
-          k
-          className="hidden px-4 py-2 border-2 outline-none"
-          type="file"
-          onChange={(e) => {
-            setblobimg({
-              ...blobimg,
-              image: URL.createObjectURL(e.target.files[0]),
-            });
-            setuploadimage(e.target.files[0]);
-          }}
-        />
-        {blobimg.image ? (
-          <div className="flex items-center justify-between">
+        <div className="bg-[#302d2d] p-5 w-[93vw] rounded-xl mx-auto my-6">
+          <div className="flex gap-5">
             <div>
-              <button
-                className="py-2 text-[10.5px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-7"
-                onClick={uploadPost}
-              >
-                Post
-              </button>
+              <img
+                src={
+                  !user.pic
+                    ? "https://cdn-compiled-asset.piccollage.com/packs/media/assets/images/avatars/default-180e2e9af61799ca32e7da604646edd2.jpg"
+                    : user.pic
+                }
+                alt={user.pic}
+                className="object-cover w-16 h-16 rounded-full"
+              />
+            </div>
+            <div className="space-y-0.5">
+              <h1 className="text-lg font-semibold">{user.name}</h1>
+              <p className="text-sm">{user.profession}</p>
             </div>
           </div>
-        ) : null}
+
+          <div>
+            <textarea
+              value={post.Text}
+              onChange={(e) => {
+                setpost({ ...post, Text: e.target.value });
+              }}
+              type="text"
+              placeholder="Whats happening today ?"
+              className="bg-transparent border-b-[2px] py-8 w-full border-zinc-700 outline-none"
+            />
+          </div>
+
+          {blobimg.image ? (
+            <div>
+              <img
+                className="mx-auto my-5 rounded-lg"
+                src={blobimg.image}
+                alt=""
+              />
+            </div>
+          ) : (
+            <div className="flex gap-3 mt-4">
+              <TfiGallery
+                onClick={() => {
+                  imageref.current.click();
+                }}
+                color="zinc"
+                cursor={"pointer"}
+              />
+            </div>
+          )}
+          <input
+            ref={imageref}
+            k
+            className="hidden px-4 py-2 border-2 outline-none"
+            type="file"
+            onChange={(e) => {
+              setblobimg({
+                ...blobimg,
+                image: URL.createObjectURL(e.target.files[0]),
+              });
+              setuploadimage(e.target.files[0]);
+            }}
+          />
+          {blobimg.image ? (
+            <div className="flex items-center justify-between">
+              <div>
+                <button
+                  className="py-2 text-[10.5px] mt-3 font-semibold text-white rounded-full bg-[#1d9bf0] px-7"
+                  onClick={uploadPost}
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
       <BottomBar />
     </>

@@ -67,7 +67,7 @@ export default function SelectHobbies() {
                 : null
             }   cursor-pointer w-[8rem] text-center px-6 py-2 border-amber-500 rounded-full`}
           >
-            <h1 className="text-sm font-semibold ">{hobby.name}</h1>
+            <h1 className="text-xs font-semibold ">{hobby.name}</h1>
           </div>
         ))}
       </main>
