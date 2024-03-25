@@ -119,24 +119,63 @@ export default function ViewUserProfile() {
       setisloading(false);
     }
   };
+  const [connectionStatus, setConnectionStatus] = useState("");
 
-  const checkConnection = async () => {
+  const checkConnection = async (targetUserId) => {
     try {
-      const User = await getDoc(docref);
-      const userCurrentCollabsNotification = User?.data().notifications || [];
-      const idExists = userCurrentCollabsNotification.some(
-        (notif) => notif.id === jwt
+      // Assuming 'jwt' is the current user's ID and 'db' is your Firestore database instance
+
+      // Query for any sent requests from the current user to the target user
+      const sentRequestQuery = query(
+        collection(db, "connectionRequests"),
+        where("senderId", "==", jwt),
+        where("receiverId", "==", targetUserId)
       );
-      if (idExists) {
-        setisexists(true);
+
+      // Query for any received requests from the target user to the current user
+      const receivedRequestQuery = query(
+        collection(db, "connectionRequests"),
+        where("senderId", "==", targetUserId),
+        where("receiverId", "==", jwt)
+      );
+
+      // Fetch both sets of requests simultaneously
+      const [sentRequestsSnapshot, receivedRequestsSnapshot] =
+        await Promise.all([
+          getDocs(sentRequestQuery),
+          getDocs(receivedRequestQuery),
+        ]);
+
+      // Analyze the snapshots to determine the connection status
+      if (!sentRequestsSnapshot.empty) {
+        const request = sentRequestsSnapshot.docs[0].data();
+        if (request.status === "accepted") {
+          console.log("Already connected.");
+          setConnectionStatus("connected"); // Handle the connected status
+        } else if (request.status === "pending") {
+          console.log("Connection request is pending.");
+          setConnectionStatus("pending"); // Handle the pending status
+        }
+      } else if (!receivedRequestsSnapshot.empty) {
+        const request = receivedRequestsSnapshot.docs[0].data();
+        if (request.status === "accepted") {
+          console.log("Already connected.");
+          setConnectionStatus("connected"); // Handle the connected status
+        } else if (request.status === "pending") {
+          console.log("Connection request received is pending.");
+          setConnectionStatus("pending"); // Handle the case where the target user has sent a pending request
+        }
+      } else {
+        console.log("No connection or pending request found.");
+        setConnectionStatus("none"); // No connection or pending request exists
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error checking connection status:", error);
     }
   };
 
   useEffect(() => {
-    checkConnection();
+    checkConnection(userid);
     console.log(isexists);
   }, []);
 
@@ -183,20 +222,18 @@ export default function ViewUserProfile() {
         <div className="max-w-[55vw] space-y-4">
           <h1 className="font-bold ">{Userdata.Name}</h1>
           <p className="text-[11px] text-slate-400">{Userdata.Bio}</p>
-          {userCollabs.includes(jwt) ? (
-            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
+          {connectionStatus === "connected" ? (
+            <button className="inline-flex items-center py-2 text-sm text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium px-7">
               Connected
             </button>
-          ) : isexists ? (
-            <button className="inline-flex items-center py-2 text-[9px] text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium  px-7 ">
+          ) : connectionStatus === "pending" ? (
+            <button className="inline-flex items-center py-2 text-[9px] text-center text-white border-[1px] border-blue-600 rounded-full first-letter:font-medium px-7">
               Connection Sent
             </button>
           ) : (
             <button
-              onClick={() => {
-                sendCollab(jwt, userid);
-              }}
-              className="py-1.5 px-8  text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0]"
+              onClick={() => sendCollab(jwt, userid)}
+              className="py-1.5 px-8 text-[9px] font-semibold text-white rounded-full bg-[#1d9bf0]"
             >
               Connect
             </button>
