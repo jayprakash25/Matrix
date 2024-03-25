@@ -17,7 +17,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 const hobbies = [
   {
-    name: "AI ",
+    name: "Traveling ",
     image: <GiteIcon color="primary" fontSize="small" />,
   },
   {

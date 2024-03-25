@@ -63,9 +63,9 @@ export default function UserProfile({ userProfiles, search }) {
                     </div>
                     <div className="space-y-2">
                       <h1 className="text-[12px]">{user.Name}</h1>
-                      <h1 className="text-[10px]">
+                      <p className="text-[10px]">
                         {user.Bio?.split(" ").splice(0, 5).join(" ")}
-                      </h1>
+                      </p>
                     </div>
                   </div>
                   {/* button section  */}

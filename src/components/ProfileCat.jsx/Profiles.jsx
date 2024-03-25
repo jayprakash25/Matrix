@@ -5,7 +5,7 @@ import { db } from "../../Firebase";
 import NotifyLoader from "../notifications/NotifyLoader";
 import Emptyimg from "../../images/Empty.png";
 import { useAuth } from "../../ContextProvider/AuthContext";
-import PeopleLoader from "./PeopleLoader";
+import Loader from "../Loader";
 
 export default function Profiles() {
   const { category } = useParams();
@@ -72,13 +72,7 @@ export default function Profiles() {
 
   return (
     <>
-      {isloading ? (
-        <div className="flex flex-col gap-4 ">
-          {Array.from(load, (index) => (
-            <PeopleLoader key={index} />
-          ))}
-        </div>
-      ) : showusers.length === 0 ? (
+      {showusers.length == 0 ? (
         <div className="flex flex-col items-center mt-20 space-y-3 text-center">
           <img src={Emptyimg} alt="" className="w-60" />
           <h1 className="max-w-xs text-sm font-semibold leading-8">
@@ -86,13 +80,20 @@ export default function Profiles() {
             to join soon!
           </h1>
         </div>
+      ) : null}
+      {isloading ? (
+        <div className="flex flex-col gap-4 ">
+          {Array.from(load, (index) => (
+            <Loader key={index} />
+          ))}
+        </div>
       ) : (
         <div className="grid  gap-y-4 px-2.5 mb-20">
           {showusers.map((user, index) => (
             <div
               key={index}
               data-aos="fade-up"
-              className={`bg-[#282828] p-5 rounded-2xl flex items-center justify-between ${
+              className={`bg-[#282828] p-5 rounded-full flex items-center justify-between ${
                 connectedUser.includes(user.id) ? "connected" : ""
               }`}
             >
@@ -109,17 +110,10 @@ export default function Profiles() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <h1>{user.Name}</h1>
-                    <ul className="flex overflow-x-scroll max-w-[8rem]  gap-2 mx-auto">
-                      {user.hobbies?.map((hobby, hobbyIndex) => (
-                        <li
-                          key={hobbyIndex}
-                          className="text-[10px] px-3 font-semibold text-center rounded-full py-1.5 bg-sky-600"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
+                    <h1 className="text-[12px]">{user.Name}</h1>
+                    <p className="text-[10px]">
+                      {user.Bio?.split(" ").splice(0, 5).join(" ")}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -144,5 +138,6 @@ export default function Profiles() {
         </div>
       )}
     </>
+
   );
 }
