@@ -30,8 +30,8 @@ export default function Notification() {
         where("status", "==", "pending")
       ),
       async (snapshot) => {
-        setisloading(true);
         const requestsPromises = snapshot.docs.map(async (docSnap) => {
+          setisloading(true);
           const requestData = docSnap.data();
           // console.log(requestData)
           const senderId = requestData.senderId;
@@ -44,12 +44,11 @@ export default function Notification() {
             senderDetails: senderDoc.exists() ? senderDoc.data() : null,
           };
         });
-
         const requests = await Promise.all(requestsPromises);
         setRequests(requests);
+        setisloading(false);
       }
     );
-    setisloading(false);
     return () => unsubscribe();
   }, [jwt]);
 
@@ -57,6 +56,7 @@ export default function Notification() {
     const unsubscribe = onSnapshot(
       query(collection(db, "connectionRequests"), where("senderId", "==", jwt)),
       async (snapshot) => {
+        setisloading(true);
         const requestsPromises = snapshot.docs.map(async (docSnap) => {
           const requestData = docSnap.data();
           const receiverId = requestData.receiverId;
@@ -70,9 +70,9 @@ export default function Notification() {
         });
         const requests = await Promise.all(requestsPromises);
         setStatusReq(requests);
+        setisloading(false);
       }
     );
-    setisloading(false);
 
     return () => unsubscribe();
   }, [jwt]);
@@ -97,7 +97,7 @@ export default function Notification() {
     <>
       {isaccept ? <acceptLoader tittle={"Accepting collab"} /> : null}
       {isloading ? (
-        <div className="space-y-4">
+        <div className="mt-4 space-y-4 mb-14">
           <Loader />
           <Loader />
           <Loader />
@@ -108,7 +108,7 @@ export default function Notification() {
           <Loader />
         </div>
       ) : (
-        <main className="flex flex-col gap-4 mt-2">
+        <main data-aos="fade-up" className="flex flex-col gap-4 mt-2">
           {requests?.map((_, i) => {
             return (
               <React.Fragment key={i}>
