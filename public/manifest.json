@@ -3,12 +3,12 @@
     "name": "MATRIX",
     "icons" : [
         {
-            "src":"../src/assets/logo.png",
+            "src":"../src/assets/logo1.png",
             "type": "image/png",
             "sizes": "512x512"
         },
         {
-            "src":"../src/assets/logo.png",
+            "src":"../src/assets/logo1.png",
             "type": "image/png",
             "sizes": "512x512",
             "purpose": "maskable"
