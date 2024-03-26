@@ -96,7 +96,7 @@ export default function Post() {
             <IoMdArrowBack size={28} color="white" />
           </Link>
         </div>
-        <div className="bg-[#302d2d] p-5 w-[93vw] rounded-xl mx-auto my-6">
+        <div className="bg-[#302d2d] p-5 w-[93vw] rounded-xl mx-auto   mb-24 mt-5">
           <div className="flex gap-5">
             <div>
               <img
@@ -122,7 +122,7 @@ export default function Post() {
                 setpost({ ...post, Text: e.target.value });
               }}
               type="text"
-              placeholder="Whats happening today ?"
+              placeholder="Share your business story"
               className="bg-transparent border-b-[2px] py-8 w-full border-zinc-700 outline-none"
             />
           </div>
@@ -136,14 +136,16 @@ export default function Post() {
               />
             </div>
           ) : (
-            <div className="flex gap-3 mt-4">
+            <div className="flex items-center gap-2 mt-4">
               <TfiGallery
                 onClick={() => {
                   imageref.current.click();
                 }}
                 color="zinc"
                 cursor={"pointer"}
+                size={16}
               />
+              <h1 className="text-[11.5px]">Media</h1>
             </div>
           )}
           <input
