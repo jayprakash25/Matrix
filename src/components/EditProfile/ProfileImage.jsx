@@ -48,7 +48,6 @@ function ProfileImage({ setEditImage }) {
   const deleteImage = async () => {
     try {
       await updateDoc(docRef, { Pic: null });
-      // window.localStorage.removeItem("UserPic");
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +72,10 @@ function ProfileImage({ setEditImage }) {
                 progress > 0 && progress < 100 ? "hidden" : "block"
               } items-center flex justify-center rounded-full p-4 pt-0 `}
             >
-              <img src={userPic} className="w-40 h-40 rounded-full" />
+              <img
+                src={userPic}
+                className="object-cover w-40 h-40 rounded-full"
+              />
             </div>
             <div
               className={` ${
