@@ -8,7 +8,7 @@
             "sizes": "512x512"
         },
         {
-            "src":"../src/assets/logo1.png",
+            "src":"../src/assets/logo2.png",
             "type": "image/png",
             "sizes": "512x512",
             "purpose": "maskable"
