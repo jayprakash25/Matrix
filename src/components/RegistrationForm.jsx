@@ -14,47 +14,12 @@ export default function RegistrationForm() {
 
   const [user, setuser] = useState({
     Name: "",
-    // Phone: "",
     age: "",
     location: "",
     collage: "",
     Profession: "",
     Bio: " ",
-    // UserHobbies: [" "],
   });
-
-  // const configureCaptcha = () => {
-  //   if (!window.recaptchaVerifier) {
-  //     window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-  //       size: "invisible",
-  //       callback: () => {
-  //         onNumSubmit();
-  //       },
-  //     });
-  //   }
-  // };
-
-  // const onNumSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (Object.values(user).every((i) => i != "")) {
-  //     configureCaptcha();
-  //     const phoneNumber = "+" + 91 + user.Phone;
-  //     const appVerifier = window.recaptchaVerifier;
-  //     await signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-  //       .then(async (confirmationResult) => {
-  //         window.confirmationResult = confirmationResult;
-  //         setisshow(true);
-  //         // await setDoc(doc(db, "USERS", id), user);
-  //         // navigate("/hobbies");
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   } else {
-  //     // alert("Please fill the form!");
-  //     setFillForm(true);
-  //   }
-  // };
 
   const { currentUser, setIsNewUser } = useAuth();
 
@@ -62,9 +27,20 @@ export default function RegistrationForm() {
 
   const createUser = async () => {
     try {
-      await setDoc(doc(db, "USERS", userjwt), user);
-      setIsNewUser(false);
-      navigate("/hobbies");
+      if (
+        user.Name !== "" &&
+        user.age !== "" &&
+        user.location !== "" &&
+        user.collage !== "" &&
+        user.Profession !== "" &&
+        user.Bio !== ""
+      ) {
+        await setDoc(doc(db, "USERS", userjwt), user);
+        setIsNewUser(false);
+        navigate("/hobbies");
+      } else {
+        return;
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -91,14 +67,13 @@ export default function RegistrationForm() {
   };
 
   return (
-    <>
+    <div data-aos="fade-left">
       {fillForm ? (
         <PopUp
           setFillForm={setFillForm}
           text="Ensure all fields are filled out."
         />
       ) : null}
-
       <div className="text-center mt-7">
         <h1 className="text-3xl font-semibold ">
           Create <span className="text-[#1d9bf0]">Account</span>
@@ -210,6 +185,6 @@ export default function RegistrationForm() {
         </button>
       </div>
       {/* {isshow ? <EnterOtp user={user} /> : null} */}
-    </>
+    </div>
   );
 }

@@ -50,7 +50,7 @@ export default function Signup() {
 
       await handleUserAfterAuth(res.user);
     } catch (error) {
-      console.error(error);
+    console.error(error);
       switch (error.code) {
         case "auth/email-already-in-use":
           setErrorMessage(
@@ -103,7 +103,7 @@ export default function Signup() {
   // }, []);
 
   return (
-    <div className="flex flex-col justify-center h-screen px-5">
+    <div data-aos="fade-in" className="flex flex-col justify-center h-screen px-5">
       <div className="flex flex-col items-center px-2 py-5 space-y-4 text-2xl font-semibold">
         <p>
           As a <span className="text-[#1d9bf0]">user</span> , I am entering my

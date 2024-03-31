@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 export default function Sucess({ setissucess }) {
   const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md">
+    <div
+      data-aos="fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center h-full bg-black bg-opacity-75 backdrop-blur-md"
+    >
       <div className="px-8 py-7 rounded-xl bg-[#161616] w-[90vw]">
         <div className="text-center ">
           <p className="text-lg font-semibold">
