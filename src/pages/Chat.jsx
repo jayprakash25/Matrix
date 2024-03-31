@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -75,6 +76,20 @@ export default function Chat() {
     });
   };
 
+  const handleLongPress = (messageId) => {
+    // Show a confirmation dialog or a pop-up to delete the message
+    if (window.confirm("Are you sure you want to delete this message?")) {
+      deleteMessage(messageId);
+    }
+  };
+
+  const deleteMessage = async (messageId) => {
+    // Delete the message from Firestore
+    await deleteDoc(doc(db, "messages", messageId));
+    // Optionally, remove the message from the local state
+    setMessages(messages.filter((message) => message.id !== messageId));
+  };
+
   useEffect(() => {
     const queryMessages = query(
       messageRef,
@@ -131,6 +146,22 @@ export default function Chat() {
                 ? " flex-row-reverse my-1"
                 : "items-start my-4"
             }  gap-2.5`}
+            onTouchStart={() => {
+              // Start the timer for long press
+              setTimeout(() => {
+                const mid = message.uid === uid && message.id;
+                handleLongPress(mid);
+              }, 2000);
+            }}
+            // Clear the timer if the touch ends before the threshold
+            onTouchEnd={() =>
+              clearTimeout(
+                setTimeout(() => {
+                  const mid = message.uid === uid && message.id;
+                  handleLongPress(mid);
+                }, 2000)
+              )
+            }
           >
             <img
               className="object-cover w-8 h-8 rounded-full"
