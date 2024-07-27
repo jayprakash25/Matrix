@@ -12,4 +12,5 @@ Matrix is a Progressive Web App that connects users based on shared interests an
 - **Firebase Authentication**: Secure and easy login process
 - **Progressive Web App**: Install and use Matrix on any device
 
-## Tech Stack - React, Firebase
+## Tech Stack
+ - React, Firebase
